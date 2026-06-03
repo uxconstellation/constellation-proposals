@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Constellation Proposals</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FE6E36;
+      --teal: #173F3F;
+      --black: #1B1C21;
+      --darkbg: #160C15;
+      --white: #FFFFFF;
+      --text-light: rgba(255,255,255,0.72);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: var(--darkbg);
+      color: var(--white);
+      line-height: 1.7;
+    }
+
+    h1, h2 {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 700;
+    }
+
+    em { font-style: normal; color: var(--orange); }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    nav img { height: 32px; }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2.5rem;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(23,63,63,0.9) 0%, rgba(22,12,21,0.95) 60%);
+    }
+
+    h1 {
+      font-size: clamp(3.5rem, 8vw, 6rem);
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin: 0 auto 4rem;
+    }
+
+    .section {
+      padding: 7rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 3rem;
+    }
+
+    .proposals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .proposal-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.03);
+      padding: 2.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proposal-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(254,110,54,0.3);
+    }
+
+    .proposal-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--white);
+    }
+
+    .proposal-card .client-name {
+      font-size: 0.85rem;
+      color: var(--orange);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .proposal-card p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .proposal-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--orange);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: gap 0.2s;
+    }
+
+    .proposal-link:hover {
+      gap: 1rem;
+    }
+
+    .proposal-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    footer img { height: 24px; margin-bottom: 1rem; opacity: 0.8; }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-light);
+    }
+
+    .empty-state p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 5rem 1.5rem; }
+      .proposals-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="proposals/sigma-wealth/assets/logo.png" alt="Constellation" />
+  </nav>
+
+  <section class="hero">
+    <div>
+      <h1>Constellation <em>Proposals</em></h1>
+      <p>Client engagement proposals for digital transformation, brand positioning, and strategic implementation.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Active Proposals</div>
+    <h2>View Client Proposals</h2>
+
+    <div class="proposals-grid" id="proposalsGrid">
+      <!-- Proposals will be listed here -->
+    </div>
+
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <p>No proposals yet. Check back soon.</p>
+    </div>
+  </section>
+
+  <footer>
+    <img src="proposals/sigma-wealth/assets/logo.png" alt="Constellation" />
+    <p>Constellation — Universal translator between user needs and exceptional digital experiences.</p>
+    <p>Confidential. For authorized recipients only.</p>
+  </footer>
+
+  <script>
+    // Proposal index — add new proposals here
+    const proposals = [
+      {
+        id: 'sigma-wealth',
+        name: 'Sigma Wealth',
+        tagline: 'Digital Transformation & AI Integration',
+        description: 'Website redesign, client portal, and intelligent process automation for a leading wealth advisory firm.',
+        date: 'June 2026'
+      }
+      // Add more proposals like this:
+      // {
+      //   id: 'client-name',
+      //   name: 'Client Name',
+      //   tagline: 'Project Tagline',
+      //   description: 'Brief description of the engagement.',
+      //   date: 'Month Year'
+      // }
+    ];
+
+    // Render proposals
+    const grid = document.getElementById('proposalsGrid');
+    const empty = document.getElementById('emptyState');
+
+    if (proposals.length === 0) {
+      empty.style.display = 'block';
+    } else {
+      proposals.forEach(proposal => {
+        const card = document.createElement('a');
+        card.href = `proposals/${proposal.id}/`;
+        card.className = 'proposal-card';
+        card.innerHTML = `
+          <div class="client-name">${proposal.date}</div>
+          <h3>${proposal.name}</h3>
+          <p>${proposal.description}</p>
+          <div class="proposal-link">
+            View Proposal
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+  </script>
+
+</body>
+</html>
