@@ -618,7 +618,48 @@
       .pricing-card.recommended { grid-column: auto; }
     }
 
+    /* FLOATING ELEMENTS */
+    .floating-orb {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 120px;
+      height: 120px;
+      background: var(--orange);
+      right: 10%;
+      top: 20%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 80px;
+      height: 80px;
+      background: var(--teal);
+      right: 5%;
+      top: 50%;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    .orb-3 {
+      width: 60px;
+      height: 60px;
+      background: var(--orange);
+      right: 15%;
+      bottom: 15%;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
     @media (max-width: 768px) {
+      .floating-orb { display: none; }
       .grid-2, .challenge-grid, .sla-grid { grid-template-columns: 1fr; }
       .intro-strip-inner { flex-direction: column; gap: 1.5rem; }
       nav { padding: 1rem 1.5rem; }
@@ -636,6 +677,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
     <div class="hero-content">
       <div class="eyebrow"><span></span> Sigma Wealth x Constellation <span></span></div>
       <h1>Digital transformation<br />that earns <em>trust.</em></h1>
