@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fractional Head of AI &amp; Automation — A proposal for Butcherbird</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1B1C21;
+    --ink-soft: #3a3b42;
+    --paper: #F7F6F1;
+    --paper-pure: #FDFCF8;
+    --line: #e4e2d8;
+    --line-strong: #d3d0c4;
+    --accent: #FE6E36;
+    --accent-deep: #e85a24;
+    --muted: #8a897f;
+    --max: 1080px;
+    --space: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 32px; }
+
+  h1, h2, h3, h4, .display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; line-height: 1.08; font-weight: 600; }
+
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+  }
+  .eyebrow.accent { color: var(--accent-deep); }
+
+  .accent-text { color: var(--accent-deep); }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: .08s; }
+  .reveal.d2 { transition-delay: .16s; }
+  .reveal.d3 { transition-delay: .24s; }
+  .reveal.d4 { transition-delay: .32s; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(247,246,241,.82);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .lockup { display: flex; align-items: center; gap: 12px; font-family: 'Space Grotesk'; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+  .lockup .x { color: var(--muted); font-weight: 400; }
+  .lockup .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); display: inline-block; }
+  .topbar nav { display: flex; gap: 28px; font-size: 13.5px; }
+  .topbar nav a { color: var(--ink-soft); text-decoration: none; transition: color .2s; }
+  .topbar nav a:hover { color: var(--accent-deep); }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 116px 0 88px; border-bottom: 1px solid var(--line); }
+  .hero .tag { margin-bottom: 30px; }
+  .hero h1 { font-size: clamp(42px, 6.4vw, 78px); font-weight: 700; max-width: 16ch; }
+  .hero h1 .light { color: var(--muted); font-weight: 400; }
+  .hero .sub { margin-top: 32px; font-size: clamp(18px, 2.2vw, 22px); color: var(--ink-soft); max-width: 56ch; line-height: 1.5; }
+  .hero .meta { margin-top: 48px; display: flex; flex-wrap: wrap; gap: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+  .hero .meta div span { display: block; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .hero .meta div strong { font-family: 'Space Grotesk'; font-weight: 600; font-size: 16px; }
+
+  /* ---------- Section scaffolding ---------- */
+  section { padding: 92px 0; border-bottom: 1px solid var(--line); }
+  .sec-head { max-width: 62ch; margin-bottom: 56px; }
+  .sec-head .eyebrow { margin-bottom: 18px; }
+  .sec-head h2 { font-size: clamp(30px, 4vw, 46px); }
+  .sec-head p { margin-top: 20px; font-size: 19px; color: var(--ink-soft); }
+
+  .lead { font-size: clamp(22px, 3vw, 30px); font-family: 'Space Grotesk'; font-weight: 500; line-height: 1.32; letter-spacing: -0.015em; max-width: 26ch; }
+  .lead .accent-text { color: var(--accent-deep); }
+
+  /* ---------- Insight block (dark) ---------- */
+  .dark { background: var(--ink); color: var(--paper); border-bottom: none; }
+  .dark .eyebrow { color: #b9b8ad; }
+  .dark .muted { color: #a7a69c; }
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .insight-grid .big { font-family: 'Space Grotesk'; font-weight: 600; font-size: clamp(26px, 3.4vw, 38px); line-height: 1.22; letter-spacing: -0.02em; }
+  .insight-grid .big em { font-style: normal; color: var(--accent); }
+  .insight-grid p { color: #c9c8be; font-size: 17px; margin-bottom: 18px; }
+  .insight-grid p:last-child { margin-bottom: 0; }
+
+  /* ---------- Stats strip ---------- */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .stats .cell { background: var(--paper-pure); padding: 34px 26px; }
+  .stats .num { font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(30px, 4vw, 44px); letter-spacing: -0.03em; line-height: 1; }
+  .stats .num .unit { color: var(--accent-deep); }
+  .stats .lbl { margin-top: 12px; font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+  .stats-note { margin-top: 18px; font-size: 13.5px; color: var(--muted); }
+
+  /* ---------- Credentials ---------- */
+  .cred-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .cred { background: var(--paper-pure); padding: 36px 34px; }
+  .cred .yrs { font-family: 'Space Grotesk'; font-weight: 700; font-size: 40px; letter-spacing: -0.03em; color: var(--ink); line-height: 1; }
+  .cred .yrs .plus { color: var(--accent-deep); }
+  .cred h4 { margin-top: 16px; font-size: 18px; }
+  .cred p { margin-top: 10px; font-size: 15px; color: var(--ink-soft); line-height: 1.55; }
+
+  .pill-row { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .pill { border: 1px solid var(--line-strong); background: var(--paper-pure); border-radius: 999px; padding: 9px 18px; font-size: 13.5px; font-weight: 500; color: var(--ink-soft); }
+  .pill b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Phases ---------- */
+  .phase { display: grid; grid-template-columns: 230px 1fr; gap: 48px; padding: 48px 0; border-top: 1px solid var(--line); }
+  .phase:first-of-type { border-top: none; }
+  .phase .marker .eyebrow { margin-bottom: 14px; }
+  .phase .marker h3 { font-size: 26px; }
+  .phase .marker .when { margin-top: 12px; font-size: 14px; color: var(--muted); }
+  .phase .marker .num-badge { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--paper); font-family: 'Space Grotesk'; font-weight: 600; font-size: 18px; margin-bottom: 20px; }
+  .phase.alt .marker .num-badge { background: var(--accent); color: #fff; }
+  .phase .body p.intro { font-size: 18px; color: var(--ink-soft); margin-bottom: 24px; }
+  .deliverables { list-style: none; display: grid; gap: 0; }
+  .deliverables li { display: grid; grid-template-columns: 24px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); font-size: 15.5px; }
+  .deliverables li:first-child { border-top: none; }
+  .deliverables li .tick { color: var(--accent-deep); font-weight: 700; }
+  .deliverables li b { font-weight: 600; }
+  .deliverables li span.det { color: var(--ink-soft); }
+
+  /* ---------- Blueprint ---------- */
+  .blueprint { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 8px; }
+  .bp { background: var(--paper-pure); border: 1px solid var(--line); border-radius: 12px; padding: 22px 18px; position: relative; transition: transform .25s, box-shadow .25s, border-color .25s; }
+  .bp:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(27,28,33,.08); border-color: var(--line-strong); }
+  .bp .step { font-family: 'Space Grotesk'; font-weight: 700; font-size: 13px; color: var(--accent-deep); letter-spacing: 0.04em; }
+  .bp h4 { margin-top: 12px; font-size: 16px; line-height: 1.2; }
+  .bp p { margin-top: 8px; font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
+  .bp-after { margin-top: 28px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; background: var(--ink); color: var(--paper); border-radius: 14px; padding: 26px 32px; }
+  .bp-after .big { font-family: 'Space Grotesk'; font-weight: 600; font-size: clamp(20px, 2.6vw, 28px); letter-spacing: -0.02em; }
+  .bp-after .big em { font-style: normal; color: var(--accent); }
+  .bp-after .small { color: #b9b8ad; font-size: 14.5px; }
+
+  /* ---------- Operating model ---------- */
+  .op-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+  .op-list { list-style: none; }
+  .op-list li { padding: 20px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 150px 1fr; gap: 20px; }
+  .op-list li:first-child { border-top: none; }
+  .op-list .k { font-weight: 600; font-size: 14px; }
+  .op-list .v { color: var(--ink-soft); font-size: 15px; }
+  .cadence { background: var(--paper-pure); border: 1px solid var(--line); border-radius: 16px; padding: 32px; }
+  .cadence .eyebrow { margin-bottom: 22px; }
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
+  .day { text-align: center; }
+  .day .lab { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; }
+  .day .box { height: 48px; border-radius: 9px; border: 1px solid var(--line); background: var(--paper); }
+  .day.on .box { background: var(--accent); border-color: var(--accent); }
+  .day.travel .box { background: rgba(254,110,54,.16); border-color: rgba(254,110,54,.4); }
+  .cadence .legend { margin-top: 18px; font-size: 13px; color: var(--ink-soft); display: flex; gap: 20px; flex-wrap: wrap; }
+  .cadence .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .cadence .legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+  /* ---------- Commercials ---------- */
+  .price-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: stretch; }
+  .price-card { background: var(--ink); color: var(--paper); border-radius: 18px; padding: 44px; display: flex; flex-direction: column; }
+  .price-card .eyebrow { color: #b9b8ad; }
+  .price-card .amount { font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(46px, 7vw, 68px); letter-spacing: -0.03em; line-height: 1; margin: 18px 0 4px; }
+  .price-card .amount .per { font-size: 22px; color: #b9b8ad; font-weight: 500; letter-spacing: 0; }
+  .price-card .hours { color: #c9c8be; font-size: 16px; }
+  .price-card .split { margin-top: 28px; border-top: 1px solid #34353c; padding-top: 24px; display: grid; gap: 14px; }
+  .price-card .split .row { display: flex; justify-content: space-between; font-size: 14.5px; }
+  .price-card .split .row span:first-child { color: #c9c8be; }
+  .price-card .split .row span:last-child { font-weight: 600; }
+  .price-card .foot { margin-top: auto; padding-top: 26px; color: #a7a69c; font-size: 13.5px; line-height: 1.5; }
+  .price-notes { display: flex; flex-direction: column; gap: 18px; }
+  .price-note { background: var(--paper-pure); border: 1px solid var(--line); border-radius: 14px; padding: 26px 28px; }
+  .price-note h4 { font-size: 16px; }
+  .price-note p { margin-top: 8px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; }
+  .price-note .lead-rate { font-family: 'Space Grotesk'; font-weight: 600; font-size: 15px; color: var(--accent-deep); }
+
+  /* ---------- Timeline ---------- */
+  .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tl { background: var(--paper-pure); border: 1px solid var(--line); border-radius: 14px; padding: 30px 28px; }
+  .tl .tag { font-family: 'Space Grotesk'; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; color: var(--accent-deep); }
+  .tl h4 { margin: 12px 0 16px; font-size: 19px; }
+  .tl ul { list-style: none; display: grid; gap: 11px; }
+  .tl ul li { font-size: 14.5px; color: var(--ink-soft); padding-left: 18px; position: relative; line-height: 1.45; }
+  .tl ul li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--line-strong); }
+
+  /* ---------- Close ---------- */
+  .close { background: var(--ink); color: var(--paper); border-bottom: none; text-align: left; }
+  .close h2 { font-size: clamp(34px, 5vw, 58px); max-width: 18ch; font-weight: 700; }
+  .close h2 .accent-text { color: var(--accent); }
+  .close p { margin-top: 24px; font-size: 19px; color: #c9c8be; max-width: 54ch; }
+  .next { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #34353c; border: 1px solid #34353c; border-radius: 14px; overflow: hidden; }
+  .next .cell { background: var(--ink); padding: 28px; }
+  .next .cell .n { font-family: 'Space Grotesk'; font-weight: 700; color: var(--accent); font-size: 14px; }
+  .next .cell p { margin-top: 10px; font-size: 15px; color: var(--paper); }
+  .signoff { margin-top: 56px; padding-top: 32px; border-top: 1px solid #34353c; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; }
+  .signoff .who strong { font-family: 'Space Grotesk'; font-size: 20px; display: block; }
+  .signoff .who span { color: #a7a69c; font-size: 14px; }
+  .signoff .contact { font-size: 14px; color: #c9c8be; text-align: right; }
+  .signoff .contact a { color: var(--accent); text-decoration: none; }
+
+  .accept-wrap { margin-top: 44px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .btn-accept {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--accent); color: #1B1C21;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em;
+    text-decoration: none; padding: 18px 36px; border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 10px 30px rgba(254,110,54,.28);
+    transition: transform .25s cubic-bezier(.16,1,.3,1), box-shadow .25s, background .25s;
+  }
+  .btn-accept:hover { transform: translateY(-3px); background: #ff7d4b; box-shadow: 0 16px 42px rgba(254,110,54,.4); }
+  .btn-accept .arrow { transition: transform .25s; }
+  .btn-accept:hover .arrow { transform: translateX(5px); }
+  .accept-wrap .hint { font-size: 13.5px; color: #a7a69c; max-width: 30ch; line-height: 1.45; }
+
+  footer.legal { background: var(--ink); color: #76756c; font-size: 12px; padding: 28px 0 40px; text-align: center; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 880px) {
+    body { font-size: 16px; }
+    .topbar nav { display: none; }
+    .insight-grid, .op-grid, .price-grid { grid-template-columns: 1fr; gap: 32px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .cred-grid { grid-template-columns: 1fr; }
+    .phase { grid-template-columns: 1fr; gap: 24px; padding: 36px 0; }
+    .blueprint { grid-template-columns: repeat(2, 1fr); }
+    .timeline { grid-template-columns: 1fr; }
+    .next { grid-template-columns: 1fr; }
+    .hero { padding: 72px 0 60px; }
+    section { padding: 64px 0; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 22px; }
+    .stats { grid-template-columns: 1fr; }
+    .blueprint { grid-template-columns: 1fr; }
+    .week { gap: 5px; }
+    .op-list li { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    .topbar { display: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    body { background: #fff; font-size: 12px; }
+    section, .hero { padding: 28px 0; page-break-inside: avoid; }
+    .dark, .close, .price-card, .bp-after { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .bp:hover { transform: none; box-shadow: none; }
+    .phase, .stats, .cred-grid, .blueprint, .timeline { page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="lockup">
+        <span>BUTCHERBIRD</span>
+        <span class="dot"></span>
+        <span class="x">×</span>
+        <span>ALDO CALITZ</span>
+      </div>
+      <nav>
+        <a href="#case">The case</a>
+        <a href="#engagement">Engagement</a>
+        <a href="#blueprint">Blueprint</a>
+        <a href="#commercials">Commercials</a>
+        <a href="#next">Next</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="tag reveal"><span class="eyebrow accent">Proposal · Fractional Engagement · June 2026</span></div>
+      <h1 class="reveal d1">Fractional Head of <span class="light">AI &amp; Automation</span> for Butcherbird.</h1>
+      <p class="sub reveal d2">You already say AI runs through every function. The next step is one person who owns it, productizes it, and makes each launch faster, cheaper and more repeatable than the last. Starting with Shopify.</p>
+      <div class="meta reveal d3">
+        <div><span>Prepared for</span><strong>G Clarke, Butcherbird</strong></div>
+        <div><span>Prepared by</span><strong>Aldo Calitz</strong></div>
+        <div><span>Engagement</span><strong>R40,000 / month · 60 hours</strong></div>
+        <div><span>Model</span><strong>Fractional · Remote + Cape Town</strong></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- THE CASE (dark) -->
+  <section class="dark" id="case">
+    <div class="wrap">
+      <div class="sec-head reveal"><span class="eyebrow">The case · Receipts, not promises</span></div>
+      <div class="insight-grid">
+        <div class="big reveal d1">You don't have an AI problem. You have an <em>AI-ownership</em> problem.</div>
+        <div class="reveal d2">
+          <p>Butcherbird has built a real engine: R10M+ generated from R2.2M in ad spend, 50,000+ customers, 600+ retail doors, a 4.6× blended ROAS. The plan is one new brand per quarter, each built to lead its category, then exit. Gobblers, Crack, water filtration, energy gel, soup, the Zyn challenger.</p>
+          <p>At that cadence, every launch that rebuilds its Shopify stack, its subscriptions, its SMS and its automations from scratch is margin and weeks you do not get back. AI is named as a differentiator across the business, but a differentiator without an owner stays a slide, not a system.</p>
+          <p>My job is to turn it into a system: a productized launch infrastructure first, then AI adopted, governed and secured across the whole company.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE ENGINE / STATS -->
+  <section id="engine">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow accent">The engine you've built</span>
+        <h2>I'm not here to fix what works. I'm here to make it repeatable.</h2>
+        <p>These are your numbers. The opportunity is making the next brand inherit them on day one instead of earning them from zero.</p>
+      </div>
+      <div class="stats reveal d1">
+        <div class="cell"><div class="num">R10<span class="unit">M+</span></div><div class="lbl">Revenue generated to date</div></div>
+        <div class="cell"><div class="num">4.6<span class="unit">×</span></div><div class="lbl">Average blended ROAS</div></div>
+        <div class="cell"><div class="num">50<span class="unit">K+</span></div><div class="lbl">Customers acquired</div></div>
+        <div class="cell"><div class="num">600<span class="unit">+</span></div><div class="lbl">Retail doors opened</div></div>
+      </div>
+      <p class="stats-note reveal d2">Source: Butcherbird, butcherbird.global. North star: the world's #1 CPG venture studio, US office inside two years.</p>
+    </div>
+  </section>
+
+  <!-- WHO'S STEPPING IN -->
+  <section id="who">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow accent">Who's stepping in</span>
+        <h2>A builder with a service-blueprint mind and a designer's eye.</h2>
+        <p>I come in two ways at once: as an automation architect who maps the whole service before building it, and as a product designer who cares how the final thing looks, feels and converts.</p>
+      </div>
+      <div class="cred-grid reveal d1">
+        <div class="cred">
+          <div class="yrs">10<span class="plus">yrs</span></div>
+          <h4>Design &amp; product</h4>
+          <p>A decade shipping digital products and experiences end to end. The taste, commercial sense and unit-economics awareness the role calls for, not a junior dev.</p>
+        </div>
+        <div class="cred">
+          <div class="yrs">2.5<span class="plus">yrs</span></div>
+          <h4>Hands-on AI, early adopter</h4>
+          <p>Living in this since the start: my own workflows and automations, and products built from scratch in days, not quarters. AI-first the way your team already works on Claude Enterprise.</p>
+        </div>
+        <div class="cred">
+          <div class="yrs">M365</div>
+          <h4>Copilot adoption at scale</h4>
+          <p>Hands-on Microsoft 365 Copilot adoption experience: rolling AI out across a real organisation, driving usage, not just switching it on.</p>
+        </div>
+        <div class="cred">
+          <div class="yrs">✓</div>
+          <h4>Compliance &amp; AI security</h4>
+          <p>Compliance experience built in, so AI adoption ships with governance, data handling and security from the first build, not bolted on after an incident.</p>
+        </div>
+      </div>
+      <div class="pill-row reveal d2">
+        <div class="pill"><b>Service-blueprint</b> mindset for the AI &amp; automation layer</div>
+        <div class="pill"><b>Design</b> mindset for the final draft and final setup</div>
+        <div class="pill">Claude Code · orchestration · local builds</div>
+        <div class="pill">Shopify · Skio · Postscript · Klaviyo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE ENGAGEMENT -->
+  <section id="engagement">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow accent">The engagement</span>
+        <h2>Two phases, one retainer. Shopify first, then the whole company.</h2>
+        <p>Both phases run inside the same monthly retainer. Phase one front-loads the Shopify build system so the next launch is fast. As that becomes self-serve, hours shift toward company-wide AI adoption.</p>
+      </div>
+
+      <div class="phase reveal">
+        <div class="marker">
+          <div class="num-badge">1</div>
+          <span class="eyebrow accent">Phase one</span>
+          <h3>The Shopify build system</h3>
+          <div class="when">Months 1–3, weighted early</div>
+        </div>
+        <div class="body">
+          <p class="intro">Stand up the repeatable infrastructure that every Butcherbird brand launches on. Gobblers is the first proof: a custom theme, Skio subscriptions and Postscript SMS, live and urgent.</p>
+          <ul class="deliverables">
+            <li><span class="tick">→</span><span><b>Custom Shopify theme system.</b> <span class="det">A flexible base theme and component library, brand-skinnable in hours, built for speed and conversion.</span></span></li>
+            <li><span class="tick">→</span><span><b>Subscriptions, bundling &amp; cart.</b> <span class="det">Skio subscription modules, bundle logic and cart systems standardised once, reused per brand.</span></span></li>
+            <li><span class="tick">→</span><span><b>SMS &amp; retention wiring.</b> <span class="det">Postscript and Klaviyo flows templated so retention is switched on at launch, not weeks later.</span></span></li>
+            <li><span class="tick">→</span><span><b>Gobblers, shipped.</b> <span class="det">The first brand through the system, used as the live pilot and reference build.</span></span></li>
+            <li><span class="tick">→</span><span><b>The Launch Blueprint, documented.</b> <span class="det">The whole stack captured as a repeatable internal playbook your team can run.</span></span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="phase alt reveal d1">
+        <div class="marker">
+          <div class="num-badge">2</div>
+          <span class="eyebrow accent">Phase two</span>
+          <h3>AI across the business</h3>
+          <div class="when">Month 2 onward, growing</div>
+        </div>
+        <div class="body">
+          <p class="intro">With Shopify productized, the same blueprint thinking extends to every function: turning the "AI tooling across every function" line into governed, working systems.</p>
+          <ul class="deliverables">
+            <li><span class="tick">→</span><span><b>AI adoption &amp; implementation strategy.</b> <span class="det">A practical roadmap for where AI earns its keep across ops, content, finance and distribution.</span></span></li>
+            <li><span class="tick">→</span><span><b>Content &amp; creative pipelines.</b> <span class="det">Automations that let the content team and media buyers ship more, faster, on brand.</span></span></li>
+            <li><span class="tick">→</span><span><b>Finance &amp; ops workflows.</b> <span class="det">Repeatable automations for the back office, plus Butcherbird's own site and distribution.</span></span></li>
+            <li><span class="tick">→</span><span><b>Coaching &amp; enablement.</b> <span class="det">Sessions that lift the whole team's AI fluency as you double to 30+ people by August.</span></span></li>
+            <li><span class="tick">→</span><span><b>Compliance &amp; AI security.</b> <span class="det">Governance, data handling and security baked into how the company uses AI.</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE BLUEPRINT -->
+  <section id="blueprint">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow accent">The productized asset</span>
+        <h2>The Launch Blueprint.</h2>
+        <p>The deliverable that outlives any single brand: one documented, reusable path from concept to live store. Build it once, run it every quarter.</p>
+      </div>
+      <div class="blueprint reveal d1">
+        <div class="bp"><div class="step">01</div><h4>Brand intake</h4><p>Positioning, tokens and assets captured in a standard kit.</p></div>
+        <div class="bp"><div class="step">02</div><h4>Theme skin</h4><p>Base theme branded and configured, not rebuilt.</p></div>
+        <div class="bp"><div class="step">03</div><h4>Commerce stack</h4><p>Subscriptions, bundles and cart wired from templates.</p></div>
+        <div class="bp"><div class="step">04</div><h4>Retention</h4><p>SMS and email flows switched on at launch.</p></div>
+        <div class="bp"><div class="step">05</div><h4>Launch &amp; learn</h4><p>Ship, measure, fold improvements back into the blueprint.</p></div>
+      </div>
+      <div class="bp-after reveal d2">
+        <div class="big">Outcome: a new category leader launched in <em>days, not months</em>.</div>
+        <div class="small">Each launch makes the next one faster. The blueprint compounds.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPERATING MODEL -->
+  <section id="model">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow accent">How I work</span>
+        <h2>Fractional, AI-first, and in the room when it counts.</h2>
+      </div>
+      <div class="op-grid">
+        <ul class="op-list reveal d1">
+          <li><div class="k">Commitment</div><div class="v">60 hours per month, focused on the highest-leverage builds rather than spread thin.</div></li>
+          <li><div class="k">Base</div><div class="v">Remote from George, async-first, working the way your team already does on Claude Enterprise.</div></li>
+          <li><div class="k">In person</div><div class="v">Being fractional keeps this flexible: we organise on-site blocks in Cape Town around launches, build milestones and team sessions, as often as the work needs.</div></li>
+          <li><div class="k">Tooling</div><div class="v">Claude Code, orchestration models and local builds, matched to how Butcherbird already operates.</div></li>
+          <li><div class="k">Reporting</div><div class="v">A clear monthly view of hours, what shipped, and what it moved.</div></li>
+        </ul>
+        <div class="cadence reveal d2">
+          <span class="eyebrow accent">A typical on-site block in Cape Town</span>
+          <div class="week">
+            <div class="day"><div class="lab">S</div><div class="box"></div></div>
+            <div class="day on travel"><div class="lab">Sun</div><div class="box"></div></div>
+            <div class="day on"><div class="lab">Mon</div><div class="box"></div></div>
+            <div class="day on"><div class="lab">Tue</div><div class="box"></div></div>
+            <div class="day on travel"><div class="lab">Wed</div><div class="box"></div></div>
+            <div class="day"><div class="lab">Thu</div><div class="box"></div></div>
+            <div class="day"><div class="lab">F</div><div class="box"></div></div>
+          </div>
+          <div class="legend">
+            <span><i style="background:var(--accent)"></i> On-site, in office</span>
+            <span><i style="background:rgba(254,110,54,.3)"></i> Travel day</span>
+            <span><i style="background:var(--paper);border:1px solid var(--line-strong)"></i> Remote</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMERCIALS -->
+  <section id="commercials">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow accent">Commercials</span>
+        <h2>One simple retainer. Start, prove value, formalize.</h2>
+        <p>A clean monthly figure, with the option to start on this fractional basis and grow the scope as the value lands, exactly as we discussed.</p>
+      </div>
+      <div class="price-grid">
+        <div class="price-card reveal d1">
+          <span class="eyebrow">Fractional retainer</span>
+          <div class="amount">R40,000<span class="per"> / month</span></div>
+          <div class="hours">60 hours per month · ex VAT</div>
+          <div class="split">
+            <div class="row"><span>Effective rate</span><span>~R667 / hour</span></div>
+            <div class="row"><span>Phase 1 focus</span><span>Shopify build system</span></div>
+            <div class="row"><span>Phase 2 focus</span><span>Company-wide AI</span></div>
+            <div class="row"><span>Term</span><span>Rolling monthly</span></div>
+          </div>
+          <div class="foot">Hours are deployed where they move the needle each month, weighted to Shopify early, shifting toward AI adoption as the blueprint goes self-serve.</div>
+        </div>
+        <div class="price-notes">
+          <div class="price-note reveal d2">
+            <h4>Start lean, scale with proof</h4>
+            <p>This fractional structure lets me prove value on Gobblers and the blueprint before anyone commits to a bigger arrangement. <span class="lead-rate">Receipts first, then we formalize.</span></p>
+          </div>
+          <div class="price-note reveal d3">
+            <h4>What's included</h4>
+            <p>Builds, strategy, coaching and the documented blueprint, all inside the retainer. Third-party costs (Skio, Postscript, Klaviyo, hosting, AI usage) are billed at cost to Butcherbird.</p>
+          </div>
+          <div class="price-note reveal d4">
+            <h4>Room to grow</h4>
+            <p>As scope expands across 30+ people and new brands, hours and structure can be revisited together, in line with the value delivered.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FIRST 90 DAYS -->
+  <section id="ninety">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow accent">The first 90 days</span>
+        <h2>What lands, and when.</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl reveal d1">
+          <div class="tag">DAYS 1–30</div>
+          <h4>Ship Gobblers, map the stack</h4>
+          <ul>
+            <li>Custom Gobblers theme, Skio subscriptions and Postscript SMS live</li>
+            <li>Audit the current Shopify and tooling setup</li>
+            <li>First draft of the Launch Blueprint structure</li>
+            <li>Quick AI wins surfaced across the team</li>
+          </ul>
+        </div>
+        <div class="tl reveal d2">
+          <div class="tag">DAYS 31–60</div>
+          <h4>Productize the blueprint</h4>
+          <ul>
+            <li>Base theme and component library generalised</li>
+            <li>Subscription, bundle and retention templates standardised</li>
+            <li>Blueprint documented as a runnable internal playbook</li>
+            <li>AI adoption roadmap agreed with G and team leads</li>
+          </ul>
+        </div>
+        <div class="tl reveal d3">
+          <div class="tag">DAYS 61–90</div>
+          <h4>Extend AI across functions</h4>
+          <ul>
+            <li>First content and ops automations in production</li>
+            <li>Coaching sessions running as headcount scales</li>
+            <li>Compliance and AI-security baseline in place</li>
+            <li>Next brand launch ready to run on the blueprint</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close" id="next">
+    <div class="wrap">
+      <span class="eyebrow accent reveal">Next steps</span>
+      <h2 class="reveal d1" style="margin-top:18px;">Let's make the next launch the <span class="accent-text">fastest one yet</span>.</h2>
+      <p class="reveal d2">The pieces are already on the table: my Shopify portfolio and investor CV are with you, Gobblers needs its stack now, and the studio is doubling by August. This is the moment to give AI &amp; automation an owner.</p>
+      <div class="next reveal d3">
+        <div class="cell"><div class="n">01</div><p>You apply your mind to the package and confirm the R40k / 60-hour basis.</p></div>
+        <div class="cell"><div class="n">02</div><p>We scope Gobblers as the first build and set the Cape Town cadence.</p></div>
+        <div class="cell"><div class="n">03</div><p>I start, ship the pilot, and we let the receipts decide the rest.</p></div>
+      </div>
+      <div class="accept-wrap reveal d4">
+        <a class="btn-accept" href="mailto:aldo.calitz@gmail.com?subject=Butcherbird%20x%20Aldo%20Calitz%3A%20Let%27s%20begin&body=Hi%20Aldo%2C%0A%0AI%27ve%20reviewed%20the%20proposal%20and%20I%27m%20ready%20to%20move%20forward%20on%20the%20R40%2C000%20per%20month%2C%2060-hour%20fractional%20basis.%0A%0ALet%27s%20scope%20Gobblers%20as%20the%20first%20build%20and%20set%20the%20Cape%20Town%20cadence.%0A%0ABest%2C%0AG">Begin the engagement <span class="arrow">&rarr;</span></a>
+        <span class="hint">Opens a pre-filled email to confirm the R40k / 60-hour basis.</span>
+      </div>
+      <div class="signoff reveal d4">
+        <div class="who">
+          <strong>Aldo Calitz</strong>
+          <span>Fractional Head of AI &amp; Automation</span>
+        </div>
+        <div class="contact">
+          aldo.calitz@gmail.com<br />
+          Prepared for G Clarke, Butcherbird · June 2026
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="legal">
+    <div class="wrap">Butcherbird × Aldo Calitz · Confidential proposal · Figures exclude VAT · Valid 30 days from issue.</div>
+  </footer>
+
+<script>
+  (function () {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
