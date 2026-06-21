@@ -1,70 +1,124 @@
 <!DOCTYPE html>
-<!-- Constellation proposals index. Generated from the brand rules. -->
+<!-- Constellation proposals index. Built on the Constellation proposal brand template. -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Constellation Proposals</title>
-  <meta name="description" content="Live proposals from Constellation." />
-  <meta property="og:title" content="Constellation Proposals" />
+  <title>Constellation · Proposals</title>
+  <meta name="description" content="Live proposals from Constellation, the cosmic compass for UX excellence." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta property="og:title" content="Constellation · Proposals" />
   <meta property="og:description" content="Live proposals from Constellation, the cosmic compass for UX excellence." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://uxconstellation.github.io/constellation-proposals/" />
-
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --teal: #173F3F; --orange: #FE6E36; --near-black: #1B1C21; --off-white: #F6F4EF; --white: #FFFFFF;
-      --muted: rgba(246,244,239,0.72); --line: rgba(255,255,255,0.14);
-      --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px;
-      --display: 'Noken', 'Satoshi', 'Inter', system-ui, sans-serif;
-      --body: 'Satoshi', 'Inter', system-ui, sans-serif;
+      --teal: #173F3F; --orange: #FE6E36; --black: #1B1C21; --darkbg: #160C15;
+      --white: #FFFFFF; --text-light: rgba(255,255,255,0.72);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: var(--body); background: var(--teal); color: var(--off-white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 0 var(--s3); }
-    header { padding: var(--s7) 0 var(--s5); }
-    .kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); margin-bottom: var(--s2); }
-    h1 { font-family: var(--display); font-weight: 900; font-size: clamp(36px, 6vw, 60px); line-height: 1.1; letter-spacing: -0.02em; color: var(--white); margin-bottom: var(--s3); }
-    .sub { color: var(--muted); max-width: 48ch; font-size: clamp(18px, 2.2vw, 21px); }
-    main { padding-bottom: var(--s7); }
-    .list { display: grid; gap: var(--s3); }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Satoshi', sans-serif; background: var(--black); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Satoshi', sans-serif; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+    em { font-style: normal; color: var(--orange); }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem; background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-tag {
+      font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 100px;
+    }
+
+    .hero {
+      position: relative; min-height: 70vh; display: flex; align-items: flex-end;
+      padding: 0 2.5rem 5rem; overflow: hidden; background: var(--darkbg);
+    }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(23,63,63,0.9) 0%, rgba(22,12,21,0.95) 60%); }
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .eyebrow { display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.5rem; font-weight: 600; }
+    .eyebrow span { display: inline-block; width: 32px; height: 2px; background: var(--orange); }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.25rem; }
+    .hero-content p { color: var(--text-light); font-size: 1.05rem; max-width: 48ch; }
+
+    .floating-orb { position: absolute; border-radius: 50%; opacity: 0.1; pointer-events: none; }
+    .orb-1 { width: 120px; height: 120px; background: var(--orange); right: 10%; top: 20%; animation: float 6s ease-in-out infinite; }
+    .orb-2 { width: 80px; height: 80px; background: var(--teal); right: 5%; top: 50%; animation: float 8s ease-in-out infinite reverse; }
+    @keyframes float { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+
+    .section { padding: 6rem 2.5rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 2rem; }
+
+    .list { display: grid; gap: 1.5rem; }
     .item {
-      display: block; text-decoration: none; color: var(--off-white);
-      background: rgba(255,255,255,0.04); border: 1px solid var(--line); border-radius: 16px;
-      padding: var(--s4); transition: border-color 0.2s, background 0.2s;
+      display: block; text-decoration: none; color: var(--white);
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px; padding: 2rem 2.25rem; transition: transform 0.2s, border-color 0.2s;
     }
-    .item:hover, .item:focus-visible { border-color: var(--orange); background: rgba(255,255,255,0.07); outline: none; }
-    .item h2 { font-family: var(--display); font-weight: 900; font-size: 24px; letter-spacing: -0.01em; color: var(--white); margin-bottom: var(--s2); }
-    .item p { color: var(--muted); }
-    .item .meta { margin-top: var(--s2); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); }
-    footer { border-top: 1px solid var(--line); padding: var(--s5) 0; color: var(--muted); font-size: 14px; }
+    .item:hover, .item:focus-visible { transform: translateY(-4px); border-color: rgba(254,110,54,0.4); outline: none; }
+    .item .meta { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.75rem; }
+    .item h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .item p { color: var(--text-light); font-size: 0.9rem; }
+
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); padding: 2.5rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 768px) { .floating-orb { display: none; } nav { padding: 1rem 1.5rem; } .section { padding: 4rem 1.5rem; } .hero { padding: 0 1.5rem 4rem; } }
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <p class="kicker">Constellation</p>
-      <h1>Proposals</h1>
-      <p class="sub">The cosmic compass for UX excellence. Each proposal below is a live, considered plan for the work ahead.</p>
+  <nav>
+    <img src="assets/logo.png" alt="Constellation" style="height: 32px;" />
+    <span class="nav-tag">Proposals</span>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span></span> Constellation <span></span></div>
+      <h1>Proposals that <em>chart the course.</em></h1>
+      <p>The cosmic compass for UX excellence. Each proposal below is a considered plan for the work ahead.</p>
     </div>
   </header>
-  <main>
-    <div class="wrap">
+
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Live Proposals</div>
       <div class="list">
-        <!-- Proposals are listed newest first. -->
         <a class="item" href="proposals/conexxus/">
+          <div class="meta">Partnership · 2026</div>
           <h2>Conexxus</h2>
-          <p>A partnership proposal: joining Conexxus as Fractional Head of Design and AI Implementation, with a website and product redesign, workflow automation, and an AI WhatsApp matching concierge.</p>
-          <span class="meta">Partnership &middot; 2026</span>
+          <p>Joining Conexxus as Fractional Head of Design and AI Implementation: a website and product redesign, workflow automation, and an AI WhatsApp matching concierge, contributed as equity.</p>
+        </a>
+        <a class="item" href="proposals/sigma-wealth/">
+          <div class="meta">Digital Transformation · 2026</div>
+          <h2>Sigma Wealth</h2>
+          <p>A 12-month retainer engagement: a modern website, a client portal, and AI-powered internal systems for a wealth advisory business.</p>
+        </a>
+        <a class="item" href="proposals/sara-sian/">
+          <div class="meta">Website · 2026</div>
+          <h2>Sara Si&acirc;n</h2>
+          <p>A calm, craft-led portfolio website for an artist, designed to feel like stepping into a quiet studio.</p>
         </a>
       </div>
     </div>
-  </main>
+  </section>
+
   <footer>
-    <div class="wrap">Constellation &middot; proposals</div>
+    <div class="footer-inner">
+      <img src="assets/logo.png" alt="Constellation" style="height: 24px; opacity: 0.8;" />
+      <p>Constellation · the cosmic compass for UX excellence</p>
+    </div>
   </footer>
 </body>
 </html>

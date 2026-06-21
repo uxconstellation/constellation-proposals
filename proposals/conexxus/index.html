@@ -1,330 +1,910 @@
 <!DOCTYPE html>
-<!--
-  Conexxus Partnership Proposal. Draft for Aldo's approval before sending.
-  Built from the Constellation brand rules (no /tmp/proposal-template.html was available).
-  Note: Noken (display) is a commercial face and is not loaded here; the heading stack
-  falls back to Satoshi and a clean sans-serif as the brand rules allow.
-  Indicative figures for the workflow automation and WhatsApp concierge are placeholders
-  for Aldo to confirm; see the CRM deal record for the open items.
--->
+<!-- Conexxus partnership proposal. Built on the Constellation proposal template (sigma-wealth reference). -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Partnership Proposal for Conexxus | Aldo Calitz</title>
-  <meta name="description" content="A proposal to join Conexxus as Fractional Head of Design and AI Implementation: the ideas, the work, and how I fit into the business." />
+  <title>Conexxus · Partnership Proposal · Constellation</title>
+  <meta name="description" content="A proposal to join Conexxus as Fractional Head of Design and AI Implementation: the ideas, the costs, and how Aldo fits into the business." />
+
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Partnership Proposal for Conexxus, by Aldo Calitz" />
-  <meta property="og:description" content="Design, AI, and community to take Conexxus from early traction to a habit. The ideas, the work, and how I fit in." />
+  <meta property="og:title" content="Conexxus · Partnership Proposal" />
+  <meta property="og:description" content="Design, AI, and community to take Conexxus from early traction to a habit. Three builds, contributed as equity." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://uxconstellation.github.io/constellation-proposals/proposals/conexxus/" />
   <meta property="og:image" content="preview.png" />
 
-  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
   <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
-
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --teal: #173F3F;
-      --orange: #FE6E36;
-      --near-black: #1B1C21;
-      --off-white: #F6F4EF;
-      --white: #FFFFFF;
-      --ink: #173F3F;
-      --muted: #4A5A5A;
-      --line: rgba(23, 63, 63, 0.12);
-      /* 8pt spacing scale */
-      --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px;
-      --display: 'Noken', 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
-      --body: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
-      --maxw: 920px;
+      --teal:       #173F3F;
+      --orange:     #FE6E36;
+      --black:      #1B1C21;
+      --darkbg:     #160C15;
+      --white:      #FFFFFF;
+      --text-light: rgba(255,255,255,0.72);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: var(--body);
-      color: var(--ink);
-      background: var(--off-white);
-      line-height: 1.6;
-      font-size: 18px;
-      -webkit-font-smoothing: antialiased;
+      font-family: 'Satoshi', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    h1, h2, h3, .display { font-family: var(--display); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; }
-    h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: var(--s3); }
-    h3 { font-size: clamp(20px, 2.5vw, 24px); margin-bottom: var(--s1); letter-spacing: -0.01em; }
-    p { margin-bottom: var(--s2); }
-    p:last-child { margin-bottom: 0; }
-    strong { font-weight: 700; }
-    a { color: var(--orange); }
-
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--s3); }
-    section { padding: var(--s6) 0; }
-    .section-light { background: var(--off-white); }
-    .section-white { background: var(--white); }
-    .section-teal { background: var(--teal); color: var(--off-white); }
-    .section-teal h2, .section-teal h3 { color: var(--white); }
-    .section-teal .muted { color: rgba(246, 244, 239, 0.78); }
-
-    .kicker {
-      font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: var(--s2);
+    h1, h2, h3, h4 {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
     }
-    .lede { font-size: clamp(19px, 2.2vw, 22px); }
-    .muted { color: var(--muted); }
 
-    /* Hero */
-    .hero { background: var(--teal); color: var(--off-white); padding: var(--s7) 0 var(--s6); }
-    .hero h1 { font-size: clamp(36px, 6.5vw, 68px); color: var(--white); margin-bottom: var(--s3); }
-    .hero .kicker { color: var(--orange); }
-    .hero .sub { font-size: clamp(18px, 2.4vw, 22px); color: rgba(246,244,239,0.85); max-width: 40ch; }
-    .hero-meta { margin-top: var(--s5); display: flex; flex-wrap: wrap; gap: var(--s4); font-size: 15px; color: rgba(246,244,239,0.7); }
-    .hero-meta span { display: block; }
-    .hero-meta b { color: var(--white); font-weight: 700; }
+    em { font-style: normal; color: var(--orange); }
 
-    /* Cards */
-    .grid { display: grid; gap: var(--s3); }
-    @media (min-width: 720px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } .grid-2 { grid-template-columns: repeat(2, 1fr); } }
-    .card {
-      background: var(--white); border: 1px solid var(--line); border-radius: 16px;
-      padding: var(--s4); height: 100%;
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .section-teal .card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.14); }
-    .card .num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 40px; height: 40px; border-radius: 50%; background: var(--orange); color: var(--near-black);
-      font-family: var(--display); font-weight: 900; font-size: 18px; margin-bottom: var(--s2);
+
+    nav .logo { font-size: 1.2rem; font-weight: 700; color: var(--orange); letter-spacing: 0.05em; }
+
+    .nav-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
     }
-    .tags { list-style: none; margin-top: var(--s2); display: flex; flex-wrap: wrap; gap: var(--s1); }
-    .tags li { font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 999px; background: rgba(23,63,63,0.06); color: var(--teal); }
-    .section-teal .tags li { background: rgba(255,255,255,0.08); color: var(--off-white); }
 
-    .pill { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--near-black); background: var(--orange); padding: 4px 10px; border-radius: 999px; margin-bottom: var(--s2); }
-
-    /* Table */
-    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
-    table { width: 100%; border-collapse: collapse; min-width: 520px; }
-    th, td { text-align: left; padding: var(--s2) var(--s3); border-bottom: 1px solid var(--line); vertical-align: top; }
-    th { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
-    tbody tr:last-child td { border-bottom: none; }
-    td .cost { font-family: var(--display); font-weight: 900; font-size: 20px; color: var(--teal); white-space: nowrap; }
-    .total-row td { background: rgba(254,110,54,0.08); }
-    .total-row .cost { color: var(--orange); }
-
-    .note { font-size: 15px; color: var(--muted); margin-top: var(--s2); }
-
-    /* Intro split */
-    .lead-block { max-width: 62ch; }
-
-    /* Timeline */
-    .steps { list-style: none; counter-reset: step; }
-    .steps li { position: relative; padding-left: var(--s5); margin-bottom: var(--s3); }
-    .steps li:last-child { margin-bottom: 0; }
-    .steps li::before {
-      counter-increment: step; content: counter(step);
-      position: absolute; left: 0; top: 0;
-      width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: var(--near-black);
-      font-family: var(--display); font-weight: 900; font-size: 15px;
-      display: flex; align-items: center; justify-content: center;
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 2.5rem 6rem;
+      overflow: hidden;
+      background: var(--darkbg);
     }
-    .steps li b { font-family: var(--display); font-weight: 700; }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(23,63,63,0.9) 0%, rgba(22,12,21,0.95) 60%);
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 640px; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .eyebrow span { display: inline-block; width: 32px; height: 2px; background: var(--orange); }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+      max-width: 95%;
+    }
+
+    .hero-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+
+    .hero-meta-item label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-meta-item value { display: block; font-size: 0.95rem; font-weight: 600; color: var(--white); }
+
+    /* INTRO STRIP */
+    .intro-strip { background: var(--orange); padding: 3rem 2.5rem; }
+
+    .intro-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .big-num {
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .intro-strip p { font-size: 1.05rem; color: rgba(255,255,255,0.9); max-width: 640px; }
+
+    /* SECTIONS */
+    .section { padding: 7rem 2.5rem; }
+    .section--dark { background: var(--black); }
+    .section--alt { background: rgba(23,63,63,0.12); }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    /* GRIDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* CHALLENGE CARDS */
+    .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+
+    .challenge-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .challenge-item h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--white); }
+    .challenge-item p { font-size: 0.85rem; color: var(--text-light); }
+
+    /* COMPARISON TABLE */
+    .feature-table { width: 100%; border-collapse: collapse; margin-top: 2rem; font-size: 0.88rem; }
+
+    .feature-table th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .feature-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-light);
+      vertical-align: top;
+    }
+
+    .feature-table td:first-child { color: var(--white); font-weight: 500; }
+
+    /* TIMELINE */
+    .timeline { margin-top: 4rem; }
+
+    .timeline-item {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .timeline-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .timeline-body h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .timeline-body p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; }
+
+    .weeks {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-light);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tag--orange { background: rgba(254,110,54,0.15); color: var(--orange); border-color: rgba(254,110,54,0.3); }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+
+    .pricing-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.09);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .pricing-card:hover { transform: translateY(-4px); border-color: rgba(254,110,54,0.3); }
+
+    .pricing-card.recommended { border-color: var(--orange); background: rgba(254,110,54,0.05); grid-column: 1 / -1; }
+
+    .recommended-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 0 0 10px 10px;
+      white-space: nowrap;
+    }
+
+    .pricing-card-head { padding: 2rem 1.75rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+    .pricing-tier-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-card-head h4 { font-size: 1.2rem; margin-bottom: 1.25rem; }
+
+    .price-amount { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--white); }
+    .price-period { font-size: 0.85rem; color: var(--text-light); font-weight: 400; }
+    .price-total { font-size: 0.8rem; color: var(--text-light); margin-top: 0.4rem; }
+
+    .pricing-card-body { padding: 1.5rem 1.75rem; flex: 1; }
+
+    .pricing-card-body p.best-for {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .feature-list { list-style: none; }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .feature-list li:last-child { border-bottom: none; }
+
+    .feature-list li::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FE6E36' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .pricing-note {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.5rem;
+    }
+
+    /* SLA GRID */
+    .sla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+
+    .sla-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .sla-item h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sla-item h4::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .sla-item p { font-size: 0.82rem; color: var(--text-light); line-height: 1.65; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+      margin: 0 2.5rem;
+    }
 
     /* CTA */
-    .cta { background: var(--near-black); color: var(--off-white); text-align: center; }
-    .cta h2 { color: var(--white); }
-    .btn {
-      display: inline-block; background: var(--orange); color: var(--near-black);
-      font-weight: 700; text-decoration: none; padding: var(--s2) var(--s4);
-      border-radius: 999px; margin-top: var(--s3); font-size: 17px;
+    .cta-section {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--darkbg);
+      padding: 6rem 2.5rem;
     }
-    .btn:focus-visible, a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
 
-    footer { background: var(--near-black); color: rgba(246,244,239,0.6); padding: var(--s5) 0; font-size: 14px; }
-    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2); }
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 70%);
+    }
 
-    .draft-banner { background: var(--orange); color: var(--near-black); text-align: center; font-size: 13px; font-weight: 700; padding: var(--s1); letter-spacing: 0.04em; }
+    .cta-content { position: relative; z-index: 2; text-align: center; max-width: 700px; width: 100%; }
+    .cta-content h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin: 1rem 0 1.25rem; }
+    .cta-content > p { font-size: 1rem; color: var(--text-light); margin-bottom: 3rem; }
+
+    .steps-list { display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-bottom: 3rem; }
+
+    .step-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-item p { font-size: 0.9rem; color: var(--text-light); margin: 0; padding-top: 0.35rem; }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 1rem 2.25rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); padding: 2.5rem; }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.recommended { grid-column: auto; }
+    }
+
+    /* FLOATING ELEMENTS */
+    .floating-orb { position: absolute; border-radius: 50%; opacity: 0.1; pointer-events: none; }
+    .orb-1 { width: 120px; height: 120px; background: var(--orange); right: 10%; top: 20%; animation: float 6s ease-in-out infinite; }
+    .orb-2 { width: 80px; height: 80px; background: var(--teal); right: 5%; top: 50%; animation: float 8s ease-in-out infinite reverse; }
+    .orb-3 { width: 60px; height: 60px; background: var(--orange); right: 15%; bottom: 15%; animation: float 7s ease-in-out infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    @media (max-width: 768px) {
+      .floating-orb { display: none; }
+      .grid-2, .challenge-grid, .sla-grid { grid-template-columns: 1fr; }
+      .intro-strip-inner { flex-direction: column; gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 5rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
-  <div class="draft-banner">DRAFT FOR REVIEW &middot; NOT YET SENT</div>
 
-  <header class="hero">
-    <div class="wrap">
-      <p class="kicker">Partnership Proposal &middot; for the Conexxus founding team</p>
-      <h1>Let us build the next part of Conexxus, together.</h1>
-      <p class="sub">Design, AI, and community to take Conexxus from real early traction to a daily habit. Not as a vendor you bill by the hour, but as a partner who builds.</p>
+  <nav>
+    <img src="assets/logo.png" alt="Constellation" style="height: 32px;" />
+    <span class="nav-tag">Partnership Proposal · Draft</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span></span> Conexxus x Constellation <span></span></div>
+      <h1>A partnership that builds <em>what's next.</em></h1>
       <div class="hero-meta">
-        <span><b>Prepared by</b> Aldo Calitz</span>
-        <span><b>Role</b> Fractional Head of Design &amp; AI Implementation</span>
-        <span><b>Focus</b> Website &amp; product, workflow automation, AI WhatsApp concierge</span>
+        <div class="hero-meta-item">
+          <label>Partner</label>
+          <value>Aldo Calitz</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Role</label>
+          <value>Fractional Head of Design &amp; AI</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Focus</label>
+          <value>Website · Workflow · WhatsApp AI</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Model</label>
+          <value>Work-for-equity</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Prepared by</label>
+          <value>Aldo Calitz, Constellation</value>
+        </div>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <section class="section-light">
-      <div class="wrap lead-block">
-        <p class="kicker">The opportunity</p>
-        <h2>You are at the moment that decides a marketplace.</h2>
-        <p class="lede">Conexxus has built something real: South Africa's expert network, where people get paid, trustworthy advice from verified professionals over email, voice notes, or video. The first professionals are on, the first consultations are done, and the satisfaction is there.</p>
-        <p>What happens next is not about whether the idea works. It is about whether the platform reaches the liquidity, the trust, and the intelligence that turn an early product into a habit. That next step is design, AI, and community. It is exactly the work I do, and I would rather help build it than watch from the outside.</p>
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="big-num">3</div>
+      <p>Three builds, one investment. A product redesign that converts, automation that scales your trust promise, and the first live piece of your AI matching. Contributed as equity rather than billed, so I succeed only when Conexxus does.</p>
+    </div>
+  </div>
+
+  <!-- 01 THE OPPORTUNITY -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">01 · The Opportunity</div>
+      <div class="grid-2">
+        <div>
+          <h2>The moment that<br />decides a <em>marketplace.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem;">Conexxus has built something real: South Africa's expert network, where people get paid, trustworthy advice from verified professionals over email, voice notes, or video. The first professionals are on, the first consultations are done, and the satisfaction is there.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">What happens next is not about whether the idea works. It is about whether the platform reaches the liquidity, the trust, and the intelligence that turn an early product into a habit. That next step is design, AI, and community. It is exactly the work I do, and I would rather help build it than watch from the outside.</p>
+        </div>
       </div>
-    </section>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <h4>The AI matching gap</h4>
+          <p>Your site already promises AI-Powered Matching as "Coming Soon". The intelligence that connects a seeker to the right professional is the product's heart, and it is not built yet.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Liquidity and trust</h4>
+          <p>A two-sided marketplace lives on liquidity and trust, which are community problems before they are feature problems. Getting both sides active and returning is community work.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Verification overhead</h4>
+          <p>The trust promise rests on verification, and onboarding professionals is the growth bottleneck. Scaling the network without losing rigour means automating the manual work.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>From vendor to partner</h4>
+          <p>You do not need another agency billing by the hour. You need someone who builds alongside you and shares the outcome. That is what this proposal is.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section class="section-white">
-      <div class="wrap">
-        <p class="kicker">How I fit in</p>
-        <h2>What I bring to Conexxus.</h2>
-        <p class="lead-block muted" style="margin-bottom: var(--s5);">Ten years in product, seven in startups, four leading teams. Founding designer, principal product designer, and head of design. I have built design functions from nothing, run AI strategy and development for large organisations, and built communities hands-on. Three of those map straight onto what Conexxus needs next.</p>
-        <div class="grid grid-3">
-          <div class="card">
-            <h3>AI you can ship</h3>
-            <p class="muted">AI adoption and development with Adidas, Berg, and Copenhagen Airport. The experience to turn your "AI-Powered Matching, Coming Soon" into something live, starting small.</p>
+  <div class="divider"></div>
+
+  <!-- 02 WHAT I BRING -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">02 · How I Fit In</div>
+      <h2 style="margin-bottom: 0.75rem;">What I bring, mapped to <em>your needs.</em></h2>
+      <p style="color: var(--text-light); font-size: 0.95rem; max-width: 620px;">Ten years in product, seven in startups, four leading teams. Founding designer, principal product designer, and head of design, with AI strategy and development for Adidas, Berg, and Copenhagen Airport, and hands-on community building.</p>
+      <table class="feature-table">
+        <thead>
+          <tr>
+            <th>Your need</th>
+            <th>What I bring</th>
+            <th>The outcome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>AI matching, "Coming Soon"</strong></td>
+            <td>AI adoption and development at enterprise scale, shipped small and fast at startup speed.</td>
+            <td>The promised matching becomes something live, starting with WhatsApp.</td>
+          </tr>
+          <tr>
+            <td><strong>Marketplace liquidity</strong></td>
+            <td>Hands-on community building, including community bots at Kudos.</td>
+            <td>Professionals on, seekers to a first consultation, both sides returning.</td>
+          </tr>
+          <tr>
+            <td><strong>Trust and verification</strong></td>
+            <td>Design systems and workflow automation thinking.</td>
+            <td>Verification that scales without losing the rigour that makes it trusted.</td>
+          </tr>
+          <tr>
+            <td><strong>Voice-note consulting</strong></td>
+            <td>Shipped AI WhatsApp bots, on the channel South Africans use, where voice is native.</td>
+            <td>A conversational front door that fits your model rather than fighting it.</td>
+          </tr>
+          <tr>
+            <td><strong>A coherent product</strong></td>
+            <td>Founding and principal design leadership, built from zero before.</td>
+            <td>A design foundation the product can grow on without fragmenting.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 THE BUILD -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">03 · The Build</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Three builds.<br /><em>Six to eight weeks.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Concrete and shippable, not a retainer or a deck. The builds overlap where it makes sense, each with a clear definition of done so we both know when a milestone is met.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-body">
+            <div class="weeks">Week 1-2 · Alignment &amp; Agreement</div>
+            <h3>Confirm the partnership, sign once.</h3>
+            <p>Agree the role and the work-for-equity model, confirm scope and costs, and put a single clean agreement in place with brief legal and tax sign-off.</p>
+            <div class="timeline-tags">
+              <span class="tag">Role confirmed</span>
+              <span class="tag">Scope locked</span>
+              <span class="tag tag--orange">Agreement signed</span>
+            </div>
           </div>
-          <div class="card">
-            <h3>Liquidity and trust</h3>
-            <p class="muted">A two-sided marketplace lives on community before features. Getting professionals on, getting seekers to a first consultation, making both sides feel the platform is alive. Hands-on, including community bots at Kudos.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-body">
+            <div class="weeks">Week 2-3 · Discovery</div>
+            <h3>Map the work precisely.</h3>
+            <p>Confirm the redesign direction and the conversion flows, choose the workflow to automate, and scope the WhatsApp concierge, including how it reads the directory and routes a booking.</p>
+            <div class="timeline-tags">
+              <span class="tag">Redesign direction</span>
+              <span class="tag">Workflow chosen</span>
+              <span class="tag tag--orange">Concierge scoped</span>
+            </div>
           </div>
-          <div class="card">
-            <h3>Conversational AI</h3>
-            <p class="muted">Shipped AI WhatsApp bots end to end, on the channel South Africans actually use, where voice notes are native, just like your model.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-body">
+            <div class="weeks">Week 3-7 · Build (parallel)</div>
+            <h3>Website, automation, concierge.</h3>
+            <p><strong>Website and product:</strong> the marketplace conversion flows, mobile-first, WCAG 2.2 AA, Core Web Vitals, on an 8pt grid. <strong>Workflow:</strong> onboarding and verification automated. <strong>Concierge:</strong> an AI WhatsApp assistant that captures a need, matches a verified professional, and routes to book.</p>
+            <div class="timeline-tags">
+              <span class="tag">Design system</span>
+              <span class="tag">Website + flows</span>
+              <span class="tag">Automation</span>
+              <span class="tag tag--orange">Concierge MVP</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">04</div>
+          <div class="timeline-body">
+            <div class="weeks">Week 8 · Launch &amp; Handover</div>
+            <h3>Accept, launch, hand over.</h3>
+            <p>Acceptance against each milestone, launch of the three builds, and a clean handover. One structured revision round per deliverable is included.</p>
+            <div class="timeline-tags">
+              <span class="tag">Acceptance</span>
+              <span class="tag">Go live</span>
+              <span class="tag tag--orange">Handover</span>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section-teal">
-      <div class="wrap">
-        <p class="kicker">The ideas</p>
-        <h2>What I would build first.</h2>
-        <p class="muted lead-block" style="margin-bottom: var(--s5);">Concrete and shippable, not a retainer or a deck. Three deliverables, each with a clear definition of done.</p>
-        <div class="grid grid-3">
-          <div class="card">
-            <span class="num">1</span>
-            <h3>Website &amp; product redesign</h3>
-            <p class="muted">Beyond the marketing pages: the flows that make a marketplace convert. How a seeker finds and books the right professional, how a professional onboards and earns verified status, and how trust is made visible at the moment someone decides to pay.</p>
-            <ul class="tags"><li>Mobile-first</li><li>WCAG 2.2 AA</li><li>Core Web Vitals</li><li>8pt grid</li></ul>
+  <div class="divider"></div>
+
+  <!-- 04 THE INVESTMENT -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">04 · The Investment</div>
+      <div class="grid-2" style="margin-bottom: 1rem;">
+        <div>
+          <h2>The value of the work.<br /><em>Invested,</em> not billed.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Clear value for clear work. The website is anchored to a known build price; the two bespoke builds are confirmed figures, firmed up precisely after a short scoping session. Rather than charging this, I contribute it as my investment and take equity in exchange.</p>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Build 01</div>
+            <h4>Website &amp; product redesign</h4>
+            <div class="price-amount">R30,000<span class="price-period"> from</span></div>
+            <div class="price-total">marketing site plus the core marketplace flows</div>
           </div>
-          <div class="card">
-            <span class="num">2</span>
-            <h3>Workflow automation</h3>
-            <p class="muted">Your promise rests on verification, and onboarding professionals is the growth bottleneck. I would take the onboarding and verification workflow, the ID checks, credential checks, and first reviews, and turn it into a smooth, mostly automated process, so the network scales without losing rigour.</p>
-            <ul class="tags"><li>Verification</li><li>Onboarding</li><li>Less manual work</li></ul>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Find, evaluate, and book a professional</li>
+              <li>Professional onboarding and verified status</li>
+              <li>Trust made visible at the point of payment</li>
+              <li>Mobile-first, WCAG 2.2 AA, Core Web Vitals</li>
+              <li>Design system foundation</li>
+            </ul>
           </div>
-          <div class="card">
-            <span class="pill">First live AI</span>
-            <span class="num">3</span>
-            <h3>WhatsApp matching concierge</h3>
-            <p class="muted">An AI assistant on WhatsApp that captures what a seeker needs, matches them to the right verified professional, and routes them to book. The first working piece of the AI matching your site already promises, on the channel your market lives on.</p>
-            <ul class="tags"><li>Intent capture</li><li>Voice notes</li><li>Smart matching</li><li>Book in-platform</li></ul>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Build 02</div>
+            <h4>Workflow automation</h4>
+            <div class="price-amount">R45,000<span class="price-period"> from</span></div>
+            <div class="price-total">professional onboarding and verification</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>ID and credential checks streamlined</li>
+              <li>First reviews and approvals automated</li>
+              <li>Less manual work for the team</li>
+              <li>Scales the network without losing rigour</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Build 03</div>
+            <h4>WhatsApp matching concierge</h4>
+            <div class="price-amount">R65,000<span class="price-period"> from</span></div>
+            <div class="price-total">AI concierge MVP: capture, match, route to book</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Captures what a seeker needs, text or voice</li>
+              <li>Matches the right verified professional</li>
+              <li>Routes them to book on the platform</li>
+              <li>The first live piece of your AI matching</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Included</div>
+            <h4>Design &amp; AI leadership</h4>
+            <div class="price-amount">Included</div>
+            <div class="price-total">senior direction across the engagement</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Fractional Head of Design and AI</li>
+              <li>The design system and AI roadmap</li>
+              <li>The community engine as you grow</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card recommended">
+          <div class="recommended-badge">The Investment</div>
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase one total</div>
+            <h4>Contributed as equity, earned on delivery</h4>
+            <div class="price-amount">from R140,000</div>
+            <div class="price-total">the value of the work I contribute in phase one</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">Rather than billing this amount, I invest it as equity in Conexxus. The stake is earned as each build is accepted, held in escrow until then, so ownership always matches value delivered. The specific equity terms we agree together.</p>
+            <ul class="feature-list">
+              <li>My family trust holds the shares, with me as trustee</li>
+              <li>Work delivered through Constellation under a service agreement</li>
+              <li>Shareholders and subscription agreement, IP assignment, vesting, leaver terms</li>
+              <li>Brief legal and tax sign-off before signing</li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="section-light">
-      <div class="wrap">
-        <p class="kicker">The costs</p>
-        <h2>What the work is worth.</h2>
-        <p class="lead-block muted" style="margin-bottom: var(--s4);">Clear value for clear work. The website is anchored to a known build price; the two bespoke builds are quoted precisely after a short scoping session. Figures below are indicative and confirmed before we begin.</p>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr><th>Deliverable</th><th>What it covers</th><th>Investment</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Website &amp; product redesign</strong></td>
-                <td class="muted">Marketing site plus the core marketplace conversion flows, to full technical standards.</td>
-                <td><span class="cost">from R30,000</span></td>
-              </tr>
-              <tr>
-                <td><strong>Workflow automation</strong></td>
-                <td class="muted">Professional onboarding and verification, automated.</td>
-                <td><span class="cost">from R45,000</span></td>
-              </tr>
-              <tr>
-                <td><strong>WhatsApp matching concierge</strong></td>
-                <td class="muted">AI concierge MVP: capture, match, route to book.</td>
-                <td><span class="cost">from R65,000</span></td>
-              </tr>
-              <tr>
-                <td><strong>Design &amp; AI leadership</strong></td>
-                <td class="muted">Senior direction across the build, plus the design system foundation.</td>
-                <td><span class="cost">included</span></td>
-              </tr>
-              <tr class="total-row">
-                <td><strong>Indicative total</strong></td>
-                <td class="muted">The value of the work I would contribute in phase one.</td>
-                <td><span class="cost">from R140,000</span></td>
-              </tr>
-            </tbody>
-          </table>
+      <p class="pricing-note">Indicative figures, confirmed after a short scoping session. One structured revision round per deliverable is included. Third-party platform and licence costs (WhatsApp Business, hosting, and similar) are carried by Conexxus directly. If the role continues beyond phase one, ongoing contribution earns ongoing equity in the normal way.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 THE MODEL -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">05 · How We Work Together</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>A real partnership. <em>Documented properly.</em></h2>
         </div>
-        <p class="note">Indicative figures, confirmed after a short scoping session. One structured revision round per deliverable is included. Third-party platform and licence costs (WhatsApp Business, hosting, and similar) are carried by Conexxus directly.</p>
-      </div>
-    </section>
-
-    <section class="section-white">
-      <div class="wrap lead-block">
-        <p class="kicker">The model</p>
-        <h2>I invest the work, not a bill.</h2>
-        <p class="lede">Rather than charging Conexxus this amount as a fee, I contribute it as my investment into the business and take equity in exchange. I succeed only when Conexxus does.</p>
-        <p>The equity is earned as the work lands: a share is recognised as each of the three builds is accepted against its agreed definition of done. The specific terms we agree together and document properly, with brief legal and tax sign-off, so the partnership is real and protected from day one. If the role continues beyond this first phase, ongoing contribution earns ongoing equity in the normal way.</p>
-      </div>
-    </section>
-
-    <section class="section-light">
-      <div class="wrap lead-block">
-        <p class="kicker">The role</p>
-        <h2>Fractional Head of Design &amp; AI Implementation.</h2>
-        <p>I propose joining around two focused days a week. Fractional is deliberate: you get senior design and AI leadership without the cost of a full-time executive hire, at the stage when that leadership matters most. Beyond the three builds, the role means owning the design system, the AI roadmap, and the community engine as Conexxus grows.</p>
-      </div>
-    </section>
-
-    <section class="section-teal">
-      <div class="wrap">
-        <p class="kicker">The shape of it</p>
-        <h2>An indicative timeline.</h2>
-        <p class="muted lead-block" style="margin-bottom: var(--s5);">A shape, not a commitment, confirmed once we scope together. The builds overlap, so phase one is realistically six to eight weeks of delivery once we begin.</p>
-        <div class="grid grid-2">
-          <div class="card"><h3>Weeks 1 to 2</h3><p class="muted">Align on the partnership, confirm scope and costs, sign a single clean agreement.</p></div>
-          <div class="card"><h3>Week 2 to 3</h3><p class="muted">Discovery: redesign direction, the workflow to automate, and the concierge scope.</p></div>
-          <div class="card"><h3>Weeks 3 to 7</h3><p class="muted">Build: website and product flows, the onboarding automation, and the WhatsApp concierge, overlapping where sensible.</p></div>
-          <div class="card"><h3>Week 8</h3><p class="muted">Acceptance against each milestone, launch, and handover.</p></div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">None of this is complicated to set up. It simply makes the partnership real and protects both sides from day one.</p>
         </div>
       </div>
-    </section>
 
-    <section class="section-white">
-      <div class="wrap lead-block">
-        <p class="kicker">Next steps</p>
-        <h2>How we begin.</h2>
-        <ol class="steps">
-          <li><b>A conversation</b> to confirm the role and the partnership principle.</li>
-          <li><b>A short discovery session</b> to scope the workflow and the concierge, so we can fix the figures precisely.</li>
-          <li><b>Brief legal and tax sign-off,</b> then a single agreement, and we start.</li>
-        </ol>
+      <div class="sla-grid">
+        <div class="sla-item">
+          <h4>Invest, not bill</h4>
+          <p>I contribute the work as my investment into Conexxus and take equity in exchange, rather than charging a fee. I do well when you do well.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Earned on delivery</h4>
+          <p>Equity is recognised as each of the three builds is accepted against its agreed definition of done, held in escrow until then. Ownership always matches value delivered.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Documented and protected</h4>
+          <p>A shareholders and subscription agreement, written assignment of all delivered work to Conexxus, a vesting schedule, and standard leaver terms.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Tax and legal sign-off</h4>
+          <p>Issuing shares for work has tax consequences in South Africa, so both sides take brief professional advice before signing.</p>
+        </div>
+        <div class="sla-item">
+          <h4>The role</h4>
+          <p>Fractional Head of Design and AI Implementation, around two focused days a week. Senior leadership without a full-time hire.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Delivery</h4>
+          <p>The work is delivered through my studio, Constellation, under a service agreement, with the trust as the shareholder. A clean structure, clearly recorded.</p>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="cta">
-      <div class="wrap">
-        <h2>I am excited about what you are building.</h2>
-        <p class="muted" style="max-width: 46ch; margin: 0 auto;">And about building the next part of it with you. Let us find a time to talk it through.</p>
-        <a class="btn" href="mailto:aldo.calitz@gmail.com?cc=aldo@uxconstellation.com">Start the conversation</a>
+  <div class="divider"></div>
+
+  <!-- CTA / NEXT STEPS -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-content">
+      <div class="eyebrow" style="justify-content: center;"><span></span> Next Steps <span></span></div>
+      <h2>Let us build<br />what's next.</h2>
+      <p>From this proposal to a live, partnered build.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <p>A conversation to confirm the role and the work-for-equity principle.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <p>A short discovery session to scope the workflow and the concierge, so we fix the figures precisely.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <p>Brief legal and tax sign-off, then a single agreement covering scope, IP, vesting, and equity.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <p>We begin. Realistically a six to eight week first phase once we start.</p>
+        </div>
       </div>
-    </section>
-  </main>
 
+      <a href="mailto:aldo.calitz@gmail.com?cc=aldo@uxconstellation.com&subject=Conexxus%20Partnership%20Proposal&body=Hi%20Aldo,%0A%0AI%27ve%20reviewed%20the%20partnership%20proposal%20and%20I%27d%20like%20to%20talk%20it%20through.%0A%0ABest%20regards" class="btn-submit">
+        Start the conversation
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="wrap">
-      <span>Partnership proposal for Conexxus &middot; prepared by Aldo Calitz</span>
-      <span>Constellation &middot; the cosmic compass for UX excellence</span>
+    <div class="footer-inner">
+      <img src="assets/logo.png" alt="Constellation" style="height: 24px; opacity: 0.8;" />
+      <p>Partnership proposal for Conexxus · June 2026</p>
+      <p>Confidential. Prepared by Aldo Calitz.</p>
     </div>
   </footer>
+
 </body>
 </html>
