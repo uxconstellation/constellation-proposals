@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!--
+  Conexxus Partnership Proposal. Draft for Aldo's approval before sending.
+  Built from the Constellation brand rules (no /tmp/proposal-template.html was available).
+  Note: Noken (display) is a commercial face and is not loaded here; the heading stack
+  falls back to Satoshi and a clean sans-serif as the brand rules allow.
+  Indicative figures for the workflow automation and WhatsApp concierge are placeholders
+  for Aldo to confirm; see the CRM deal record for the open items.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partnership Proposal for Conexxus | Aldo Calitz</title>
+  <meta name="description" content="A proposal to join Conexxus as Fractional Head of Design and AI Implementation: the ideas, the work, and how I fit into the business." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Partnership Proposal for Conexxus, by Aldo Calitz" />
+  <meta property="og:description" content="Design, AI, and community to take Conexxus from early traction to a habit. The ideas, the work, and how I fit in." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://uxconstellation.github.io/constellation-proposals/proposals/conexxus/" />
+  <meta property="og:image" content="preview.png" />
+
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --teal: #173F3F;
+      --orange: #FE6E36;
+      --near-black: #1B1C21;
+      --off-white: #F6F4EF;
+      --white: #FFFFFF;
+      --ink: #173F3F;
+      --muted: #4A5A5A;
+      --line: rgba(23, 63, 63, 0.12);
+      /* 8pt spacing scale */
+      --s1: 8px; --s2: 16px; --s3: 24px; --s4: 32px; --s5: 48px; --s6: 64px; --s7: 96px;
+      --display: 'Noken', 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
+      --body: 'Satoshi', 'Inter', system-ui, -apple-system, sans-serif;
+      --maxw: 920px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--body);
+      color: var(--ink);
+      background: var(--off-white);
+      line-height: 1.6;
+      font-size: 18px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, .display { font-family: var(--display); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: var(--s3); }
+    h3 { font-size: clamp(20px, 2.5vw, 24px); margin-bottom: var(--s1); letter-spacing: -0.01em; }
+    p { margin-bottom: var(--s2); }
+    p:last-child { margin-bottom: 0; }
+    strong { font-weight: 700; }
+    a { color: var(--orange); }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--s3); }
+    section { padding: var(--s6) 0; }
+    .section-light { background: var(--off-white); }
+    .section-white { background: var(--white); }
+    .section-teal { background: var(--teal); color: var(--off-white); }
+    .section-teal h2, .section-teal h3 { color: var(--white); }
+    .section-teal .muted { color: rgba(246, 244, 239, 0.78); }
+
+    .kicker {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: var(--s2);
+    }
+    .lede { font-size: clamp(19px, 2.2vw, 22px); }
+    .muted { color: var(--muted); }
+
+    /* Hero */
+    .hero { background: var(--teal); color: var(--off-white); padding: var(--s7) 0 var(--s6); }
+    .hero h1 { font-size: clamp(36px, 6.5vw, 68px); color: var(--white); margin-bottom: var(--s3); }
+    .hero .kicker { color: var(--orange); }
+    .hero .sub { font-size: clamp(18px, 2.4vw, 22px); color: rgba(246,244,239,0.85); max-width: 40ch; }
+    .hero-meta { margin-top: var(--s5); display: flex; flex-wrap: wrap; gap: var(--s4); font-size: 15px; color: rgba(246,244,239,0.7); }
+    .hero-meta span { display: block; }
+    .hero-meta b { color: var(--white); font-weight: 700; }
+
+    /* Cards */
+    .grid { display: grid; gap: var(--s3); }
+    @media (min-width: 720px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } .grid-2 { grid-template-columns: repeat(2, 1fr); } }
+    .card {
+      background: var(--white); border: 1px solid var(--line); border-radius: 16px;
+      padding: var(--s4); height: 100%;
+    }
+    .section-teal .card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.14); }
+    .card .num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%; background: var(--orange); color: var(--near-black);
+      font-family: var(--display); font-weight: 900; font-size: 18px; margin-bottom: var(--s2);
+    }
+    .tags { list-style: none; margin-top: var(--s2); display: flex; flex-wrap: wrap; gap: var(--s1); }
+    .tags li { font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 999px; background: rgba(23,63,63,0.06); color: var(--teal); }
+    .section-teal .tags li { background: rgba(255,255,255,0.08); color: var(--off-white); }
+
+    .pill { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--near-black); background: var(--orange); padding: 4px 10px; border-radius: 999px; margin-bottom: var(--s2); }
+
+    /* Table */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+    table { width: 100%; border-collapse: collapse; min-width: 520px; }
+    th, td { text-align: left; padding: var(--s2) var(--s3); border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+    tbody tr:last-child td { border-bottom: none; }
+    td .cost { font-family: var(--display); font-weight: 900; font-size: 20px; color: var(--teal); white-space: nowrap; }
+    .total-row td { background: rgba(254,110,54,0.08); }
+    .total-row .cost { color: var(--orange); }
+
+    .note { font-size: 15px; color: var(--muted); margin-top: var(--s2); }
+
+    /* Intro split */
+    .lead-block { max-width: 62ch; }
+
+    /* Timeline */
+    .steps { list-style: none; counter-reset: step; }
+    .steps li { position: relative; padding-left: var(--s5); margin-bottom: var(--s3); }
+    .steps li:last-child { margin-bottom: 0; }
+    .steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 0;
+      width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: var(--near-black);
+      font-family: var(--display); font-weight: 900; font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .steps li b { font-family: var(--display); font-weight: 700; }
+
+    /* CTA */
+    .cta { background: var(--near-black); color: var(--off-white); text-align: center; }
+    .cta h2 { color: var(--white); }
+    .btn {
+      display: inline-block; background: var(--orange); color: var(--near-black);
+      font-weight: 700; text-decoration: none; padding: var(--s2) var(--s4);
+      border-radius: 999px; margin-top: var(--s3); font-size: 17px;
+    }
+    .btn:focus-visible, a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+
+    footer { background: var(--near-black); color: rgba(246,244,239,0.6); padding: var(--s5) 0; font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s2); }
+
+    .draft-banner { background: var(--orange); color: var(--near-black); text-align: center; font-size: 13px; font-weight: 700; padding: var(--s1); letter-spacing: 0.04em; }
+  </style>
+</head>
+<body>
+  <div class="draft-banner">DRAFT FOR REVIEW &middot; NOT YET SENT</div>
+
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker">Partnership Proposal &middot; for the Conexxus founding team</p>
+      <h1>Let us build the next part of Conexxus, together.</h1>
+      <p class="sub">Design, AI, and community to take Conexxus from real early traction to a daily habit. Not as a vendor you bill by the hour, but as a partner who builds.</p>
+      <div class="hero-meta">
+        <span><b>Prepared by</b> Aldo Calitz</span>
+        <span><b>Role</b> Fractional Head of Design &amp; AI Implementation</span>
+        <span><b>Focus</b> Website &amp; product, workflow automation, AI WhatsApp concierge</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section-light">
+      <div class="wrap lead-block">
+        <p class="kicker">The opportunity</p>
+        <h2>You are at the moment that decides a marketplace.</h2>
+        <p class="lede">Conexxus has built something real: South Africa's expert network, where people get paid, trustworthy advice from verified professionals over email, voice notes, or video. The first professionals are on, the first consultations are done, and the satisfaction is there.</p>
+        <p>What happens next is not about whether the idea works. It is about whether the platform reaches the liquidity, the trust, and the intelligence that turn an early product into a habit. That next step is design, AI, and community. It is exactly the work I do, and I would rather help build it than watch from the outside.</p>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="wrap">
+        <p class="kicker">How I fit in</p>
+        <h2>What I bring to Conexxus.</h2>
+        <p class="lead-block muted" style="margin-bottom: var(--s5);">Ten years in product, seven in startups, four leading teams. Founding designer, principal product designer, and head of design. I have built design functions from nothing, run AI strategy and development for large organisations, and built communities hands-on. Three of those map straight onto what Conexxus needs next.</p>
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>AI you can ship</h3>
+            <p class="muted">AI adoption and development with Adidas, Berg, and Copenhagen Airport. The experience to turn your "AI-Powered Matching, Coming Soon" into something live, starting small.</p>
+          </div>
+          <div class="card">
+            <h3>Liquidity and trust</h3>
+            <p class="muted">A two-sided marketplace lives on community before features. Getting professionals on, getting seekers to a first consultation, making both sides feel the platform is alive. Hands-on, including community bots at Kudos.</p>
+          </div>
+          <div class="card">
+            <h3>Conversational AI</h3>
+            <p class="muted">Shipped AI WhatsApp bots end to end, on the channel South Africans actually use, where voice notes are native, just like your model.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-teal">
+      <div class="wrap">
+        <p class="kicker">The ideas</p>
+        <h2>What I would build first.</h2>
+        <p class="muted lead-block" style="margin-bottom: var(--s5);">Concrete and shippable, not a retainer or a deck. Three deliverables, each with a clear definition of done.</p>
+        <div class="grid grid-3">
+          <div class="card">
+            <span class="num">1</span>
+            <h3>Website &amp; product redesign</h3>
+            <p class="muted">Beyond the marketing pages: the flows that make a marketplace convert. How a seeker finds and books the right professional, how a professional onboards and earns verified status, and how trust is made visible at the moment someone decides to pay.</p>
+            <ul class="tags"><li>Mobile-first</li><li>WCAG 2.2 AA</li><li>Core Web Vitals</li><li>8pt grid</li></ul>
+          </div>
+          <div class="card">
+            <span class="num">2</span>
+            <h3>Workflow automation</h3>
+            <p class="muted">Your promise rests on verification, and onboarding professionals is the growth bottleneck. I would take the onboarding and verification workflow, the ID checks, credential checks, and first reviews, and turn it into a smooth, mostly automated process, so the network scales without losing rigour.</p>
+            <ul class="tags"><li>Verification</li><li>Onboarding</li><li>Less manual work</li></ul>
+          </div>
+          <div class="card">
+            <span class="pill">First live AI</span>
+            <span class="num">3</span>
+            <h3>WhatsApp matching concierge</h3>
+            <p class="muted">An AI assistant on WhatsApp that captures what a seeker needs, matches them to the right verified professional, and routes them to book. The first working piece of the AI matching your site already promises, on the channel your market lives on.</p>
+            <ul class="tags"><li>Intent capture</li><li>Voice notes</li><li>Smart matching</li><li>Book in-platform</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light">
+      <div class="wrap">
+        <p class="kicker">The costs</p>
+        <h2>What the work is worth.</h2>
+        <p class="lead-block muted" style="margin-bottom: var(--s4);">Clear value for clear work. The website is anchored to a known build price; the two bespoke builds are quoted precisely after a short scoping session. Figures below are indicative and confirmed before we begin.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Deliverable</th><th>What it covers</th><th>Investment</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Website &amp; product redesign</strong></td>
+                <td class="muted">Marketing site plus the core marketplace conversion flows, to full technical standards.</td>
+                <td><span class="cost">from R30,000</span></td>
+              </tr>
+              <tr>
+                <td><strong>Workflow automation</strong></td>
+                <td class="muted">Professional onboarding and verification, automated.</td>
+                <td><span class="cost">from R45,000</span></td>
+              </tr>
+              <tr>
+                <td><strong>WhatsApp matching concierge</strong></td>
+                <td class="muted">AI concierge MVP: capture, match, route to book.</td>
+                <td><span class="cost">from R65,000</span></td>
+              </tr>
+              <tr>
+                <td><strong>Design &amp; AI leadership</strong></td>
+                <td class="muted">Senior direction across the build, plus the design system foundation.</td>
+                <td><span class="cost">included</span></td>
+              </tr>
+              <tr class="total-row">
+                <td><strong>Indicative total</strong></td>
+                <td class="muted">The value of the work I would contribute in phase one.</td>
+                <td><span class="cost">from R140,000</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Indicative figures, confirmed after a short scoping session. One structured revision round per deliverable is included. Third-party platform and licence costs (WhatsApp Business, hosting, and similar) are carried by Conexxus directly.</p>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="wrap lead-block">
+        <p class="kicker">The model</p>
+        <h2>I invest the work, not a bill.</h2>
+        <p class="lede">Rather than charging Conexxus this amount as a fee, I contribute it as my investment into the business and take equity in exchange. I succeed only when Conexxus does.</p>
+        <p>The equity is earned as the work lands: a share is recognised as each of the three builds is accepted against its agreed definition of done. The specific terms we agree together and document properly, with brief legal and tax sign-off, so the partnership is real and protected from day one. If the role continues beyond this first phase, ongoing contribution earns ongoing equity in the normal way.</p>
+      </div>
+    </section>
+
+    <section class="section-light">
+      <div class="wrap lead-block">
+        <p class="kicker">The role</p>
+        <h2>Fractional Head of Design &amp; AI Implementation.</h2>
+        <p>I propose joining around two focused days a week. Fractional is deliberate: you get senior design and AI leadership without the cost of a full-time executive hire, at the stage when that leadership matters most. Beyond the three builds, the role means owning the design system, the AI roadmap, and the community engine as Conexxus grows.</p>
+      </div>
+    </section>
+
+    <section class="section-teal">
+      <div class="wrap">
+        <p class="kicker">The shape of it</p>
+        <h2>An indicative timeline.</h2>
+        <p class="muted lead-block" style="margin-bottom: var(--s5);">A shape, not a commitment, confirmed once we scope together. The builds overlap, so phase one is realistically six to eight weeks of delivery once we begin.</p>
+        <div class="grid grid-2">
+          <div class="card"><h3>Weeks 1 to 2</h3><p class="muted">Align on the partnership, confirm scope and costs, sign a single clean agreement.</p></div>
+          <div class="card"><h3>Week 2 to 3</h3><p class="muted">Discovery: redesign direction, the workflow to automate, and the concierge scope.</p></div>
+          <div class="card"><h3>Weeks 3 to 7</h3><p class="muted">Build: website and product flows, the onboarding automation, and the WhatsApp concierge, overlapping where sensible.</p></div>
+          <div class="card"><h3>Week 8</h3><p class="muted">Acceptance against each milestone, launch, and handover.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-white">
+      <div class="wrap lead-block">
+        <p class="kicker">Next steps</p>
+        <h2>How we begin.</h2>
+        <ol class="steps">
+          <li><b>A conversation</b> to confirm the role and the partnership principle.</li>
+          <li><b>A short discovery session</b> to scope the workflow and the concierge, so we can fix the figures precisely.</li>
+          <li><b>Brief legal and tax sign-off,</b> then a single agreement, and we start.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap">
+        <h2>I am excited about what you are building.</h2>
+        <p class="muted" style="max-width: 46ch; margin: 0 auto;">And about building the next part of it with you. Let us find a time to talk it through.</p>
+        <a class="btn" href="mailto:aldo.calitz@gmail.com?cc=aldo@uxconstellation.com">Start the conversation</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>Partnership proposal for Conexxus &middot; prepared by Aldo Calitz</span>
+      <span>Constellation &middot; the cosmic compass for UX excellence</span>
+    </div>
+  </footer>
+</body>
+</html>

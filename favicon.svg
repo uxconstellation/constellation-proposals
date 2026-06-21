@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="Constellation">
+  <rect width="32" height="32" rx="7" fill="#173F3F"/>
+  <!-- Cosmic compass: a four-point star with smaller companions -->
+  <path d="M16 5.5 L18 14 L26.5 16 L18 18 L16 26.5 L14 18 L5.5 16 L14 14 Z" fill="#FE6E36"/>
+  <circle cx="24.5" cy="8" r="1.4" fill="#F6F4EF"/>
+  <circle cx="8" cy="23.5" r="1" fill="#F6F4EF"/>
+</svg>
