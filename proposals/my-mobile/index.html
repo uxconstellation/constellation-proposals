@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Mobile ZA — AI Marketing Activation | Constellation</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #173F3F;
+      --orange:     #FE6E36;
+      --black:      #1B1C21;
+      --darkbg:     #160C15;
+      --white:      #FFFFFF;
+      --text-light: rgba(255,255,255,0.72);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    em { font-style: normal; color: var(--orange); }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    nav .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 2.5rem 6rem;
+      overflow: hidden;
+      background: var(--darkbg);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(23,63,63,0.9) 0%, rgba(22,12,21,0.95) 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .eyebrow span {
+      display: inline-block;
+      width: 32px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 3rem;
+      max-width: 95%;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-meta-item value {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* FLOATING ELEMENTS */
+    .floating-orb {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .orb-1 { width: 120px; height: 120px; background: var(--orange); right: 10%; top: 20%; animation: float 6s ease-in-out infinite; }
+    .orb-2 { width: 80px; height: 80px; background: var(--teal); right: 5%; top: 50%; animation: float 8s ease-in-out infinite reverse; }
+    .orb-3 { width: 60px; height: 60px; background: var(--orange); right: 15%; bottom: 15%; animation: float 7s ease-in-out infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* INTRO STRIP */
+    .intro-strip {
+      background: var(--orange);
+      padding: 3rem 2.5rem;
+    }
+
+    .intro-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .big-num {
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .intro-strip p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.92);
+      max-width: 620px;
+    }
+
+    /* SECTIONS */
+    .section { padding: 7rem 2.5rem; }
+    .section--dark { background: var(--black); }
+    .section--alt { background: rgba(23,63,63,0.12); }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    /* GRIDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* CHALLENGE CARDS */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .challenge-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .challenge-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      color: var(--white);
+    }
+
+    .challenge-item p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* COMPARISON TABLE */
+    .feature-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      font-size: 0.88rem;
+    }
+
+    .feature-table th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .feature-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-light);
+      vertical-align: top;
+    }
+
+    .feature-table td:first-child { color: var(--white); font-weight: 500; }
+
+    /* TIMELINE */
+    .timeline { margin-top: 4rem; }
+
+    .timeline-item {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .timeline-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .timeline-body h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-body p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .weeks {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-light);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tag--orange {
+      background: rgba(254,110,54,0.15);
+      color: var(--orange);
+      border-color: rgba(254,110,54,0.3);
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .phase-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.09);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      position: relative;
+    }
+
+    .pricing-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.09);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(254,110,54,0.3);
+    }
+
+    .pricing-card.recommended {
+      border-color: var(--orange);
+      background: rgba(254,110,54,0.05);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 0 0 10px 10px;
+      white-space: nowrap;
+    }
+
+    .pricing-card-head {
+      padding: 2rem 1.75rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .pricing-tier-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-card-head h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .price-amount {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .price-period {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    .price-total {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.4rem;
+    }
+
+    .pricing-card-body {
+      padding: 1.5rem 1.75rem;
+      flex: 1;
+    }
+
+    .pricing-card-body p.best-for {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .feature-list { list-style: none; }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .feature-list li:last-child { border-bottom: none; }
+
+    .feature-list li::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FE6E36' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .phase-onceoff {
+      grid-column: 1 / -1;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(23,63,63,0.2);
+      padding: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .phase-onceoff .phase-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .phase-onceoff h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+
+    .phase-onceoff p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    .phase-onceoff .phase-price {
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .phase-onceoff .phase-price small {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-light);
+      letter-spacing: 0;
+      margin-top: 0.25rem;
+    }
+
+    .pricing-note {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.5rem;
+    }
+
+    /* SLA GRID */
+    .sla-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .sla-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .sla-item h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sla-item h4::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .sla-item p {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+      margin: 0 2.5rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--darkbg);
+      padding: 6rem 2.5rem;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 70%);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .cta-content h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin: 1rem 0 1.25rem;
+    }
+
+    .cta-content > p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 3rem;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
+      margin-bottom: 3rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-item p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin: 0;
+      padding-top: 0.35rem;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 1rem 2.25rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .phase-onceoff { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .floating-orb { display: none; }
+      .grid-2, .challenge-grid, .sla-grid { grid-template-columns: 1fr; }
+      .intro-strip-inner { flex-direction: column; gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="assets/logo.png" alt="Constellation" style="height: 32px;" />
+    <span class="nav-tag">Confidential Proposal</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span></span> My Mobile ZA x Constellation <span></span></div>
+      <h1>The platform is built.<br />Now make the market <em>know it.</em></h1>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <label>Client</label>
+          <value>My Mobile ZA</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Scope</label>
+          <value>AI Marketing Activation</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Phase 1</label>
+          <value>R20,000 once-off</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Retainer from</label>
+          <value>R17,000 / month</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Prepared by</label>
+          <value>Aldo Calitz, Constellation</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Date</label>
+          <value>June 2026</value>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="big-num">11</div>
+      <p>Keshav built an 11-agent AI marketing platform before most brands have a content calendar. Whatto changes how blue-collar South Africa accesses mobile devices. The FMB partnership is an untapped distribution channel. The problem is not ideas. It is translation: consumers know iStore, not My Mobile. Constellation closes that gap.</p>
+    </div>
+  </div>
+
+  <!-- 01 THE OPPORTUNITY -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">01 — The Opportunity</div>
+      <div class="grid-2">
+        <div>
+          <h2>A smart engine<br />needs a road to <em>drive on.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem;">My Mobile has the infrastructure competitors are still trying to build: a fully agentic marketing platform, a financing product purpose-built for the SA market, and a growing B2C Shopify presence. What is missing is the layer between the engine room and the customer: consistent content, a recognisable brand voice, and an education strategy that explains why contract beats prepaid and how Whatto makes it possible.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">This engagement has two stages. First, a clear-eyed assessment of what exists and what gaps remain. Then, an activation layer: deploying the platform, training the brand identity into the AI agents, and building a content engine that runs.</p>
+        </div>
+      </div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <h4>Marketing inconsistency</h4>
+          <p>No regular posting cadence, no content strategy in market. The platform is built; the output is not yet flowing. Consumers cannot buy from a brand they do not see.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Brand recognition gap</h4>
+          <p>Consumers know iStore. My Mobile is the brand doing more for the South African market, but that story is not being told at scale or with enough consistency to land.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>EVP and Whatto education</h4>
+          <p>The blue-collar audience needs a clear reason to choose contract over prepaid, and a plain-language explanation of how Whatto financing works. No current content addresses this directly.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Platform not yet deployed</h4>
+          <p>Keshav's 11-agent dashboard is locally hosted. It needs a live environment, CI training, and a workflow before the team can use it reliably. The asset exists; it is not activated.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02 BEFORE / AFTER -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">02 — Before + After Constellation</div>
+      <h2 style="margin-bottom: 2rem;">What changes with this engagement.</h2>
+      <table class="feature-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Current State</th>
+            <th>Post-Constellation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Marketing platform</td>
+            <td>Built, locally hosted, unused in production</td>
+            <td>Live on hosting, CI trained in, content flowing weekly</td>
+          </tr>
+          <tr>
+            <td>Content cadence</td>
+            <td>Irregular, reactive, no calendar</td>
+            <td>Scheduled calendar, SA-localized tone, consistent posting rhythm</td>
+          </tr>
+          <tr>
+            <td>Brand recognition</td>
+            <td>Category invisible behind iStore</td>
+            <td>Distinct voice, recognisable content format, growing organic reach</td>
+          </tr>
+          <tr>
+            <td>EVP education</td>
+            <td>No content for contract vs. prepaid decision</td>
+            <td>Tips and tricks bank, TikTok / Shorts channel, Whatto explainer series</td>
+          </tr>
+          <tr>
+            <td>Whatto / financing</td>
+            <td>Product exists, not amplified</td>
+            <td>Dedicated short-form content series, FMB app tie-in messaging</td>
+          </tr>
+          <tr>
+            <td>Shopify (B2C)</td>
+            <td>Live but not leveraged for marketing</td>
+            <td>Shopify MCP connected, non-technical updates fast, campaign-linked</td>
+          </tr>
+          <tr>
+            <td>Agency spend</td>
+            <td>R300K–R500K/year for current strategy</td>
+            <td>Leaner, AI-augmented model at a fraction of traditional agency cost</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 PHASES -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">03 — Engagement Phases</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Two phases.<br /><em>First content live</em><br />in 4 weeks.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Phase 1 is a bounded, once-off assessment. It produces a clear picture of what exists, what gaps need closing, and a prioritised roadmap. Phase 2 is the ongoing activation: platform live, brand identity trained, content engine running, performance tracked monthly.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-body">
+            <div class="weeks">Weeks 1–2 — Assessment (Once-off)</div>
+            <h3>Understand what exists. Map the gaps. Build the plan.</h3>
+            <p>Full audit of Keshav's 11-agent platform (architecture, agent roles, CI readiness, hosting requirements). Review of B2C Shopify and B2B WordPress presence. Assessment of the existing agency marketing strategy (R300K–R500K/yr). Competitive landscape review: iStore, Incredible Connection, and Fono Yum / PIP-style financing content. EVP audience analysis: what the blue-collar segment needs to hear to act. Deliverable: written assessment report with prioritised recommendations and activation roadmap.</p>
+            <div class="timeline-tags">
+              <span class="tag">Platform audit</span>
+              <span class="tag">B2C Shopify review</span>
+              <span class="tag">Competitive landscape</span>
+              <span class="tag">EVP audience analysis</span>
+              <span class="tag tag--orange">Report + roadmap delivered</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-body">
+            <div class="weeks">Weeks 3–4 — Platform Activation (Month 1 of retainer)</div>
+            <h3>Deploy the platform. Train the brand identity. Seed the calendar.</h3>
+            <p>Deploy Keshav's dashboard to a live hosting environment (GitHub Pages or Cloudflare). Train the brand identity (tone, vocabulary, SA market context) into the Claude-powered content agents. Set up the content calendar with first four weeks of scheduled posts. Connect Shopify MCP for non-technical B2C updates. Establish UTM tracking and Google Analytics baseline for performance reporting.</p>
+            <div class="timeline-tags">
+              <span class="tag">Platform deployed</span>
+              <span class="tag">CI training complete</span>
+              <span class="tag">Content calendar seeded</span>
+              <span class="tag">Shopify MCP live</span>
+              <span class="tag tag--orange">First content live</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-body">
+            <div class="weeks">Month 2 — EVP and Whatto Content Series</div>
+            <h3>Education content for the audience that needs it most.</h3>
+            <p>Launch tips and tricks content bank (SA-specific device advice, not repurposed overseas content). Build out the contract vs. prepaid education series: short-form TikTok / YouTube Shorts format, localized language, real SA scenarios. Develop the Whatto explainer series: how financing works, real examples, positioned similarly to Fono Yum / PIP ads. Tie FMB app messaging into B2C campaign touchpoints to drive traffic to My Mobile's site.</p>
+            <div class="timeline-tags">
+              <span class="tag">Tips and tricks bank</span>
+              <span class="tag">Contract vs. prepaid series</span>
+              <span class="tag">Whatto explainers</span>
+              <span class="tag">FMB tie-in content</span>
+              <span class="tag tag--orange">Education engine running</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">04</div>
+          <div class="timeline-body">
+            <div class="weeks">Month 3 onwards — Consistent cadence and performance loop</div>
+            <h3>Measure, optimise, scale.</h3>
+            <p>Monthly performance reviews: content reach, engagement rate, Shopify traffic attribution, and conversion. Optimise agent outputs based on what is working. Expand content formats as budget and results allow. Strategic reviews with Satish each quarter. Ongoing brand voice enforcement across all AI-generated outputs to ensure consistency as the team grows.</p>
+            <div class="timeline-tags">
+              <span class="tag">Monthly reporting</span>
+              <span class="tag">Performance loop</span>
+              <span class="tag">Brand voice enforcement</span>
+              <span class="tag tag--orange">Consistent cadence established</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04 INVESTMENT -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">04 — Investment</div>
+      <div class="grid-2" style="margin-bottom: 2rem;">
+        <div>
+          <h2>Transparent rates.<br /><em>No agency markup.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">All work is billed at an hourly rate against agreed scopes. Phase 1 is a fixed once-off engagement. Retainer hours are pre-committed monthly, giving the team predictable capacity without surprise invoices. For context: the current agency strategy runs R300K–R500K per year. Our model delivers more with less.</p>
+        </div>
+      </div>
+
+      <!-- PHASE 1 ONCE-OFF -->
+      <div class="phase-onceoff">
+        <div>
+          <div class="phase-label">Phase 1 — Once-off</div>
+          <h4>Assessment and Recommendations</h4>
+          <p>2 weeks. 20 hours at R1,000 / hr. Fixed scope: platform audit, competitive review, EVP audience analysis, written report and activation roadmap. No retainer commitment required to complete Phase 1.</p>
+        </div>
+        <div>
+          <div class="feature-list" style="margin-top: 0;">
+            <ul class="feature-list">
+              <li>11-agent platform audit and CI gap analysis</li>
+              <li>B2C Shopify and B2B WordPress review</li>
+              <li>Competitive landscape and iStore positioning report</li>
+              <li>EVP / blue-collar audience content strategy</li>
+              <li>Written recommendations and prioritised roadmap</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="phase-price">
+            R20,000
+            <small>once-off · 20 hours</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- RETAINER TIERS -->
+      <h3 style="margin-bottom: 0.5rem; font-size: 1rem; color: var(--text-light); font-weight: 500; letter-spacing: 0;">Retainer options (after Phase 1, at R850/hr)</h3>
+      <div class="pricing-grid">
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Starter</div>
+            <h4>Activate and maintain</h4>
+            <div class="price-amount">R17,000 <span class="price-period">/mo</span></div>
+            <div class="price-total">20 hours/month</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">Right for getting the platform live, content flowing, and the first education series underway. Lower velocity, solid foundation.</p>
+            <ul class="feature-list">
+              <li>Platform deployment and CI training</li>
+              <li>Content calendar management (4–8 posts/mo)</li>
+              <li>Monthly performance report</li>
+              <li>Shopify MCP updates and campaign tie-ins</li>
+              <li>Async communication and strategic check-ins</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card recommended">
+          <div class="recommended-badge">Recommended</div>
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Standard</div>
+            <h4>Activate and grow</h4>
+            <div class="price-amount">R25,500 <span class="price-period">/mo</span></div>
+            <div class="price-total">30 hours/month</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">Enough capacity to run the platform, build the Whatto and EVP content series, and refine based on performance. The right pace for real brand traction.</p>
+            <ul class="feature-list">
+              <li>Everything in Starter</li>
+              <li>Whatto financing explainer series (TikTok / Shorts)</li>
+              <li>Contract vs. prepaid education content bank</li>
+              <li>Tips and tricks SA content (device-specific)</li>
+              <li>FMB app tie-in content and campaign messaging</li>
+              <li>A/B testing via existing platform tools</li>
+              <li>Monthly 60-min strategy review with Satish</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Growth</div>
+            <h4>Activate and scale</h4>
+            <div class="price-amount">R34,000 <span class="price-period">/mo</span></div>
+            <div class="price-total">40 hours/month</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">For when the brand gains traction and needs more throughput: more content formats, deeper platform optimisation, and campaign-level execution.</p>
+            <ul class="feature-list">
+              <li>Everything in Standard</li>
+              <li>Expanded content formats (video scripts, UGC briefs)</li>
+              <li>Deeper Shopify campaign integration</li>
+              <li>Platform agent expansion and optimisation</li>
+              <li>Quarterly competitive intelligence brief</li>
+              <li>Priority response and dedicated Slack channel</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="pricing-note">All amounts exclusive of VAT. Phase 1 invoiced upon engagement start. Retainer billed monthly, due on receipt. Minimum 1-month commitment per retainer period; cancellable with 30 days written notice thereafter. Third-party costs (hosting, tooling, paid distribution) quoted separately and passed through at cost.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 HOW WE WORK -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">05 — How We Work Together</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Clear process.<br /><em>No surprises.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">All Constellation engagements are governed by a signed Statement of Work and an NDA before any work begins. The working model is built around your team's existing tools and pace, not ours.</p>
+        </div>
+      </div>
+
+      <div class="sla-grid">
+        <div class="sla-item">
+          <h4>NDA and Statement of Work</h4>
+          <p>Both parties sign an NDA and formal SOW before work begins. The SOW confirms scope, deliverables, timeline, revision policy, and acceptance criteria. No scope changes proceed without a written amendment and approval.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Phase-gated delivery</h4>
+          <p>Phase 1 (assessment) completes with your sign-off on the recommendations report before Phase 2 (activation) begins. Nothing advances without a clear approval milestone. Transparent progress throughout.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Working with your AI stack</h4>
+          <p>Constellation works alongside the team's existing tools: Copilot (most used), Manus (Satish's preference), Claude, ChatGPT. We do not replace your stack; we make the marketing platform built on it actually produce output.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Communication and cadence</h4>
+          <p>Async-first with weekly progress updates. Monthly strategy review with Satish. Direct access to Aldo for strategic decisions. Platform-level work coordinated directly with Keshav and Arianna as needed.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Hourly transparency</h4>
+          <p>Retainer hours are logged and reported monthly. If a month runs under the committed hours, unused time rolls into a bank for burst work the following month. No hours are silently absorbed.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Intellectual property</h4>
+          <p>All deliverables (strategy documents, content frameworks, platform configuration, training data) transfer to My Mobile upon full payment. Constellation retains the right to reference the engagement as a case study unless otherwise agreed in the SOW.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-content">
+      <div class="eyebrow" style="justify-content: center;"><span></span> Next Steps <span></span></div>
+      <h2>From built to <em>known.</em></h2>
+      <p>Four steps from this proposal to first content live.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <p>Review this proposal. If aligned, Constellation issues a combined NDA and Statement of Work covering Phase 1 scope, timeline, deliverables, and terms. Both parties sign via e-sign before work begins.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <p>Phase 1 kicks off. Aldo reviews Keshav's platform, audits the Shopify and WordPress presence, assesses the existing agency strategy, and maps the EVP audience and Whatto content opportunity. Two-week window, async-friendly.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <p>Assessment report delivered to Satish. Prioritised recommendations, hosting recommendation, retainer scope confirmation, and Month 1 content plan. Team reviews, approves, retainer begins.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <p>Weeks 3–4: platform deployed live, CI trained, content calendar seeded, first posts scheduled. By end of Month 1, My Mobile has a running content engine for the first time.</p>
+        </div>
+      </div>
+
+      <a href="mailto:hello@uxconstellation.com?subject=My%20Mobile%20ZA%20%E2%80%94%20Let%27s%20Begin&body=Hi%20Aldo%2C%0A%0AI%27ve%20reviewed%20the%20proposal%20and%20I%27m%20ready%20to%20move%20forward.%0A%0APlease%20send%20the%20NDA%20and%20Statement%20of%20Work%20for%20signature.%0A%0ABest%2C%0A" class="btn-submit">
+        Begin Phase 1 &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <img src="assets/logo.png" alt="Constellation" style="height: 24px; opacity: 0.8;" />
+      <p>AI Marketing Activation for My Mobile ZA · June 2026</p>
+      <p>Confidential. Prepared by Aldo Calitz.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
