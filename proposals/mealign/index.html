@@ -943,7 +943,53 @@
       70%      { transform: translate(-25px,35px) scale(0.93); }
     }
 
-    /* ===== PHASE ACCORDION ===== */
+    /* ===== TIMELINE FOCUS / DIM ===== */
+    .timeline:hover .timeline-item {
+      opacity: 0.28;
+    }
+    .timeline:hover .timeline-item:hover {
+      opacity: 1;
+    }
+    .timeline-item {
+      cursor: default;
+      transition: opacity 0.38s ease, border-left-color 0.3s ease, padding-left 0.3s ease;
+      border-left: 3px solid transparent;
+      padding-left: 0;
+    }
+    .timeline:hover .timeline-item:hover {
+      border-left-color: var(--orange);
+      padding-left: 1.25rem;
+    }
+    .timeline:hover .timeline-item:hover .timeline-dot {
+      background: var(--orange);
+      box-shadow: 0 0 0 10px rgba(254,110,54,0.15);
+    }
+
+    /* ===== HERO LOGO REVEAL ===== */
+    .hero-logo-reveal {
+      position: absolute;
+      right: 6%;
+      top: 50%;
+      transform: translateY(-50%) scale(0.88);
+      width: 260px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.65s ease, transform 0.65s ease;
+      filter: brightness(20) saturate(0);
+      -webkit-mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, black 25%, transparent 75%);
+      mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, black 25%, transparent 75%);
+    }
+    .hero-logo-reveal.visible {
+      opacity: 0.14;
+      transform: translateY(-50%) scale(1);
+    }
+    .hero-logo-reveal img {
+      width: 100%;
+      display: block;
+    }
+
+    /* ===== PHASE ACCORDION (unused — kept for safety) ===== */
     .phase-accordion {
       display: flex;
       gap: 1.25rem;
@@ -1221,6 +1267,9 @@
     <div class="floating-orb orb-2"></div>
     <div class="floating-orb orb-3"></div>
     <div class="floating-orb orb-4"></div>
+    <div class="hero-logo-reveal" id="heroLogoReveal">
+      <img src="assets/logo.png" alt="" />
+    </div>
     <div class="hero-content">
       <div class="eyebrow"><span></span> Mealign x Constellation <span></span></div>
       <h1>Prescribe it.<br />Deliver it.<br />Keep them <em>for life.</em></h1>
@@ -1440,114 +1489,78 @@
         </div>
       </div>
 
-      <!-- PHASE ACCORDION -->
-      <div class="phase-accordion" id="phaseAccordion">
+      <div class="timeline">
 
-        <!-- PHASE 1 -->
-        <div class="phase-panel active" data-phase="0">
-          <div class="pp-collapsed">
-            <div class="pp-num">01</div>
-            <span class="pp-vtitle">Week 1 · Marketing Site</span>
-          </div>
-          <div class="pp-expanded">
-            <div class="pp-head">
-              <div class="pp-badge">Phase 1 · Week 1 · Marketing Website</div>
-              <h3>The platform's public face.<br/>Built to convert.</h3>
-            </div>
-            <div class="pp-divider"></div>
-            <div class="pp-content">
-              <p><strong style="color:var(--white)">Hero and landing page:</strong> Full-screen hero with Mealign's brand expression, a clear primary headline, and a direct call to action. Designed to the Voy and Numan benchmark: clinical credibility combined with a premium wellness aesthetic. Mobile-first, fast-loading, built for an audience that knows what peptides are.</p>
-              <p><strong style="color:var(--white)">How it works:</strong> A clear three- or four-step section explaining the Mealign journey: consult, prescribe, receive, align. Removes the friction of explaining a new-category product to an informed audience.</p>
-              <p><strong style="color:var(--white)">FAQ and contact:</strong> Clinical and practical questions answered upfront. Reduces pre-signup uncertainty and builds trust with a health-conscious audience that does their research before committing.</p>
-              <p><strong style="color:var(--white)">Signup capture:</strong> Waitlist or account creation flow connected directly to the Phase 2 web app. Every signup on the marketing site feeds directly into the member base.</p>
-              <div class="timeline-tags" style="margin-top:1.25rem">
-                <span class="tag">Landing page</span>
-                <span class="tag">Hero section</span>
-                <span class="tag">How it works</span>
-                <span class="tag">FAQ</span>
-                <span class="tag">Contact section</span>
-                <span class="tag">Signup / waitlist capture</span>
-                <span class="tag">Mobile-first</span>
-                <span class="tag">SEO foundations</span>
-                <span class="tag tag--orange">Marketing site live</span>
-              </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 1 · Week 1 · Marketing Website</div>
+            <h3>The platform's public face. Built to convert.</h3>
+            <p><strong style="color:var(--white)">Hero and landing page:</strong> Full-screen hero with Mealign's brand expression, a clear primary headline, and a direct call to action (waitlist or signup). Designed to the Voy and Numan benchmark: clinical credibility combined with a premium wellness aesthetic. Mobile-first, fast-loading, and built for the audience that knows what peptides are and what they can do.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">How it works:</strong> A simple, clear three- or four-step section explaining the Mealign journey: consult, prescribe, receive, align. Removes the friction of explaining a new-category product.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">FAQ and contact:</strong> Clinical and practical questions answered upfront. Reduces pre-signup uncertainty and builds trust with a health-conscious audience that does their research before committing.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Signup capture:</strong> Waitlist or account creation flow connected directly to the Phase 2 web app. Every signup captured on the marketing site feeds directly into the member base.</p>
+            <div class="timeline-tags">
+              <span class="tag">Landing page</span>
+              <span class="tag">Hero section</span>
+              <span class="tag">How it works</span>
+              <span class="tag">FAQ</span>
+              <span class="tag">Contact section</span>
+              <span class="tag">Signup / waitlist capture</span>
+              <span class="tag">Mobile-first</span>
+              <span class="tag">SEO foundations</span>
+              <span class="tag tag--orange">Marketing site live</span>
             </div>
           </div>
         </div>
 
-        <!-- PHASE 2 -->
-        <div class="phase-panel" data-phase="1">
-          <div class="pp-collapsed">
-            <div class="pp-num">02</div>
-            <span class="pp-vtitle">Weeks 2–4 · MVP Web App</span>
-          </div>
-          <div class="pp-expanded">
-            <div class="pp-head">
-              <div class="pp-badge">Phase 2 · Weeks 2 to 4 · MVP Web Application</div>
-              <h3>The clinical engine.<br/>Doctor portal to member dashboard.</h3>
-            </div>
-            <div class="pp-divider"></div>
-            <div class="pp-content">
-              <p><strong style="color:var(--white)">Authentication: two portals, one platform.</strong> Separate login flows for members and doctors. Role-based permissions built into the database from day one.</p>
-              <p><strong style="color:var(--white)">Booking and consultation:</strong> Members book a slot from their dashboard. The consultation happens in-platform via embedded video, no app downloads or third-party redirects. One clean experience for both sides.</p>
-              <p><strong style="color:var(--white)">Prescription management:</strong> Doctors issue prescriptions directly from the consultation interface. Stored against the member's account, triggers the subscription checkout. Full history retained and accessible to both sides.</p>
-              <p><strong style="color:var(--white)">Subscription billing:</strong> Stripe activates the subscription at prescription approval. No manual invoicing. Recurring billing automatic. Members manage their plan from their dashboard.</p>
-              <p><strong style="color:var(--white)">Member dashboard:</strong> Active prescriptions, dosage schedule, medication reminders, progress tracking, product reorder. The retention layer that keeps members engaged between consultations.</p>
-              <p><strong style="color:var(--white)">Security and compliance:</strong> GDPR-compliant from the first line: encrypted patient data, role-based access control, no anonymous access to protected records.</p>
-              <div class="timeline-tags" style="margin-top:1.25rem">
-                <span class="tag">User auth (member + doctor)</span>
-                <span class="tag">Booking calendar</span>
-                <span class="tag">Embedded video calls</span>
-                <span class="tag">Prescription issuance</span>
-                <span class="tag">Prescription dashboard</span>
-                <span class="tag">Dosage reminders</span>
-                <span class="tag">Stripe subscription billing</span>
-                <span class="tag">Secure data storage</span>
-                <span class="tag">GDPR compliance</span>
-                <span class="tag">Role-based access</span>
-                <span class="tag tag--orange">Full MVP live</span>
-              </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 2 · Weeks 2 to 4 · MVP Web Application</div>
+            <h3>The clinical engine. Doctor portal to member dashboard.</h3>
+            <p><strong style="color:var(--white)">Authentication: two portals, one platform.</strong> Separate login flows for members and doctors. Members access their personal health dashboard; doctors access their patient management interface. Role-based permissions built into the database from day one.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Booking and consultation:</strong> Members book a consultation slot from their dashboard. Doctors see their scheduled appointments. The consultation happens in-platform via embedded video with no app downloads or third-party redirects. One clean experience for both sides.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Prescription management:</strong> Doctors issue prescriptions directly from the consultation interface. The prescription is stored against the member's account, visible on their dashboard, and triggers the subscription checkout. Full history retained and accessible to both member and doctor.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Subscription billing:</strong> Stripe powers the payment layer. The subscription is activated at prescription approval, with no manual invoicing or payment delays. Recurring billing managed automatically. Members can view their billing history and manage their subscription from their dashboard.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Member dashboard, the retention layer:</strong> Active prescriptions and dosage schedule, medication reminders, progress tracking, product reorder. The dashboard is where members live between consultations: it keeps them engaged with their health protocol and connected to the platform.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Security and compliance:</strong> GDPR-compliant architecture throughout: encrypted patient data, role-based access control, no anonymous access to protected records. Built to UK health data standards from the first line of code, not retrofitted later.</p>
+            <div class="timeline-tags">
+              <span class="tag">User auth (member + doctor)</span>
+              <span class="tag">Booking calendar</span>
+              <span class="tag">Embedded video calls</span>
+              <span class="tag">Prescription issuance</span>
+              <span class="tag">Prescription dashboard</span>
+              <span class="tag">Dosage reminders</span>
+              <span class="tag">Stripe subscription billing</span>
+              <span class="tag">Product checkout</span>
+              <span class="tag">Secure data storage</span>
+              <span class="tag">GDPR compliance</span>
+              <span class="tag">Role-based access</span>
+              <span class="tag tag--orange">Full MVP live</span>
             </div>
           </div>
         </div>
 
-        <!-- PHASE 3 -->
-        <div class="phase-panel future" data-phase="2">
-          <div class="pp-collapsed">
-            <div class="pp-num">03</div>
-            <span class="pp-vtitle">Week 5+ · Wellness Ecosystem</span>
-          </div>
-          <div class="pp-expanded">
-            <div class="pp-head">
-              <div class="pp-badge">Phase 3 · Week 5+ · Quoted Separately</div>
-              <h3>The full wellness ecosystem.</h3>
-            </div>
-            <div class="pp-divider"></div>
-            <div class="pp-content">
-              <p style="color:rgba(255,255,255,0.38)">Phase 3 expands the platform from a clinical MVP into a complete member wellness environment. Scoped once the MVP is live and real member usage shapes the priorities. The goal: a platform so rich that members never need to look elsewhere for their health and performance needs.</p>
-              <div class="timeline-tags" style="margin-top:1.25rem">
-                <span class="tag tag--muted">Admin layer (users, doctors, appointments)</span>
-                <span class="tag tag--muted">Nutrition tracking</span>
-                <span class="tag tag--muted">Exercise and fitness protocols</span>
-                <span class="tag tag--muted">Progress and biometric tracking</span>
-                <span class="tag tag--muted">Supplementation records</span>
-                <span class="tag tag--muted">Blog and science content feed</span>
-                <span class="tag tag--muted">In-platform messaging</span>
-                <span class="tag tag--muted">Advanced analytics and reporting</span>
-              </div>
+        <div class="timeline-item">
+          <div class="timeline-dot future">03</div>
+          <div class="timeline-body">
+            <div class="weeks future-label">Phase 3 · Week 5+ · Quoted Separately</div>
+            <h3 style="color: rgba(255,255,255,0.5);">The full wellness ecosystem.</h3>
+            <p style="color: rgba(255,255,255,0.35);">Phase 3 expands the platform from a clinical MVP into a complete member wellness environment. The goal is a platform so rich that members never need to look elsewhere for their health and performance needs.</p>
+            <div class="timeline-tags">
+              <span class="tag tag--muted">Admin layer (users, doctors, appointments)</span>
+              <span class="tag tag--muted">Nutrition tracking</span>
+              <span class="tag tag--muted">Exercise and fitness protocols</span>
+              <span class="tag tag--muted">Progress and biometric tracking</span>
+              <span class="tag tag--muted">Supplementation records</span>
+              <span class="tag tag--muted">Blog and science content feed</span>
+              <span class="tag tag--muted">In-platform messaging (member to doctor)</span>
+              <span class="tag tag--muted">Advanced analytics and reporting</span>
             </div>
           </div>
         </div>
 
-      </div>
-
-      <!-- Phase progress indicator -->
-      <div class="phase-progress" id="phaseProgress">
-        <div class="phase-progress-dot active" data-target="0"></div>
-        <div class="phase-progress-line filled" data-line="0"></div>
-        <div class="phase-progress-dot" data-target="1"></div>
-        <div class="phase-progress-line" data-line="1"></div>
-        <div class="phase-progress-dot" data-target="2"></div>
       </div>
     </div>
   </section>
@@ -1782,35 +1795,18 @@
   </footer>
 
   <script>
-    // Phase accordion
+    // Hero logo reveal — fades in as cursor moves into right half of hero
     (function() {
-      const panels   = Array.from(document.querySelectorAll('.phase-panel'));
-      const dots     = Array.from(document.querySelectorAll('.phase-progress-dot'));
-      const lines    = Array.from(document.querySelectorAll('.phase-progress-line'));
+      const hero   = document.querySelector('.hero');
+      const reveal = document.getElementById('heroLogoReveal');
+      if (!hero || !reveal) return;
 
-      function activate(idx) {
-        panels.forEach((p, i) => p.classList.toggle('active', i === idx));
-        dots.forEach((d, i)   => d.classList.toggle('active', i === idx));
-        // fill lines up to (but not including) the active index
-        lines.forEach((l, i)  => l.classList.toggle('filled', i < idx));
-      }
-
-      panels.forEach((panel, idx) => {
-        panel.addEventListener('click', () => {
-          if (!panel.classList.contains('active')) activate(idx);
-        });
+      hero.addEventListener('mousemove', e => {
+        const rect   = hero.getBoundingClientRect();
+        const xRatio = (e.clientX - rect.left) / rect.width;
+        reveal.classList.toggle('visible', xRatio > 0.46);
       });
-
-      dots.forEach((dot, idx) => {
-        dot.addEventListener('click', () => activate(idx));
-      });
-
-      // Responsive: toggle .is-mobile based on container width, not viewport
-      const acc = document.getElementById('phaseAccordion');
-      new ResizeObserver(entries => {
-        const w = entries[0].contentRect.width;
-        acc.classList.toggle('is-mobile', w < 720);
-      }).observe(acc);
+      hero.addEventListener('mouseleave', () => reveal.classList.remove('visible'));
     })();
 
     // Cursor spotlight — tracks mouse position per card as CSS vars
