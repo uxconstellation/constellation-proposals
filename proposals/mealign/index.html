@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mealign · Platform Design & Build | Constellation</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #173F3F;
+      --orange:     #FE6E36;
+      --black:      #1B1C21;
+      --darkbg:     #160C15;
+      --white:      #FFFFFF;
+      --text-light: rgba(255,255,255,0.72);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    em { font-style: normal; color: var(--orange); }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    nav img { height: 26px; }
+
+    .nav-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 2.5rem 6rem;
+      overflow: hidden;
+      background: var(--darkbg);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(23,63,63,0.9) 0%, rgba(22,12,21,0.95) 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .eyebrow span {
+      display: inline-block;
+      width: 32px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 3rem;
+      max-width: 95%;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-meta-item value {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* FLOATING ELEMENTS */
+    .floating-orb {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.1;
+      pointer-events: none;
+    }
+
+    .orb-1 { width: 120px; height: 120px; background: var(--orange); right: 10%; top: 20%; animation: float 6s ease-in-out infinite; }
+    .orb-2 { width: 80px; height: 80px; background: var(--teal); right: 5%; top: 50%; animation: float 8s ease-in-out infinite reverse; }
+    .orb-3 { width: 60px; height: 60px; background: var(--orange); right: 15%; bottom: 15%; animation: float 7s ease-in-out infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* INTRO STRIP */
+    .intro-strip {
+      background: var(--orange);
+      padding: 3rem 2.5rem;
+    }
+
+    .intro-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .big-num {
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .intro-strip p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.92);
+      max-width: 620px;
+    }
+
+    /* SECTIONS */
+    .section { padding: 7rem 2.5rem; }
+    .section--dark { background: var(--black); }
+    .section--alt { background: rgba(23,63,63,0.12); }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    /* GRIDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* CHALLENGE CARDS */
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .challenge-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .challenge-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+      color: var(--white);
+    }
+
+    .challenge-item p {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* COMPARISON TABLE */
+    .feature-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      font-size: 0.88rem;
+    }
+
+    .feature-table th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .feature-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-light);
+      vertical-align: top;
+    }
+
+    .feature-table td:first-child { color: var(--white); font-weight: 500; }
+
+    /* TIMELINE */
+    .timeline { margin-top: 4rem; }
+
+    .timeline-item {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .timeline-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .timeline-dot.future {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.4);
+    }
+
+    .timeline-body h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-body p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-body p:last-of-type { margin-bottom: 0; }
+
+    .weeks {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .weeks.future-label { color: rgba(255,255,255,0.3); }
+
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-light);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tag--orange {
+      background: rgba(254,110,54,0.15);
+      color: var(--orange);
+      border-color: rgba(254,110,54,0.3);
+    }
+
+    .tag--muted {
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.3);
+      border-color: rgba(255,255,255,0.07);
+    }
+
+    /* TECH STACK GRID */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .tech-item {
+      padding: 1.5rem 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .tech-item .tech-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .tech-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .tech-item p {
+      font-size: 0.82rem;
+      color: var(--text-light);
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .pricing-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.09);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(254,110,54,0.3);
+    }
+
+    .pricing-card.recommended {
+      border-color: var(--orange);
+      background: rgba(254,110,54,0.05);
+    }
+
+    .recommended-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 0 0 10px 10px;
+      white-space: nowrap;
+    }
+
+    .pricing-card-head {
+      padding: 2rem 1.75rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .pricing-tier-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-card-head h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .price-amount {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .price-period {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    .price-total {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 0.4rem;
+    }
+
+    .pricing-card-body {
+      padding: 1.5rem 1.75rem;
+      flex: 1;
+    }
+
+    .pricing-card-body p.best-for {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .feature-list { list-style: none; }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .feature-list li:last-child { border-bottom: none; }
+
+    .feature-list li::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FE6E36' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .pricing-note {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.5rem;
+    }
+
+    /* SLA GRID */
+    .sla-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .sla-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .sla-item h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sla-item h4::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .sla-item p {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+      margin: 0 2.5rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--darkbg);
+      padding: 6rem 2.5rem;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 70%);
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .cta-content h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin: 1rem 0 1.25rem;
+    }
+
+    .cta-content > p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 3rem;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: left;
+      margin-bottom: 3rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-item p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin: 0;
+      padding-top: 0.35rem;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 1rem 2.25rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .floating-orb { display: none; }
+      .grid-2, .challenge-grid, .sla-grid, .tech-grid { grid-template-columns: 1fr; }
+      .intro-strip-inner { flex-direction: column; gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="assets/logo.png" alt="Constellation" style="height: 32px;" />
+    <span class="nav-tag">Confidential Proposal</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span></span> Mealign x Constellation <span></span></div>
+      <h1>Prescribe it.<br />Deliver it.<br />Keep them <em>for life.</em></h1>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <label>Client</label>
+          <value>Mealign</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Scope</label>
+          <value>Marketing Site + Web App (MVP)</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Engagement</label>
+          <value>Project Build · 2 Phases</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Total Investment</label>
+          <value>£6,000</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Timeline</label>
+          <value>16 Weeks</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Prepared by</label>
+          <value>Aldo Calitz, Constellation</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Date</label>
+          <value>July 2026</value>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="big-num">16</div>
+      <p>Sixteen weeks from brief to launch. Phase 1 builds the marketing site that converts visitors into members. Phase 2 builds the clinical web app: doctor portal, patient dashboard, video consultations, prescriptions, and subscription checkout. The model exists; Voy and Numan proved it. Mealign executes it, built right, from day one.</p>
+    </div>
+  </div>
+
+  <!-- 01 THE VISION -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">01 · The Vision</div>
+      <div class="grid-2">
+        <div>
+          <h2>Wellness meets<br />clinical precision.<br /><em>All in one place.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem;">Mealign sits at the intersection of prescription medicine and personal performance. Users consult with a licensed doctor, receive a tailored peptide prescription, and manage their entire health protocol: supplementation, dosage reminders, progress tracking, all within a single, trusted platform. It is a clinical wellness ecosystem designed to keep users aligned with their health goals long after the first prescription is filled.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">The UK market has validated the model: Voy and Numan proved that a clean, credible digital experience can make prescription wellness mainstream. Mealign takes that further, with a richer member environment designed for retention, not just conversion. This engagement builds the foundation: the marketing surface that drives acquisition, and the web app that delivers the full clinical journey.</p>
+        </div>
+      </div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <h4>No digital presence yet</h4>
+          <p>The brand and vision exist, but there is no platform to drive signups, explain the offer, or build trust with a health-conscious audience that has high expectations of digital credibility.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>The clinical workflow has to be digital-first</h4>
+          <p>Doctors need a portal that manages consultations, issues prescriptions, and handles patient records without manual friction. Getting this wrong creates compliance risk and a poor experience for both sides.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Prescriptions are sensitive data</h4>
+          <p>Patient health records, prescription history, and payment details require a security-first architecture from day one. GDPR compliance is not optional; it is the baseline for operating in this space.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Subscription checkout needs to be frictionless</h4>
+          <p>Charging at prescription approval, managing recurring subscriptions, and linking product delivery to a prescription record requires a payment layer that is both secure and seamless for the user.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Doctor time is the scarcest resource</h4>
+          <p>Every unnecessary click in the doctor portal is time taken from patient care. The doctor-side UX needs to be fast, opinionated, and purpose-built for a clinical workflow, not a generic admin interface.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Retention is the real metric</h4>
+          <p>Acquiring a member is the easy part. Keeping them engaged across nutrition, supplementation, dosage tracking, and ongoing care is what makes Mealign a platform, not just a prescription service.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02 BEFORE / AFTER -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">02 · Before + After Constellation</div>
+      <h2 style="margin-bottom: 2rem;">What the platform looks like after this build.</h2>
+      <table class="feature-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Today</th>
+            <th>Post-Build</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Marketing presence</td>
+            <td>None: no site, no signups, no brand presence online</td>
+            <td>Conversion-focused landing page targeting the peptide wellness audience, mobile-first, SEO-ready</td>
+          </tr>
+          <tr>
+            <td>User acquisition</td>
+            <td>Word of mouth only, no capture mechanism</td>
+            <td>Waitlist / signup flow on the marketing site, clear value prop, CTA funnel to the app</td>
+          </tr>
+          <tr>
+            <td>Doctor workflow</td>
+            <td>Manual, undigitised, no platform</td>
+            <td>Doctor portal: calendar, booked consultations, prescription issuance, patient record access</td>
+          </tr>
+          <tr>
+            <td>Consultation flow</td>
+            <td>None</td>
+            <td>Booking + embedded video consultation, no third-party app required for the patient</td>
+          </tr>
+          <tr>
+            <td>Prescription management</td>
+            <td>None</td>
+            <td>Prescription issued in-portal, stored securely against the user's account, accessible at any time</td>
+          </tr>
+          <tr>
+            <td>Payment and subscription</td>
+            <td>None</td>
+            <td>Stripe subscription: charged at prescription approval, recurring billing handled automatically</td>
+          </tr>
+          <tr>
+            <td>User dashboard</td>
+            <td>None</td>
+            <td>Active prescriptions, dosage reminders, medication schedule, progress tracking, product reorder</td>
+          </tr>
+          <tr>
+            <td>Data security</td>
+            <td>None</td>
+            <td>GDPR-compliant from day one: encrypted storage, role-based access, no patient data leakage</td>
+          </tr>
+          <tr>
+            <td>Design quality</td>
+            <td>Logo and basic colours only</td>
+            <td>Voy / Numan benchmark: slick, clinical, modern. Built to convert and retain a health-conscious audience</td>
+          </tr>
+          <tr>
+            <td>Future roadmap</td>
+            <td>Undefined</td>
+            <td>Phase 3 scope ready: admin layer, full wellness portal, nutrition, fitness feed, in-app messaging</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 BUILD PHASES -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">03 · Build Phases</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Two phases.<br /><em>One complete</em><br />platform.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Phase 1 is the public face of Mealign: a high-quality marketing site built to convert first-time visitors into members, with a clear clinical credibility signal and a direct path to signup. Phase 2 is the clinical engine: user and doctor portals, consultation flow, prescription management, subscription billing, and the member dashboard. Phase 3, scoped separately, expands the platform into a full wellness ecosystem.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 1 · Weeks 1 to 4 · Marketing Website</div>
+            <h3>The platform's public face. Built to convert.</h3>
+            <p><strong style="color:var(--white)">Hero and landing page:</strong> Full-screen hero with Mealign's brand expression, a clear primary headline, and a direct call to action (waitlist or signup). Designed to the Voy and Numan benchmark: clinical credibility combined with a premium wellness aesthetic. Mobile-first, fast-loading, and built for the audience that knows what peptides are and what they can do.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">How it works:</strong> A simple, clear three- or four-step section explaining the Mealign journey: consult, prescribe, receive, align. Removes the friction of explaining a new-category product.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">FAQ and contact:</strong> Clinical and practical questions answered upfront. Reduces pre-signup uncertainty and builds trust with a health-conscious audience that does their research before committing.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Signup capture:</strong> Waitlist or account creation flow connected directly to the Phase 2 web app. Every signup captured on the marketing site feeds directly into the member base.</p>
+            <div class="timeline-tags">
+              <span class="tag">Landing page</span>
+              <span class="tag">Hero section</span>
+              <span class="tag">How it works</span>
+              <span class="tag">FAQ</span>
+              <span class="tag">Contact section</span>
+              <span class="tag">Signup / waitlist capture</span>
+              <span class="tag">Mobile-first</span>
+              <span class="tag">SEO foundations</span>
+              <span class="tag tag--orange">Marketing site live</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 2 · Weeks 5 to 14 · MVP Web Application</div>
+            <h3>The clinical engine. Doctor portal to member dashboard.</h3>
+            <p><strong style="color:var(--white)">Authentication: two portals, one platform.</strong> Separate login flows for members and doctors. Members access their personal health dashboard; doctors access their patient management interface. Role-based permissions built into the database from day one.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Booking and consultation:</strong> Members book a consultation slot from their dashboard. Doctors see their scheduled appointments. The consultation happens in-platform via embedded video with no app downloads or third-party redirects. One clean experience for both sides.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Prescription management:</strong> Doctors issue prescriptions directly from the consultation interface. The prescription is stored against the member's account, visible on their dashboard, and triggers the subscription checkout. Full history retained and accessible to both member and doctor.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Subscription billing:</strong> Stripe powers the payment layer. The subscription is activated at prescription approval, with no manual invoicing or payment delays. Recurring billing managed automatically. Members can view their billing history and manage their subscription from their dashboard.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Member dashboard, the retention layer:</strong> Active prescriptions and dosage schedule, medication reminders, progress tracking, product reorder. The dashboard is where members live between consultations: it keeps them engaged with their health protocol and connected to the platform.</p>
+            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Security and compliance:</strong> GDPR-compliant architecture throughout: encrypted patient data, role-based access control, no anonymous access to protected records. Built to UK health data standards from the first line of code, not retrofitted later.</p>
+            <div class="timeline-tags">
+              <span class="tag">User auth (member + doctor)</span>
+              <span class="tag">Booking calendar</span>
+              <span class="tag">Embedded video calls</span>
+              <span class="tag">Prescription issuance</span>
+              <span class="tag">Prescription dashboard</span>
+              <span class="tag">Dosage reminders</span>
+              <span class="tag">Stripe subscription billing</span>
+              <span class="tag">Product checkout</span>
+              <span class="tag">Secure data storage</span>
+              <span class="tag">GDPR compliance</span>
+              <span class="tag">Role-based access</span>
+              <span class="tag tag--orange">Full MVP live</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot future">03</div>
+          <div class="timeline-body">
+            <div class="weeks future-label">Phase 3 · Future Build · Quoted Separately</div>
+            <h3 style="color: rgba(255,255,255,0.5);">The full wellness ecosystem.</h3>
+            <p style="color: rgba(255,255,255,0.35);">Phase 3 expands the platform from a clinical MVP into a complete member wellness environment. The goal is a platform so rich that members never need to look elsewhere for their health and performance needs.</p>
+            <div class="timeline-tags">
+              <span class="tag tag--muted">Admin layer (users, doctors, appointments)</span>
+              <span class="tag tag--muted">Nutrition tracking</span>
+              <span class="tag tag--muted">Exercise and fitness protocols</span>
+              <span class="tag tag--muted">Progress and biometric tracking</span>
+              <span class="tag tag--muted">Supplementation records</span>
+              <span class="tag tag--muted">Blog and science content feed</span>
+              <span class="tag tag--muted">In-platform messaging (member to doctor)</span>
+              <span class="tag tag--muted">Advanced analytics and reporting</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04 TECHNICAL APPROACH -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">04 · Technical Approach</div>
+      <div class="grid-2" style="margin-bottom: 2.5rem;">
+        <div>
+          <h2>Built for speed.<br /><em>Secured</em> for health data.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Mealign handles prescription data, payment records, and clinical notes. The architecture reflects that: a modern React frontend backed by Supabase for database, auth, and encrypted file storage, with Stripe for payments and an embedded video SDK for consultations. Every component is chosen for healthcare-adjacent trust requirements, not just developer convenience.</p>
+        </div>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-item">
+          <div class="tech-label">Frontend</div>
+          <h4>React + Next.js</h4>
+          <p>Component-based, fast-loading, and straightforward to expand. The marketing site and web app share a codebase, keeping long-term maintenance clean.</p>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Database + Auth</div>
+          <h4>Supabase</h4>
+          <p>PostgreSQL database with row-level security, built-in GDPR tooling, role separation between member and doctor access, and encrypted storage for clinical documents.</p>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Payments</div>
+          <h4>Stripe</h4>
+          <p>Subscription management, prescription-triggered billing, recurring payments, and member payment history. PCI-compliant out of the box, no raw card data stored.</p>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Video Consultations</div>
+          <h4>Whereby Embedded</h4>
+          <p>Browser-based video calls embedded directly into the platform. No app downloads for the member. GDPR-compliant, HIPAA-aware, simple to integrate and support.</p>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Design Reference</div>
+          <h4>Voy + Numan (UK)</h4>
+          <p>The visual benchmark for the UK prescription wellness market. Slick, clinical, and credible. We build to this aesthetic using Mealign's purple and cream brand palette.</p>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Compliance</div>
+          <h4>GDPR (UK)</h4>
+          <p>UK data protection standards applied from day one: patient data encrypted at rest, access logged, no anon access to protected records, clear data retention policies built in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 INVESTMENT -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">05 · Investment</div>
+      <div class="grid-2" style="margin-bottom: 2rem;">
+        <div>
+          <h2>One project.<br /><em>Two phases.</em><br />£6,000 total.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">The full Phase 1 + Phase 2 build comes in at £6,000 total, split across the two phases. Each phase has its own milestone payment: 50% of Phase 1 to begin, the balance on delivery. Phase 2 invoiced on commencement. This keeps cash flow predictable on both sides and ensures the build is fully funded before each phase starts.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Phase 1 is also available as a standalone if you want to launch the marketing site first and confirm market traction before committing to the full web app. Phase 3 will be quoted separately once the MVP is live and the scope for the full platform is confirmed.</p>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 1 Only</div>
+            <h4>Marketing site to market</h4>
+            <div class="price-amount">£2,500</div>
+            <div class="price-total">4 weeks · standalone option</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">Start with the marketing site. Build the audience and waitlist while Phase 2 is scoped and funded. Lower upfront commitment, faster time to a public presence.</p>
+            <ul class="feature-list">
+              <li>Full marketing landing page</li>
+              <li>Hero, how it works, FAQ, contact</li>
+              <li>Signup / waitlist capture form</li>
+              <li>Mealign brand applied (purple + cream palette)</li>
+              <li>Mobile-first, performance-optimised</li>
+              <li>SEO foundations in place</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card recommended">
+          <div class="recommended-badge">Recommended</div>
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 1 + Phase 2</div>
+            <h4>Full MVP · market to launch</h4>
+            <div class="price-amount">£6,000</div>
+            <div class="price-total">16 weeks · complete build</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">The full build: marketing site live in week 4, web app with doctor and member portals, consultations, prescriptions, and subscription billing live in week 14.</p>
+            <ul class="feature-list">
+              <li>Everything in Phase 1</li>
+              <li>Member and doctor portals (separate auth)</li>
+              <li>Booking calendar + embedded video calls</li>
+              <li>Prescription issuance and storage</li>
+              <li>Member dashboard (dosage, reminders, tracking)</li>
+              <li>Stripe subscription billing</li>
+              <li>GDPR-compliant secure data storage</li>
+              <li>Role-based access control throughout</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 3 (Future)</div>
+            <h4>Full wellness ecosystem</h4>
+            <div class="price-amount" style="font-size: 1.6rem; color: rgba(255,255,255,0.4);">TBD</div>
+            <div class="price-total">Quoted post-MVP</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">Scoped once the MVP is live and member feedback informs the full platform priorities. Includes the admin layer, full wellness portal, and content features.</p>
+            <ul class="feature-list">
+              <li>Admin layer (users, doctors, appointments)</li>
+              <li>Nutrition and fitness tracking</li>
+              <li>Supplementation and progress records</li>
+              <li>Science and blog content feed</li>
+              <li>In-platform messaging</li>
+              <li>Advanced analytics and reporting</li>
+              <li>Mobile app consideration</li>
+              <li>Full platform hardening and scale</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="pricing-note">All amounts in GBP, exclusive of VAT. Payment schedule: 50% of Phase 1 fee on signature of Statement of Work, 50% on Phase 1 delivery. Phase 2 fee invoiced 50% on commencement, 50% on delivery. Third-party tooling costs (Stripe, Whereby, hosting, domain) are passed through at cost with no markup and are not included in the above. Phase 3 scope and pricing will be presented following MVP delivery and a structured review of member feedback and platform usage.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 06 HOW WE WORK -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">06 · How We Work Together</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Clear process.<br /><em>No surprises.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">All Constellation engagements are governed by a signed Statement of Work before any build begins. The SOW locks the scope, payment milestones, revision policy, and delivery criteria for both phases. No scope changes proceed without a written amendment and approval from both parties.</p>
+        </div>
+      </div>
+
+      <div class="sla-grid">
+        <div class="sla-item">
+          <h4>NDA and Statement of Work</h4>
+          <p>Both parties sign an NDA and a formal SOW before the first line of code is written. The SOW details the full Phase 1 and Phase 2 scope, payment milestones, deliverables, and revision policy. No ambiguity on either side.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Milestone-based delivery</h4>
+          <p>Phase 1 and Phase 2 each have clear delivery milestones with sign-off points. You review what is built at each milestone before the next stage begins. No surprises at the end of a 16-week build.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Brand and design alignment</h4>
+          <p>Before any UI work begins, we align on the visual direction: type, spacing, Mealign's purple and cream palette applied correctly, and the Voy and Numan benchmark translated into something distinctly Mealign. Design sign-off happens before build.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Communication and cadence</h4>
+          <p>Async-first with weekly progress updates. Fortnightly check-in calls at key build stages. Direct access to Aldo for any design or technical decision that needs a quick turnaround. No account manager layers.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Revisions policy</h4>
+          <p>Two revision rounds included per phase, covered within the project fee. Any revision that changes agreed scope is quoted and approved separately before work begins. The SOW defines what constitutes a scope change.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Handover and IP</h4>
+          <p>All deliverables transfer to Mealign on final payment: the codebase, design assets, and any documentation. Constellation retains the right to reference the project as a case study unless otherwise agreed in the SOW.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-content">
+      <div class="eyebrow" style="justify-content: center;"><span></span> Next Steps <span></span></div>
+      <h2>Align your vision.<br /><em>Build the platform.</em></h2>
+      <p>Four steps from this proposal to Phase 1 live.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <p>Confirm the scope and agree the phase approach (Phase 1 only, or Phase 1 + 2 together). Constellation issues a combined NDA and Statement of Work. Both parties sign. First milestone invoice raised on signature.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <p>Weeks 1 to 2: Design alignment. Visual direction agreed using Mealign's brand palette, the Voy and Numan reference, and Constellation's design system. Wireframes reviewed and signed off before build begins.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <p>Weeks 3 to 4: Phase 1 build and delivery. Marketing site live: landing page, how it works, FAQ, contact, and signup capture. Sign-off triggers Phase 2 commencement and the Phase 2 deposit invoice.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <p>Weeks 5 to 14: Phase 2 build. Doctor portal, member dashboard, bookings, video consultations, prescriptions, and Stripe billing. Delivered in two milestones with review between them. Full MVP live at week 14.</p>
+        </div>
+      </div>
+
+      <a href="mailto:hello@uxconstellation.com?subject=Mealign%20%E2%80%94%20Let%27s%20Begin&body=Hi%20Aldo%2C%0A%0AI%27ve%20reviewed%20the%20proposal%20and%20I%27m%20ready%20to%20move%20forward.%0A%0APlease%20send%20the%20NDA%20and%20Statement%20of%20Work%20for%20signature.%0A%0ABest%2C%0A" class="btn-submit">
+        Begin the Build &rarr;
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <img src="assets/logo.png" alt="Constellation" style="height: 24px; opacity: 0.8;" />
+      <p>Mealign Platform Design & Build · July 2026</p>
+      <p>Confidential. Prepared by Aldo Calitz.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
