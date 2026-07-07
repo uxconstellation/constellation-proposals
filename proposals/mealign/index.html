@@ -943,6 +943,234 @@
       70%      { transform: translate(-25px,35px) scale(0.93); }
     }
 
+    /* ===== PHASE ACCORDION ===== */
+    .phase-accordion {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 4rem;
+      align-items: stretch;
+      min-height: 540px;
+    }
+
+    .phase-panel {
+      flex: 0 0 156px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      transition:
+        flex 0.68s cubic-bezier(0.77,0,0.175,1),
+        opacity 0.4s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+      opacity: 0.35;
+    }
+
+    .phase-panel.active {
+      flex: 1 1 0;
+      opacity: 1;
+      cursor: default;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 1px rgba(254,110,54,0.18), 0 20px 56px rgba(254,110,54,0.12);
+    }
+
+    .phase-panel.future.active {
+      border-color: rgba(45,27,110,0.7);
+      box-shadow: 0 0 0 1px rgba(45,27,110,0.35), 0 20px 56px rgba(45,27,110,0.18);
+    }
+
+    .phase-panel:not(.active):hover {
+      opacity: 0.62;
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    /* Collapsed strip (always visible) */
+    .pp-collapsed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.75rem 1.1rem;
+      gap: 1.5rem;
+      flex-shrink: 0;
+      width: 156px;
+    }
+
+    .pp-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .phase-panel:not(.active) .pp-num {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .phase-panel.future .pp-num {
+      background: rgba(45,27,110,0.55);
+    }
+
+    .phase-panel.active .pp-num {
+      transform: scale(1.08);
+    }
+
+    .pp-vtitle {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    /* Expanded content */
+    .pp-expanded {
+      flex: 1;
+      padding: 2rem 2rem 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .phase-panel.active .pp-expanded {
+      opacity: 1;
+      pointer-events: auto;
+      transition-delay: 0.32s;
+    }
+
+    .pp-badge {
+      font-size: 0.67rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 0.35rem;
+    }
+
+    .phase-panel.future .pp-badge { color: #9b8ed4; }
+
+    .pp-head h3 {
+      font-size: 1.35rem;
+      line-height: 1.18;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+
+    .phase-panel.future .pp-head h3 { color: rgba(255,255,255,0.4); }
+
+    .pp-content {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.25rem;
+      font-size: 0.87rem;
+      color: var(--text-light);
+      line-height: 1.72;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.1) transparent;
+    }
+
+    .pp-content p + p { margin-top: 0.85rem; }
+
+    .pp-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+
+    /* Phase progress bar under accordion */
+    .phase-progress {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 1.5rem;
+    }
+
+    .phase-progress-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      flex-shrink: 0;
+    }
+
+    .phase-progress-dot.active {
+      background: var(--orange);
+      transform: scale(1.3);
+    }
+
+    .phase-progress-dot.future { }
+
+    .phase-progress-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .phase-progress-line::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--orange);
+      width: 0%;
+      transition: width 0.68s cubic-bezier(0.77,0,0.175,1);
+    }
+
+    .phase-progress-line.filled::after { width: 100%; }
+
+    /* Mobile: vertical stack — toggled via JS ResizeObserver */
+    .phase-accordion.is-mobile {
+      flex-direction: column;
+      min-height: unset;
+    }
+    .phase-accordion.is-mobile .phase-panel {
+      flex: unset !important;
+      flex-direction: column;
+      transition: max-height 0.55s cubic-bezier(0.77,0,0.175,1), opacity 0.4s ease, border-color 0.3s ease;
+    }
+    .phase-accordion.is-mobile .phase-panel:not(.active) {
+      max-height: 82px;
+    }
+    .phase-accordion.is-mobile .phase-panel.active {
+      max-height: 1100px;
+    }
+    .phase-accordion.is-mobile .pp-collapsed {
+      flex-direction: row;
+      width: 100%;
+      padding: 1.1rem 1.25rem;
+      gap: 1rem;
+    }
+    .phase-accordion.is-mobile .pp-vtitle {
+      writing-mode: horizontal-tb;
+      transform: none;
+      letter-spacing: 0.08em;
+    }
+    .phase-accordion.is-mobile .pp-expanded {
+      padding: 0 1.25rem 1.5rem;
+    }
+
     /* ===== NAV HOVER ===== */
     nav img {
       transition: opacity 0.2s ease;
@@ -1212,78 +1440,114 @@
         </div>
       </div>
 
-      <div class="timeline">
+      <!-- PHASE ACCORDION -->
+      <div class="phase-accordion" id="phaseAccordion">
 
-        <div class="timeline-item">
-          <div class="timeline-dot">01</div>
-          <div class="timeline-body">
-            <div class="weeks">Phase 1 · Week 1 · Marketing Website</div>
-            <h3>The platform's public face. Built to convert.</h3>
-            <p><strong style="color:var(--white)">Hero and landing page:</strong> Full-screen hero with Mealign's brand expression, a clear primary headline, and a direct call to action (waitlist or signup). Designed to the Voy and Numan benchmark: clinical credibility combined with a premium wellness aesthetic. Mobile-first, fast-loading, and built for the audience that knows what peptides are and what they can do.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">How it works:</strong> A simple, clear three- or four-step section explaining the Mealign journey: consult, prescribe, receive, align. Removes the friction of explaining a new-category product.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">FAQ and contact:</strong> Clinical and practical questions answered upfront. Reduces pre-signup uncertainty and builds trust with a health-conscious audience that does their research before committing.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Signup capture:</strong> Waitlist or account creation flow connected directly to the Phase 2 web app. Every signup captured on the marketing site feeds directly into the member base.</p>
-            <div class="timeline-tags">
-              <span class="tag">Landing page</span>
-              <span class="tag">Hero section</span>
-              <span class="tag">How it works</span>
-              <span class="tag">FAQ</span>
-              <span class="tag">Contact section</span>
-              <span class="tag">Signup / waitlist capture</span>
-              <span class="tag">Mobile-first</span>
-              <span class="tag">SEO foundations</span>
-              <span class="tag tag--orange">Marketing site live</span>
+        <!-- PHASE 1 -->
+        <div class="phase-panel active" data-phase="0">
+          <div class="pp-collapsed">
+            <div class="pp-num">01</div>
+            <span class="pp-vtitle">Week 1 · Marketing Site</span>
+          </div>
+          <div class="pp-expanded">
+            <div class="pp-head">
+              <div class="pp-badge">Phase 1 · Week 1 · Marketing Website</div>
+              <h3>The platform's public face.<br/>Built to convert.</h3>
+            </div>
+            <div class="pp-divider"></div>
+            <div class="pp-content">
+              <p><strong style="color:var(--white)">Hero and landing page:</strong> Full-screen hero with Mealign's brand expression, a clear primary headline, and a direct call to action. Designed to the Voy and Numan benchmark: clinical credibility combined with a premium wellness aesthetic. Mobile-first, fast-loading, built for an audience that knows what peptides are.</p>
+              <p><strong style="color:var(--white)">How it works:</strong> A clear three- or four-step section explaining the Mealign journey: consult, prescribe, receive, align. Removes the friction of explaining a new-category product to an informed audience.</p>
+              <p><strong style="color:var(--white)">FAQ and contact:</strong> Clinical and practical questions answered upfront. Reduces pre-signup uncertainty and builds trust with a health-conscious audience that does their research before committing.</p>
+              <p><strong style="color:var(--white)">Signup capture:</strong> Waitlist or account creation flow connected directly to the Phase 2 web app. Every signup on the marketing site feeds directly into the member base.</p>
+              <div class="timeline-tags" style="margin-top:1.25rem">
+                <span class="tag">Landing page</span>
+                <span class="tag">Hero section</span>
+                <span class="tag">How it works</span>
+                <span class="tag">FAQ</span>
+                <span class="tag">Contact section</span>
+                <span class="tag">Signup / waitlist capture</span>
+                <span class="tag">Mobile-first</span>
+                <span class="tag">SEO foundations</span>
+                <span class="tag tag--orange">Marketing site live</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
-          <div class="timeline-dot">02</div>
-          <div class="timeline-body">
-            <div class="weeks">Phase 2 · Weeks 2 to 4 · MVP Web Application</div>
-            <h3>The clinical engine. Doctor portal to member dashboard.</h3>
-            <p><strong style="color:var(--white)">Authentication: two portals, one platform.</strong> Separate login flows for members and doctors. Members access their personal health dashboard; doctors access their patient management interface. Role-based permissions built into the database from day one.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Booking and consultation:</strong> Members book a consultation slot from their dashboard. Doctors see their scheduled appointments. The consultation happens in-platform via embedded video with no app downloads or third-party redirects. One clean experience for both sides.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Prescription management:</strong> Doctors issue prescriptions directly from the consultation interface. The prescription is stored against the member's account, visible on their dashboard, and triggers the subscription checkout. Full history retained and accessible to both member and doctor.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Subscription billing:</strong> Stripe powers the payment layer. The subscription is activated at prescription approval, with no manual invoicing or payment delays. Recurring billing managed automatically. Members can view their billing history and manage their subscription from their dashboard.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Member dashboard, the retention layer:</strong> Active prescriptions and dosage schedule, medication reminders, progress tracking, product reorder. The dashboard is where members live between consultations: it keeps them engaged with their health protocol and connected to the platform.</p>
-            <p style="margin-top:0.75rem"><strong style="color:var(--white)">Security and compliance:</strong> GDPR-compliant architecture throughout: encrypted patient data, role-based access control, no anonymous access to protected records. Built to UK health data standards from the first line of code, not retrofitted later.</p>
-            <div class="timeline-tags">
-              <span class="tag">User auth (member + doctor)</span>
-              <span class="tag">Booking calendar</span>
-              <span class="tag">Embedded video calls</span>
-              <span class="tag">Prescription issuance</span>
-              <span class="tag">Prescription dashboard</span>
-              <span class="tag">Dosage reminders</span>
-              <span class="tag">Stripe subscription billing</span>
-              <span class="tag">Product checkout</span>
-              <span class="tag">Secure data storage</span>
-              <span class="tag">GDPR compliance</span>
-              <span class="tag">Role-based access</span>
-              <span class="tag tag--orange">Full MVP live</span>
+        <!-- PHASE 2 -->
+        <div class="phase-panel" data-phase="1">
+          <div class="pp-collapsed">
+            <div class="pp-num">02</div>
+            <span class="pp-vtitle">Weeks 2–4 · MVP Web App</span>
+          </div>
+          <div class="pp-expanded">
+            <div class="pp-head">
+              <div class="pp-badge">Phase 2 · Weeks 2 to 4 · MVP Web Application</div>
+              <h3>The clinical engine.<br/>Doctor portal to member dashboard.</h3>
+            </div>
+            <div class="pp-divider"></div>
+            <div class="pp-content">
+              <p><strong style="color:var(--white)">Authentication: two portals, one platform.</strong> Separate login flows for members and doctors. Role-based permissions built into the database from day one.</p>
+              <p><strong style="color:var(--white)">Booking and consultation:</strong> Members book a slot from their dashboard. The consultation happens in-platform via embedded video, no app downloads or third-party redirects. One clean experience for both sides.</p>
+              <p><strong style="color:var(--white)">Prescription management:</strong> Doctors issue prescriptions directly from the consultation interface. Stored against the member's account, triggers the subscription checkout. Full history retained and accessible to both sides.</p>
+              <p><strong style="color:var(--white)">Subscription billing:</strong> Stripe activates the subscription at prescription approval. No manual invoicing. Recurring billing automatic. Members manage their plan from their dashboard.</p>
+              <p><strong style="color:var(--white)">Member dashboard:</strong> Active prescriptions, dosage schedule, medication reminders, progress tracking, product reorder. The retention layer that keeps members engaged between consultations.</p>
+              <p><strong style="color:var(--white)">Security and compliance:</strong> GDPR-compliant from the first line: encrypted patient data, role-based access control, no anonymous access to protected records.</p>
+              <div class="timeline-tags" style="margin-top:1.25rem">
+                <span class="tag">User auth (member + doctor)</span>
+                <span class="tag">Booking calendar</span>
+                <span class="tag">Embedded video calls</span>
+                <span class="tag">Prescription issuance</span>
+                <span class="tag">Prescription dashboard</span>
+                <span class="tag">Dosage reminders</span>
+                <span class="tag">Stripe subscription billing</span>
+                <span class="tag">Secure data storage</span>
+                <span class="tag">GDPR compliance</span>
+                <span class="tag">Role-based access</span>
+                <span class="tag tag--orange">Full MVP live</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="timeline-item">
-          <div class="timeline-dot future">03</div>
-          <div class="timeline-body">
-            <div class="weeks future-label">Phase 3 · Week 5+ · Quoted Separately</div>
-            <h3 style="color: rgba(255,255,255,0.5);">The full wellness ecosystem.</h3>
-            <p style="color: rgba(255,255,255,0.35);">Phase 3 expands the platform from a clinical MVP into a complete member wellness environment. The goal is a platform so rich that members never need to look elsewhere for their health and performance needs.</p>
-            <div class="timeline-tags">
-              <span class="tag tag--muted">Admin layer (users, doctors, appointments)</span>
-              <span class="tag tag--muted">Nutrition tracking</span>
-              <span class="tag tag--muted">Exercise and fitness protocols</span>
-              <span class="tag tag--muted">Progress and biometric tracking</span>
-              <span class="tag tag--muted">Supplementation records</span>
-              <span class="tag tag--muted">Blog and science content feed</span>
-              <span class="tag tag--muted">In-platform messaging (member to doctor)</span>
-              <span class="tag tag--muted">Advanced analytics and reporting</span>
+        <!-- PHASE 3 -->
+        <div class="phase-panel future" data-phase="2">
+          <div class="pp-collapsed">
+            <div class="pp-num">03</div>
+            <span class="pp-vtitle">Week 5+ · Wellness Ecosystem</span>
+          </div>
+          <div class="pp-expanded">
+            <div class="pp-head">
+              <div class="pp-badge">Phase 3 · Week 5+ · Quoted Separately</div>
+              <h3>The full wellness ecosystem.</h3>
+            </div>
+            <div class="pp-divider"></div>
+            <div class="pp-content">
+              <p style="color:rgba(255,255,255,0.38)">Phase 3 expands the platform from a clinical MVP into a complete member wellness environment. Scoped once the MVP is live and real member usage shapes the priorities. The goal: a platform so rich that members never need to look elsewhere for their health and performance needs.</p>
+              <div class="timeline-tags" style="margin-top:1.25rem">
+                <span class="tag tag--muted">Admin layer (users, doctors, appointments)</span>
+                <span class="tag tag--muted">Nutrition tracking</span>
+                <span class="tag tag--muted">Exercise and fitness protocols</span>
+                <span class="tag tag--muted">Progress and biometric tracking</span>
+                <span class="tag tag--muted">Supplementation records</span>
+                <span class="tag tag--muted">Blog and science content feed</span>
+                <span class="tag tag--muted">In-platform messaging</span>
+                <span class="tag tag--muted">Advanced analytics and reporting</span>
+              </div>
             </div>
           </div>
         </div>
 
+      </div>
+
+      <!-- Phase progress indicator -->
+      <div class="phase-progress" id="phaseProgress">
+        <div class="phase-progress-dot active" data-target="0"></div>
+        <div class="phase-progress-line filled" data-line="0"></div>
+        <div class="phase-progress-dot" data-target="1"></div>
+        <div class="phase-progress-line" data-line="1"></div>
+        <div class="phase-progress-dot" data-target="2"></div>
       </div>
     </div>
   </section>
@@ -1518,6 +1782,37 @@
   </footer>
 
   <script>
+    // Phase accordion
+    (function() {
+      const panels   = Array.from(document.querySelectorAll('.phase-panel'));
+      const dots     = Array.from(document.querySelectorAll('.phase-progress-dot'));
+      const lines    = Array.from(document.querySelectorAll('.phase-progress-line'));
+
+      function activate(idx) {
+        panels.forEach((p, i) => p.classList.toggle('active', i === idx));
+        dots.forEach((d, i)   => d.classList.toggle('active', i === idx));
+        // fill lines up to (but not including) the active index
+        lines.forEach((l, i)  => l.classList.toggle('filled', i < idx));
+      }
+
+      panels.forEach((panel, idx) => {
+        panel.addEventListener('click', () => {
+          if (!panel.classList.contains('active')) activate(idx);
+        });
+      });
+
+      dots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => activate(idx));
+      });
+
+      // Responsive: toggle .is-mobile based on container width, not viewport
+      const acc = document.getElementById('phaseAccordion');
+      new ResizeObserver(entries => {
+        const w = entries[0].contentRect.width;
+        acc.classList.toggle('is-mobile', w < 720);
+      }).observe(acc);
+    })();
+
     // Cursor spotlight — tracks mouse position per card as CSS vars
     const spotlightTargets = document.querySelectorAll(
       '.challenge-item, .tech-item, .pricing-card, .sla-item, .step-item'
