@@ -965,28 +965,59 @@
       box-shadow: 0 0 0 10px rgba(254,110,54,0.15);
     }
 
-    /* ===== HERO LOGO REVEAL ===== */
-    .hero-logo-reveal {
+    /* ===== HERO VISUAL REVEAL ===== */
+    .hero-visual-zone {
       position: absolute;
-      right: 6%;
-      top: 50%;
-      transform: translateY(-50%) scale(0.88);
-      width: 260px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 56%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       z-index: 3;
       pointer-events: none;
+    }
+
+    /* Glow bloom that precedes the full reveal */
+    .hero-visual-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 65% 65% at 55% 50%, rgba(45,27,110,0.55) 0%, transparent 70%);
       opacity: 0;
-      transition: opacity 0.65s ease, transform 0.65s ease;
-      filter: brightness(20) saturate(0);
-      -webkit-mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, black 25%, transparent 75%);
-      mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, black 25%, transparent 75%);
+      transition: opacity 0.5s ease;
     }
-    .hero-logo-reveal.visible {
-      opacity: 0.14;
-      transform: translateY(-50%) scale(1);
+
+    /* The emblem itself */
+    .hero-visual-emblem {
+      position: relative;
+      width: 520px;
+      height: 520px;
+      clip-path: circle(0px at 50% 50%);
+      transition: clip-path 0.9s cubic-bezier(0.77,0,0.175,1);
     }
-    .hero-logo-reveal img {
-      width: 100%;
-      display: block;
+
+    /* State: cursor in right half */
+    .hero-visual-zone.revealed .hero-visual-glow {
+      opacity: 1;
+    }
+    .hero-visual-zone.revealed .hero-visual-emblem {
+      clip-path: circle(290px at 50% 50%);
+    }
+
+    /* Slow float animation once revealed */
+    .hero-visual-emblem svg {
+      animation: emblemFloat 8s ease-in-out infinite;
+      animation-play-state: paused;
+    }
+    .hero-visual-zone.revealed .hero-visual-emblem svg {
+      animation-play-state: running;
+    }
+
+    @keyframes emblemFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33%       { transform: translateY(-12px) rotate(0.4deg); }
+      66%       { transform: translateY(6px) rotate(-0.3deg); }
     }
 
     /* ===== PHASE ACCORDION (unused — kept for safety) ===== */
@@ -1267,8 +1298,91 @@
     <div class="floating-orb orb-2"></div>
     <div class="floating-orb orb-3"></div>
     <div class="floating-orb orb-4"></div>
-    <div class="hero-logo-reveal" id="heroLogoReveal">
-      <img src="assets/logo.png" alt="" />
+    <!-- Mealign brand visual — reveals on hover of right half -->
+    <div class="hero-visual-zone" id="heroVisualZone">
+      <div class="hero-visual-glow"></div>
+      <div class="hero-visual-emblem">
+        <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg" width="520" height="520">
+          <defs>
+            <radialGradient id="circleGrad" cx="42%" cy="38%" r="62%">
+              <stop offset="0%" stop-color="#3D2998"/>
+              <stop offset="55%" stop-color="#2D1B6E"/>
+              <stop offset="100%" stop-color="#170E3A"/>
+            </radialGradient>
+            <radialGradient id="innerGlow" cx="40%" cy="35%" r="55%">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.09)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </radialGradient>
+            <filter id="dotGlow" x="-200%" y="-200%" width="500%" height="500%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Outermost faint dashed ring -->
+          <circle cx="260" cy="260" r="253" stroke="rgba(155,142,212,0.14)" stroke-width="1" stroke-dasharray="2 14"/>
+          <!-- Second structural ring -->
+          <circle cx="260" cy="260" r="239" stroke="rgba(155,142,212,0.09)" stroke-width="0.5"/>
+          <!-- Main filled circle -->
+          <circle cx="260" cy="260" r="222" fill="url(#circleGrad)"/>
+          <!-- Highlight overlay -->
+          <circle cx="260" cy="260" r="222" fill="url(#innerGlow)"/>
+          <!-- Main circle border -->
+          <circle cx="260" cy="260" r="222" stroke="rgba(155,142,212,0.38)" stroke-width="1.5"/>
+          <!-- Inner decorative ring -->
+          <circle cx="260" cy="260" r="196" stroke="rgba(155,142,212,0.1)" stroke-width="0.75"/>
+
+          <!-- Cardinal tick marks -->
+          <line x1="260" y1="38" x2="260" y2="47" stroke="rgba(155,142,212,0.45)" stroke-width="1.5"/>
+          <line x1="260" y1="473" x2="260" y2="482" stroke="rgba(155,142,212,0.45)" stroke-width="1.5"/>
+          <line x1="38" y1="260" x2="47" y2="260" stroke="rgba(155,142,212,0.45)" stroke-width="1.5"/>
+          <line x1="473" y1="260" x2="482" y2="260" stroke="rgba(155,142,212,0.45)" stroke-width="1.5"/>
+          <!-- Diagonal ticks -->
+          <line x1="417" y1="103" x2="412" y2="109" stroke="rgba(155,142,212,0.22)" stroke-width="1"/>
+          <line x1="417" y1="417" x2="412" y2="411" stroke="rgba(155,142,212,0.22)" stroke-width="1"/>
+          <line x1="103" y1="417" x2="108" y2="411" stroke="rgba(155,142,212,0.22)" stroke-width="1"/>
+          <line x1="103" y1="103" x2="108" y2="109" stroke="rgba(155,142,212,0.22)" stroke-width="1"/>
+
+          <!-- Orange cardinal accent dots -->
+          <circle cx="260" cy="40" r="3.5" fill="#FE6E36" filter="url(#dotGlow)"/>
+          <circle cx="480" cy="260" r="3.5" fill="#FE6E36" filter="url(#dotGlow)"/>
+          <circle cx="260" cy="480" r="3.5" fill="#FE6E36" filter="url(#dotGlow)"/>
+          <circle cx="40" cy="260" r="3.5" fill="#FE6E36" filter="url(#dotGlow)"/>
+
+          <!-- Large M lettermark — cream, Georgia serif for medical gravitas -->
+          <text
+            x="260" y="322"
+            font-family="Georgia, 'Times New Roman', serif"
+            font-size="215"
+            font-weight="700"
+            fill="#F0E8D8"
+            text-anchor="middle"
+            letter-spacing="-12"
+            opacity="0.91">M</text>
+
+          <!-- Bottom arc label -->
+          <path id="btmArc" d="M 108,260 A 152,152 0 0,0 412,260" fill="none"/>
+          <text font-size="10.5" fill="rgba(240,232,216,0.38)" font-family="Georgia,serif" letter-spacing="6.5">
+            <textPath href="#btmArc" startOffset="10%">CLINICAL WELLNESS PLATFORM · UK</textPath>
+          </text>
+
+          <!-- Top arc label -->
+          <path id="topArc" d="M 108,260 A 152,152 0 0,1 412,260" fill="none"/>
+          <text font-size="10" fill="rgba(240,232,216,0.22)" font-family="Georgia,serif" letter-spacing="5">
+            <textPath href="#topArc" startOffset="14%">MEALIGN · PRESCRIPTION WELLNESS ·</textPath>
+          </text>
+
+          <!-- ECG pulse accent line (subtle orange) -->
+          <path d="M 92,286 L 138,286 L 154,248 L 170,312 L 186,262 L 206,286 L 262,286 L 290,286 L 318,286 L 346,286 L 366,266 L 378,286 L 422,286"
+            stroke="rgba(254,110,54,0.2)" stroke-width="1.5" fill="none"
+            stroke-linecap="round" stroke-linejoin="round"/>
+
+          <!-- Decorative plus accents -->
+          <text x="180" y="168" font-size="14" fill="rgba(254,110,54,0.32)" text-anchor="middle" font-family="sans-serif" font-weight="300">+</text>
+          <text x="342" y="168" font-size="14" fill="rgba(254,110,54,0.22)" text-anchor="middle" font-family="sans-serif" font-weight="300">+</text>
+          <text x="346" y="374" font-size="11" fill="rgba(240,232,216,0.18)" text-anchor="middle" font-family="sans-serif" font-weight="300">+</text>
+        </svg>
+      </div>
     </div>
     <div class="hero-content">
       <div class="eyebrow"><span></span> Mealign x Constellation <span></span></div>
@@ -1795,18 +1909,18 @@
   </footer>
 
   <script>
-    // Hero logo reveal — fades in as cursor moves into right half of hero
+    // Hero Mealign visual reveal — clip-path circle expands as cursor enters right half
     (function() {
-      const hero   = document.querySelector('.hero');
-      const reveal = document.getElementById('heroLogoReveal');
-      if (!hero || !reveal) return;
+      const hero = document.querySelector('.hero');
+      const zone = document.getElementById('heroVisualZone');
+      if (!hero || !zone) return;
 
       hero.addEventListener('mousemove', e => {
         const rect   = hero.getBoundingClientRect();
         const xRatio = (e.clientX - rect.left) / rect.width;
-        reveal.classList.toggle('visible', xRatio > 0.46);
+        zone.classList.toggle('revealed', xRatio > 0.45);
       });
-      hero.addEventListener('mouseleave', () => reveal.classList.remove('visible'));
+      hero.addEventListener('mouseleave', () => zone.classList.remove('revealed'));
     })();
 
     // Cursor spotlight — tracks mouse position per card as CSS vars
