@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mealign · Platform Design & Build | Constellation</title>
+  <title>Mealign Â· Platform Design & Build | Constellation</title>
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
   <style>
@@ -787,7 +787,7 @@
       box-shadow: 0 18px 52px rgba(45,27,110,0.28), 0 0 0 1px rgba(45,27,110,0.25);
     }
 
-    /* ===== TECH ITEMS — top border sweep ===== */
+    /* ===== TECH ITEMS â€” top border sweep ===== */
     .tech-item {
       transition: transform 0.28s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease;
     }
@@ -806,7 +806,7 @@
     }
     .tech-item:hover::before { left: 0; }
 
-    /* ===== SLA ITEMS — translate + left accent ===== */
+    /* ===== SLA ITEMS â€” translate + left accent ===== */
     .sla-item {
       transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
       border-left: 3px solid transparent;
@@ -817,7 +817,7 @@
       box-shadow: -6px 0 28px rgba(254,110,54,0.14);
     }
 
-    /* ===== TIMELINE ITEMS — dot pulse + body shift ===== */
+    /* ===== TIMELINE ITEMS â€” dot pulse + body shift ===== */
     .timeline-dot {
       transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
     }
@@ -868,7 +868,7 @@
       transform: translateY(-3px);
     }
 
-    /* ===== PRICING CARDS — spring lift + glow ring ===== */
+    /* ===== PRICING CARDS â€” spring lift + glow ring ===== */
     .pricing-card {
       transition: transform 0.35s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.3s ease;
     }
@@ -881,7 +881,7 @@
       box-shadow: 0 28px 72px rgba(254,110,54,0.28), 0 0 60px rgba(254,110,54,0.12);
     }
 
-    /* STACKED DEPTH — sibling cards peek behind recommended */
+    /* STACKED DEPTH â€” sibling cards peek behind recommended */
     .pricing-grid {
       perspective: 1200px;
     }
@@ -991,10 +991,21 @@
     /* The emblem itself */
     .hero-visual-emblem {
       position: relative;
-      width: 520px;
-      height: 520px;
+      width: 580px;
+      height: 580px;
       clip-path: circle(0px at 50% 50%);
       transition: clip-path 0.9s cubic-bezier(0.77,0,0.175,1);
+      animation: emblemFloat 9s ease-in-out infinite;
+      animation-play-state: paused;
+    }
+
+    .hero-visual-emblem img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      border-radius: 50%;
     }
 
     /* State: cursor in right half */
@@ -1002,25 +1013,17 @@
       opacity: 1;
     }
     .hero-visual-zone.revealed .hero-visual-emblem {
-      clip-path: circle(290px at 50% 50%);
-    }
-
-    /* Slow float animation once revealed */
-    .hero-visual-emblem svg {
-      animation: emblemFloat 8s ease-in-out infinite;
-      animation-play-state: paused;
-    }
-    .hero-visual-zone.revealed .hero-visual-emblem svg {
+      clip-path: circle(310px at 50% 50%);
       animation-play-state: running;
     }
 
     @keyframes emblemFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      33%       { transform: translateY(-12px) rotate(0.4deg); }
-      66%       { transform: translateY(6px) rotate(-0.3deg); }
+      0%, 100% { transform: translateY(0px) scale(1); }
+      40%       { transform: translateY(-14px) scale(1.018); }
+      70%       { transform: translateY(7px) scale(0.985); }
     }
 
-    /* ===== PHASE ACCORDION (unused — kept for safety) ===== */
+    /* ===== PHASE ACCORDION (unused â€” kept for safety) ===== */
     .phase-accordion {
       display: flex;
       gap: 1.25rem;
@@ -1217,7 +1220,7 @@
 
     .phase-progress-line.filled::after { width: 100%; }
 
-    /* Mobile: vertical stack — toggled via JS ResizeObserver */
+    /* Mobile: vertical stack â€” toggled via JS ResizeObserver */
     .phase-accordion.is-mobile {
       flex-direction: column;
       min-height: unset;
@@ -1298,157 +1301,11 @@
     <div class="floating-orb orb-2"></div>
     <div class="floating-orb orb-3"></div>
     <div class="floating-orb orb-4"></div>
-    <!-- Mealign brand visual — reveals on hover of right half -->
+    <!-- Mealign brand visual â€” reveals on hover of right half -->
     <div class="hero-visual-zone" id="heroVisualZone">
       <div class="hero-visual-glow"></div>
       <div class="hero-visual-emblem">
-        <!--
-          Mealign hero visual: molecular orbital sphere
-          3 orbit rings at different axial planes, each with animated
-          glowing dots. Deep purple 3D sphere with surface latitude lines.
-          Pure SVG + CSS animation — no text, no letter marks.
-        -->
-        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" width="540" height="540">
-          <style>
-            /* Orbit ring + dot groups spin on their own plane */
-            .ml-o1 { animation: ml-spin1 22s linear infinite; transform-box: fill-box; transform-origin: 50% 50%; }
-            .ml-o2 { animation: ml-spin2 34s linear infinite reverse; transform-box: fill-box; transform-origin: 50% 50%; }
-            .ml-o3 { animation: ml-spin3 28s linear infinite; transform-box: fill-box; transform-origin: 50% 50%; }
-            @keyframes ml-spin1 { to { transform: rotate(360deg); } }
-            @keyframes ml-spin2 { to { transform: rotate(360deg); } }
-            @keyframes ml-spin3 { to { transform: rotate(360deg); } }
-          </style>
-          <defs>
-            <!-- 3D sphere gradient: lit from upper-left -->
-            <radialGradient id="ml-sGrad" cx="35%" cy="28%" r="68%">
-              <stop offset="0%"   stop-color="#6452D4"/>
-              <stop offset="28%"  stop-color="#3D2998"/>
-              <stop offset="62%"  stop-color="#2D1B6E"/>
-              <stop offset="100%" stop-color="#0C071E"/>
-            </radialGradient>
-            <!-- Specular highlight -->
-            <radialGradient id="ml-sHL" cx="28%" cy="22%" r="42%">
-              <stop offset="0%"   stop-color="rgba(255,255,255,0.28)"/>
-              <stop offset="70%"  stop-color="rgba(255,255,255,0.04)"/>
-              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-            </radialGradient>
-            <!-- Teal rim reflection -->
-            <radialGradient id="ml-sRim" cx="74%" cy="74%" r="32%">
-              <stop offset="0%"   stop-color="rgba(93,219,219,0.18)"/>
-              <stop offset="100%" stop-color="rgba(93,219,219,0)"/>
-            </radialGradient>
-            <!-- Outer atmosphere haze -->
-            <radialGradient id="ml-atmo" cx="50%" cy="50%" r="50%">
-              <stop offset="52%" stop-color="rgba(45,27,110,0)"/>
-              <stop offset="100%" stop-color="rgba(45,27,110,0.42)"/>
-            </radialGradient>
-            <!-- Clip sphere surface lines -->
-            <clipPath id="ml-sClip">
-              <circle cx="300" cy="300" r="178"/>
-            </clipPath>
-            <!-- Dot glow filter -->
-            <filter id="ml-dGlow" x="-200%" y="-200%" width="500%" height="500%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <!-- Sphere aura (behind sphere) -->
-            <filter id="ml-aura" x="-30%" y="-30%" width="160%" height="160%">
-              <feGaussianBlur stdDeviation="26"/>
-            </filter>
-          </defs>
-
-          <!-- ── ATMOSPHERE ── -->
-          <circle cx="300" cy="300" r="288" fill="url(#ml-atmo)"/>
-          <circle cx="300" cy="300" r="272" stroke="rgba(155,142,212,0.07)" stroke-width="0.5"/>
-          <circle cx="300" cy="300" r="256" stroke="rgba(155,142,212,0.05)" stroke-width="0.5" stroke-dasharray="3 16"/>
-
-          <!-- ── ORBIT RING 1: nearly horizontal (equatorial) ── -->
-          <g transform="translate(300,300)">
-            <g class="ml-o1">
-              <ellipse cx="0" cy="0" rx="234" ry="48"
-                stroke="rgba(155,142,212,0.32)" stroke-width="1.8" fill="none"/>
-              <!-- Leading dot (right) -->
-              <circle cx="234" cy="0" r="6" fill="#F0E8D8" filter="url(#ml-dGlow)" opacity="0.9"/>
-              <!-- Trailing dot (left) -->
-              <circle cx="-234" cy="0" r="4.5" fill="#F0E8D8" opacity="0.55"/>
-              <!-- Quarter dot (bottom) -->
-              <circle cx="0" cy="48" r="3" fill="#F0E8D8" opacity="0.3"/>
-              <!-- Quarter dot (top) -->
-              <circle cx="0" cy="-48" r="3" fill="#F0E8D8" opacity="0.25"/>
-            </g>
-          </g>
-
-          <!-- ── ORBIT RING 2: tilted ~42° — orange accents ── -->
-          <g transform="translate(300,300) rotate(42)">
-            <g class="ml-o2">
-              <ellipse cx="0" cy="0" rx="208" ry="66"
-                stroke="rgba(155,142,212,0.2)" stroke-width="1.2" fill="none"/>
-              <!-- Orange leading dot -->
-              <circle cx="208" cy="0" r="6" fill="#FE6E36" filter="url(#ml-dGlow)" opacity="0.85"/>
-              <!-- Orange trailing dot -->
-              <circle cx="-208" cy="0" r="5" fill="#FE6E36" opacity="0.6"/>
-              <!-- Small accent -->
-              <circle cx="0" cy="66" r="3" fill="#FE6E36" opacity="0.3"/>
-            </g>
-          </g>
-
-          <!-- ── ORBIT RING 3: near-vertical (polar) — teal accents ── -->
-          <g transform="translate(300,300) rotate(82)">
-            <g class="ml-o3">
-              <ellipse cx="0" cy="0" rx="50" ry="228"
-                stroke="rgba(155,142,212,0.24)" stroke-width="1.4" fill="none"/>
-              <!-- Teal leading dot (top of vertical orbit) -->
-              <circle cx="0" cy="-228" r="5.5" fill="#5DDBDB" filter="url(#ml-dGlow)" opacity="0.8"/>
-              <!-- Teal trailing dot (bottom) -->
-              <circle cx="0" cy="228" r="5" fill="#5DDBDB" opacity="0.58"/>
-              <!-- Side accents -->
-              <circle cx="50" cy="0" r="3" fill="#5DDBDB" opacity="0.3"/>
-              <circle cx="-50" cy="0" r="3" fill="#5DDBDB" opacity="0.25"/>
-            </g>
-          </g>
-
-          <!-- ── SPHERE AURA (glow behind sphere) ── -->
-          <circle cx="300" cy="300" r="178" fill="#2D1B6E" filter="url(#ml-aura)" opacity="0.6"/>
-
-          <!-- ── MAIN SPHERE ── -->
-          <circle cx="300" cy="300" r="178" fill="url(#ml-sGrad)"/>
-          <!-- Specular highlight -->
-          <circle cx="300" cy="300" r="178" fill="url(#ml-sHL)"/>
-          <!-- Teal rim reflection -->
-          <circle cx="300" cy="300" r="178" fill="url(#ml-sRim)"/>
-
-          <!-- Surface latitude/longitude lines (clipped, very subtle) -->
-          <g clip-path="url(#ml-sClip)" opacity="0.06">
-            <!-- Latitude lines -->
-            <line x1="122" y1="224" x2="478" y2="224" stroke="white" stroke-width="0.8"/>
-            <line x1="122" y1="262" x2="478" y2="262" stroke="white" stroke-width="0.8"/>
-            <line x1="122" y1="300" x2="478" y2="300" stroke="white" stroke-width="0.8"/>
-            <line x1="122" y1="338" x2="478" y2="338" stroke="white" stroke-width="0.8"/>
-            <line x1="122" y1="376" x2="478" y2="376" stroke="white" stroke-width="0.8"/>
-            <!-- Longitude ellipses (globe lines) -->
-            <ellipse cx="300" cy="300" rx="88" ry="178" stroke="white" stroke-width="0.8" fill="none"/>
-            <ellipse cx="300" cy="300" rx="148" ry="178" stroke="white" stroke-width="0.8" fill="none"/>
-            <!-- Equatorial ring -->
-            <ellipse cx="300" cy="300" rx="178" ry="38" stroke="white" stroke-width="0.8" fill="none"/>
-          </g>
-
-          <!-- Sphere edge stroke -->
-          <circle cx="300" cy="300" r="178" stroke="rgba(155,142,212,0.35)" stroke-width="1.5" fill="none"/>
-
-          <!-- ── MICRO PARTICLES (depth field) ── -->
-          <circle cx="178" cy="142" r="2.5" fill="#F0E8D8" opacity="0.3"/>
-          <circle cx="428" cy="156" r="2"   fill="#F0E8D8" opacity="0.25"/>
-          <circle cx="136" cy="436" r="2.5" fill="#F0E8D8" opacity="0.22"/>
-          <circle cx="462" cy="452" r="2"   fill="#F0E8D8" opacity="0.28"/>
-          <circle cx="368" cy="82"  r="2"   fill="#FE6E36" opacity="0.4"/>
-          <circle cx="150" cy="302" r="2"   fill="#FE6E36" opacity="0.3"/>
-          <circle cx="455" cy="316" r="1.5" fill="#5DDBDB" opacity="0.35"/>
-          <circle cx="230" cy="512" r="2"   fill="#5DDBDB" opacity="0.3"/>
-          <circle cx="512" cy="228" r="1.5" fill="#F0E8D8" opacity="0.22"/>
-          <circle cx="84"  cy="372" r="1.5" fill="#5DDBDB" opacity="0.28"/>
-          <circle cx="316" cy="74"  r="1.5" fill="#F0E8D8" opacity="0.2"/>
-          <circle cx="466" cy="200" r="2"   fill="#FE6E36" opacity="0.25"/>
-        </svg>
+        <img src="assets/hero-molecule.png" alt="" draggable="false" />
       </div>
     </div>
     <div class="hero-content">
@@ -1465,11 +1322,11 @@
         </div>
         <div class="hero-meta-item">
           <label>Engagement</label>
-          <value>Project Build · 2 Phases</value>
+          <value>Project Build Â· 2 Phases</value>
         </div>
         <div class="hero-meta-item">
           <label>Total Investment</label>
-          <value>£6,000</value>
+          <value>Â£6,000</value>
         </div>
         <div class="hero-meta-item">
           <label>Timeline</label>
@@ -1545,7 +1402,7 @@
   <!-- 01 THE VISION -->
   <section class="section section--dark">
     <div class="container">
-      <div class="section-label">01 · The Vision</div>
+      <div class="section-label">01 Â· The Vision</div>
       <div class="grid-2">
         <div>
           <h2>Wellness meets<br />clinical precision.<br /><em>All in one place.</em></h2>
@@ -1589,7 +1446,7 @@
   <!-- 02 BEFORE / AFTER -->
   <section class="section section--alt">
     <div class="container">
-      <div class="section-label">02 · Before + After Constellation</div>
+      <div class="section-label">02 Â· Before + After Constellation</div>
       <h2 style="margin-bottom: 2rem;">What the platform looks like after this build.</h2>
       <table class="feature-table">
         <thead>
@@ -1660,7 +1517,7 @@
   <!-- 03 BUILD PHASES -->
   <section class="section section--dark">
     <div class="container">
-      <div class="section-label">03 · Build Phases</div>
+      <div class="section-label">03 Â· Build Phases</div>
       <div class="grid-2" style="margin-bottom: 3rem;">
         <div>
           <h2>Two phases.<br /><em>One complete</em><br />platform.</h2>
@@ -1675,7 +1532,7 @@
         <div class="timeline-item">
           <div class="timeline-dot">01</div>
           <div class="timeline-body">
-            <div class="weeks">Phase 1 · Week 1 · Marketing Website</div>
+            <div class="weeks">Phase 1 Â· Week 1 Â· Marketing Website</div>
             <h3>The platform's public face. Built to convert.</h3>
             <p><strong style="color:var(--white)">Hero and landing page:</strong> Full-screen hero with Mealign's brand expression, a clear primary headline, and a direct call to action (waitlist or signup). Designed to the Voy and Numan benchmark: clinical credibility combined with a premium wellness aesthetic. Mobile-first, fast-loading, and built for the audience that knows what peptides are and what they can do.</p>
             <p style="margin-top:0.75rem"><strong style="color:var(--white)">How it works:</strong> A simple, clear three- or four-step section explaining the Mealign journey: consult, prescribe, receive, align. Removes the friction of explaining a new-category product.</p>
@@ -1698,7 +1555,7 @@
         <div class="timeline-item">
           <div class="timeline-dot">02</div>
           <div class="timeline-body">
-            <div class="weeks">Phase 2 · Weeks 2 to 4 · MVP Web Application</div>
+            <div class="weeks">Phase 2 Â· Weeks 2 to 4 Â· MVP Web Application</div>
             <h3>The clinical engine. Doctor portal to member dashboard.</h3>
             <p><strong style="color:var(--white)">Authentication: two portals, one platform.</strong> Separate login flows for members and doctors. Members access their personal health dashboard; doctors access their patient management interface. Role-based permissions built into the database from day one.</p>
             <p style="margin-top:0.75rem"><strong style="color:var(--white)">Booking and consultation:</strong> Members book a consultation slot from their dashboard. Doctors see their scheduled appointments. The consultation happens in-platform via embedded video with no app downloads or third-party redirects. One clean experience for both sides.</p>
@@ -1726,7 +1583,7 @@
         <div class="timeline-item">
           <div class="timeline-dot future">03</div>
           <div class="timeline-body">
-            <div class="weeks future-label">Phase 3 · Week 5+ · Quoted Separately</div>
+            <div class="weeks future-label">Phase 3 Â· Week 5+ Â· Quoted Separately</div>
             <h3 style="color: rgba(255,255,255,0.5);">The full wellness ecosystem.</h3>
             <p style="color: rgba(255,255,255,0.35);">Phase 3 expands the platform from a clinical MVP into a complete member wellness environment. The goal is a platform so rich that members never need to look elsewhere for their health and performance needs.</p>
             <div class="timeline-tags">
@@ -1751,7 +1608,7 @@
   <!-- 04 TECHNICAL APPROACH -->
   <section class="section section--alt">
     <div class="container">
-      <div class="section-label">04 · Technical Approach</div>
+      <div class="section-label">04 Â· Technical Approach</div>
       <div class="grid-2" style="margin-bottom: 2.5rem;">
         <div>
           <h2>Built for speed.<br /><em>Secured</em> for health data.</h2>
@@ -1801,13 +1658,13 @@
   <!-- 05 INVESTMENT -->
   <section class="section section--dark">
     <div class="container">
-      <div class="section-label">05 · Investment</div>
+      <div class="section-label">05 Â· Investment</div>
       <div class="grid-2" style="margin-bottom: 2rem;">
         <div>
-          <h2>One project.<br /><em>Two phases.</em><br />£6,000 total.</h2>
+          <h2>One project.<br /><em>Two phases.</em><br />Â£6,000 total.</h2>
         </div>
         <div>
-          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">The full Phase 1 + Phase 2 build is £6,000 total across five weeks. Payment is milestone-based: 50% of Phase 1 on signature, balance on Phase 1 delivery. Phase 2 invoiced 50% on commencement, 50% on delivery. A traditional agency quotes 4-5 months for the same scope. Vibe coding gets it done in one.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">The full Phase 1 + Phase 2 build is Â£6,000 total across five weeks. Payment is milestone-based: 50% of Phase 1 on signature, balance on Phase 1 delivery. Phase 2 invoiced 50% on commencement, 50% on delivery. A traditional agency quotes 4-5 months for the same scope. Vibe coding gets it done in one.</p>
           <p style="color: var(--text-light); font-size: 0.95rem;">Phase 1 is available as a standalone if you want the marketing site live first. Phase 3 is quoted separately after the MVP ships and real usage shapes the priorities.</p>
         </div>
       </div>
@@ -1818,8 +1675,8 @@
           <div class="pricing-card-head">
             <div class="pricing-tier-label">Phase 1 Only</div>
             <h4>Marketing site to market</h4>
-            <div class="price-amount">£2,500</div>
-            <div class="price-total">1 week · standalone option</div>
+            <div class="price-amount">Â£2,500</div>
+            <div class="price-total">1 week Â· standalone option</div>
           </div>
           <div class="pricing-card-body">
             <p class="best-for">Start with the marketing site. Build the audience and waitlist while Phase 2 is scoped and funded. Lower upfront commitment, faster time to a public presence.</p>
@@ -1838,9 +1695,9 @@
           <div class="recommended-badge">Recommended</div>
           <div class="pricing-card-head">
             <div class="pricing-tier-label">Phase 1 + Phase 2</div>
-            <h4>Full MVP · market to launch</h4>
-            <div class="price-amount">£6,000</div>
-            <div class="price-total">5 weeks · complete build</div>
+            <h4>Full MVP Â· market to launch</h4>
+            <div class="price-amount">Â£6,000</div>
+            <div class="price-total">5 weeks Â· complete build</div>
           </div>
           <div class="pricing-card-body">
             <p class="best-for">The full build: marketing site live at end of week 1, web app with doctor and member portals, consultations, prescriptions, and subscription billing live by end of week 4. QA and go-live week 5.</p>
@@ -1890,7 +1747,7 @@
   <!-- 06 HOW WE WORK -->
   <section class="section section--alt">
     <div class="container">
-      <div class="section-label">06 · How We Work Together</div>
+      <div class="section-label">06 Â· How We Work Together</div>
       <div class="grid-2" style="margin-bottom: 3rem;">
         <div>
           <h2>Clear process.<br /><em>No surprises.</em></h2>
@@ -1970,13 +1827,13 @@
   <footer>
     <div class="footer-inner">
       <img src="assets/logo.png" alt="Constellation" style="height: 24px; opacity: 0.8;" />
-      <p>Mealign Platform Design & Build · July 2026</p>
+      <p>Mealign Platform Design & Build Â· July 2026</p>
       <p>Confidential. Prepared by Aldo Calitz.</p>
     </div>
   </footer>
 
   <script>
-    // Hero Mealign visual reveal — clip-path circle expands as cursor enters right half
+    // Hero Mealign visual reveal â€” clip-path circle expands as cursor enters right half
     (function() {
       const hero = document.querySelector('.hero');
       const zone = document.getElementById('heroVisualZone');
@@ -1990,7 +1847,7 @@
       hero.addEventListener('mouseleave', () => zone.classList.remove('revealed'));
     })();
 
-    // Cursor spotlight — tracks mouse position per card as CSS vars
+    // Cursor spotlight â€” tracks mouse position per card as CSS vars
     const spotlightTargets = document.querySelectorAll(
       '.challenge-item, .tech-item, .pricing-card, .sla-item, .step-item'
     );
@@ -2006,7 +1863,7 @@
       });
     });
 
-    // 3-D tilt — challenge cards and tech items only
+    // 3-D tilt â€” challenge cards and tech items only
     const tiltTargets = document.querySelectorAll('.challenge-item, .tech-item');
     const MAX_TILT = 8; // degrees
     tiltTargets.forEach(el => {
