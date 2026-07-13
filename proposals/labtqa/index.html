@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<!-- LabTQA operational-platform proposal. Built on the Constellation proposal template (conexxus reference). -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LabTQA · Operational Platform Proposal · Constellation</title>
+  <meta name="description" content="A phased operational platform for LabTQA, CRM first: the scope, the security, the costs, and how it is built AI-first." />
+
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="LabTQA · Operational Platform Proposal" />
+  <meta property="og:description" content="One platform for the whole lab. CRM first, then renewals, quality, shipping and HR, on one auditable, POPIA-ready foundation." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://uxconstellation.github.io/constellation-proposals/proposals/labtqa/" />
+  <meta property="og:image" content="preview.png" />
+
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #173F3F;
+      --orange:     #FE6E36;
+      --black:      #1B1C21;
+      --darkbg:     #160C15;
+      --white:      #FFFFFF;
+      --text-light: rgba(255,255,255,0.72);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Satoshi', sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    em { font-style: normal; color: var(--orange); }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    nav .logo { font-size: 1.2rem; font-weight: 700; color: var(--orange); letter-spacing: 0.05em; }
+
+    .nav-tag {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 2.5rem 6rem;
+      overflow: hidden;
+      background: var(--darkbg);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 60%, rgba(23,63,63,0.9) 0%, rgba(22,12,21,0.95) 60%);
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .eyebrow span { display: inline-block; width: 32px; height: 2px; background: var(--orange); }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 3rem;
+      max-width: 95%;
+    }
+
+    .hero-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+
+    .hero-meta-item label {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-meta-item value { display: block; font-size: 0.95rem; font-weight: 600; color: var(--white); }
+
+    /* INTRO STRIP */
+    .intro-strip { background: var(--orange); padding: 3rem 2.5rem; }
+
+    .intro-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .big-num {
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--white);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .intro-strip p { font-size: 1.05rem; color: rgba(255,255,255,0.9); max-width: 640px; }
+
+    /* SECTIONS */
+    .section { padding: 7rem 2.5rem; }
+    .section--dark { background: var(--black); }
+    .section--alt { background: rgba(23,63,63,0.12); }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+
+    /* GRIDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* CHALLENGE CARDS */
+    .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+
+    .challenge-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .challenge-item h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--white); }
+    .challenge-item p { font-size: 0.85rem; color: var(--text-light); }
+
+    /* COMPARISON TABLE */
+    .table-wrap { overflow-x: auto; margin-top: 2rem; }
+    .feature-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 560px; }
+
+    .feature-table th {
+      text-align: left;
+      padding: 0.85rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .feature-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: var(--text-light);
+      vertical-align: top;
+    }
+
+    .feature-table td:first-child { color: var(--white); font-weight: 500; }
+
+    .fw {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text-light);
+      margin: 0.15rem 0.3rem 0.15rem 0;
+      white-space: nowrap;
+    }
+    .fw--orange { border-color: rgba(254,110,54,0.4); color: var(--orange); }
+
+    /* TIMELINE */
+    .timeline { margin-top: 4rem; }
+
+    .timeline-item {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .timeline-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .timeline-body h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .timeline-body p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; }
+
+    .weeks {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.07);
+      color: var(--text-light);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .tag--orange { background: rgba(254,110,54,0.15); color: var(--orange); border-color: rgba(254,110,54,0.3); }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .pricing-grid--retainer { margin-top: 1.5rem; }
+
+    .pricing-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.09);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255,255,255,0.03);
+      transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    .pricing-card:hover { transform: translateY(-4px); border-color: rgba(254,110,54,0.3); }
+
+    .pricing-card.recommended { border-color: var(--orange); background: rgba(254,110,54,0.05); grid-column: 1 / -1; }
+    .pricing-card.accent { border-color: var(--orange); background: rgba(254,110,54,0.05); }
+
+    .recommended-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 1rem;
+      border-radius: 0 0 10px 10px;
+      white-space: nowrap;
+    }
+
+    .pricing-card-head { padding: 2rem 1.75rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+    .pricing-tier-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-card-head h4 { font-size: 1.2rem; margin-bottom: 1.25rem; }
+
+    .price-amount { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--white); }
+    .price-period { font-size: 0.85rem; color: var(--text-light); font-weight: 400; }
+    .price-total { font-size: 0.8rem; color: var(--text-light); margin-top: 0.4rem; }
+
+    .pricing-card-body { padding: 1.5rem 1.75rem; flex: 1; }
+
+    .pricing-card-body p.best-for {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .feature-list { list-style: none; }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .feature-list li:last-child { border-bottom: none; }
+
+    .feature-list li::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FE6E36' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .pricing-note {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 1.5rem;
+    }
+
+    .sub-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+      margin-top: 3.5rem;
+    }
+
+    /* SLA GRID */
+    .sla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+
+    .sla-item {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .sla-item h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sla-item h4::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .sla-item p { font-size: 0.82rem; color: var(--text-light); line-height: 1.65; }
+
+    .callout {
+      margin-top: 2rem;
+      padding: 1.5rem 1.75rem;
+      border-radius: 14px;
+      background: rgba(254,110,54,0.06);
+      border: 1px solid rgba(254,110,54,0.22);
+    }
+    .callout h4 { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; }
+    .callout p { font-size: 0.85rem; color: var(--text-light); line-height: 1.7; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+      margin: 0 2.5rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--darkbg);
+      padding: 6rem 2.5rem;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 70%);
+    }
+
+    .cta-content { position: relative; z-index: 2; text-align: center; max-width: 700px; width: 100%; }
+    .cta-content h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin: 1rem 0 1.25rem; }
+    .cta-content > p { font-size: 1rem; color: var(--text-light); margin-bottom: 3rem; }
+
+    .steps-list { display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-bottom: 3rem; }
+
+    .step-item {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-item p { font-size: 0.9rem; color: var(--text-light); margin: 0; padding-top: 0.35rem; }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--orange);
+      color: var(--white);
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 1rem 2.25rem;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); padding: 2.5rem; }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.3); }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-card.recommended { grid-column: auto; }
+    }
+
+    /* FLOATING ELEMENTS */
+    .floating-orb { position: absolute; border-radius: 50%; opacity: 0.1; pointer-events: none; }
+    .orb-1 { width: 120px; height: 120px; background: var(--orange); right: 10%; top: 20%; animation: float 6s ease-in-out infinite; }
+    .orb-2 { width: 80px; height: 80px; background: var(--teal); right: 5%; top: 50%; animation: float 8s ease-in-out infinite reverse; }
+    .orb-3 { width: 60px; height: 60px; background: var(--orange); right: 15%; bottom: 15%; animation: float 7s ease-in-out infinite; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .floating-orb { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    @media (max-width: 768px) {
+      .floating-orb { display: none; }
+      .grid-2, .challenge-grid, .sla-grid { grid-template-columns: 1fr; }
+      .intro-strip-inner { flex-direction: column; gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="assets/logo.png" alt="Constellation" style="height: 32px;" />
+    <span class="nav-tag">Operational Platform Proposal · Draft</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span></span> LabTQA x Constellation <span></span></div>
+      <h1>One platform for the <em>whole lab.</em></h1>
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <label>Prepared for</label>
+          <value>Talia Ramjee &amp; Rachel Otto</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Focus</label>
+          <value>CRM · Renewals · QMS · Shipping · HR</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Delivery</label>
+          <value>Phased, CRM first</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Timeline</label>
+          <value>CRM live in about four weeks</value>
+        </div>
+        <div class="hero-meta-item">
+          <label>Prepared by</label>
+          <value>Aldo Calitz, Constellation</value>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="big-num">5</div>
+      <p>Five phases, one platform. We start with the CRM you need now, the daily engine that turns your shared inbox into tracked, owned, auditable work, then grow into renewals, quality, shipping and HR on the same foundation. You commit one phase at a time.</p>
+    </div>
+  </div>
+
+  <!-- 01 WHAT WE HEARD -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">01 · What We Heard</div>
+      <div class="grid-2">
+        <div>
+          <h2>You are not buying a CRM. You are building an <em>operational hub.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem;">Everything the lab does already runs through one shared inbox. The CRM is the urgent piece, and your specification is roughly 80% there. The rest sharpens the moment you can see and use a first version, which is exactly how we like to work: ship something real early, then let reality shape the last stretch.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Reading your 28-page specification and the notes from our two calls, four things came through clearly. This proposal is built around them.</p>
+        </div>
+      </div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <h4>The shared-inbox problem</h4>
+          <p>Everything lands in one mailbox with no reference numbers, no clear ownership, and no memory of who followed up or when. The daily work has no spine.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Renewals under pressure</h4>
+          <p>Renewal season is manual: identifying who is due, quoting from last year, and attaching the right document to the right lab, all by hand and against the clock.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Traceability is the law</h4>
+          <p>Medical field means nothing can be quietly lost and every change must be provable. POPIA and ISO 13485 are the floor, not a feature.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Application-driven, not agent-driven</h4>
+          <p>You want a system you operate, where AI surfaces answers like "what is the status of this client?" but never takes silent action on a record.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02 HOW IT FITS -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">02 · How It Fits</div>
+      <h2 style="margin-bottom: 0.75rem;">Your needs, mapped to <em>the build.</em></h2>
+      <p style="color: var(--text-light); font-size: 0.95rem; max-width: 620px;">Constellation is a lean, AI-first studio. That is the reason a system of this depth lands in weeks at a price a traditional agency cannot match, on a stack chosen to fit your requirements rather than the other way around.</p>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr>
+              <th>Your need</th>
+              <th>What we build</th>
+              <th>The outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>A shared inbox with no structure</strong></td>
+              <td>A Case engine: reference numbers, assignment, status, labels, and a 48-hour SLA flag.</td>
+              <td>Every email owned, tracked, and answered on time.</td>
+            </tr>
+            <tr>
+              <td><strong>Manual renewals season</strong></td>
+              <td>Renewal detection from prior-year orders, Sage-assisted quoting, and campaign tracking.</td>
+              <td>Renewals go out on time, with the right quote on the right lab.</td>
+            </tr>
+            <tr>
+              <td><strong>Traceability, POPIA and ISO 13485</strong></td>
+              <td>PostgreSQL with row-level security and an append-only, field-level audit trail.</td>
+              <td>Compliance you can prove, and nothing is ever hard-deleted.</td>
+            </tr>
+            <tr>
+              <td><strong>Campaign sends to many labs</strong></td>
+              <td>Content sections with per-recipient personalisation and unique attachments.</td>
+              <td>One release, a case per recipient, and every response tracked.</td>
+            </tr>
+            <tr>
+              <td><strong>Whole-lab operations</strong></td>
+              <td>A staged platform: quality, shipping, and HR built on the same core.</td>
+              <td>One system, not five tools, growing in your priority order.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 THE BUILD -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">03 · The Build</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Five phases.<br /><em>CRM in about four weeks.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Each phase is a usable release standing on the one before it, delivered AI-first so you see working software fast. After a short kickoff to lock the open decisions, Phase 1 begins.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-body">
+            <div class="weeks">Weeks 1-4 · Start here</div>
+            <h3>CRM Core, the daily operating system.</h3>
+            <p>Contacts and company hierarchy, the shared-mailbox Case engine, campaigns with content sections, the shared follow-up engine, tasks, complaints, dashboards, and the full audit trail.</p>
+            <div class="timeline-tags">
+              <span class="tag">Contacts &amp; cases</span>
+              <span class="tag">Campaigns</span>
+              <span class="tag">Dashboards</span>
+              <span class="tag tag--orange">Audit &amp; RBAC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-body">
+            <div class="weeks">Weeks 4-7 · Urgent next</div>
+            <h3>Renewals.</h3>
+            <p>Auto-identify due renewals from prior-year orders, Sage-assisted quoting and sales orders with staff approval, and quotation matching from the file server, all tracked through CRM campaigns.</p>
+            <div class="timeline-tags">
+              <span class="tag">Renewal detection</span>
+              <span class="tag">Sage-assisted</span>
+              <span class="tag tag--orange">Campaign-tracked</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 3</div>
+            <h3>Quality Management.</h3>
+            <p>Controlled documents with e-authorisation and version history, fillable forms, complaints and CAPA linked to email threads, training and competency, maintenance schedules, and the monthly review dashboard.</p>
+            <div class="timeline-tags">
+              <span class="tag">Document control</span>
+              <span class="tag">CAPA</span>
+              <span class="tag">Training</span>
+              <span class="tag tag--orange">Review dashboard</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">04</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 4</div>
+            <h3>Shipping &amp; Dispatch.</h3>
+            <p>Record goods received, generate the day's dispatch list, a guided packing assistant that checks items against the order, and inbound and outbound tracking pulled from supplier emails.</p>
+            <div class="timeline-tags">
+              <span class="tag">Receipts</span>
+              <span class="tag">Dispatch lists</span>
+              <span class="tag tag--orange">Packing assistant</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">05</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 5</div>
+            <h3>HR-light.</h3>
+            <p>Leave requests and approvals, daily timesheets, onboarding checklists linked to policy training, and training and competency records that update automatically.</p>
+            <div class="timeline-tags">
+              <span class="tag">Leave</span>
+              <span class="tag">Timesheets</span>
+              <span class="tag tag--orange">Competency</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04 THE INVESTMENT -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">04 · The Investment</div>
+      <div class="grid-2" style="margin-bottom: 1rem;">
+        <div>
+          <h2>Priced for a lean <em>AI-first studio.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Fixed per phase, not agency overhead. You commit one phase at a time, and each price is fixed against the scope agreed at that phase's kickoff. Being AI-first is the reason this is both fast and this affordable.</p>
+        </div>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 1 · Start here</div>
+            <h4>CRM Core</h4>
+            <div class="price-amount">R120,000</div>
+            <div class="price-total">the daily operating system for the lab</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Contacts and Group to Company to Contact hierarchy</li>
+              <li>Shared-mailbox Cases: assignment, status, SLA</li>
+              <li>Campaigns and the shared follow-up engine</li>
+              <li>Complaints, tasks, dashboards, exports</li>
+              <li>Field-level audit, roles, no hard delete</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 2 · Urgent next</div>
+            <h4>Renewals</h4>
+            <div class="price-amount">R80,000</div>
+            <div class="price-total">renewal detection, quoting, tracking</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Due-renewal detection from prior-year orders</li>
+              <li>Sage-assisted quotes and sales orders</li>
+              <li>File-server quotation matching</li>
+              <li>Tracked through CRM campaigns</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 3</div>
+            <h4>Quality Management</h4>
+            <div class="price-amount">R80,000</div>
+            <div class="price-total">document control, CAPA, training</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Controlled documents with e-authorisation</li>
+              <li>Fillable forms stored against records</li>
+              <li>Complaints and CAPA from email threads</li>
+              <li>Maintenance and monthly review dashboard</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 4</div>
+            <h4>Shipping &amp; Dispatch</h4>
+            <div class="price-amount">R100,000</div>
+            <div class="price-total">receipts, dispatch, packing, tracking</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Record goods received into stock</li>
+              <li>Generate the day's dispatch list</li>
+              <li>Guided packing assistant</li>
+              <li>Inbound and outbound tracking</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Phase 5</div>
+            <h4>HR-light</h4>
+            <div class="price-amount">R75,000</div>
+            <div class="price-total">leave, timesheets, onboarding, competency</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Leave requests and approvals</li>
+              <li>Daily timesheets</li>
+              <li>Onboarding checklists to policy training</li>
+              <li>Auto-updating competency records</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card recommended">
+          <div class="recommended-badge">Full Programme</div>
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">All five phases</div>
+            <h4>Delivered in your priority order</h4>
+            <div class="price-amount">R455,000</div>
+            <div class="price-total">the whole platform, committed one phase at a time</div>
+          </div>
+          <div class="pricing-card-body">
+            <p class="best-for">Each phase is fixed against agreed scope and billed at its own milestone. You are never committed beyond the phase in front of you, and POPIA and ISO 13485 traceability are built in from Phase 1.</p>
+            <ul class="feature-list">
+              <li>Fixed price per phase, no agency overhead</li>
+              <li>A two-round QA before every sign-off</li>
+              <li>Mobile-first, WCAG 2.2 AA, on every screen</li>
+              <li>One auditable foundation across all five phases</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-label">The retainer · once live</div>
+      <div class="pricing-grid pricing-grid--retainer">
+        <div class="pricing-card">
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Care &amp; Support</div>
+            <h4>Keep it running</h4>
+            <div class="price-amount">R6,500<span class="price-period"> / month</span></div>
+            <div class="price-total">hosting, monitoring, and support</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Hosting oversight, monitoring, daily backups</li>
+              <li>Security and POPIA / ISO compliance patching</li>
+              <li>Bug-fix SLA and minor tweaks</li>
+              <li>Email and uptime support</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pricing-card accent">
+          <div class="recommended-badge">Recommended</div>
+          <div class="pricing-card-head">
+            <div class="pricing-tier-label">Partnership Retainer</div>
+            <h4>Keep it evolving</h4>
+            <div class="price-amount">R12,000<span class="price-period"> / month</span></div>
+            <div class="price-total">everything in Care, plus a monthly build block</div>
+          </div>
+          <div class="pricing-card-body">
+            <ul class="feature-list">
+              <li>Everything in Care &amp; Support</li>
+              <li>A monthly block of enhancement hours</li>
+              <li>Priority turnaround and the evolving "last 20%"</li>
+              <li>A quarterly roadmap review as phases roll out</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <p class="pricing-note">Figures exclude VAT and third-party subscriptions (database hosting, email and domain, Sage licensing). Sage integration in Phase 2 is scoped around the Sage API's real limits, with human checkpoints where it cannot safely automate. Build fees are billed against per-phase milestones; the retainer begins at Phase 1 go-live and runs monthly. Scope for each phase is confirmed at its own kickoff.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 SECURITY & COMPLIANCE -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">05 · Security &amp; Compliance</div>
+      <div class="grid-2" style="margin-bottom: 1rem;">
+        <div>
+          <h2>Protected, and <em>mapped per phase.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Included here as you asked. A modern web app over a PostgreSQL data core, with row-level security, an append-only audit trail, and encrypted storage for sensitive data. Security is called out against each phase and aligned to POPIA, HIPAA, and ISO 13485.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Sensitive data</th>
+              <th>Primary controls</th>
+              <th>Frameworks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1 · CRM</strong></td>
+              <td>Contact PII, email, complaints</td>
+              <td>Row-level security per role, append-only audit, POPIA opt-out, encryption in transit and at rest, no hard delete</td>
+              <td><span class="fw">POPIA</span><span class="fw">ISO 13485</span><span class="fw fw--orange">HIPAA-aligned</span></td>
+            </tr>
+            <tr>
+              <td><strong>2 · Renewals</strong></td>
+              <td>Quotations, Sage financial records</td>
+              <td>Human approval on quotes and orders, scoped Sage credentials, file-match confirmation control</td>
+              <td><span class="fw">POPIA</span><span class="fw">ISO 13485</span></td>
+            </tr>
+            <tr>
+              <td><strong>3 · QMS</strong></td>
+              <td>Controlled documents, CAPA, training records</td>
+              <td>E-authorisation bound to approver credentials, version control, immutable change history</td>
+              <td><span class="fw">ISO 13485</span><span class="fw fw--orange">HIPAA-aligned</span></td>
+            </tr>
+            <tr>
+              <td><strong>4 · Shipping</strong></td>
+              <td>Dispatch data, addresses, tracking codes</td>
+              <td>Access-scoped dispatch views, audited stock movements, validated tracking-code parsing</td>
+              <td><span class="fw">POPIA</span><span class="fw">ISO 13485</span></td>
+            </tr>
+            <tr>
+              <td><strong>5 · HR-light</strong></td>
+              <td>Employee data, leave, timesheets</td>
+              <td>Strict need-to-know access, approver-attributed actions, encrypted employee data, retention rules</td>
+              <td><span class="fw">POPIA</span><span class="fw fw--orange">HIPAA-aligned</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <h4>One item to confirm on HIPAA</h4>
+        <p>HIPAA applies directly only if the system stores identifiable patient health information. Our reading is that LabTQA handles laboratory and QA metadata and B2B contact data, not patient records, so we design to HIPAA-aligned safeguards (encryption, access control, audit, minimum-necessary) as a quality bar, and confirm actual scope with you at kickoff.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 06 HOW WE WORK -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">06 · How We Work</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Built with AI. <em>Verified by people.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">The speed comes from being AI-first. The trust comes from how we hold the line: proof over assertion, and a person in the loop wherever it matters.</p>
+        </div>
+      </div>
+      <div class="sla-grid">
+        <div class="sla-item">
+          <h4>You operate it</h4>
+          <p>An application you drive. AI surfaces answers, it never takes silent action on a client record.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Traceable at the data layer</h4>
+          <p>Row-level security and an append-only audit trail, enforced by the database itself. Compliance you can prove, not just claim.</p>
+        </div>
+        <div class="sla-item">
+          <h4>AI-first speed</h4>
+          <p>We build and test AI-accelerated, so working software arrives fast and feedback loops stay tight. Weeks, not quarters.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Two-round QA</h4>
+          <p>Functional testing against the spec, then pressure testing at load and at the edges, before any phase is signed off.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Human in the loop</h4>
+          <p>Where a step needs judgement, like a Sage sales order or a quote match, a person confirms it by design.</p>
+        </div>
+        <div class="sla-item">
+          <h4>The floor, not a selling point</h4>
+          <p>Mobile-first, fully responsive, WCAG 2.2 AA, and fast Core Web Vitals on every screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA / NEXT STEPS -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-content">
+      <div class="eyebrow" style="justify-content: center;"><span></span> Next Steps <span></span></div>
+      <h2>Let's give the lab<br /><em>its spine.</em></h2>
+      <p>From this proposal to a working CRM in about four weeks.</p>
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">01</div>
+          <p>A conversation to confirm scope, priority order, and budget. CRM first, renewals next.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">02</div>
+          <p>An NDA in place, your template or ours, whichever you prefer.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">03</div>
+          <p>A short kickoff to lock the open decisions and confirm the PHI and HIPAA scope.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">04</div>
+          <p>Phase 1 begins. A working CRM in about four weeks, then a two-round QA before sign-off.</p>
+        </div>
+      </div>
+
+      <a href="mailto:aldo.calitz@gmail.com?cc=aldo@uxconstellation.com&subject=LabTQA%20Operational%20Platform%20Proposal&body=Hi%20Aldo,%0A%0AWe%27ve%20reviewed%20the%20proposal%20and%20we%27d%20like%20to%20talk%20it%20through.%0A%0AKind%20regards" class="btn-submit">
+        Start the conversation
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <img src="assets/logo.png" alt="Constellation" style="height: 24px; opacity: 0.8;" />
+      <p>Operational platform proposal for LabTQA · July 2026</p>
+      <p>Confidential. Prepared by Aldo Calitz.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
