@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPAR House Brands · The Rebrandable Game Engine | Constellation</title>
+  <meta name="description" content="One browser game engine for every SPAR house brand. Chicka Chicken first, then reskin the same engine for the next brand. Prepared by Constellation." />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <meta property="og:title" content="SPAR House Brands · The Rebrandable Game Engine" />
+  <meta property="og:description" content="Buy it, scan the slip, beat the score. One reskinnable browser game engine for SPAR house brands, starting with Chicka Chicken. Three live games inside, playable now." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://uxconstellation.github.io/constellation-proposals/proposals/spar-house-brands/" />
+  <meta property="og:image" content="https://uxconstellation.github.io/constellation-proposals/proposals/spar-house-brands/preview.png" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:      #173F3F;
+      --orange:    #FE6E36;
+      --black:     #1B1C21;
+      --darkbg:    #160C15;
+      --white:     #FFFFFF;
+      --text-light:rgba(255,255,255,0.72);
+      --accent2:   #0E5A56;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Satoshi', sans-serif; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+    em { font-style: normal; color: var(--orange); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem; background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    nav img { height: 26px; transition: opacity 0.2s ease; }
+    nav img:hover { opacity: 0.78; }
+    .nav-tag {
+      font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 100px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; align-items: flex-end;
+      padding: 0 2.5rem 6rem; overflow: hidden; background: var(--darkbg);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 65% at 75% 30%, rgba(14,90,86,0.5) 0%, transparent 65%),
+        radial-gradient(ellipse 80% 60% at 30% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 65%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 44px 44px; animation: gridDrift 22s linear infinite;
+      pointer-events: none; z-index: 1;
+    }
+    @keyframes gridDrift { 0% { background-position: 0 0; } 100% { background-position: 44px 44px; } }
+
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange);
+      margin-bottom: 1.5rem; font-weight: 600;
+    }
+    .eyebrow span { display: inline-block; width: 32px; height: 2px; background: var(--orange); }
+    h1 { font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 3rem; max-width: 95%; }
+    .hero-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .hero-meta-item label { display: block; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.2rem; }
+    .hero-meta-item value { display: block; font-size: 0.95rem; font-weight: 600; color: var(--white); }
+
+    /* FLOATING ORBS */
+    .floating-orb { position: absolute; border-radius: 50%; opacity: 0.1; pointer-events: none; }
+    .orb-1 { width: 120px; height: 120px; background: var(--orange); right: 10%; top: 20%; animation: float 6s ease-in-out infinite; }
+    .orb-2 { width: 90px; height: 90px; background: var(--accent2); right: 5%; top: 50%; animation: float 8s ease-in-out infinite reverse; opacity: 0.28; }
+    .orb-3 { width: 60px; height: 60px; background: var(--orange); right: 15%; bottom: 15%; animation: float 7s ease-in-out infinite; }
+    .orb-4 { width: 200px; height: 200px; background: var(--accent2); right: 20%; top: 8%; animation: float 10s ease-in-out infinite; opacity: 0.1; }
+    @keyframes float { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+
+    /* CAPABILITY STRIP */
+    .health-strip { background: var(--accent2); padding: 2.25rem 2.5rem; }
+    .health-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .health-icon-item { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 160px; }
+    .health-icon-item svg { width: 26px; height: 26px; flex-shrink: 0; opacity: 0.95; }
+    .health-icon-item span { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.9); text-transform: uppercase; line-height: 1.3; }
+    .health-strip-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+    @media (max-width: 768px) { .health-strip-divider { display: none; } .health-icon-item { min-width: 45%; } }
+
+    /* INTRO STRIP */
+    .intro-strip { background: var(--orange); padding: 3rem 2.5rem; }
+    .intro-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 4rem; }
+    .big-num { font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: #1B1C21; white-space: nowrap; flex-shrink: 0; }
+    .intro-strip p { font-size: 1.05rem; color: #1B1C21; max-width: 640px; }
+
+    /* SECTIONS */
+    .section { padding: 7rem 2.5rem; }
+    .section--dark { background: var(--black); }
+    .section--alt { background: rgba(23,63,63,0.12); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 1.25rem; }
+    .sub-label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 600; margin-top: 3.5rem; margin-bottom: 0.5rem; }
+
+    /* GRIDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* CHALLENGE CARDS */
+    .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+    .challenge-item { padding: 1.75rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .challenge-item h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--white); }
+    .challenge-item p { font-size: 0.85rem; color: var(--text-light); }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; margin-top: 2rem; }
+    .feature-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 640px; }
+    .feature-table th { text-align: left; padding: 0.85rem 1rem; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
+    .feature-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-light); vertical-align: top; }
+    .feature-table td:first-child { color: var(--white); font-weight: 500; }
+    .fw { display: inline-block; font-size: 0.66rem; letter-spacing: 0.04em; padding: 0.14rem 0.5rem; border-radius: 100px; border: 1px solid rgba(255,255,255,0.14); color: var(--text-light); margin: 0.12rem 0.28rem 0.12rem 0; white-space: nowrap; }
+    .fw--orange { border-color: rgba(254,110,54,0.4); color: var(--orange); }
+
+    /* TIMELINE */
+    .timeline { margin-top: 4rem; }
+    .timeline-item { display: flex; gap: 2rem; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
+    .timeline-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--orange); color: #1B1C21; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .timeline-body h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .timeline-body p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; }
+    .timeline-body p:last-of-type { margin-bottom: 0; }
+    .weeks { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.4rem; }
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+    .tag { font-size: 0.72rem; padding: 0.25rem 0.65rem; border-radius: 100px; background: rgba(255,255,255,0.07); color: var(--text-light); border: 1px solid rgba(255,255,255,0.1); }
+    .tag--orange { background: rgba(254,110,54,0.15); color: var(--orange); border-color: rgba(254,110,54,0.3); }
+
+    /* TECH GRID */
+    .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+    .tech-item { padding: 1.5rem 1.75rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .tech-item .tech-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.4rem; }
+    .tech-item h4 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .tech-item p { font-size: 0.82rem; color: var(--text-light); }
+
+    .sec-note { margin-top: 2rem; padding: 1.5rem 1.75rem; border-radius: 14px; background: rgba(254,110,54,0.06); border: 1px solid rgba(254,110,54,0.22); }
+    .sec-note h4 { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; }
+    .sec-note p { font-size: 0.85rem; color: var(--text-light); line-height: 1.7; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; perspective: 1200px; }
+    .pricing-grid--retainer { grid-template-columns: repeat(2, 1fr); margin-top: 1.5rem; }
+    .pricing-card { border-radius: 20px; border: 1px solid rgba(255,255,255,0.09); overflow: hidden; display: flex; flex-direction: column; background: rgba(255,255,255,0.03); position: relative; }
+    .pricing-card.recommended { border-color: var(--orange); background: rgba(254,110,54,0.05); }
+    .recommended-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--orange); color: #1B1C21; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 0 0 10px 10px; white-space: nowrap; }
+    .pricing-card-head { padding: 2rem 1.75rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .pricing-tier-label { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.5rem; }
+    .pricing-card-head h4 { font-size: 1.1rem; margin-bottom: 1.25rem; }
+    .price-amount { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--white); }
+    .price-period { font-size: 0.85rem; color: var(--text-light); font-weight: 400; }
+    .price-total { font-size: 0.8rem; color: var(--text-light); margin-top: 0.4rem; }
+    .pricing-card-body { padding: 1.5rem 1.75rem; flex: 1; }
+    .pricing-card-body p.best-for { font-size: 0.82rem; color: var(--text-light); margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .feature-list { list-style: none; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-light); padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list li::before { content: ''; display: inline-block; width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FE6E36' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; }
+    .pricing-note { margin-top: 2.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; }
+
+    /* GAMES DEMO */
+    .games-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .game-card { border-radius: 18px; border: 1px solid rgba(255,255,255,0.09); overflow: hidden; background: rgba(255,255,255,0.03); display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.3s ease; }
+    .game-card:hover { transform: translateY(-6px); border-color: rgba(254,110,54,0.4); box-shadow: 0 22px 60px rgba(254,110,54,0.14); }
+    .game-stage { position: relative; aspect-ratio: 9 / 16; background: #0b0b0e; overflow: hidden; }
+    .game-stage img.poster { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .game-stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: #0b0b0e; }
+    .game-play { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.9rem; background: linear-gradient(180deg, rgba(11,11,14,0.28), rgba(11,11,14,0.74)); cursor: pointer; border: 0; width: 100%; padding: 0; transition: background 0.2s ease; }
+    .game-play:hover { background: linear-gradient(180deg, rgba(11,11,14,0.14), rgba(11,11,14,0.62)); }
+    .game-play .ico { width: 62px; height: 62px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 40px -8px rgba(254,110,54,0.6); transition: transform 0.18s ease; }
+    .game-play:hover .ico { transform: scale(1.08); }
+    .game-play .ico svg { width: 24px; height: 24px; margin-left: 4px; fill: #1B1C21; }
+    .game-play .plabel { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--white); }
+    .game-info { padding: 1.2rem 1.4rem 1.4rem; }
+    .game-info .glabel { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.4rem; }
+    .game-info h4 { font-size: 1rem; margin-bottom: 0.35rem; }
+    .game-info p { font-size: 0.82rem; color: var(--text-light); line-height: 1.55; }
+    .game-note { margin-top: 2.25rem; font-size: 0.9rem; color: var(--white); font-weight: 500; border-left: 2px solid var(--orange); padding-left: 1.1rem; line-height: 1.6; }
+    @media (max-width: 900px) { .games-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; } .game-stage { aspect-ratio: 3 / 4; } }
+
+    /* SLA GRID */
+    .sla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .sla-item { padding: 1.75rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .sla-item h4 { font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem; }
+    .sla-item h4::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .sla-item p { font-size: 0.82rem; color: var(--text-light); line-height: 1.65; }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent); margin: 0 2.5rem; }
+
+    /* CTA */
+    .cta-section { position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--darkbg); padding: 6rem 2.5rem; }
+    .cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 70%); }
+    .cta-content { position: relative; z-index: 2; text-align: center; max-width: 700px; width: 100%; }
+    .cta-content h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin: 1rem 0 1.25rem; }
+    .cta-content > p { font-size: 1rem; color: var(--text-light); margin-bottom: 3rem; }
+    .steps-list { display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-bottom: 3rem; }
+    .step-item { display: flex; gap: 1.25rem; align-items: flex-start; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.25rem 1.5rem; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--orange); color: #1B1C21; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-item p { font-size: 0.9rem; color: var(--text-light); margin: 0; padding-top: 0.35rem; }
+    .btn-submit { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 0.75rem; background: var(--orange); color: #1B1C21; font-family: 'Satoshi', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em; padding: 1rem 2.25rem; border-radius: 100px; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.15s; text-decoration: none; }
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.12); transform: translateX(-101%); transition: transform 0.35s ease; }
+    .btn-submit:hover::before { transform: translateX(0); }
+
+    /* CTA FORM */
+    .cta-form { display: flex; flex-direction: column; gap: 0.85rem; max-width: 460px; margin: 0 auto 1.25rem; text-align: left; }
+    .cta-form input, .cta-form textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 0.85rem 1rem; color: var(--white); font-family: 'Satoshi', sans-serif; font-size: 0.92rem; transition: border-color 0.2s ease; }
+    .cta-form input::placeholder, .cta-form textarea::placeholder { color: rgba(255,255,255,0.6); }
+    .cta-form input:focus, .cta-form textarea:focus { outline: none; border-color: var(--orange); }
+    .cta-form textarea { resize: vertical; min-height: 92px; }
+    .cta-form .btn-submit { width: 100%; justify-content: center; margin-top: 0.25rem; }
+    .cta-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .cta-alt { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+    .cta-alt a { color: var(--orange); text-decoration: none; }
+    .cta-thanks { font-size: 1.1rem; color: var(--orange); font-weight: 700; margin-bottom: 1.5rem; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); padding: 2.5rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+    /* ===== CARD SPOTLIGHT (shared) ===== */
+    .challenge-item, .tech-item, .sla-item, .step-item { position: relative; overflow: hidden; }
+    .challenge-item, .tech-item, .pricing-card, .sla-item, .step-item { --mx: -200px; --my: -200px; }
+    .challenge-item::after, .tech-item::after, .pricing-card::after, .sla-item::after, .step-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(180px circle at var(--mx) var(--my), rgba(255,255,255,0.065) 0%, transparent 70%);
+      pointer-events: none; opacity: 0; transition: opacity 0.35s ease; border-radius: inherit;
+    }
+    .challenge-item:hover::after, .tech-item:hover::after, .pricing-card:hover::after, .sla-item:hover::after, .step-item:hover::after { opacity: 1; }
+
+    .challenge-item { transition: transform 0.28s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease; }
+    .challenge-item:hover { transform: translateY(-6px); border-color: rgba(14,90,86,0.6); box-shadow: 0 18px 52px rgba(14,90,86,0.28), 0 0 0 1px rgba(14,90,86,0.25); }
+
+    .tech-item { transition: transform 0.28s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease; }
+    .tech-item::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--orange), transparent); transition: left 0.45s ease; }
+    .tech-item:hover { transform: translateY(-5px); border-color: rgba(254,110,54,0.3); box-shadow: 0 14px 44px rgba(254,110,54,0.1); }
+    .tech-item:hover::before { left: 0; }
+
+    .sla-item { transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; border-left: 3px solid transparent; }
+    .sla-item:hover { transform: translateX(8px); border-left-color: var(--orange); box-shadow: -6px 0 28px rgba(254,110,54,0.14); }
+
+    .timeline-dot { transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease; }
+    .timeline-body { transition: transform 0.25s ease; }
+    .timeline-item:hover .timeline-dot { transform: scale(1.18); box-shadow: 0 0 0 8px rgba(254,110,54,0.18); }
+    .timeline-item:hover .timeline-body { transform: translateX(8px); }
+
+    .feature-list li { transition: background 0.2s ease, padding-left 0.2s ease, color 0.2s ease; border-radius: 6px; padding-left: 0.5rem; margin-left: -0.5rem; }
+    .feature-list li:hover { background: rgba(254,110,54,0.08); color: var(--white); padding-left: 1rem; }
+
+    .feature-table tbody tr { transition: background 0.2s ease; }
+    .feature-table tbody tr:hover { background: rgba(14,90,86,0.16); }
+    .feature-table tbody tr:hover td:first-child { color: var(--orange); transition: color 0.2s ease; }
+
+    .tag { transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+    .tag:hover { background: rgba(254,110,54,0.14); color: var(--orange); border-color: rgba(254,110,54,0.35); transform: translateY(-3px); }
+
+    .pricing-card { transition: transform 0.35s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.3s ease, opacity 0.3s ease; }
+    .pricing-card:hover { transform: translateY(-10px); border-color: rgba(254,110,54,0.45); box-shadow: 0 28px 72px rgba(254,110,54,0.16), 0 0 0 1px rgba(254,110,54,0.22); }
+    .pricing-card.recommended:hover { box-shadow: 0 28px 72px rgba(254,110,54,0.28), 0 0 60px rgba(254,110,54,0.12); }
+    .pricing-grid:hover .pricing-card:not(.recommended):not(:hover) { opacity: 0.82; transform: scale(0.985) translateY(4px); }
+
+    .step-item { transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+    .step-item:hover { transform: translateX(8px); border-color: rgba(254,110,54,0.3); background: rgba(254,110,54,0.06); }
+    .step-item:hover .step-num { transform: scale(1.1) rotate(-5deg); }
+    .step-num { transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* CTA ORBS */
+    .cta-orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+    .cta-orb-1 { width: 340px; height: 340px; background: var(--accent2); top: -80px; right: -60px; opacity: 0.22; animation: ctaOrb 14s ease-in-out infinite; }
+    .cta-orb-2 { width: 220px; height: 220px; background: var(--teal); bottom: -40px; left: 8%; opacity: 0.22; animation: ctaOrb 18s ease-in-out infinite reverse; }
+    .cta-orb-3 { width: 180px; height: 180px; background: var(--orange); top: 40%; left: -40px; opacity: 0.1; animation: ctaOrb 22s ease-in-out infinite 4s; }
+    @keyframes ctaOrb { 0%,100% { transform: translate(0,0) scale(1); } 30% { transform: translate(40px,-30px) scale(1.12); } 70% { transform: translate(-25px,35px) scale(0.93); } }
+
+    /* TIMELINE FOCUS / DIM */
+    .timeline:hover .timeline-item { opacity: 0.28; }
+    .timeline:hover .timeline-item:hover { opacity: 1; border-left-color: var(--orange); padding-left: 1.25rem; }
+    .timeline-item { cursor: default; transition: opacity 0.38s ease, border-left-color 0.3s ease, padding-left 0.3s ease; border-left: 3px solid transparent; padding-left: 0; }
+    .timeline:hover .timeline-item:hover .timeline-dot { background: var(--orange); box-shadow: 0 0 0 10px rgba(254,110,54,0.15); }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .floating-orb { display: none; }
+      .grid-2, .challenge-grid, .sla-grid, .tech-grid, .pricing-grid--retainer { grid-template-columns: 1fr; }
+      .intro-strip-inner { flex-direction: column; gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 5rem 1.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-grid, .floating-orb, .cta-orb { animation: none; }
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="assets/logo.png" alt="Constellation" style="height: 32px;" />
+    <span class="nav-tag">Confidential Proposal</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span></span> SPAR House Brands x Constellation <span></span></div>
+      <h1>Buy it.<br />Scan it.<br />Beat the <em>score.</em></h1>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><label>Client</label><value>SPAR House Brands (Uncle)</value></div>
+        <div class="hero-meta-item"><label>Scope</label><value>Rebrandable game engine</value></div>
+        <div class="hero-meta-item"><label>Launch title</label><value>Chicka Chicken</value></div>
+        <div class="hero-meta-item"><label>Build</label><value>R95,000 one-off</value></div>
+        <div class="hero-meta-item"><label>Per reskin</label><value>R28,000 / brand</value></div>
+        <div class="hero-meta-item"><label>Hosting</label><value>R4,000 / month</value></div>
+        <div class="hero-meta-item"><label>Prepared by</label><value>Aldo Calitz, Constellation</value></div>
+        <div class="hero-meta-item"><label>Date</label><value>July 2026</value></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="big-num">1</div>
+      <p>One engine, every brand. Build the Chicka Chicken game once, then reskin the same engine for the next house brand, McCoy's, the laundry bar, whatever comes next, for a fraction of the first build. Browser-based, one game live at a time, and priced so each brand carries its own reskin.</p>
+    </div>
+  </div>
+
+  <!-- CAPABILITY STRIP -->
+  <div class="health-strip">
+    <div class="health-strip-inner">
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>
+        <span>Buy + scan the slip</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3"/><path d="M21 14v7h-7"/></svg>
+        <span>QR at point of purchase</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 0 12 0V3H6Z"/><path d="M6 4H3v2a3 3 0 0 0 3 3"/><path d="M18 4h3v2a3 3 0 0 1-3 3"/><path d="M9 21h6"/><path d="M12 15v6"/></svg>
+        <span>High-score leaderboard</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>
+        <span>Reskins per brand</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg>
+        <span>Browser, no app install</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 THE OPPORTUNITY -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">01 · The Opportunity</div>
+      <div class="grid-2">
+        <div>
+          <h2>One product today.<br />Every <em>house brand</em><br />tomorrow.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem;">Chicka Chicken is SPAR's in-house crumbed chicken, priced under KFC and Hungry Lion, already on the shelf in stores across the country. The product is not the problem. Getting a shopper to choose it, remember it, and come back for it is.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">A game does that. It gives someone a reason to pick up the pack, keep the slip, and come back next week to beat their own score. Built right, the same engine then carries every house brand after Chicka, one reskin at a time.</p>
+        </div>
+      </div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <h4>The slip is litter</h4>
+          <p>A till slip gets thrown away at the door. Turn it into a ticket: buy Chicka, scan the slip, play, and qualify to win.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Choice needs a hook</h4>
+          <p>Affordable is not enough on its own. A high-score chase gives a shopper an actual reason to reach for Chicka over the name next to it.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>It has to be rebrandable</h4>
+          <p>One engine, reskinned per brand, not a fresh build every time. Chicka launches it; McCoy's and the laundry bar run on the same thing.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Proof of purchase, done fairly</h4>
+          <p>Anyone can play. To claim a prize, a player proves the buy with their slip. The game is open, the reward is earned.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Browser, not an app</h4>
+          <p>No App Store queue, no Apple or Google QA, same-day fixes, and no risk of a rebrand being flagged as a brand-new app.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>One game live at a time</h4>
+          <p>The engine hosts whichever brand is running, then hands the stage to the next. Simple to run, cheap to keep live.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02 BEFORE / AFTER -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">02 · Before + After Constellation</div>
+      <h2 style="margin-bottom: 2rem;">What a Chicka Chicken campaign looks like on the engine.</h2>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Dimension</th><th>Without a game</th><th>With the engine</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Reason to choose Chicka</td><td>Price alone</td><td>A high-score game shoppers come back to play</td></tr>
+            <tr><td>The till slip</td><td>Thrown away at the door</td><td>Scanned to qualify, a reason to keep it</td></tr>
+            <tr><td>Entry</td><td>None</td><td>A QR at point of purchase, plus the slip QR once SPAR IT enables it</td></tr>
+            <tr><td>Winning</td><td>None</td><td>Proof-of-purchase gate plus a live leaderboard, weekly or monthly</td></tr>
+            <tr><td>The next brand</td><td>A brand-new build</td><td>A reskin on the same engine, a fraction of the first cost</td></tr>
+            <tr><td>Platform</td><td>App-store queues and approvals</td><td>Browser, instant play, same-day fixes</td></tr>
+            <tr><td>Running a campaign</td><td>Manual</td><td>A light admin: launch, verify winners, reset the board</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 PLAY THE ENGINE -->
+  <section class="section section--dark" id="play">
+    <div class="container">
+      <div class="section-label">03 · Play the engine</div>
+      <div class="grid-2" style="margin-bottom: 1rem;">
+        <div>
+          <h2>Not slides.<br /><em>Play it</em> right here.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Three promotional games we have already built on this engine. Portrait, one-thumb, and each one reskins to a brand through a single campaign layer, with the game logic never touched. Tap play; they run right here, on your phone or your laptop.</p>
+        </div>
+      </div>
+      <div class="games-grid">
+        <div class="game-card" data-src="games/solar-surge/index.html" data-title="Solar Surge">
+          <div class="game-stage">
+            <img class="poster" src="games/solar-surge/poster.png" alt="Solar Surge, a residential-energy promotional game" loading="lazy" />
+            <button class="game-play" aria-label="Play Solar Surge"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="plabel">Play</span></button>
+          </div>
+          <div class="game-info">
+            <div class="glabel">Energy campaign</div>
+            <h4>Solar Surge</h4>
+            <p>Build and balance a live Johannesburg energy network. One-thumb, portrait, Phaser.</p>
+          </div>
+        </div>
+        <div class="game-card" data-src="games/runway-rush/index.html" data-title="Runway Rush">
+          <div class="game-stage">
+            <img class="poster" src="games/runway-rush/poster.png" alt="Runway Rush, a low-cost aviation promotional game" loading="lazy" />
+            <button class="game-play" aria-label="Play Runway Rush"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="plabel">Play</span></button>
+          </div>
+          <div class="game-info">
+            <div class="glabel">Aviation campaign</div>
+            <h4>Runway Rush</h4>
+            <p>A three-lane coastal flight runner, then a flare-and-brake landing. Portrait, Phaser.</p>
+          </div>
+        </div>
+        <div class="game-card" data-src="games/beat-the-breach/index.html" data-title="Beat the Breach">
+          <div class="game-stage">
+            <img class="poster" src="games/beat-the-breach/poster.png" alt="Beat the Breach, a digital-banking security promotional game" loading="lazy" />
+            <button class="game-play" aria-label="Play Beat the Breach"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span class="plabel">Play</span></button>
+          </div>
+          <div class="game-info">
+            <div class="glabel">Banking campaign</div>
+            <h4>Beat the Breach</h4>
+            <p>Triage live transactions: block, review, or approve, against the clock. Portrait, Phaser.</p>
+          </div>
+        </div>
+      </div>
+      <p class="game-note">The Chicka Chicken game is the same engine, reskinned: the crumb, the aisles, the chase. These three prove both the bar we build to and the reskin model that makes the second brand cheap. Each loads only when you tap play, so the page stays fast.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04 BUILD -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">04 · The Build</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Prove the feel.<br /><em>Then build</em><br />the engine.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">We build the game feel in isolation and show it moving before committing to the full engine, so the direction is agreed on proof, not a promise. Then the engine and the Chicka Chicken game, delivered AI-first so you see working software fast. After Chicka, each new brand is a reskin, not a rebuild.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 1 · Weeks 1 to 2 · Start here</div>
+            <h3>Prototype the feel.</h3>
+            <p>We build the core Chicka Chicken game motion in isolation, the chase through the aisles, and prove it moves before we commit. Pac-Man is the anchor, not the ceiling, so we do not narrow the thinking too early. You see it, you feel it, you sign off on the direction.</p>
+            <div class="timeline-tags">
+              <span class="tag">Core loop</span>
+              <span class="tag">One-thumb control</span>
+              <span class="tag tag--orange">Direction signed off</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 2 · Weeks 2 to 6 · The bulk</div>
+            <h3>The engine and the Chicka game.</h3>
+            <p>The shared engine built once: game logic, scoring, the live leaderboard, and the campaign admin, with the full Chicka Chicken skin on top. Everything a shopper does not see is built to be reused by every brand after this one.</p>
+            <div class="timeline-tags">
+              <span class="tag">Game engine</span>
+              <span class="tag">Scoring</span>
+              <span class="tag">Leaderboard</span>
+              <span class="tag">Campaign admin</span>
+              <span class="tag tag--orange">Chicka skin</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 3 · Proof of purchase</div>
+            <h3>The slip becomes the ticket.</h3>
+            <p>A QR at point of purchase links to the game. Anyone can play; to claim a prize a player scans or uploads the till slip, we validate it, and the score qualifies for the leaderboard or draw on the cadence you choose.</p>
+            <div class="timeline-tags">
+              <span class="tag">QR entry</span>
+              <span class="tag">Slip scan / upload</span>
+              <span class="tag">Validation</span>
+              <span class="tag tag--orange">Prize qualification</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">04</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 4 · Test, brand and QA</div>
+            <h3>Real devices, real brand, watched motion.</h3>
+            <p>Real-device testing, accessibility and performance checks, the Chicka brand assets from Bianca woven through, and the in-store QR artwork. We watch the game run and prove it, we do not assert it.</p>
+            <div class="timeline-tags">
+              <span class="tag">Device testing</span>
+              <span class="tag">WCAG 2.2 AA</span>
+              <span class="tag">Brand polish</span>
+              <span class="tag tag--orange">QR artwork</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">05</div>
+          <div class="timeline-body">
+            <div class="weeks">Phase 5 · Launch, run, then reskin</div>
+            <h3>Live, then the next brand for a fraction.</h3>
+            <p>Go live behind the in-store QR, watch the first campaign, fix same-day, and hand you the admin. Then the next house brand is a reskin on the engine you already own, at R28,000 a brand, not a fresh build.</p>
+            <div class="timeline-tags">
+              <span class="tag">Go live</span>
+              <span class="tag">Campaign running</span>
+              <span class="tag">Same-day fixes</span>
+              <span class="tag tag--orange">Reskin ready</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 TECHNICAL APPROACH & FAIRNESS -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">05 · Technical Approach &amp; Fairness</div>
+      <div class="grid-2" style="margin-bottom: 2.5rem;">
+        <div>
+          <h2>Built to reskin.<br /><em>Fair</em> to play.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">The engine is browser-native and portrait-first, built on Phaser with an accessible DOM overlay. A single campaign layer, the brand name, palette, art, copy and links, reskins it per brand without touching the game logic. Proof of purchase validates a till slip before a score can qualify, and entrant data is kept minimal and POPIA-handled. Built AI-first with Claude Code and Lovable, so a multi-month studio timeline compresses into weeks without dropping quality. Included here as it matters for a public promotion: the architecture, and how fairness and data are handled.</p>
+        </div>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-label">Engine</div><h4>Phaser + TypeScript</h4><p>Portrait-first, one-thumb, canvas and WebGL, running in any modern browser with no app install.</p></div>
+        <div class="tech-item"><div class="tech-label">Brand layer</div><h4>One campaign file</h4><p>Name, palette, art, copy and links swapped per brand in a single layer, with the game logic never touched.</p></div>
+        <div class="tech-item"><div class="tech-label">Leaderboard</div><h4>Hosted backend</h4><p>A live high-score board, weekly or monthly prize windows, and one qualifying entry per validated slip.</p></div>
+        <div class="tech-item"><div class="tech-label">Proof of purchase</div><h4>Slip scan / upload</h4><p>Validated against store, date, product and slip number before a score can qualify. No card data stored.</p></div>
+        <div class="tech-item"><div class="tech-label">Entry</div><h4>QR codes</h4><p>An in-store QR from day one, and the slip-printed QR the moment SPAR IT can add it.</p></div>
+        <div class="tech-item"><div class="tech-label">Compliance</div><h4>POPIA by design</h4><p>Minimal entrant data, consent and opt-out, encrypted contact details, and retention limits from day one.</p></div>
+      </div>
+
+      <div class="sub-label">Fairness and data, area by area</div>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Area</th><th>Data involved</th><th>Primary controls</th><th>Framework</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Entry + play</td><td>Device, score</td><td>No personal data needed to play, bot and rate limiting, one qualifying entry per slip</td><td><span class="fw fw--orange">POPIA</span></td></tr>
+            <tr><td>Proof of purchase</td><td>Till-slip contents</td><td>Server-side slip validation, single-use per slip, no card or banking data stored</td><td><span class="fw fw--orange">POPIA</span></td></tr>
+            <tr><td>Leaderboard</td><td>Nickname, score</td><td>Display name only, profanity filter, no contact details shown publicly</td><td><span class="fw fw--orange">POPIA</span></td></tr>
+            <tr><td>Prize claim</td><td>Winner contact details</td><td>Collected only on a win, consent and opt-out, encrypted, retention limited</td><td><span class="fw fw--orange">POPIA</span></td></tr>
+            <tr><td>Admin</td><td>Campaign and winners</td><td>Role-locked admin, audited winner selection, every board reset logged</td><td><span class="fw fw--orange">POPIA</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sec-note">
+        <h4>One item to confirm on the slip</h4>
+        <p>To validate a purchase we need four fields off the till slip: store, date and time, product line, and slip number. That is the short, specific list to take to SPAR IT about adding a campaign QR to the slip. The game launches on an in-store QR either way, and adds the slip QR the moment IT is ready.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 06 INVESTMENT -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">06 · Investment</div>
+      <div class="grid-2" style="margin-bottom: 2rem;">
+        <div>
+          <h2>One engine.<br /><em>R95,000</em><br />to build.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">Priced lean and AI-first, in the shape you are pitching internally: one central build, then each reskin billed to its own brand. Being AI-first is the reason it is both fast and this affordable.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">The build fee is the whole engine plus the first Chicka Chicken game. Every brand after that runs on it, which is why a reskin is a fraction of the first build.</p>
+        </div>
+      </div>
+
+      <div class="sub-label">What a game like this costs elsewhere</div>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Route</th><th>Indicative cost</th><th>What else you carry</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Agency, full engine build</td><td>R250k to R500k+</td><td>Multi-month timeline, project-manager and account layers, a rebuild per brand</td></tr>
+            <tr><td>A single branded game (SA market)</td><td>R90k to R370k</td><td>One game, one brand, built from scratch each time</td></tr>
+            <tr><td>Off-the-shelf gamification SaaS</td><td>Ongoing monthly licences</td><td>Templated, not your own game, limited control over the reskin</td></tr>
+            <tr><td><strong style="color:var(--orange)">Constellation, AI-first</strong></td><td><strong style="color:var(--orange)">R95,000 build</strong></td><td>The reusable engine, the Chicka game, and a R28,000 reskin per brand after</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pricing-note" style="margin-top:1.25rem;border-top:none;padding-top:0;">Indicative market ranges for a game of this scope, based on typical South African rates and comparable engagements, not third-party quotes. This is the value we believe the work carries, from our experience and what we have built before.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card recommended">
+          <div class="recommended-badge">Build once</div>
+          <div class="pricing-card-head"><div class="pricing-tier-label">The engine + first game</div><h4>Chicka Chicken</h4><div class="price-amount">R95,000</div><div class="price-total">one-off, central spend</div></div>
+          <div class="pricing-card-body"><ul class="feature-list"><li>The reusable game engine</li><li>The full Chicka Chicken game</li><li>Proof of purchase, slip scan and validation</li><li>Live high-score leaderboard</li><li>Light campaign admin</li></ul></div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-card-head"><div class="pricing-tier-label">Each brand after</div><h4>Reskin</h4><div class="price-amount">R28,000<span class="price-period"> / brand</span></div><div class="price-total">billed to that department</div></div>
+          <div class="pricing-card-body"><ul class="feature-list"><li>New brand art, palette and copy</li><li>Reskin through the campaign layer</li><li>QA and redeploy</li><li>On the engine you already own</li></ul></div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-card-head"><div class="pricing-tier-label">Keep it running</div><h4>Hosting</h4><div class="price-amount">R4,000<span class="price-period"> / month</span></div><div class="price-total">while a campaign is live</div></div>
+          <div class="pricing-card-body"><ul class="feature-list"><li>Hosting and the leaderboard backend</li><li>Campaign running and monitoring</li><li>Same-day bug fixes</li><li>One game live at a time</li></ul></div>
+        </div>
+      </div>
+
+      <p class="pricing-note">All amounts in ZAR, exclusive of VAT. The build fee is billed against delivery milestones; hosting begins at go-live and runs monthly. A campaign domain is passed through at cost, from about R350 a year. The game direction is confirmed after the prototype week before the engine build begins.</p>
+
+      <div class="sec-note">
+        <h4>Open for discussion</h4>
+        <p>This does not have to be one decision. Take the engine and the Chicka Chicken game now, add reskins as brands come to you, and we are glad to shape the scope in any area to match a budget you have in mind. The figures here are what we believe the work is worth, based on our experience and what we have built before.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 07 HOW WE WORK -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">07 · How We Work Together</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Prove it.<br /><em>Then ship it.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">The speed comes from being AI-first. The trust comes from how we hold the line: a signed Statement of Work before any build, the game feel proven before we commit, and fairness designed in for a public promotion.</p>
+        </div>
+      </div>
+
+      <div class="sla-grid">
+        <div class="sla-item"><h4>NDA and Statement of Work</h4><p>Happy to work under an NDA, yours or a mutual one. A Statement of Work then locks the build scope, milestones, and revision policy before any code is written.</p></div>
+        <div class="sla-item"><h4>Prototype first, prove the feel</h4><p>We build the core game motion in isolation and show it moving before committing to the engine. We verify motion in a real browser, we do not assert it.</p></div>
+        <div class="sla-item"><h4>Two-round QA</h4><p>Functional testing on real devices, then accessibility and performance at the edges, before launch. WCAG 2.2 AA is the floor.</p></div>
+        <div class="sla-item"><h4>Fair by design</h4><p>Open to play, proof of purchase to win, no card data stored, one qualifying entry per slip, and POPIA handled from the first line, not retrofitted.</p></div>
+        <div class="sla-item"><h4>Communication and cadence</h4><p>Async-first with weekly progress updates and check-ins at key build stages. Direct access to Aldo for any quick decision. No account-manager layers.</p></div>
+        <div class="sla-item"><h4>Handover and reskins</h4><p>Deliverables transfer to SPAR on final payment. Each later brand is a reskin on the engine you own, and hosting keeps whichever campaign is live running smoothly.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="cta-orb cta-orb-2"></div>
+    <div class="cta-orb cta-orb-3"></div>
+    <div class="cta-content">
+      <div class="eyebrow" style="justify-content: center;"><span></span> Next Steps <span></span></div>
+      <h2>Start with Chicka Chicken.<br /><em>Reskin the rest.</em></h2>
+      <p>Four steps from this proposal to a live Chicka Chicken game.</p>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-num">01</div><p>Sign off. An NDA, yours or ours, and a Statement of Work locking the build scope and price. Build starts the same week.</p></div>
+        <div class="step-item"><div class="step-num">02</div><p>Prototype week. We build the core game feel, show it moving, and agree the Chicka Chicken direction together.</p></div>
+        <div class="step-item"><div class="step-num">03</div><p>Build and proof of purchase. The engine, the Chicka game, the slip flow, the leaderboard, and the admin, then a two-round QA.</p></div>
+        <div class="step-item"><div class="step-num">04</div><p>Launch and reskin. Live behind the in-store QR, the first campaign running, then the next brand as a reskin.</p></div>
+      </div>
+
+      <form class="cta-form" action="https://formsubmit.co/hello@uxconstellation.com" method="POST">
+        <input type="hidden" name="_subject" value="New SPAR / Chicka Chicken game enquiry" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://uxconstellation.github.io/constellation-proposals/proposals/spar-house-brands/?sent=1" />
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email" required />
+        <input type="text" name="_honey" class="cta-hp" tabindex="-1" autocomplete="off" />
+        <textarea name="message" placeholder="Anything you would like us to know (optional)"></textarea>
+        <button type="submit" class="btn-submit">Start the conversation &rarr;</button>
+      </form>
+      <p class="cta-alt">Or email <a href="mailto:hello@uxconstellation.com?subject=Chicka%20Chicken%20game%20%C2%B7%20SPAR%20House%20Brands">hello@uxconstellation.com</a> directly.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <img src="assets/logo.png" alt="Constellation" style="height: 24px; opacity: 0.8;" />
+      <p>SPAR House Brands · Chicka Chicken game · July 2026</p>
+      <p>Confidential. Prepared by Aldo Calitz.</p>
+    </div>
+  </footer>
+
+  <script>
+    // CTA form: show a confirmation after FormSubmit redirects back with ?sent=1
+    if (new URLSearchParams(location.search).has('sent')) {
+      const f = document.querySelector('.cta-form');
+      if (f) f.outerHTML = '<p class="cta-thanks">Thank you. We will be in touch shortly.</p>';
+    }
+
+    // Playable games: swap the poster for the live game iframe on tap
+    document.querySelectorAll('.game-card').forEach(card => {
+      const stage = card.querySelector('.game-stage');
+      const btn = card.querySelector('.game-play');
+      const src = card.getAttribute('data-src');
+      const title = card.getAttribute('data-title') || 'Game';
+      if (btn) btn.addEventListener('click', () => {
+        const f = document.createElement('iframe');
+        f.src = src; f.title = title;
+        f.allow = 'fullscreen; accelerometer; gyroscope; autoplay';
+        f.setAttribute('loading', 'lazy');
+        const poster = stage.querySelector('.poster'); if (poster) poster.remove();
+        btn.remove();
+        stage.appendChild(f);
+      });
+    });
+
+    // Cursor spotlight: tracks mouse position per card as CSS vars
+    const spotlightTargets = document.querySelectorAll('.challenge-item, .tech-item, .pricing-card, .sla-item, .step-item');
+    spotlightTargets.forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.setProperty('--mx', '-200px');
+        el.style.setProperty('--my', '-200px');
+      });
+    });
+
+    // 3-D tilt: challenge cards and tech items only
+    const tiltTargets = document.querySelectorAll('.challenge-item, .tech-item');
+    const MAX_TILT = 8;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) tiltTargets.forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        el.style.transform = `perspective(600px) rotateX(${-dy * MAX_TILT}deg) rotateY(${dx * MAX_TILT}deg) translateY(-6px)`;
+        el.style.transition = 'transform 0.08s linear, border-color 0.25s ease, box-shadow 0.28s ease';
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+        el.style.transition = 'transform 0.45s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease';
+      });
+    });
+  </script>
+</body>
+</html>
