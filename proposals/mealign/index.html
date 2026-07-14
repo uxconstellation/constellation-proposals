@@ -779,7 +779,7 @@
 
     /* ===== CHALLENGE CARDS ===== */
     .challenge-item {
-      transition: transform 0.28s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease;
+      transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease, box-shadow 0.28s ease;
     }
     .challenge-item:hover {
       transform: translateY(-6px);
@@ -789,7 +789,7 @@
 
     /* ===== TECH ITEMS €” top border sweep ===== */
     .tech-item {
-      transition: transform 0.28s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease;
+      transition: transform 0.28s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease, box-shadow 0.28s ease;
     }
     .tech-item::before {
       content: '';
@@ -819,7 +819,7 @@
 
     /* ===== TIMELINE ITEMS €” dot pulse + body shift ===== */
     .timeline-dot {
-      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
     }
     .timeline-body {
       transition: transform 0.25s ease;
@@ -859,7 +859,7 @@
 
     /* ===== TAGS ===== */
     .tag {
-      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.16,1,0.3,1);
     }
     .tag:hover {
       background: rgba(254,110,54,0.14);
@@ -870,7 +870,7 @@
 
     /* ===== PRICING CARDS €” spring lift + glow ring ===== */
     .pricing-card {
-      transition: transform 0.35s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.3s ease;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease, box-shadow 0.3s ease;
     }
     .pricing-card:hover {
       transform: translateY(-10px);
@@ -886,7 +886,7 @@
       perspective: 1200px;
     }
     .pricing-card:not(.recommended) {
-      transition: transform 0.35s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease, box-shadow 0.3s ease, opacity 0.3s ease;
     }
     .pricing-grid:hover .pricing-card:not(.recommended):not(:hover) {
       opacity: 0.78;
@@ -906,7 +906,7 @@
       transform: scale(1.1) rotate(-5deg);
     }
     .step-num {
-      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+      transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
     }
 
     /* ===== CTA ANIMATED ORBS ===== */
@@ -1090,7 +1090,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      transition: background 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+      transition: background 0.35s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1);
     }
 
     .phase-panel:not(.active) .pp-num {
@@ -1190,7 +1190,7 @@
       border-radius: 50%;
       background: rgba(255,255,255,0.15);
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      transition: background 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1);
       flex-shrink: 0;
     }
 
@@ -1326,11 +1326,11 @@
         </div>
         <div class="hero-meta-item">
           <label>Total Investment</label>
-          <value>£6,000</value>
+          <value>£7,000</value>
         </div>
         <div class="hero-meta-item">
           <label>Timeline</label>
-          <value>5 Weeks</value>
+          <value>7 Weeks</value>
         </div>
         <div class="hero-meta-item">
           <label>Prepared by</label>
@@ -1347,8 +1347,8 @@
   <!-- INTRO STRIP -->
   <div class="intro-strip">
     <div class="intro-strip-inner">
-      <div class="big-num">5</div>
-      <p>Five weeks from brief to launch. Where a traditional agency quotes four months, Constellation vibe codes it in one: AI-assisted development compresses the build cycle without cutting corners on quality or compliance. Phase 1 delivers a live marketing site by end of week one. Phase 2 delivers the full clinical web app by end of week four. Week five is QA, final polish, and go-live. Voy and Numan took years to build what Mealign can launch in a month.</p>
+      <div class="big-num">7</div>
+      <p>Seven weeks from brief to launch. Where a traditional agency quotes six to nine months for this scope, Constellation vibe codes it in seven weeks: AI-assisted development compresses the build cycle without cutting corners on quality or compliance. Phase 1 delivers a live marketing site in week one. Phase 2 delivers the full clinical web app by end of week five. Phase 3 adds the wellness ecosystem — nutrition tracking, fitness data, and content feed — by end of week seven. Voy and Numan took years to build what Mealign can launch in under two months.</p>
     </div>
   </div>
 
@@ -1581,20 +1581,19 @@
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-dot future">03</div>
+          <div class="timeline-dot">03</div>
           <div class="timeline-body">
-            <div class="weeks future-label">Phase 3 · Week 5+ · Quoted Separately</div>
-            <h3 style="color: rgba(255,255,255,0.5);">The full wellness ecosystem.</h3>
-            <p style="color: rgba(255,255,255,0.35);">Phase 3 expands the platform from a clinical MVP into a complete member wellness environment. The goal is a platform so rich that members never need to look elsewhere for their health and performance needs.</p>
+            <div class="weeks">Phase 3 · Weeks 6–7 · Included</div>
+            <h3>The full wellness ecosystem.</h3>
+            <p>Phase 3 completes the platform: the wellness layer that turns Mealign from a prescription service into a retention engine. Nutrition tracking, fitness protocols, automated content feeds, and the admin layer all ship in the same engagement.</p>
             <div class="timeline-tags">
-              <span class="tag tag--muted">Admin layer (users, doctors, appointments)</span>
-              <span class="tag tag--muted">Nutrition tracking</span>
-              <span class="tag tag--muted">Exercise and fitness protocols</span>
-              <span class="tag tag--muted">Progress and biometric tracking</span>
-              <span class="tag tag--muted">Supplementation records</span>
-              <span class="tag tag--muted">Blog and science content feed</span>
-              <span class="tag tag--muted">In-platform messaging (member to doctor)</span>
-              <span class="tag tag--muted">Advanced analytics and reporting</span>
+              <span class="tag">Nutrition and fitness tracking</span>
+              <span class="tag">Exercise protocols and progress records</span>
+              <span class="tag">Automated science and blog content feed</span>
+              <span class="tag">In-platform messaging (member to doctor)</span>
+              <span class="tag">PWA — install to homescreen, push notifications</span>
+              <span class="tag">Admin layer (users, doctors, appointments)</span>
+              <span class="tag">Advanced analytics and reporting</span>
             </div>
           </div>
         </div>
@@ -1614,7 +1613,7 @@
           <h2>Built for speed.<br /><em>Secured</em> for health data.</h2>
         </div>
         <div>
-          <p style="color: var(--text-light); font-size: 0.95rem;">Mealign handles prescription data, payment records, and clinical notes. The architecture reflects that: a modern React frontend backed by Supabase for database, auth, and encrypted file storage, with Stripe for payments and an embedded video SDK for consultations. Every component is chosen for healthcare-adjacent trust requirements, not just developer convenience. The build is powered by Claude Code and Lovable working in tandem: Claude Code writes, reviews, and secures the codebase directly; Lovable accelerates the UI layer. Together they compress a 4-month agency timeline into 5 weeks without dropping quality or compliance standards.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Mealign handles prescription data, payment records, and clinical notes. The architecture reflects that: a modern React frontend backed by Supabase for database, auth, and encrypted file storage, with Stripe for payments and an embedded video SDK for consultations. Every component is chosen for healthcare-adjacent trust requirements, not just developer convenience. The build is powered by Claude Code and Lovable working in tandem: Claude Code writes, reviews, and secures the codebase directly; Lovable accelerates the UI layer. Together they compress a 6-to-9-month agency timeline into 7 weeks without dropping quality or compliance standards.</p>
         </div>
       </div>
 
@@ -1646,8 +1645,18 @@
         </div>
         <div class="tech-item">
           <div class="tech-label">Compliance</div>
-          <h4>GDPR (UK)</h4>
-          <p>UK data protection standards applied from day one: patient data encrypted at rest, access logged, no anon access to protected records, clear data retention policies built in.</p>
+          <h4>HIPAA + GDPR (UK/EU)</h4>
+          <p>Health data standards applied from day one: patient records encrypted at rest, access logged, no anon access to protected data, BAA-ready architecture, and UK/EU data retention policies built in.</p>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Progressive Web App</div>
+          <h4>PWA</h4>
+          <p>Installable on iOS and Android from the browser. Members get an app-like experience with offline support and home-screen access, without the cost and delay of native app store submissions.</p>
+        </div>
+        <div class="tech-item">
+          <div class="tech-label">Hosting + CDN</div>
+          <h4>UK Servers via Cloudflare</h4>
+          <p>Data residency in the UK from day one. Cloudflare handles global CDN, DDoS protection, and edge caching — sub-100ms load times for UK members, with the security layer built in at the infrastructure level.</p>
         </div>
       </div>
     </div>
@@ -1661,11 +1670,11 @@
       <div class="section-label">05 · Investment</div>
       <div class="grid-2" style="margin-bottom: 2rem;">
         <div>
-          <h2>One project.<br /><em>Two phases.</em><br />£6,000 total.</h2>
+          <h2>One project.<br /><em>Three phases.</em><br />£7,000 total.</h2>
         </div>
         <div>
-          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">The full Phase 1 + Phase 2 build is £6,000 total across five weeks. Payment is milestone-based: 50% of Phase 1 on signature, balance on Phase 1 delivery. Phase 2 invoiced 50% on commencement, 50% on delivery. A traditional agency quotes 4-5 months for the same scope. Vibe coding gets it done in one.</p>
-          <p style="color: var(--text-light); font-size: 0.95rem;">Phase 1 is available as a standalone if you want the marketing site live first. Phase 3 is quoted separately after the MVP ships and real usage shapes the priorities.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">The full build — marketing site, clinical MVP, and wellness ecosystem — is £7,000 across seven weeks. Payment is simple: £3,500 on signature, £3,500 on final delivery. A traditional agency quotes 6–9 months for the same scope. Vibe coding ships it in seven weeks.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Phase 1 is available as a standalone if you want the marketing site live first. A monthly retainer of £250 covers hosting, security, maintenance, and payment integrations from go-live.</p>
         </div>
       </div>
 
@@ -1675,11 +1684,11 @@
           <div class="pricing-card-head">
             <div class="pricing-tier-label">Phase 1 Only</div>
             <h4>Marketing site to market</h4>
-            <div class="price-amount">£2,500</div>
+            <div class="price-amount">£1,500</div>
             <div class="price-total">1 week · standalone option</div>
           </div>
           <div class="pricing-card-body">
-            <p class="best-for">Start with the marketing site. Build the audience and waitlist while Phase 2 is scoped and funded. Lower upfront commitment, faster time to a public presence.</p>
+            <p class="best-for">Start with the marketing site. Build the audience and waitlist while Phase 2 is scoped and funded. Lower upfront commitment, fastest time to a public presence.</p>
             <ul class="feature-list">
               <li>Full marketing landing page</li>
               <li>Hero, how it works, FAQ, contact</li>
@@ -1694,51 +1703,51 @@
         <div class="pricing-card recommended">
           <div class="recommended-badge">Recommended</div>
           <div class="pricing-card-head">
-            <div class="pricing-tier-label">Phase 1 + Phase 2</div>
-            <h4>Full MVP · market to launch</h4>
-            <div class="price-amount">£6,000</div>
-            <div class="price-total">5 weeks · complete build</div>
+            <div class="pricing-tier-label">Full Build · Phase 1 + 2 + 3</div>
+            <h4>Complete platform · launch ready</h4>
+            <div class="price-amount">£7,000</div>
+            <div class="price-total">7 weeks · everything included</div>
           </div>
           <div class="pricing-card-body">
-            <p class="best-for">The full build: marketing site live at end of week 1, web app with doctor and member portals, consultations, prescriptions, and subscription billing live by end of week 4. QA and go-live week 5.</p>
+            <p class="best-for">Marketing site live week 1. Clinical MVP with portals, consultations, and billing live by week 5. Weeks 6 and 7 complete the wellness ecosystem: nutrition, fitness tracking, content feeds, and PWA install.</p>
             <ul class="feature-list">
-              <li>Everything in Phase 1</li>
-              <li>Member and doctor portals (separate auth)</li>
+              <li>Marketing site + signup capture</li>
+              <li>Member and doctor portals (role-based auth)</li>
               <li>Booking calendar + embedded video calls</li>
-              <li>Prescription issuance and storage</li>
-              <li>Member dashboard (dosage, reminders, tracking)</li>
-              <li>Stripe subscription billing</li>
-              <li>GDPR-compliant secure data storage</li>
-              <li>Role-based access control throughout</li>
+              <li>Prescription issuance and secure storage</li>
+              <li>Stripe / Peach Payments subscription billing</li>
+              <li>Nutrition and fitness tracking</li>
+              <li>Automated science and blog content feed</li>
+              <li>PWA — install to homescreen, push notifications</li>
+              <li>HIPAA + GDPR compliant architecture</li>
+              <li>UK-based data hosting (Supabase UK region)</li>
             </ul>
           </div>
         </div>
 
         <div class="pricing-card">
           <div class="pricing-card-head">
-            <div class="pricing-tier-label">Phase 3 (Future)</div>
-            <h4>Full wellness ecosystem</h4>
-            <div class="price-amount" style="font-size: 1.6rem; color: rgba(255,255,255,0.4);">TBD</div>
-            <div class="price-total">Quoted post-MVP</div>
+            <div class="pricing-tier-label">Monthly Retainer</div>
+            <h4>Hosting, security &amp; maintenance</h4>
+            <div class="price-amount">£250</div>
+            <div class="price-total">per month · from go-live</div>
           </div>
           <div class="pricing-card-body">
-            <p class="best-for">Scoped once the MVP is live and member feedback informs the full platform priorities. Includes the admin layer, full wellness portal, and content features.</p>
+            <p class="best-for">Keeps the platform live, secure, and compliant. Covers hosting, monthly health checks, payment integration maintenance, security patches, and minor support requests.</p>
             <ul class="feature-list">
-              <li>Admin layer (users, doctors, appointments)</li>
-              <li>Nutrition and fitness tracking</li>
-              <li>Supplementation and progress records</li>
-              <li>Science and blog content feed</li>
-              <li>In-platform messaging</li>
-              <li>Advanced analytics and reporting</li>
-              <li>Mobile app consideration</li>
-              <li>Full platform hardening and scale</li>
+              <li>UK-region Supabase + Cloudflare hosting</li>
+              <li>Monthly system and security checks</li>
+              <li>Payment provider integration upkeep</li>
+              <li>Minor support and bug fixes included</li>
+              <li>Data compliance monitoring (GDPR + HIPAA)</li>
+              <li>Scale conversation if storage grows significantly</li>
             </ul>
           </div>
         </div>
 
       </div>
 
-      <p class="pricing-note">All amounts in GBP, exclusive of VAT. Payment schedule: 50% of Phase 1 fee on signature of Statement of Work, 50% on Phase 1 delivery. Phase 2 fee invoiced 50% on commencement, 50% on delivery. Third-party tooling costs (Stripe, Whereby, hosting, domain) are passed through at cost with no markup and are not included in the above. Phase 3 scope and pricing will be presented following MVP delivery and a structured review of member feedback and platform usage.</p>
+      <p class="pricing-note">All amounts in GBP, exclusive of VAT. Payment: £3,500 on signature of Statement of Work, £3,500 on final delivery. Monthly retainer of £250 begins from go-live. Third-party tooling costs (Stripe, Supabase, Whereby, domain) are passed through at cost with no markup and are not included in the above figures.</p>
     </div>
   </section>
 
@@ -1760,11 +1769,15 @@
       <div class="sla-grid">
         <div class="sla-item">
           <h4>NDA and Statement of Work</h4>
-          <p>Both parties sign an NDA and a formal SOW before the first line of code is written. The SOW details the full Phase 1 and Phase 2 scope, payment milestones, deliverables, and revision policy. No ambiguity on either side.</p>
+          <p>Both parties sign an NDA and a formal SOW before the first line of code is written. The SOW details the full Phase 1, 2, and 3 scope, payment milestones, deliverables, and revision policy. No ambiguity on either side.</p>
         </div>
         <div class="sla-item">
           <h4>Milestone-based delivery</h4>
-          <p>Phase 1 and Phase 2 each have clear delivery milestones with sign-off points. You review what is built at each milestone before the next stage begins. No surprises at the end of a 5-week build.</p>
+          <p>Each phase has clear delivery milestones with sign-off points. You review what is built before the next stage begins. No surprises at the end of a 7-week build.</p>
+        </div>
+        <div class="sla-item">
+          <h4>Monthly retainer from go-live</h4>
+          <p>£250/month covers UK hosting, security monitoring, platform maintenance, and payment integration support. No surprise bills. Includes one minor update per month at no extra charge.</p>
         </div>
         <div class="sla-item">
           <h4>Brand and design alignment</h4>
@@ -1880,7 +1893,7 @@
       });
       el.addEventListener('mouseleave', () => {
         el.style.transform = '';
-        el.style.transition = 'transform 0.45s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease';
+        el.style.transition = 'transform 0.45s cubic-bezier(0.16,1,0.3,1), border-color 0.25s ease, box-shadow 0.28s ease';
       });
     });
   </script>
