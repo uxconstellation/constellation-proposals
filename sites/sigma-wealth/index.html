@@ -990,22 +990,26 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     document.getElementById("counterNum").textContent = n + "/3";
     entriesOf().forEach(e => {
       const isIn = +e.dataset.step === n;
+      const lines = e.querySelectorAll(".line");
+      /* authoritative: kill any pending tweens on this entry so a stale (delayed) fade
+         can never resurrect a hidden entry on fast scroll. This was the stacking bug. */
+      gsap.killTweensOf(e); gsap.killTweensOf(lines);
       if (isIn){
         gsap.set(e, { visibility: "visible" });
         if (instant){
           gsap.set(e, { opacity: 1 });
-          gsap.set(e.querySelectorAll(".line"), { opacity: 1, filter: "blur(0px)", y: 0 });
+          gsap.set(lines, { opacity: 1, filter: "blur(0px)", y: 0 });
         } else {
-          gsap.to(e, { opacity: 1, duration: 0.45, ease: "power1.out", delay: prev ? 0.25 : 0 });
-          gsap.fromTo(e.querySelectorAll(".line"),
+          gsap.to(e, { opacity: 1, duration: 0.45, ease: "power1.out", overwrite: true });
+          gsap.fromTo(lines,
             { opacity: 0, filter: "blur(10px)", y: 14 },
             { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.8, ease: "power2.out",
-              stagger: 0.08, delay: prev ? 0.25 : 0 });
+              stagger: 0.08, overwrite: true });
         }
       } else {
-        if (instant){ gsap.set(e, { opacity: 0, visibility: "hidden" }); }
-        else gsap.to(e, { opacity: 0, duration: 0.3, ease: "power1.in",
-          onComplete(){ gsap.set(e, { visibility: "hidden" }); } });
+        /* snap fully out, opacity AND visibility together, no lingering tween */
+        gsap.set(e, { opacity: 0, visibility: "hidden" });
+        gsap.set(lines, { opacity: 0 });
       }
     });
   }
