@@ -89,13 +89,14 @@
   .top.scrolled .lang-toggle{border-color:rgba(246,241,232,.35)}
   .top.scrolled .lang-toggle button{color:var(--cream-60)}
   .top.scrolled .lang-toggle button[aria-pressed="true"]{color:var(--ink)}
-  .nav__logo{justify-self:center;height:30px;width:auto;opacity:0;transition:filter .25s}
-  .top.scrolled .nav__logo{filter:brightness(0) invert(1)}
-  html.reduced-motion .nav__logo{opacity:.95}
-  .nav__cta{justify-self:end;font-size:14.4px;font-weight:600;letter-spacing:.06em;color:var(--ink);
-    text-decoration:none;text-transform:uppercase;transition:color .3s}
-  .nav__cta:hover{color:var(--gold)}
-  .top.scrolled .nav__cta{color:var(--cream)}
+  .nav__mark{justify-self:center;width:26px;height:26px;opacity:0}
+  html.reduced-motion .nav__mark{opacity:1}
+  .nav__mark path{stroke:var(--navy);stroke-width:9;fill:none;stroke-linecap:square;stroke-linejoin:miter;transition:stroke .3s}
+  .top.scrolled .nav__mark path{stroke:var(--gold)}
+  .nav__cta{justify-self:end;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    text-decoration:none;background:var(--gold);color:var(--ink);padding:10px 20px;border-radius:999px;
+    transition:opacity .25s,transform .25s}
+  .nav__cta:hover{opacity:.88;transform:translateY(-1px)}
   @media (max-width:560px){
     .top{padding:0 16px;height:64px}
     .nav__cta{font-size:11.5px}
@@ -118,9 +119,13 @@
   .hero__name .mask{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
   .hero__name .lineIn{display:block;transform:translateY(112%)}
   html.reduced-motion .hero__name .lineIn{transform:none}
-  .hero__logo{display:block;width:min(460px,66vw);height:auto}
-  .hero__sub{margin-top:22px;font-size:18px;line-height:1.55;color:var(--navy);max-width:44ch;opacity:0}
+  .hero__sub{margin-top:22px;font-size:18px;line-height:1.55;color:var(--navy);max-width:48ch;opacity:0}
   html.reduced-motion .hero__sub{opacity:1}
+  .hero__cta{display:inline-block;align-self:center;margin-top:32px;background:var(--gold);color:var(--ink);
+    font-family:var(--sans);font-size:14.4px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    text-decoration:none;padding:15px 32px;border-radius:999px;opacity:0;transition:opacity .25s,transform .25s}
+  .hero__cta:hover{opacity:.9;transform:translateY(-1px)}
+  html.reduced-motion .hero__cta{opacity:1}
   .hero__cue{position:absolute;left:34px;bottom:30px;z-index:3;display:flex;align-items:center;gap:8px;
     color:var(--navy);text-decoration:none}
   .hero__cue svg{width:12px;height:14px;stroke:var(--navy)}
@@ -365,7 +370,9 @@
     <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
     <button type="button" class="lang-btn" data-lang="af" aria-pressed="false">AF</button>
   </div>
-  <img class="nav__logo" id="navLogo" src="img/sigma-logo.webp" alt="Sigma Wealth &amp; Asset Management" decoding="async">
+  <svg class="nav__mark" id="navMark" viewBox="0 0 100 100" aria-hidden="true">
+    <path d="M 78 18 L 22 18 L 52 50 L 22 82 L 78 82"/>
+  </svg>
   <a class="nav__cta" href="#contact" data-i18n="bookNav">Book a call</a>
 </header>
 
@@ -376,14 +383,12 @@
   <div class="hero__scrim"></div>
   <div class="hero__inner">
     <h1 class="hero__name" id="heroName">
-      <span class="mask"><img class="hero__logo lineIn" src="img/sigma-logo.webp" alt="Sigma Wealth &amp; Asset Management" fetchpriority="high" decoding="async"></span>
+      <span class="mask"><span class="lineIn" data-i18n="heroH1a">Personal wealth</span></span>
+      <span class="mask"><span class="lineIn" data-i18n="heroH1b">and asset management</span></span>
     </h1>
-    <p class="hero__sub" data-i18n="heroSub">Personal wealth and asset management for Free State families.</p>
+    <p class="hero__sub" data-i18n="heroSub">A principled, personal approach to planning, investing, and protecting what matters, for individuals, families, and business owners.</p>
+    <a class="hero__cta" href="#contact" data-i18n="heroCta">Book a discovery call</a>
   </div>
-  <a class="hero__cue caption" href="#approach" id="heroCue">
-    <span data-i18n="scrollCue">Scroll down</span>
-    <svg viewBox="0 0 12 14" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M6 1v11M1.5 8L6 12.5 10.5 8"/></svg>
-  </a>
 </div>
 <div class="hero-spacer" aria-hidden="true"></div>
 
@@ -688,7 +693,7 @@
 /* ===================== bilingual copy: single active language (Dinamika switcher pattern) ===================== */
 const COPY = {
   en: {
-    bookNav:"Book a call", heroSub:"Personal wealth and asset management for Free State families.", scrollCue:"Scroll down",
+    bookNav:"Book a call", heroH1a:"Personal wealth", heroH1b:"and asset management", heroCta:"Book a discovery call", heroSub:"A principled, personal approach to planning, investing, and protecting what matters, for individuals, families, and business owners.", scrollCue:"Scroll down",
     railCaption:"What we do",
     statYears:"years", statClients:"clients", statAum:"AUM", statEst:"est.",
     tagline:'Personal. <em>Always.</em>',
@@ -732,7 +737,7 @@ const COPY = {
     }
   },
   af: {
-    bookNav:"Bespreek 'n konsultasie", heroSub:"Persoonlike welvaart- en batesbestuur vir Vrystaatse gesinne.", scrollCue:"Rol af",
+    bookNav:"Bespreek 'n konsultasie", heroH1a:"Persoonlike welvaart-", heroH1b:"en batebestuur", heroCta:"Bespreek 'n konsultasie", heroSub:"'n Beginselvaste, persoonlike benadering tot beplanning, belegging en die beskerming van wat saak maak, vir individue, gesinne en besigheidseienaars.", scrollCue:"Rol af",
     railCaption:"Wat ons doen",
     statYears:"jaar", statClients:"kliënte", statAum:"onder bestuur", statEst:"gestig",
     tagline:'Persoonlik. <em>Altyd.</em>',
@@ -932,7 +937,7 @@ document.querySelectorAll("canvas.tile__disc").forEach(c => {
 
 /* ===================== preloader (proto-1, verified) ===================== */
 (function preloader(){
-  const navLogo = document.getElementById("navLogo");
+  const navMark = document.getElementById("navMark");
   if (prefersReduced){ document.getElementById("preloader").remove(); return; }
   if (lenis) lenis.stop();
 
@@ -957,11 +962,14 @@ document.querySelectorAll("canvas.tile__disc").forEach(c => {
     .addLabel("hold", "+=0.45")
     .to("#preloader", { yPercent: -100, duration: 1.0, ease: "power3.inOut" }, "hold")
     .to(".hero__name .lineIn", { y: 0, duration: 0.9, ease: "power3.out", stagger: 0.12 }, "hold+=0.35")
-    .to(".hero__sub", { opacity: 1, duration: 0.8, ease: "power2.out" }, "hold+=0.7")
-    .to(navLogo, { opacity: 0.95, duration: 0.7, ease: "power2.out" }, "hold+=0.45")
+    .to([".hero__sub", ".hero__cta"], { opacity: 1, duration: 0.8, ease: "power2.out", stagger: 0.1 }, "hold+=0.7")
+    .to(navMark, { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out",
+                   onStart(){ gsap.set(navMark, { scale: 0.55, transformOrigin: "50% 50%" }); } }, "hold+=0.45")
     .call(() => {
       document.getElementById("preloader").remove();
       if (lenis) lenis.start();
+      gsap.to(navMark, { scale: 1.08, opacity: 0.82, duration: 2.4,
+        ease: "sine.inOut", yoyo: true, repeat: -1, transformOrigin: "50% 50%" });
     });
   window.__pre = tl;
   window.addEventListener("load", () => tl.play(), { once: true });
@@ -976,38 +984,37 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
   const mark = document.getElementById("mark");
   const entriesOf = () => section.querySelectorAll(".approach__entry");
 
-  let current = 0;
-  function applyStep(n, instant){
-    const prev = current; current = n;
+  let currentN = 1, shownStep = 0;
+  /* Self-healing step control: called on EVERY ScrollTrigger update, so an entry's
+     container opacity is a pure function of the active step (only the current one is
+     visible). No delayed tweens and no on-change-only gating, so any scroll pattern
+     (fast fling, reverse, jump) converges to exactly one visible entry. Lines blur-in
+     only when a step first activates. This is the real fix for the stacking bug. */
+  function setStep(n){
+    currentN = n;
     section.classList.remove("step-1","step-2","step-3");
     section.classList.add("step-" + n);
     document.getElementById("counterNum").textContent = n + "/3";
     entriesOf().forEach(e => {
-      const isIn = +e.dataset.step === n;
+      const on = +e.dataset.step === n;
       const lines = e.querySelectorAll(".line");
-      /* authoritative: kill any pending tweens on this entry so a stale (delayed) fade
-         can never resurrect a hidden entry on fast scroll. This was the stacking bug. */
-      gsap.killTweensOf(e); gsap.killTweensOf(lines);
-      if (isIn){
-        gsap.set(e, { visibility: "visible" });
-        if (instant){
-          gsap.set(e, { opacity: 1 });
-          gsap.set(lines, { opacity: 1, filter: "blur(0px)", y: 0 });
-        } else {
-          gsap.to(e, { opacity: 1, duration: 0.45, ease: "power1.out", overwrite: true });
+      gsap.set(e, { opacity: on ? 1 : 0, visibility: on ? "visible" : "hidden" });
+      if (on){
+        if (n !== shownStep){
+          gsap.killTweensOf(lines);
           gsap.fromTo(lines,
             { opacity: 0, filter: "blur(10px)", y: 14 },
-            { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.8, ease: "power2.out",
-              stagger: 0.08, overwrite: true });
+            { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.7, ease: "power2.out",
+              stagger: 0.07, overwrite: true });
         }
       } else {
-        /* snap fully out, opacity AND visibility together, no lingering tween */
-        gsap.set(e, { opacity: 0, visibility: "hidden" });
-        gsap.set(lines, { opacity: 0 });
+        gsap.killTweensOf(lines);
+        gsap.set(lines, { opacity: 0, filter: "blur(0px)", y: 0 });
       }
     });
+    shownStep = n;
   }
-  window.__applyStepInstant = () => { if (!isMobile && !prefersReduced) applyStep(current || 1, true); };
+  window.__applyStepInstant = () => { if (!isMobile && !prefersReduced){ shownStep = 0; setStep(currentN); } };
 
   if (prefersReduced) return;              /* CSS shows the stacked layout */
   if (isMobile){
@@ -1037,8 +1044,7 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
        .to("#circles", { opacity: 1, scale: 1, ease: "none", duration: 0.35 }, 0.62)
        .to("#counterFill", { scaleX: 1, ease: "none", duration: 1 }, 0);
 
-  function setStep(n){ if (n !== current) applyStep(n, false); }
-  applyStep(1, false);
+  setStep(1);
 })();
 
 /* ===================== beat 2: services pinned narrative (proto-3, verified) ===================== */
