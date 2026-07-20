@@ -89,10 +89,9 @@
   .top.scrolled .lang-toggle{border-color:rgba(246,241,232,.35)}
   .top.scrolled .lang-toggle button{color:var(--cream-60)}
   .top.scrolled .lang-toggle button[aria-pressed="true"]{color:var(--ink)}
-  .nav__mark{justify-self:center;width:26px;height:26px;opacity:0}
-  html.reduced-motion .nav__mark{opacity:1}
-  .nav__mark path{stroke:var(--navy);stroke-width:9;fill:none;stroke-linecap:square;stroke-linejoin:miter;transition:stroke .3s}
-  .top.scrolled .nav__mark path{stroke:var(--gold)}
+  .nav__logo{justify-self:center;height:30px;width:auto;opacity:0;transition:filter .25s}
+  .top.scrolled .nav__logo{filter:brightness(0) invert(1)}
+  html.reduced-motion .nav__logo{opacity:.95}
   .nav__cta{justify-self:end;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
     text-decoration:none;background:var(--gold);color:var(--ink);padding:10px 20px;border-radius:999px;
     transition:opacity .25s,transform .25s}
@@ -370,9 +369,7 @@
     <button type="button" class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
     <button type="button" class="lang-btn" data-lang="af" aria-pressed="false">AF</button>
   </div>
-  <svg class="nav__mark" id="navMark" viewBox="0 0 100 100" aria-hidden="true">
-    <path d="M 78 18 L 22 18 L 52 50 L 22 82 L 78 82"/>
-  </svg>
+  <img class="nav__logo" id="navLogo" src="img/sigma-logo.webp" alt="Sigma Wealth &amp; Asset Management" decoding="async">
   <a class="nav__cta" href="#contact" data-i18n="bookNav">Book a call</a>
 </header>
 
@@ -937,7 +934,7 @@ document.querySelectorAll("canvas.tile__disc").forEach(c => {
 
 /* ===================== preloader (proto-1, verified) ===================== */
 (function preloader(){
-  const navMark = document.getElementById("navMark");
+  const navLogo = document.getElementById("navLogo");
   if (prefersReduced){ document.getElementById("preloader").remove(); return; }
   if (lenis) lenis.stop();
 
@@ -963,13 +960,10 @@ document.querySelectorAll("canvas.tile__disc").forEach(c => {
     .to("#preloader", { yPercent: -100, duration: 1.0, ease: "power3.inOut" }, "hold")
     .to(".hero__name .lineIn", { y: 0, duration: 0.9, ease: "power3.out", stagger: 0.12 }, "hold+=0.35")
     .to([".hero__sub", ".hero__cta"], { opacity: 1, duration: 0.8, ease: "power2.out", stagger: 0.1 }, "hold+=0.7")
-    .to(navMark, { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out",
-                   onStart(){ gsap.set(navMark, { scale: 0.55, transformOrigin: "50% 50%" }); } }, "hold+=0.45")
+    .to(navLogo, { opacity: 0.95, duration: 0.7, ease: "power2.out" }, "hold+=0.45")
     .call(() => {
       document.getElementById("preloader").remove();
       if (lenis) lenis.start();
-      gsap.to(navMark, { scale: 1.08, opacity: 0.82, duration: 2.4,
-        ease: "sine.inOut", yoyo: true, repeat: -1, transformOrigin: "50% 50%" });
     });
   window.__pre = tl;
   window.addEventListener("load", () => tl.play(), { once: true });
