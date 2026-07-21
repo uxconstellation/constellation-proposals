@@ -117,13 +117,13 @@
   <header class="hero">
     <div class="hero-bg"></div>
     <div class="wrap">
-      <div class="eyebrow"><span></span> LabTQA CRM · What R150,000 builds</div>
+      <div class="eyebrow"><span></span> LabTQA · What R150,000 builds</div>
       <h1>Every feature,<br />mapped to the <em>budget.</em></h1>
-      <p>This is the working specification for the LabTQA CRM build. It lists every in-scope feature, groups them the way you will use them, and shows exactly where the R150,000 goes. A handful of items are marked "on us": easy wins we are including at no extra cost because they make the system nicer to live in.</p>
+      <p>This is the working specification for the LabTQA build: a lean version of all five areas, CRM, renewals, quality, shipping and HR. It lists every in-scope feature, groups them the way you will use them, and shows exactly where the R150,000 goes. A handful of items are marked "on us": easy wins we are including at no extra cost because they make the system nicer to live in.</p>
       <div class="meta">
         <div><span>Build</span><b>R150,000 fixed</b></div>
         <div><span>Then</span><b>R2,500 / month maintenance</b></div>
-        <div><span>Timeline</span><b>About four weeks</b></div>
+        <div><span>Timeline</span><b>About eight weeks</b></div>
         <div><span>Prepared by</span><b>Aldo Calitz, Constellation</b></div>
       </div>
     </div>
@@ -133,14 +133,14 @@
     <div class="wrap">
       <div class="section-label">01 · Where the budget goes</div>
       <h2 class="sec">R150,000, mapped to real work.</h2>
-      <p class="sec-intro">The build is a fixed R150,000. Here is roughly how that effort is spread across the CRM, so you can see the money maps to features, not overhead.</p>
+      <p class="sec-intro">The build is a fixed R150,000. Here is roughly how that effort is spread across all five areas, so you can see the money maps to features, not overhead.</p>
       <div class="budget">
-        <div class="budget-row"><div><div class="area">Data model &amp; contacts</div><div class="bar"><span style="width:20%"></span></div></div><div class="desc">The Group to Company to Contact structure, reference numbers, duplicates, merge, archive, audit, search.</div><div class="amt">R30,000</div></div>
-        <div class="budget-row"><div><div class="area">Case &amp; email engine</div><div class="bar"><span style="width:28%"></span></div></div><div class="desc">Shared-mailbox ingestion, assignment, status, SLA, complaints, collaboration and hand-off.</div><div class="amt">R42,000</div></div>
-        <div class="budget-row"><div><div class="area">Campaigns &amp; follow-ups</div><div class="bar"><span style="width:19%"></span></div></div><div class="desc">Content sections, per-recipient sends, a case per recipient, and the shared follow-up engine.</div><div class="amt">R28,000</div></div>
-        <div class="budget-row"><div><div class="area">Tasks, notifications &amp; dashboards</div><div class="bar"><span style="width:15%"></span></div></div><div class="desc">Tasks, @mentions, the notification centre, the daily dashboard, and exports.</div><div class="amt">R22,000</div></div>
-        <div class="budget-row"><div><div class="area">Security, roles, audit &amp; integrations</div><div class="bar"><span style="width:12%"></span></div></div><div class="desc">Row-level security, roles, encryption, the audit trail, and the Outlook and Sage-ready connections.</div><div class="amt">R18,000</div></div>
-        <div class="budget-row"><div><div class="area">Setup, QA, deployment &amp; go-live</div><div class="bar"><span style="width:7%"></span></div></div><div class="desc">Environment setup, the two-round QA, security hardening, and putting it live.</div><div class="amt">R10,000</div></div>
+        <div class="budget-row"><div><div class="area">CRM core</div><div class="bar"><span style="width:37%"></span></div></div><div class="desc">The shared inbox as tracked cases, contacts and hierarchy, campaigns, follow-ups, tasks, dashboards and the audit trail.</div><div class="amt">R55,000</div></div>
+        <div class="budget-row"><div><div class="area">Renewals</div><div class="bar"><span style="width:17%"></span></div></div><div class="desc">The due-renewal tracker, Sage-assisted quote drafting, and the campaign chase.</div><div class="amt">R25,000</div></div>
+        <div class="budget-row"><div><div class="area">Quality</div><div class="bar"><span style="width:17%"></span></div></div><div class="desc">Document and version register, fillable forms, CAPA linked to cases, and the training and competency register.</div><div class="amt">R25,000</div></div>
+        <div class="budget-row"><div><div class="area">Shipping &amp; dispatch</div><div class="bar"><span style="width:8%"></span></div></div><div class="desc">Goods received, the daily dispatch list, a packing checklist, and basic tracking.</div><div class="amt">R12,000</div></div>
+        <div class="budget-row"><div><div class="area">HR-light</div><div class="bar"><span style="width:12%"></span></div></div><div class="desc">Leave, daily timesheets, onboarding checklists, and training and competency records.</div><div class="amt">R18,000</div></div>
+        <div class="budget-row"><div><div class="area">Foundations, security &amp; go-live</div><div class="bar"><span style="width:10%"></span></div></div><div class="desc">Roles, row-level security, encryption, the integrations into Outlook, Sage and your file server, and the two-round QA.</div><div class="amt">R15,000</div></div>
         <div class="budget-total"><div class="l">Total, fixed</div><div class="r">R150,000</div></div>
       </div>
       <p class="free-line"><b>Easy wins: R0.</b> The six items marked "on us" below are included at no extra cost.</p>
@@ -217,7 +217,58 @@
       </div>
 
       <div class="fgroup">
-        <h3><span class="dot"></span> Security, roles &amp; integrations</h3>
+        <h3><span class="dot"></span> Renewals (lean)</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Due-renewal tracker</td><td class="what">Flags customers due for renewal from their prior-year products and schemes.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Sage-assisted quote</td><td class="what">Drafts the renewal quote, pulling and pushing to Sage with your staff confirming each step.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Campaign chase</td><td class="what">Runs the renewal follow-up through the same campaign and follow-up engine.</td><td><span class="tag inscope">In scope</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Quality (lean)</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Document register</td><td class="what">A controlled-document register with version history against each record.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Digital forms</td><td class="what">Fillable on-system forms stored against the relevant record.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">CAPA</td><td class="what">Corrective and preventive actions raised from and linked to a case.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Training register</td><td class="what">Training and competency records per staff member.</td><td><span class="tag inscope">In scope</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Shipping &amp; dispatch (lean)</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Goods received</td><td class="what">Record incoming stock into the system.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Dispatch list</td><td class="what">Generate the day's dispatch list per run.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Packing checklist</td><td class="what">Work through items against the order as you pack.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Basic tracking</td><td class="what">Keep simple inbound and outbound tracking.</td><td><span class="tag inscope">In scope</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> HR-light</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Leave</td><td class="what">Leave requests and approvals recorded against the approver's login.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Timesheets</td><td class="what">Daily timesheets logged in-system.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Onboarding</td><td class="what">New-employee onboarding checklists linked to policy training.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Competency</td><td class="what">Training and competency records that update from policy changes.</td><td><span class="tag inscope">In scope</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Foundations, security &amp; integrations</h3>
         <div class="table-wrap"><table>
           <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
           <tbody>
@@ -225,7 +276,7 @@
             <tr><td class="feat">Row-level security</td><td class="what">Access enforced in the database itself, not just the screen.</td><td><span class="tag inscope">In scope</span></td></tr>
             <tr><td class="feat">Encryption &amp; audit</td><td class="what">Encrypted in transit and at rest, with the append-only audit trail throughout.</td><td><span class="tag inscope">In scope</span></td></tr>
             <tr><td class="feat">Outlook &amp; Microsoft 365</td><td class="what">Plugs into your mail and works alongside your existing Copilot.</td><td><span class="tag inscope">In scope</span></td></tr>
-            <tr><td class="feat">Sage &amp; file-server ready</td><td class="what">The connection points are built, ready for renewals when you add them.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Sage &amp; file server</td><td class="what">Live connections for the renewals quoting and document storage above.</td><td><span class="tag inscope">In scope</span></td></tr>
             <tr class="freerow"><td class="feat">Dark &amp; light mode</td><td class="what">A comfortable interface day or night, remembered per user.</td><td><span class="tag free">On us</span></td></tr>
             <tr class="freerow"><td class="feat">Keyboard shortcuts</td><td class="what">Quick keys for your power users, so the daily grind is faster.</td><td><span class="tag free">On us</span></td></tr>
           </tbody>
@@ -238,7 +289,7 @@
     <div class="wrap">
       <div class="section-label">03 · Subscriptions &amp; connections</div>
       <h2 class="sec">Everything it touches, and who pays.</h2>
-      <p class="sec-intro">The CRM sits at the centre and connects to the tools you already run. Here is the whole picture, so there are no surprises: what connects to what, and the full cost of ownership beside it.</p>
+      <p class="sec-intro">The platform sits at the centre and connects to the tools you already run. Here is the whole picture, so there are no surprises: what connects to what, and the full cost of ownership beside it.</p>
 
       <svg viewBox="0 0 760 380" style="width:100%;height:auto;max-width:760px;display:block;margin:1.5rem auto 0;font-family:'Satoshi',sans-serif;" role="img" aria-label="Connection map: the LabTQA CRM connects to Outlook, Copilot, Sage, the file server, and Supabase hosting">
         <g stroke="rgba(255,255,255,0.22)" stroke-width="1.5">
@@ -260,7 +311,7 @@
         <text x="170" y="320" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Supabase hosting</text>
         <text x="170" y="335" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">in your fee</text>
         <rect x="298" y="153" width="164" height="64" rx="14" fill="rgba(254,110,54,0.16)" stroke="#FE6E36" stroke-width="2"/>
-        <text x="380" y="180" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700">LabTQA CRM</text>
+        <text x="380" y="180" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="700">LabTQA Platform</text>
         <text x="380" y="199" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="11">yours, built by us</text>
       </svg>
       <div style="display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
