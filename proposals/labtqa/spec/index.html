@@ -108,7 +108,10 @@
 <body>
   <nav>
     <img src="../assets/logo.png" alt="Constellation" style="height:30px;" />
-    <span class="nav-tag">Feature Specification</span>
+    <div style="display:flex;align-items:center;gap:1.25rem;">
+      <a href="../" style="font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--orange);text-decoration:none;font-weight:600;">&larr; Proposal</a>
+      <span class="nav-tag">Feature Specification</span>
+    </div>
   </nav>
 
   <header class="hero">
@@ -233,7 +236,59 @@
 
   <section>
     <div class="wrap">
-      <div class="section-label">03 · On us</div>
+      <div class="section-label">03 · Subscriptions &amp; connections</div>
+      <h2 class="sec">Everything it touches, and who pays.</h2>
+      <p class="sec-intro">The CRM sits at the centre and connects to the tools you already run. Here is the whole picture, so there are no surprises: what connects to what, and the full cost of ownership beside it.</p>
+
+      <svg viewBox="0 0 760 380" style="width:100%;height:auto;max-width:760px;display:block;margin:1.5rem auto 0;font-family:'Satoshi',sans-serif;" role="img" aria-label="Connection map: the LabTQA CRM connects to Outlook, Copilot, Sage, the file server, and Supabase hosting">
+        <g stroke="rgba(255,255,255,0.22)" stroke-width="1.5">
+          <line x1="380" y1="185" x2="110" y2="71"/>
+          <line x1="380" y1="185" x2="650" y2="71"/>
+          <line x1="380" y1="185" x2="670" y2="201"/>
+          <line x1="380" y1="185" x2="590" y2="321"/>
+          <line x1="380" y1="185" x2="170" y2="321"/>
+        </g>
+        <rect x="40" y="50" width="140" height="42" rx="10" fill="rgba(14,90,86,0.18)" stroke="#2E8B84" stroke-width="1.5"/>
+        <text x="110" y="76" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Outlook / M365</text>
+        <rect x="580" y="50" width="140" height="42" rx="10" fill="rgba(14,90,86,0.18)" stroke="#2E8B84" stroke-width="1.5"/>
+        <text x="650" y="76" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Copilot</text>
+        <rect x="600" y="180" width="140" height="42" rx="10" fill="rgba(14,90,86,0.18)" stroke="#2E8B84" stroke-width="1.5"/>
+        <text x="670" y="206" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">Sage</text>
+        <rect x="520" y="300" width="140" height="42" rx="10" fill="rgba(14,90,86,0.18)" stroke="#2E8B84" stroke-width="1.5"/>
+        <text x="590" y="326" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="600">File server</text>
+        <rect x="100" y="300" width="140" height="42" rx="10" fill="rgba(254,110,54,0.14)" stroke="#FE6E36" stroke-width="1.5"/>
+        <text x="170" y="320" text-anchor="middle" fill="#FFFFFF" font-size="13" font-weight="600">Supabase hosting</text>
+        <text x="170" y="335" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="10">in your fee</text>
+        <rect x="298" y="153" width="164" height="64" rx="14" fill="rgba(254,110,54,0.16)" stroke="#FE6E36" stroke-width="2"/>
+        <text x="380" y="180" text-anchor="middle" fill="#FFFFFF" font-size="16" font-weight="700">LabTQA CRM</text>
+        <text x="380" y="199" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="11">yours, built by us</text>
+      </svg>
+      <div style="display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:center;margin-top:1rem;font-size:0.8rem;color:var(--text-light);">
+        <span><span style="display:inline-block;width:11px;height:11px;border-radius:3px;background:rgba(254,110,54,0.5);border:1px solid #FE6E36;vertical-align:middle;margin-right:0.4rem;"></span>The CRM and its hosting, inside your Constellation fees</span>
+        <span><span style="display:inline-block;width:11px;height:11px;border-radius:3px;background:rgba(14,90,86,0.4);border:1px solid #2E8B84;vertical-align:middle;margin-right:0.4rem;"></span>Your existing subscriptions, no change</span>
+      </div>
+
+      <div class="table-wrap" style="margin-top:2rem;"><table>
+        <thead><tr><th>Service</th><th>What it is for</th><th>Connects to</th><th>Who pays</th><th>Cost</th></tr></thead>
+        <tbody>
+          <tr class="freerow"><td class="feat">LabTQA CRM</td><td class="what">The application itself, built and handed over as yours</td><td class="what">The hub for everything below</td><td class="what">Constellation builds, you own</td><td class="what">R150,000 once-off</td></tr>
+          <tr class="freerow"><td class="feat">Supabase hosting</td><td class="what">Database, authentication, file storage and daily backups</td><td class="what">The CRM</td><td class="what">Inside your maintenance fee</td><td class="what">In R2,500 / month</td></tr>
+          <tr><td class="feat">Outlook / Microsoft 365</td><td class="what">Your shared mailbox and everyday mail</td><td class="what">The CRM reads and sends mail through it</td><td class="what">You, already have it</td><td class="what">No change</td></tr>
+          <tr><td class="feat">Copilot</td><td class="what">Your Microsoft AI assistant</td><td class="what">Works alongside the CRM</td><td class="what">You, already have it</td><td class="what">No change</td></tr>
+          <tr><td class="feat">Sage</td><td class="what">Accounting, and renewals quoting when you add it</td><td class="what">The CRM connects for renewals, later</td><td class="what">You, already have it</td><td class="what">No change</td></tr>
+          <tr><td class="feat">File server</td><td class="what">Your quote and document storage</td><td class="what">The CRM reads and attaches, later</td><td class="what">You, already have it</td><td class="what">No change</td></tr>
+          <tr><td class="feat">Domain &amp; address</td><td class="what">info@labtqa.africa and your web address</td><td class="what">The mailbox the CRM watches</td><td class="what">You, already have it</td><td class="what">No change</td></tr>
+          <tr><td class="feat">High-volume email or SMS</td><td class="what">Only if renewal or results campaigns grow to large sends</td><td class="what">The CRM sends through it</td><td class="what">New, only if switched on</td><td class="what">Usage-based, agreed first</td></tr>
+        </tbody>
+      </table></div>
+
+      <p class="free-line" style="margin-top:1.5rem;"><b>Full cost of ownership:</b> R150,000 once to build, R2,500 a month to run, and nothing new on top. Everything else already sits inside your Microsoft, Sage and domain subscriptions.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-label">04 · On us</div>
       <div class="wins">
         <h3>Six easy wins, included at <em>no cost.</em></h3>
         <p>These are small to build but genuinely nice to have. We are throwing them in because a system your team enjoys using is a system that actually gets used.</p>
