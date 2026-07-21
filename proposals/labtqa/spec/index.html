@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LabTQA CRM · Feature Specification | Constellation</title>
+  <meta name="description" content="Every in-scope feature of the LabTQA CRM build, mapped to the R150,000 budget, with easy wins included at no cost." />
+  <link rel="icon" type="image/svg+xml" href="../../../favicon.svg" />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:#173F3F; --orange:#FE6E36; --black:#1B1C21; --darkbg:#160C15;
+      --white:#FFFFFF; --text-light:rgba(255,255,255,0.72); --accent2:#0E5A56;
+      --line:rgba(255,255,255,0.08); --card:rgba(255,255,255,0.04);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Satoshi',sans-serif; background:var(--black); color:var(--white); line-height:1.6; overflow-x:hidden; }
+    h1,h2,h3,h4 { font-family:'Satoshi',sans-serif; font-weight:700; line-height:1.15; letter-spacing:-0.02em; }
+    em { font-style:normal; color:var(--orange); }
+    a { color:var(--orange); text-decoration:none; }
+
+    nav { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between;
+      padding:1.1rem 2.5rem; background:rgba(27,28,33,0.9); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+    nav img { height:26px; }
+    .nav-tag { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.45);
+      padding:0.35rem 0.85rem; border:1px solid rgba(255,255,255,0.14); border-radius:100px; }
+
+    .wrap { max-width:1000px; margin:0 auto; padding:0 2.5rem; }
+    .hero { position:relative; overflow:hidden; padding:5rem 0 3rem; background:var(--darkbg); }
+    .hero-bg { position:absolute; inset:0; background:
+      radial-gradient(ellipse 55% 65% at 78% 20%, rgba(14,90,86,0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 70% at 25% 55%, rgba(23,63,63,0.7) 0%, rgba(22,12,21,0.96) 65%); }
+    .hero .wrap { position:relative; z-index:1; }
+    .eyebrow { display:flex; align-items:center; gap:0.7rem; font-size:0.75rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--orange); font-weight:600; margin-bottom:1.2rem; }
+    .eyebrow span { width:30px; height:2px; background:var(--orange); display:inline-block; }
+    .hero h1 { font-size:clamp(2.2rem,5vw,3.4rem); letter-spacing:-0.03em; line-height:1.05; margin-bottom:1.2rem; }
+    .hero p { color:var(--text-light); font-size:1.02rem; max-width:60ch; }
+    .hero .meta { display:flex; flex-wrap:wrap; gap:2rem; margin-top:2rem; border-top:1px solid var(--line); padding-top:1.4rem; }
+    .hero .meta div span { display:block; font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.25rem; }
+    .hero .meta div b { font-size:0.98rem; color:var(--white); }
+
+    section { padding:3.5rem 0; border-top:1px solid var(--line); }
+    .section-label { font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--orange); font-weight:600; margin-bottom:1rem; }
+    h2.sec { font-size:clamp(1.5rem,3vw,2rem); margin-bottom:0.6rem; }
+    .sec-intro { color:var(--text-light); font-size:0.98rem; max-width:66ch; margin-bottom:1.5rem; }
+
+    /* budget map */
+    .budget { border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--card); }
+    .budget-row { display:grid; grid-template-columns:1fr 2fr auto; gap:1.25rem; align-items:center; padding:1rem 1.5rem; border-bottom:1px solid var(--line); }
+    .budget-row:last-of-type { border-bottom:none; }
+    .budget-row .area { font-weight:600; color:var(--white); font-size:0.95rem; }
+    .budget-row .desc { color:var(--text-light); font-size:0.85rem; }
+    .budget-row .amt { font-weight:700; color:var(--white); font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .bar { height:8px; border-radius:100px; background:rgba(255,255,255,0.08); overflow:hidden; margin-top:0.5rem; }
+    .bar span { display:block; height:100%; background:linear-gradient(90deg,var(--accent2),var(--orange)); border-radius:100px; }
+    .budget-total { display:flex; align-items:center; justify-content:space-between; padding:1.1rem 1.5rem; background:rgba(254,110,54,0.08); }
+    .budget-total .l { font-weight:700; letter-spacing:0.04em; text-transform:uppercase; font-size:0.8rem; color:var(--orange); }
+    .budget-total .r { font-family:'Satoshi'; font-weight:700; font-size:1.4rem; color:var(--white); font-variant-numeric:tabular-nums; }
+    .free-line { margin-top:1rem; font-size:0.9rem; color:var(--text-light); }
+    .free-line b { color:var(--orange); }
+
+    /* feature groups */
+    .fgroup { margin-top:2rem; }
+    .fgroup h3 { font-size:1.05rem; display:flex; align-items:center; gap:0.6rem; margin-bottom:0.85rem; }
+    .fgroup h3 .dot { width:8px; height:8px; border-radius:50%; background:var(--orange); }
+    .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:14px; }
+    table { width:100%; border-collapse:collapse; font-size:0.9rem; min-width:560px; }
+    th,td { text-align:left; padding:0.7rem 1rem; border-bottom:1px solid var(--line); vertical-align:top; }
+    thead th { font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.4); background:rgba(255,255,255,0.02); font-weight:600; }
+    tbody tr:last-child td { border-bottom:none; }
+    td.feat { color:var(--white); font-weight:600; white-space:nowrap; }
+    td.what { color:var(--text-light); }
+    .tag { display:inline-block; font-size:0.64rem; letter-spacing:0.06em; padding:0.16rem 0.55rem; border-radius:100px; white-space:nowrap; font-weight:600; text-transform:uppercase; }
+    .tag.inscope { border:1px solid rgba(255,255,255,0.18); color:rgba(255,255,255,0.6); }
+    .tag.free { background:var(--orange); color:#1B1C21; }
+    tr.freerow td.feat { color:var(--orange); }
+
+    /* easy wins callout */
+    .wins { border:1px solid rgba(254,110,54,0.28); background:rgba(254,110,54,0.06); border-radius:16px; padding:1.75rem 2rem; }
+    .wins h3 { font-size:1.1rem; margin-bottom:0.4rem; }
+    .wins p { color:var(--text-light); font-size:0.92rem; margin-bottom:1.1rem; max-width:64ch; }
+    .wins-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.5rem; }
+    .wins-grid div { display:flex; gap:0.55rem; align-items:flex-start; font-size:0.9rem; color:var(--white); }
+    .wins-grid div::before { content:'+'; color:var(--orange); font-weight:800; }
+    .wins-grid div small { display:block; color:var(--text-light); font-size:0.8rem; font-weight:400; }
+
+    .note { margin-top:2rem; font-size:0.82rem; color:rgba(255,255,255,0.45); line-height:1.7; border-top:1px solid var(--line); padding-top:1.25rem; }
+
+    footer { border-top:1px solid var(--line); padding:2.5rem; }
+    .footer-inner { max-width:1000px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; gap:2rem; flex-wrap:wrap; }
+    footer img { height:24px; opacity:0.8; }
+    footer p { font-size:0.75rem; color:rgba(255,255,255,0.35); }
+
+    @media (max-width:760px) {
+      .wrap { padding:0 1.4rem; } nav { padding:1rem 1.4rem; }
+      .budget-row { grid-template-columns:1fr; gap:0.4rem; }
+      .wins-grid { grid-template-columns:1fr; }
+    }
+    @media print {
+      nav { position:static; } .hero-bg { display:none; } body { background:#fff; color:#111; }
+      section, .hero { break-inside:avoid; } a { color:#c4491b; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <img src="../assets/logo.png" alt="Constellation" style="height:30px;" />
+    <span class="nav-tag">Feature Specification</span>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="wrap">
+      <div class="eyebrow"><span></span> LabTQA CRM · What R150,000 builds</div>
+      <h1>Every feature,<br />mapped to the <em>budget.</em></h1>
+      <p>This is the working specification for the LabTQA CRM build. It lists every in-scope feature, groups them the way you will use them, and shows exactly where the R150,000 goes. A handful of items are marked "on us": easy wins we are including at no extra cost because they make the system nicer to live in.</p>
+      <div class="meta">
+        <div><span>Build</span><b>R150,000 fixed</b></div>
+        <div><span>Then</span><b>R2,500 / month maintenance</b></div>
+        <div><span>Timeline</span><b>About four weeks</b></div>
+        <div><span>Prepared by</span><b>Aldo Calitz, Constellation</b></div>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <div class="section-label">01 · Where the budget goes</div>
+      <h2 class="sec">R150,000, mapped to real work.</h2>
+      <p class="sec-intro">The build is a fixed R150,000. Here is roughly how that effort is spread across the CRM, so you can see the money maps to features, not overhead.</p>
+      <div class="budget">
+        <div class="budget-row"><div><div class="area">Data model &amp; contacts</div><div class="bar"><span style="width:20%"></span></div></div><div class="desc">The Group to Company to Contact structure, reference numbers, duplicates, merge, archive, audit, search.</div><div class="amt">R30,000</div></div>
+        <div class="budget-row"><div><div class="area">Case &amp; email engine</div><div class="bar"><span style="width:28%"></span></div></div><div class="desc">Shared-mailbox ingestion, assignment, status, SLA, complaints, collaboration and hand-off.</div><div class="amt">R42,000</div></div>
+        <div class="budget-row"><div><div class="area">Campaigns &amp; follow-ups</div><div class="bar"><span style="width:19%"></span></div></div><div class="desc">Content sections, per-recipient sends, a case per recipient, and the shared follow-up engine.</div><div class="amt">R28,000</div></div>
+        <div class="budget-row"><div><div class="area">Tasks, notifications &amp; dashboards</div><div class="bar"><span style="width:15%"></span></div></div><div class="desc">Tasks, @mentions, the notification centre, the daily dashboard, and exports.</div><div class="amt">R22,000</div></div>
+        <div class="budget-row"><div><div class="area">Security, roles, audit &amp; integrations</div><div class="bar"><span style="width:12%"></span></div></div><div class="desc">Row-level security, roles, encryption, the audit trail, and the Outlook and Sage-ready connections.</div><div class="amt">R18,000</div></div>
+        <div class="budget-row"><div><div class="area">Setup, QA, deployment &amp; go-live</div><div class="bar"><span style="width:7%"></span></div></div><div class="desc">Environment setup, the two-round QA, security hardening, and putting it live.</div><div class="amt">R10,000</div></div>
+        <div class="budget-total"><div class="l">Total, fixed</div><div class="r">R150,000</div></div>
+      </div>
+      <p class="free-line"><b>Easy wins: R0.</b> The six items marked "on us" below are included at no extra cost.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-label">02 · The full feature list</div>
+      <h2 class="sec">In scope, grouped the way you work.</h2>
+      <p class="sec-intro">Every row here is included in the R150,000. Rows tagged <span class="tag free">On us</span> are the easy wins we are adding for free.</p>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Contacts &amp; data model</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Group to Contact hierarchy</td><td class="what">Laboratory Group to Company/Lab to Contact, each with its own address, phone and history.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Reference numbers</td><td class="what">Auto-issued LTQ-000123 numbers, inserted into subject lines for reply threading.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Auto contact creation</td><td class="what">A new email from an unknown address creates a contact, matched to its company by domain.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Duplicate merge &amp; unmerge</td><td class="what">The system flags likely duplicates; you merge or unmerge, fully audited.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Archive &amp; reactivation</td><td class="what">Nothing is hard-deleted; archived contacts reactivate automatically on new activity.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Field-level audit log</td><td class="what">Who changed what, when, on every record, for ISO 13485 traceability.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Global search</td><td class="what">One search across contacts, cases and campaigns, grouped results.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr class="freerow"><td class="feat">Contact CSV import</td><td class="what">Bring your existing contacts in from a spreadsheet in one go, so day one is not a cold start.</td><td><span class="tag free">On us</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Cases (your email, structured)</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Shared-mailbox cases</td><td class="what">One inbox becomes structured Cases with reference numbers and full history.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Assignment</td><td class="what">Manual, self-assign, or by rule (round-robin or keyword), with override.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Status &amp; labels</td><td class="what">One mandatory status plus up to five labels per case.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">48-hour SLA flag</td><td class="what">Cases with no reply in the window surface on the dashboard.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Collaboration &amp; hand-off</td><td class="what">Send to a supplier or a colleague, keeping one traceable thread.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Complaints</td><td class="what">Complaint emails auto-classified into a dedicated Complaints area, admin-controlled.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Auto-reply detection</td><td class="what">Out-of-office and auto-replies are logged but excluded from SLA and feedback counts.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr class="freerow"><td class="feat">Canned replies</td><td class="what">Save your common responses as templates and drop them into a reply in one click.</td><td><span class="tag free">On us</span></td></tr>
+            <tr class="freerow"><td class="feat">Printable case sheet</td><td class="what">One button turns any case into a clean printable or PDF summary for your records.</td><td><span class="tag free">On us</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Campaigns &amp; follow-ups</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Content sections</td><td class="what">Build a campaign from grouped sending lists, each with its own template and attachments.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Personalisation</td><td class="what">Address each recipient by name, lab, scheme or number, resolved at send.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Preview, approve, release</td><td class="what">See the resolved list and counts, approve, then a case is created per recipient.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Follow-up engine</td><td class="what">One engine chases both individual emails and campaigns on a schedule you set.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">POPIA opt-out</td><td class="what">A mandatory opt-out on every send, recorded and enforced system-wide.</td><td><span class="tag inscope">In scope</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Tasks, notifications &amp; dashboards</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Tasks</td><td class="what">Tasks linked to a case, with owner, due date and status, in a "my tasks" view.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Notes &amp; @mentions</td><td class="what">Tag a colleague in a note and they get an in-app notification.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Dashboard</td><td class="what">Daily received, sent and closed, SLA-due, and supplier feedback outstanding.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Export</td><td class="what">Contacts, cases and campaign reports to Excel or CSV on demand.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr class="freerow"><td class="feat">Saved views</td><td class="what">Save a filtered case list you use often and return to it in one click.</td><td><span class="tag free">On us</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="fgroup">
+        <h3><span class="dot"></span> Security, roles &amp; integrations</h3>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Feature</th><th>What it does</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="feat">Roles</td><td class="what">Administrator, Manager and User, each seeing exactly what they should.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Row-level security</td><td class="what">Access enforced in the database itself, not just the screen.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Encryption &amp; audit</td><td class="what">Encrypted in transit and at rest, with the append-only audit trail throughout.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Outlook &amp; Microsoft 365</td><td class="what">Plugs into your mail and works alongside your existing Copilot.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr><td class="feat">Sage &amp; file-server ready</td><td class="what">The connection points are built, ready for renewals when you add them.</td><td><span class="tag inscope">In scope</span></td></tr>
+            <tr class="freerow"><td class="feat">Dark &amp; light mode</td><td class="what">A comfortable interface day or night, remembered per user.</td><td><span class="tag free">On us</span></td></tr>
+            <tr class="freerow"><td class="feat">Keyboard shortcuts</td><td class="what">Quick keys for your power users, so the daily grind is faster.</td><td><span class="tag free">On us</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-label">03 · On us</div>
+      <div class="wins">
+        <h3>Six easy wins, included at <em>no cost.</em></h3>
+        <p>These are small to build but genuinely nice to have. We are throwing them in because a system your team enjoys using is a system that actually gets used.</p>
+        <div class="wins-grid">
+          <div><span>Contact CSV import<small>Start with your real data, not an empty screen.</small></span></div>
+          <div><span>Canned replies<small>Your common responses, one click away.</small></span></div>
+          <div><span>Printable case sheet<small>Any case to a clean PDF for the record.</small></span></div>
+          <div><span>Saved views<small>Your go-to filtered lists, one click away.</small></span></div>
+          <div><span>Dark &amp; light mode<small>Comfortable day or night.</small></span></div>
+          <div><span>Keyboard shortcuts<small>Faster for the people living in it.</small></span></div>
+        </div>
+      </div>
+      <p class="note">This specification covers the CRM build only. Renewals, quality management, shipping and HR are scoped and quoted separately when you are ready. Effort shares are indicative and confirmed together at kickoff; the R150,000 build fee is fixed against the agreed scope. All amounts in ZAR, exclusive of VAT.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <img src="../assets/logo.png" alt="Constellation" />
+      <p>LabTQA CRM Feature Specification · Confidential · July 2026</p>
+      <p><a href="../">Back to the proposal</a></p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -319,8 +319,8 @@
         <div class="hero-meta-item"><label>Client</label><value>LabTQA</value></div>
         <div class="hero-meta-item"><label>Scope</label><value>Operational Platform (CRM first)</value></div>
         <div class="hero-meta-item"><label>Engagement</label><value>Phased Build · 5 Phases</value></div>
-        <div class="hero-meta-item"><label>Investment</label><value>R150,000 build</value></div>
-        <div class="hero-meta-item"><label>Then</label><value>R7,500 / month</value></div>
+        <div class="hero-meta-item"><label>Investment</label><value>R150,000 (CRM · Phase 1)</value></div>
+        <div class="hero-meta-item"><label>Then</label><value>R2,500 / month</value></div>
         <div class="hero-meta-item"><label>Timeline</label><value>CRM live in about 4 weeks</value></div>
         <div class="hero-meta-item"><label>Prepared by</label><value>Aldo Calitz, Constellation</value></div>
         <div class="hero-meta-item"><label>Date</label><value>July 2026</value></div>
@@ -448,7 +448,7 @@
           <h2>Exactly what<br />we <em>build.</em></h2>
         </div>
         <div>
-          <p style="color: var(--text-light); font-size: 0.95rem;">The CRM your team runs on, built in about four weeks and delivered as working software you can react to as it lands. Here is the actual scope, week by week, so your team and your IT know precisely what they are getting.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">The CRM your team runs on, built in about four weeks and delivered as working software you can react to as it lands. Here is the actual scope, week by week, so your team and your IT know precisely what they are getting. <a href="spec/" style="color:var(--orange);text-decoration:none;font-weight:600;">See the full feature specification, mapped to the budget &rarr;</a></p>
         </div>
       </div>
 
@@ -522,6 +522,26 @@
         </div>
 
       </div>
+
+      <div class="sub-label">What's in, and what's explicitly out</div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <h4>In scope · Phase 1, this build</h4>
+          <p>Shared-inbox cases with reference numbers, ownership and an SLA flag; the Group to Company/Lab to Contact model; quotation and query tracking with outstanding, follow-up and declined views; automated follow-ups; campaign sends that create one tracked case per recipient; dashboards and exports; and natural-language status retrieval over your own data via an MCP connection.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>In scope · later phases, quoted when you choose them</h4>
+          <p>Renewals (automated annual quoting, file-server documents, Sage-assisted where its API allows, human checkpoints). Quality Management (form capture, dashboards, due-date reminders). Shipping and Dispatch (dispatch lists, QR packing verification, photo checks). HR-light (leave, timesheets, onboarding, competency tracking).</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Out of scope</h4>
+          <p>Payroll, excluded from the HR scope. Marketing analytics, not in v1 and noted as a later consideration. Any agent-driven operation: AI never acts on a record on its own. And the full depth of the QMS, deliberately staged to a later phase rather than rushed into Phase 1.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Application-driven, not agent-driven</h4>
+          <p>You asked for a system, not a set of agents, and that is exactly what this is. Your team operates it; AI only surfaces answers like "what is the status of this client?"; and anything that changes a record is a deliberate human action, by design.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -579,8 +599,8 @@
         <p>You asked whether Outlook plus plugins and Copilot could achieve this. We have built that thinking in: every option plugs into Outlook and works with Copilot. On its own, though, Outlook and plugins cannot give you reference-numbered cases, renewal tracking, an audit trail or QMS records, so we use Outlook and Copilot as part of the ecosystem rather than forcing the structure into them.</p>
       </div>
       <div class="sec-note" style="margin-top:1rem;">
-        <h4>One item to confirm on HIPAA</h4>
-        <p>HIPAA applies directly only if the system stores identifiable patient health information. Our reading is that LabTQA handles laboratory and QA metadata and B2B contact data, not patient records, so we design to HIPAA-aligned safeguards as a quality bar and confirm the actual scope with you at kickoff.</p>
+        <h4>HIPAA: confirmed out of scope</h4>
+        <p>We confirmed with you that HIPAA is not a requirement here. LabTQA handles laboratory and QA metadata and B2B contact data, not identifiable patient health records. We still apply HIPAA-aligned safeguards, encryption, access logging and audit, as a quality bar, but HIPAA is not a compliance obligation we design against; POPIA and ISO 13485 remain the frameworks that govern this build.</p>
       </div>
     </div>
   </section>
@@ -596,8 +616,8 @@
           <h2>One build.<br /><em>One price.</em></h2>
         </div>
         <div>
-          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">We have kept this simple. One focused build, the CRM your team runs on every day, for a single fixed fee, plus one flat monthly to host it and keep it running. No tiers, no per-seat licences, no surprises.</p>
-          <p style="color: var(--text-light); font-size: 0.95rem;">A comparable custom build at a traditional agency runs well past R1.2 million. Ours is R150,000, because we build AI-first and we know this domain.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">We have kept this simple, and split out cleanly for your budget. The <em>CRM</em> is a single fixed fee of R150,000, the whole of Phase 1, plus one flat monthly to host it and keep it running. Everything after it, renewals, quality, shipping and HR, is quoted separately as you choose to build it, so this year's budget only has to carry the CRM and the monthly.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">A comparable custom build at a traditional agency runs well past R1.2 million. Ours is R150,000, because we build AI-first and we know this domain. No tiers, no per-seat licences, no surprises.</p>
         </div>
       </div>
 
@@ -623,23 +643,41 @@
         <div class="pricing-card">
           <div class="pricing-card-head">
             <div class="pricing-tier-label">Monthly</div>
-            <h4>Hosted and looked after</h4>
-            <div class="price-amount">R7,500<span class="price-period"> / month</span></div>
-            <div class="price-total">one flat fee, all in</div>
+            <h4>Maintenance, kept simple</h4>
+            <div class="price-amount">R2,500<span class="price-period"> / month</span></div>
+            <div class="price-total">a light maintenance fee, nothing more</div>
           </div>
           <div class="pricing-card-body">
-            <p class="best-for">One number covers everything ongoing, so there is nothing else to budget for month to month.</p>
+            <p class="best-for">Just enough to keep it running well. No retainer, no minimum hours, no surprises.</p>
             <ul class="feature-list">
-              <li>Secure hosting, monitoring and daily backups</li>
-              <li>Support and security patching for POPIA and ISO</li>
-              <li>Small changes and fixes as you need them</li>
+              <li>Secure hosting, daily backups and monitoring</li>
+              <li>Security patching for POPIA and ISO</li>
+              <li>Uptime and minor fixes</li>
               <li>Starts only once the CRM is live</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <p class="pricing-note" style="margin-top:1.25rem;">All amounts in ZAR, exclude VAT. The build is billed against milestones; the R7,500 monthly starts at go-live. Only your own subscriptions, Microsoft 365, Sage and your domain, sit outside this, and you already pay those.</p>
+      <p class="pricing-note" style="margin-top:1.25rem;">All amounts in ZAR, exclude VAT. The build is billed against milestones; the R2,500 monthly maintenance starts at go-live. Only your own subscriptions, Microsoft 365, Sage and your domain, sit outside this, and you already pay those.</p>
+
+      <div class="sub-label">Plugins, automations and what they actually cost</div>
+      <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 0.5rem; max-width: 760px;">You asked, rightly, whether we would bring in plugins that carry their own monthly fees. The short answer is no. This is a custom application on infrastructure we host for you, so there are no per-seat plugin licences and no new SaaS subscriptions bundled in. Everything ongoing sits inside the one R2,500 monthly, and the only outside services are ones you already pay for.</p>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr><th>What it is</th><th>What it does</th><th>Cost, and who pays</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Constellation build</td><td>The CRM itself, built and handed over as yours</td><td>R150,000 once-off, yours</td></tr>
+            <tr><td>Hosting, infrastructure &amp; automations</td><td>Supabase database, secure hosting, daily backups, the shared-mailbox ingestion, the follow-up and campaign automations, and the MCP status-query connection</td><td>Inside R2,500 / month. No separate plugin fees.</td></tr>
+            <tr><td>Microsoft 365 &amp; Copilot</td><td>Your mail and the Copilot you already run; the platform plugs into these rather than replacing them</td><td>Your existing subscription. No change.</td></tr>
+            <tr><td>Sage</td><td>Phase 2 renewals integration, within the Sage API's real limits</td><td>Your existing subscription. No change.</td></tr>
+            <tr><td>Domain</td><td>info@labtqa.africa and your web address</td><td>Your existing cost. No change.</td></tr>
+            <tr><td>Bulk email / SMS volume (optional)</td><td>Only if renewal or results campaigns grow to high send volumes</td><td>Usage-based, flagged and agreed before it is ever switched on</td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <div class="sec-note">
         <h4>Later, when you are ready</h4>
@@ -688,7 +726,7 @@
       <p>Four steps from this proposal to a working CRM in about four weeks.</p>
       <div class="steps-list">
         <div class="step-item"><div class="step-num">01</div><p>Sign off. An NDA, your template or ours, and a Statement of Work locking Phase 1 scope and price. Build starts the same week.</p></div>
-        <div class="step-item"><div class="step-num">02</div><p>Kickoff. A short session to lock the open decisions (SLA hours, reference prefixes, SSO) and confirm the PHI and HIPAA scope.</p></div>
+        <div class="step-item"><div class="step-num">02</div><p>Kickoff. A short session to lock the open decisions: SLA hours, reference prefixes, and SSO. HIPAA is already confirmed out of scope.</p></div>
         <div class="step-item"><div class="step-num">03</div><p>Weeks 1 to 4. The CRM built, with an early usable version to react to, then a two-round QA before sign-off.</p></div>
         <div class="step-item"><div class="step-num">04</div><p>Go live and beyond. The CRM live, renewals next, and the retainer keeping it fast, compliant, and evolving.</p></div>
       </div>
