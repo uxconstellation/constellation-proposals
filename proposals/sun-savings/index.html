@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sun Savings · Website Redesign and Rebuild | Constellation</title>
+  <meta name="description" content="A complete redesign and rebuild of sunsavings.co.za. One clear offer, one price, a site built to turn interest into applications. Prepared by Constellation." />
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg" />
+  <meta property="og:title" content="Sun Savings · Website Redesign and Rebuild" />
+  <meta property="og:description" content="Eighty-six pages in the sitemap, thirty-six of them Squarespace demo products, three different prices for the same offer. A complete rebuild of sunsavings.co.za, from R18,000." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://uxconstellation.github.io/constellation-proposals/proposals/sun-savings/" />
+  <meta property="og:image" content="https://uxconstellation.github.io/constellation-proposals/proposals/sun-savings/preview.png" />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:      #173F3F;
+      --orange:    #FE6E36;
+      --black:     #1B1C21;
+      --darkbg:    #160C15;
+      --white:     #FFFFFF;
+      --text-light:rgba(255,255,255,0.72);
+      --accent2:   #0E3A5A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Satoshi', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Satoshi', sans-serif; font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+    em { font-style: normal; color: var(--orange); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 2.5rem; background: rgba(27,28,33,0.88);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    nav img { height: 26px; transition: opacity 0.2s ease; }
+    nav img:hover { opacity: 0.78; }
+    .nav-tag {
+      font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); padding: 0.35rem 0.85rem;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 100px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 100vh; display: flex; align-items: flex-end;
+      padding: 0 2.5rem 6rem; overflow: hidden; background: var(--darkbg);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 65% at 75% 30%, rgba(14,58,90,0.5) 0%, transparent 65%),
+        radial-gradient(ellipse 80% 60% at 30% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 65%);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 44px 44px; animation: gridDrift 22s linear infinite;
+      pointer-events: none; z-index: 1;
+    }
+    @keyframes gridDrift { 0% { background-position: 0 0; } 100% { background-position: 44px 44px; } }
+
+    .hero-content { position: relative; z-index: 2; max-width: 720px; }
+    .eyebrow {
+      display: flex; align-items: center; gap: 0.75rem; font-size: 0.75rem;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange);
+      margin-bottom: 1.5rem; font-weight: 600;
+    }
+    .eyebrow span { display: inline-block; width: 32px; height: 2px; background: var(--orange); }
+    h1 { font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 3rem; max-width: 95%; }
+    .hero-meta { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .hero-meta-item label { display: block; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.2rem; }
+    .hero-meta-item value { display: block; font-size: 0.95rem; font-weight: 600; color: var(--white); }
+
+    /* FLOATING ORBS */
+    .floating-orb { position: absolute; border-radius: 50%; opacity: 0.1; pointer-events: none; }
+    .orb-1 { width: 120px; height: 120px; background: var(--orange); right: 10%; top: 20%; animation: float 6s ease-in-out infinite; }
+    .orb-2 { width: 90px; height: 90px; background: var(--accent2); right: 5%; top: 50%; animation: float 8s ease-in-out infinite reverse; opacity: 0.28; }
+    .orb-3 { width: 60px; height: 60px; background: var(--orange); right: 15%; bottom: 15%; animation: float 7s ease-in-out infinite; }
+    .orb-4 { width: 200px; height: 200px; background: var(--accent2); right: 20%; top: 8%; animation: float 10s ease-in-out infinite; opacity: 0.1; }
+    @keyframes float { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
+
+    /* CAPABILITY STRIP */
+    .health-strip { background: var(--accent2); padding: 2.25rem 2.5rem; }
+    .health-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+    .health-icon-item { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 160px; }
+    .health-icon-item svg { width: 26px; height: 26px; flex-shrink: 0; opacity: 0.95; }
+    .health-icon-item span { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.05em; color: rgba(255,255,255,0.9); text-transform: uppercase; line-height: 1.3; }
+    .health-strip-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+    @media (max-width: 768px) { .health-strip-divider { display: none; } .health-icon-item { min-width: 45%; } }
+
+    /* INTRO STRIP */
+    .intro-strip { background: var(--orange); padding: 3rem 2.5rem; }
+    .intro-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 4rem; }
+    .big-num { font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: #1B1C21; white-space: nowrap; flex-shrink: 0; }
+    .intro-strip p { font-size: 1.05rem; color: #1B1C21; max-width: 640px; }
+
+    /* SECTIONS */
+    .section { padding: 7rem 2.5rem; }
+    .section--dark { background: var(--black); }
+    .section--alt { background: rgba(23,63,63,0.12); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 1.25rem; }
+    .sub-label { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.6); font-weight: 600; margin-top: 3.5rem; margin-bottom: 0.5rem; }
+
+    /* GRIDS */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+    /* CHALLENGE CARDS */
+    .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3.5rem; }
+    .challenge-item { padding: 1.75rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .challenge-item h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--white); }
+    .challenge-item p { font-size: 0.85rem; color: var(--text-light); }
+
+    /* TABLE */
+    .table-wrap { overflow-x: auto; margin-top: 2rem; }
+    .feature-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 640px; }
+    .feature-table th { text-align: left; padding: 0.85rem 1rem; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.6); border-bottom: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); }
+    .feature-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); color: var(--text-light); vertical-align: top; }
+    .feature-table td:first-child { color: var(--white); font-weight: 500; }
+
+    /* TIMELINE */
+    .timeline { margin-top: 4rem; }
+    .timeline-item { display: flex; gap: 2rem; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
+    .timeline-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--orange); color: #1B1C21; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .timeline-body h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .timeline-body p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; }
+    .timeline-body p:last-of-type { margin-bottom: 0; }
+    .weeks { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.4rem; }
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+    .tag { font-size: 0.72rem; padding: 0.25rem 0.65rem; border-radius: 100px; background: rgba(255,255,255,0.07); color: var(--text-light); border: 1px solid rgba(255,255,255,0.1); }
+    .tag--orange { background: rgba(254,110,54,0.15); color: var(--orange); border-color: rgba(254,110,54,0.3); }
+
+    /* TECH GRID */
+    .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+    .tech-item { padding: 1.5rem 1.75rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .tech-item .tech-label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.4rem; }
+    .tech-item h4 { font-size: 0.95rem; margin-bottom: 0.35rem; }
+    .tech-item p { font-size: 0.82rem; color: var(--text-light); }
+
+    .sec-note { margin-top: 2rem; padding: 1.5rem 1.75rem; border-radius: 14px; background: rgba(254,110,54,0.06); border: 1px solid rgba(254,110,54,0.22); }
+    .sec-note h4 { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.5rem; }
+    .sec-note p { font-size: 0.85rem; color: var(--text-light); line-height: 1.7; }
+
+    /* PRICING */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; perspective: 1200px; }
+    .pricing-card { border-radius: 20px; border: 1px solid rgba(255,255,255,0.09); overflow: hidden; display: flex; flex-direction: column; background: rgba(255,255,255,0.03); position: relative; }
+    .pricing-card.recommended { border-color: var(--orange); background: rgba(254,110,54,0.05); }
+    .recommended-badge { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--orange); color: #1B1C21; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 0 0 10px 10px; white-space: nowrap; }
+    .pricing-card-head { padding: 2rem 1.75rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .pricing-tier-label { font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 0.5rem; }
+    .pricing-card-head h4 { font-size: 1.1rem; margin-bottom: 1.25rem; }
+    .price-amount { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; color: var(--white); }
+    .price-period { font-size: 0.85rem; color: var(--text-light); font-weight: 400; }
+    .price-total { font-size: 0.8rem; color: var(--text-light); margin-top: 0.4rem; }
+    .pricing-card-body { padding: 1.5rem 1.75rem; flex: 1; }
+    .feature-list { list-style: none; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-light); padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list li::before { content: ''; display: inline-block; width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FE6E36' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; }
+    .pricing-note { margin-top: 2.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; }
+
+    /* SLA GRID */
+    .sla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .sla-item { padding: 1.75rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
+    .sla-item h4 { font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.6rem; }
+    .sla-item h4::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    .sla-item p { font-size: 0.82rem; color: var(--text-light); line-height: 1.65; }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent); margin: 0 2.5rem; }
+
+    /* CTA */
+    .cta-section { position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--darkbg); padding: 6rem 2.5rem; }
+    .cta-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(23,63,63,0.85) 0%, rgba(22,12,21,0.97) 70%); }
+    .cta-content { position: relative; z-index: 2; text-align: center; max-width: 700px; width: 100%; }
+    .cta-content h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin: 1rem 0 1.25rem; }
+    .cta-content > p { font-size: 1rem; color: var(--text-light); margin-bottom: 3rem; }
+    .steps-list { display: flex; flex-direction: column; gap: 1rem; text-align: left; margin-bottom: 3rem; }
+    .step-item { display: flex; gap: 1.25rem; align-items: flex-start; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 1.25rem 1.5rem; }
+    .step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--orange); color: #1B1C21; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-item p { font-size: 0.9rem; color: var(--text-light); margin: 0; padding-top: 0.35rem; }
+    .btn-submit { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 0.75rem; background: var(--orange); color: #1B1C21; font-family: 'Satoshi', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.02em; padding: 1rem 2.25rem; border-radius: 100px; border: none; cursor: pointer; transition: opacity 0.2s, transform 0.15s; text-decoration: none; }
+    .btn-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-submit::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.12); transform: translateX(-101%); transition: transform 0.35s ease; }
+    .btn-submit:hover::before { transform: translateX(0); }
+
+    /* CTA FORM */
+    .cta-form { display: flex; flex-direction: column; gap: 0.85rem; max-width: 460px; margin: 0 auto 1.25rem; text-align: left; }
+    .cta-form input, .cta-form textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.40); border-radius: 12px; padding: 0.85rem 1rem; color: var(--white); font-family: 'Satoshi', sans-serif; font-size: 0.92rem; transition: border-color 0.2s ease; }
+    .cta-form input::placeholder, .cta-form textarea::placeholder { color: rgba(255,255,255,0.6); }
+    .cta-form input:focus, .cta-form textarea:focus { outline: none; border-color: var(--orange); }
+    .cta-form textarea { resize: vertical; min-height: 92px; }
+    .cta-form .btn-submit { width: 100%; justify-content: center; margin-top: 0.25rem; }
+    .cta-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .cta-alt { font-size: 0.82rem; color: rgba(255,255,255,0.5); }
+    .cta-alt a { color: var(--orange); text-decoration: none; }
+    .cta-thanks { font-size: 1.1rem; color: var(--orange); font-weight: 700; margin-bottom: 1.5rem; }
+
+    /* FOOTER */
+    footer { background: var(--black); border-top: 1px solid rgba(255,255,255,0.07); padding: 2.5rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    footer p { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+    /* ===== CARD SPOTLIGHT (shared) ===== */
+    .challenge-item, .tech-item, .sla-item, .step-item { position: relative; overflow: hidden; }
+    .challenge-item, .tech-item, .pricing-card, .sla-item, .step-item { --mx: -200px; --my: -200px; }
+    .challenge-item::after, .tech-item::after, .pricing-card::after, .sla-item::after, .step-item::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(180px circle at var(--mx) var(--my), rgba(255,255,255,0.065) 0%, transparent 70%);
+      pointer-events: none; opacity: 0; transition: opacity 0.35s ease; border-radius: inherit;
+    }
+    .challenge-item:hover::after, .tech-item:hover::after, .pricing-card:hover::after, .sla-item:hover::after, .step-item:hover::after { opacity: 1; }
+
+    .challenge-item { transition: transform 0.28s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease; }
+    .challenge-item:hover { transform: translateY(-6px); border-color: rgba(14,58,90,0.6); box-shadow: 0 18px 52px rgba(14,58,90,0.28), 0 0 0 1px rgba(14,58,90,0.25); }
+
+    .tech-item { transition: transform 0.28s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease; }
+    .tech-item::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--orange), transparent); transition: left 0.45s ease; }
+    .tech-item:hover { transform: translateY(-5px); border-color: rgba(254,110,54,0.3); box-shadow: 0 14px 44px rgba(254,110,54,0.1); }
+    .tech-item:hover::before { left: 0; }
+
+    .sla-item { transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; border-left: 3px solid transparent; }
+    .sla-item:hover { transform: translateX(8px); border-left-color: var(--orange); box-shadow: -6px 0 28px rgba(254,110,54,0.14); }
+
+    .timeline-dot { transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease; }
+    .timeline-body { transition: transform 0.25s ease; }
+    .timeline-item:hover .timeline-dot { transform: scale(1.18); box-shadow: 0 0 0 8px rgba(254,110,54,0.18); }
+    .timeline-item:hover .timeline-body { transform: translateX(8px); }
+
+    .feature-list li { transition: background 0.2s ease, padding-left 0.2s ease, color 0.2s ease; border-radius: 6px; padding-left: 0.5rem; margin-left: -0.5rem; }
+    .feature-list li:hover { background: rgba(254,110,54,0.08); color: var(--white); padding-left: 1rem; }
+
+    .feature-table tbody tr { transition: background 0.2s ease; }
+    .feature-table tbody tr:hover { background: rgba(14,58,90,0.16); }
+    .feature-table tbody tr:hover td:first-child { color: var(--orange); transition: color 0.2s ease; }
+
+    .tag { transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+    .tag:hover { background: rgba(254,110,54,0.14); color: var(--orange); border-color: rgba(254,110,54,0.35); transform: translateY(-3px); }
+
+    .pricing-card { transition: transform 0.35s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.3s ease, opacity 0.3s ease; }
+    .pricing-card:hover { transform: translateY(-10px); border-color: rgba(254,110,54,0.45); box-shadow: 0 28px 72px rgba(254,110,54,0.16), 0 0 0 1px rgba(254,110,54,0.22); }
+    .pricing-card.recommended:hover { box-shadow: 0 28px 72px rgba(254,110,54,0.28), 0 0 60px rgba(254,110,54,0.12); }
+    .pricing-grid:hover .pricing-card:not(.recommended):not(:hover) { opacity: 0.82; transform: scale(0.985) translateY(4px); }
+
+    .step-item { transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease; }
+    .step-item:hover { transform: translateX(8px); border-color: rgba(254,110,54,0.3); background: rgba(254,110,54,0.06); }
+    .step-item:hover .step-num { transform: scale(1.1) rotate(-5deg); }
+    .step-num { transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* CTA ORBS */
+    .cta-orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+    .cta-orb-1 { width: 340px; height: 340px; background: var(--accent2); top: -80px; right: -60px; opacity: 0.22; animation: ctaOrb 14s ease-in-out infinite; }
+    .cta-orb-2 { width: 220px; height: 220px; background: var(--teal); bottom: -40px; left: 8%; opacity: 0.22; animation: ctaOrb 18s ease-in-out infinite reverse; }
+    .cta-orb-3 { width: 180px; height: 180px; background: var(--orange); top: 40%; left: -40px; opacity: 0.1; animation: ctaOrb 22s ease-in-out infinite 4s; }
+    @keyframes ctaOrb { 0%,100% { transform: translate(0,0) scale(1); } 30% { transform: translate(40px,-30px) scale(1.12); } 70% { transform: translate(-25px,35px) scale(0.93); } }
+
+    /* TIMELINE FOCUS / DIM */
+    .timeline:hover .timeline-item { opacity: 0.28; }
+    .timeline:hover .timeline-item:hover { opacity: 1; border-left-color: var(--orange); padding-left: 1.25rem; }
+    .timeline-item { cursor: default; transition: opacity 0.38s ease, border-left-color 0.3s ease, padding-left 0.3s ease; border-left: 3px solid transparent; padding-left: 0; }
+    .timeline:hover .timeline-item:hover .timeline-dot { background: var(--orange); box-shadow: 0 0 0 10px rgba(254,110,54,0.15); }
+
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: 1fr; }
+      .tech-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .floating-orb { display: none; }
+      .grid-2, .challenge-grid, .sla-grid, .tech-grid { grid-template-columns: 1fr; }
+      .intro-strip-inner { flex-direction: column; gap: 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .section { padding: 5rem 1.5rem; }
+      /* hero is bottom-aligned; on a phone the content outgrows the viewport and the
+         eyebrow lands under the fixed nav, so reserve clearance for it */
+      .hero { padding: 7rem 1.5rem 4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-grid, .floating-orb, .cta-orb { animation: none; }
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="assets/logo.png" alt="Constellation" style="height: 32px;" />
+    <span class="nav-tag">Confidential Proposal</span>
+  </nav>
+
+  <main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+    <div class="floating-orb orb-4"></div>
+    <div class="hero-content">
+      <div class="eyebrow"><span></span> Sun Savings x Constellation <span></span></div>
+      <h1>One offer.<br />One price.<br />One clear <em>yes.</em></h1>
+      <div style="display:flex; gap:0.9rem; flex-wrap:wrap; margin-bottom:2.75rem;">
+        <a href="#investment" class="btn-submit">See the investment &rarr;</a>
+        <a href="#audit" class="btn-submit" style="background:transparent; color:var(--white); border:1px solid rgba(255,255,255,0.38);">What we found</a>
+      </div>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><label>Client</label><value>Sun Savings</value></div>
+        <div class="hero-meta-item"><label>Scope</label><value>Full redesign and rebuild</value></div>
+        <div class="hero-meta-item"><label>Today</label><value>Squarespace, 86 pages</value></div>
+        <div class="hero-meta-item"><label>Build</label><value>R18,000 one-off</value></div>
+        <div class="hero-meta-item"><label>Care</label><value>R950 / month</value></div>
+        <div class="hero-meta-item"><label>Timeline</label><value>About 2 weeks</value></div>
+        <div class="hero-meta-item"><label>Prepared by</label><value>Aldo Calitz, Constellation</value></div>
+        <div class="hero-meta-item"><label>Date</label><value>July 2026</value></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="big-num">36</div>
+      <p>Thirty-six pages live on sunsavings.co.za right now are Squarespace demo products. Planters and cups, priced at R50, described in lorem ipsum, indexed by Google on a solar company's website. The offer you sell is good. The site around it is working against you.</p>
+    </div>
+  </div>
+
+  <!-- CAPABILITY STRIP -->
+  <div class="health-strip">
+    <div class="health-strip-inner">
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <span>One offer, one price</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+        <span>Built mobile first</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        <span>Search rankings protected</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+        <span>All 15 articles kept</span>
+      </div>
+      <div class="health-strip-divider"></div>
+      <div class="health-icon-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>WCAG 2.2 AA</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 01 THE OPPORTUNITY -->
+  <section class="section section--dark" id="audit">
+    <div class="container">
+      <div class="section-label">01 · What We Found</div>
+      <div class="grid-2">
+        <div>
+          <h2>The offer is fine.<br />The site is <em>the problem.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.5rem;">Before writing this we went through sunsavings.co.za properly: every URL in your sitemap, the load times, the page weights, the prices on each page. Not a glance at the homepage. Everything below is measured, and you can check any of it yourself in a browser right now.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Sun Savings sells solar from R799 a month with no upfront cost. In a country that has lived through load-shedding, that is an easy thing to want. The site is not losing you people because the offer is weak. It is losing them because it cannot get out of its own way.</p>
+        </div>
+      </div>
+      <div class="challenge-grid">
+        <div class="challenge-item">
+          <h4>Thirty-six demo product pages</h4>
+          <p>Four duplicate shops, each holding the same nine Squarespace template products. Golden Mist Pair, Earth Sky Planter, Milk Dip Cup. All live, all indexable, all priced R50, all described in lorem ipsum.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Three homepages, three FAQs</h4>
+          <p>Home, home-1 and home-2 all load. So do three contact pages, three FAQ pages, two pricing pages and two products pages. Google has to guess which one matters, and it guesses wrong.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Three different prices</h4>
+          <p>The page title says from R1750 a month. The headline says R1599.99. The package cards say R1 390 on one page and R2 478 on another. A visitor comparing quotes cannot tell you what you charge.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Two of everything else</h4>
+          <p>Two phone numbers and two email addresses are in circulation across the site and your search listings. Every one of those is a call that might not reach you.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>Heavy where it hurts</h4>
+          <p>A decorative background image weighs 906KB and loads twice. Partner logos run to 108KB each as PNGs when they should be 5KB. The page is 625KB before a single photo. On a phone on mobile data, that is where people leave.</p>
+        </div>
+        <div class="challenge-item">
+          <h4>A typo in the URL structure</h4>
+          <p>All ten partner brand pages, Sunsynk, Deye, Hubble, JA Solar and the rest, sit under a folder called testomonial-1. Every one of those links carries the misspelling.</p>
+        </div>
+      </div>
+
+      <div class="sec-note">
+        <h4>The one thing worth protecting</h4>
+        <p>Fifteen blog articles on rent-to-own, solar financing and apartment solar. That is real, on-topic content earning real search traffic, and it is the most valuable thing on the site. Every one of them moves across with its URL intact, which is exactly why the rebuild needs a proper redirect map and not a fresh start.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 02 BEFORE / AFTER -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">02 · Before + After Constellation</div>
+      <h2 style="margin-bottom: 2rem;">What changes when the site stops fighting you.</h2>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Dimension</th><th>Today</th><th>After the rebuild</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Pages in the sitemap</td><td>86, including 36 demo products</td><td>Around 40, every one of them yours and intentional</td></tr>
+            <tr><td>The price question</td><td>Three different answers</td><td>One package structure, one number per package, stated the same way everywhere</td></tr>
+            <tr><td>Getting in touch</td><td>Two phone numbers, two addresses, a contact form</td><td>One set of details, one clear path from interest to application</td></tr>
+            <tr><td>On a phone</td><td>625KB of markup, a 906KB image loaded twice</td><td>Built mobile first, images sized and modern format, under our 2.5 second load floor</td></tr>
+            <tr><td>Your articles</td><td>15 posts, buried under duplicate pages</td><td>All 15 kept, URLs preserved, given a proper home and internal links</td></tr>
+            <tr><td>Partner brands</td><td>Ten pages under a misspelled folder</td><td>A clean brand section that makes the hardware you fit look like an asset</td></tr>
+            <tr><td>Editing it</td><td>Squarespace</td><td>A CMS your team edits directly, no developer needed for copy and posts</td></tr>
+            <tr><td>Accessibility</td><td>Not tested</td><td>WCAG 2.2 AA as the floor, checked before launch</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 03 THE BUILD -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-label">03 · The Build</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Two weeks.<br />Nothing <em>lost</em><br />on the way.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">A rebuild this size is about two weeks of our work plus your review time. The risk in any rebuild is not the design, it is losing the search traffic you already have when URLs move. That is handled deliberately before anything goes live, and it is the reason we map every one of the 86 existing URLs rather than starting clean.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot">01</div>
+          <div class="timeline-body">
+            <div class="weeks">Days 1 to 2 · Foundation</div>
+            <h3>Settle the offer, then design it.</h3>
+            <p>We agree one package structure and one set of prices, so the same numbers appear everywhere. Then the design direction: layout, type, colour and the components the whole site is built from, shown on the homepage and one inner page before we build the rest.</p>
+            <div class="timeline-tags">
+              <span class="tag">Offer and pricing locked</span>
+              <span class="tag">Design system</span>
+              <span class="tag">Content architecture</span>
+              <span class="tag tag--orange">Direction signed off</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">02</div>
+          <div class="timeline-body">
+            <div class="weeks">Days 3 to 5 · The core pages</div>
+            <h3>The pages that do the selling.</h3>
+            <p>Home, rent to own, rental products, how it works, about, contact and the FAQ. Built on the agreed system, mobile first, with one clear route from landing on the page to starting an application. The duplicates collapse into single pages here.</p>
+            <div class="timeline-tags">
+              <span class="tag">Core pages</span>
+              <span class="tag">Package comparison</span>
+              <span class="tag">Enquiry flow</span>
+              <span class="tag tag--orange">Mobile first</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">03</div>
+          <div class="timeline-body">
+            <div class="weeks">Days 6 to 8 · Content and search recovery</div>
+            <h3>Move the articles without losing the traffic.</h3>
+            <p>All 15 blog posts migrated with their URLs intact, the ten partner brands rebuilt out of the misspelled folder, and the CMS set up so your team can publish without us. Then the redirect map: every one of the 86 old URLs either kept, redirected to its right replacement, or properly removed. The 36 demo pages go, cleanly, so they stop competing with you.</p>
+            <div class="timeline-tags">
+              <span class="tag">15 posts migrated</span>
+              <span class="tag">Partner pages</span>
+              <span class="tag">CMS handover</span>
+              <span class="tag">301 redirect map</span>
+              <span class="tag tag--orange">Demo pages removed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">04</div>
+          <div class="timeline-body">
+            <div class="weeks">Days 9 to 10 · Prove it, then launch</div>
+            <h3>Measured, not asserted.</h3>
+            <p>Real devices, real connections. Load speed measured against our floors, accessibility checked to WCAG 2.2 AA, every form tested end to end, every redirect confirmed. Then go live, watch the first week, and fix same day. We show you the numbers rather than telling you it is fast.</p>
+            <div class="timeline-tags">
+              <span class="tag">Device testing</span>
+              <span class="tag">WCAG 2.2 AA</span>
+              <span class="tag">Redirects verified</span>
+              <span class="tag">Go live</span>
+              <span class="tag tag--orange">First week watched</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sec-note">
+        <h4>How long, honestly</h4>
+        <p>Two weeks is our build time. End to end usually runs closer to three once your review windows are in, and that depends mostly on how quickly copy, photography and sign-off come back. We have given the schedule room on purpose so the date holds. With quick feedback we will beat it.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 04 TECHNICAL APPROACH -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">04 · How It Gets Built</div>
+      <div class="grid-2" style="margin-bottom: 2.5rem;">
+        <div>
+          <h2>Fast to load.<br /><em>Yours</em> to edit.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">Coming off Squarespace should not mean needing a developer every time you change a price. The site is built on a modern static-first stack, which is what makes it fast, with a content system your team edits directly for copy, packages, blog posts and partner brands. You own the site and the content outright. Built AI-first with Claude Code, which is why a build that takes a traditional studio a couple of months takes us four weeks without dropping quality.</p>
+        </div>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-label">Stack</div><h4>Static first</h4><p>Pages served as fast static files, not assembled on every request. This is the single biggest reason it will feel quicker than what you have.</p></div>
+        <div class="tech-item"><div class="tech-label">Editing</div><h4>A CMS you actually use</h4><p>Copy, package prices, blog posts and partner brands editable by your team without us. Nothing on the site is locked behind a developer.</p></div>
+        <div class="tech-item"><div class="tech-label">Search</div><h4>Redirect map, not a reset</h4><p>All 86 existing URLs accounted for one by one. Rankings you have earned move across with you instead of being started again.</p></div>
+        <div class="tech-item"><div class="tech-label">Performance</div><h4>Measured to a floor</h4><p>Largest contentful paint under 2.5 seconds and layout shift under 0.1, checked on a real phone before launch, not assumed.</p></div>
+        <div class="tech-item"><div class="tech-label">Accessibility</div><h4>WCAG 2.2 AA</h4><p>Contrast, keyboard navigation, focus states and screen reader labels handled during the build rather than patched afterwards.</p></div>
+        <div class="tech-item"><div class="tech-label">Enquiries</div><h4>Straight to your inbox</h4><p>Enquiry and application forms delivered reliably to one address, with spam handling, so a lead never sits unnoticed in a plugin.</p></div>
+      </div>
+
+      <div class="sec-note">
+        <h4>On hosting and what you keep</h4>
+        <p>The site moves to modern hosting that costs a fraction of a Squarespace subscription, and that sits inside the monthly care fee below. Your domain stays yours and stays where it is. The code, the content and the design are yours outright on final payment, so nothing here locks you to us.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 05 INVESTMENT -->
+  <section class="section section--dark" id="investment">
+    <div class="container">
+      <div class="section-label">05 · Investment</div>
+      <div class="grid-2" style="margin-bottom: 2rem;">
+        <div>
+          <h2>The rebuild.<br /><em>R18,000</em><br />once.</h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem; margin-bottom: 1.25rem;">Priced lean and AI-first. One fee for the whole redesign and rebuild, with the search recovery work included rather than sold to you later as a separate project.</p>
+          <p style="color: var(--text-light); font-size: 0.95rem;">That covers the core pages, all 15 blog posts moved across, the ten partner brand pages, the CMS, the redirect map and the launch. No account-manager layer sitting on top of it.</p>
+        </div>
+      </div>
+
+      <div class="sub-label">What a rebuild like this costs elsewhere</div>
+      <div class="table-wrap">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Route</th><th>Indicative cost</th><th>What else you carry</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Full-service digital agency</td><td>R120k to R250k</td><td>Two to four months, account and project-manager layers billed to you</td></tr>
+            <tr><td>Mid-tier South African web studio</td><td>R60k to R120k</td><td>Four to eight weeks, search migration usually quoted as a separate project</td></tr>
+            <tr><td>Template refresh on Squarespace</td><td>R15k to R35k</td><td>About the same money, and you stay on Squarespace with the bloat and the duplicate pages</td></tr>
+            <tr><td><strong style="color:var(--orange)">Constellation, AI-first</strong></td><td><strong style="color:var(--orange)">R18,000 rebuild</strong></td><td>Two weeks, search recovery included, the site and content yours outright</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pricing-note" style="margin-top:1.25rem;border-top:none;padding-top:0;">Indicative market ranges for a rebuild of this scope, based on typical South African rates and comparable engagements we have quoted, not third-party quotes. This is the value we believe the work carries, from our experience and what we have built before.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card recommended">
+          <div class="recommended-badge">The proposal</div>
+          <div class="pricing-card-head"><div class="pricing-tier-label">Complete redesign and rebuild</div><h4>The rebuild</h4><div class="price-amount">R18,000</div><div class="price-total">one-off, about 2 weeks</div></div>
+          <div class="pricing-card-body"><ul class="feature-list"><li>Design system and full visual redesign</li><li>Around 12 core pages, duplicates collapsed</li><li>All 15 blog posts migrated, URLs kept</li><li>Ten partner brand pages rebuilt</li><li>Redirect map across all 86 URLs</li><li>36 demo pages removed cleanly</li><li>CMS set up and handed over</li><li>WCAG 2.2 AA and performance verified</li></ul></div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-card-head"><div class="pricing-tier-label">Optional, add any time</div><h4>Savings calculator</h4><div class="price-amount">R6,000<span class="price-period"> / once</span></div><div class="price-total">not included above</div></div>
+          <div class="pricing-card-body"><ul class="feature-list"><li>Visitor enters their monthly bill</li><li>Gets the right package and monthly figure</li><li>Shows what they save against it</li><li>Captures the lead at the result</li><li>Can follow the rebuild later</li></ul></div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-card-head"><div class="pricing-tier-label">Keep it running</div><h4>Care</h4><div class="price-amount">R950<span class="price-period"> / month</span></div><div class="price-total">starts at go-live</div></div>
+          <div class="pricing-card-body"><ul class="feature-list"><li>Hosting, backups and security</li><li>Uptime monitoring</li><li>Small copy and price changes</li><li>Costs less than your Squarespace subscription</li><li>No lock-in, cancel on a month</li></ul></div>
+        </div>
+      </div>
+
+      <p class="pricing-note">All amounts in ZAR, exclusive of VAT. The rebuild is billed in two parts: R9,000 on signature and R9,000 on launch. Care begins at go-live and runs monthly. Your domain renewal stays with you at cost. Pricing assumes copy, photography and package details reach us in the first week, and two rounds of revisions on the design.</p>
+
+      <div class="sec-note">
+        <h4>Open for discussion</h4>
+        <p>This does not have to be one decision. The rebuild stands on its own, and the calculator can follow once the site is live and you can see what the traffic does. If the budget sits somewhere specific, tell us the number and we will shape the scope to it rather than quietly cutting quality. The figures here are what we believe the work is worth, based on our experience and what we have built before.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- 06 HOW WE WORK -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-label">06 · How We Work Together</div>
+      <div class="grid-2" style="margin-bottom: 3rem;">
+        <div>
+          <h2>Show the work.<br /><em>Then ship it.</em></h2>
+        </div>
+        <div>
+          <p style="color: var(--text-light); font-size: 0.95rem;">The speed comes from being AI-first. The trust comes from how we hold the line: a signed Statement of Work before any build, the design agreed before the full site is made, and everything we claim about speed and accessibility measured in front of you.</p>
+        </div>
+      </div>
+
+      <div class="sla-grid">
+        <div class="sla-item"><h4>Statement of Work first</h4><p>A Statement of Work locks the scope, the page list, the milestones and the revision policy before any code is written. Happy to work under an NDA, yours or a mutual one.</p></div>
+        <div class="sla-item"><h4>Design agreed before the build</h4><p>You see the homepage and one inner page in the first few days and sign off the direction. We do not build twelve pages and then ask if you like it.</p></div>
+        <div class="sla-item"><h4>Two rounds of revisions</h4><p>Two rounds included on the design direction. Beyond that we quote before doing the work, so there is never an invoice you did not see coming.</p></div>
+        <div class="sla-item"><h4>Proof, not promises</h4><p>Load speed, accessibility and every redirect are measured and shown to you before launch. If a number misses the floor, it gets fixed before go-live, not logged as a nice-to-have.</p></div>
+        <div class="sla-item"><h4>Communication and cadence</h4><p>Weekly progress updates and check-ins at each stage. Direct access to Aldo for any quick decision. No account-manager layers between you and the person building it.</p></div>
+        <div class="sla-item"><h4>Handover and ownership</h4><p>The site, the code and the content transfer to Sun Savings on final payment. The CMS is handed over with a walkthrough so your team can run it without us.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-orb cta-orb-1"></div>
+    <div class="cta-orb cta-orb-2"></div>
+    <div class="cta-orb cta-orb-3"></div>
+    <div class="cta-content">
+      <div class="eyebrow" style="justify-content: center;"><span></span> Next Steps <span></span></div>
+      <h2>Clear the noise.<br /><em>Sell the sun.</em></h2>
+      <p>Four steps from this proposal to a site that works as hard as the offer.</p>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-num">01</div><p>Sign off. A Statement of Work locking the page list, the scope and the price. Build starts the same week.</p></div>
+        <div class="step-item"><div class="step-num">02</div><p>Settle the offer. One session to agree one package structure and one set of prices, so the site can say the same thing everywhere.</p></div>
+        <div class="step-item"><div class="step-num">03</div><p>Design and build. You approve the direction in the first few days, then the full site, the articles and the redirect map follow.</p></div>
+        <div class="step-item"><div class="step-num">04</div><p>Launch. Measured, verified, live, and watched through the first week with same-day fixes.</p></div>
+      </div>
+
+      <form class="cta-form" action="https://formsubmit.co/hello@uxconstellation.com" method="POST">
+        <input type="hidden" name="_subject" value="New Sun Savings website rebuild enquiry" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://uxconstellation.github.io/constellation-proposals/proposals/sun-savings/?sent=1" />
+        <label class="sr-only" for="f-name">Your name</label>
+        <input id="f-name" type="text" name="name" placeholder="Your name" autocomplete="name" required />
+        <label class="sr-only" for="f-email">Your email</label>
+        <input id="f-email" type="email" name="email" placeholder="Your email" autocomplete="email" required />
+        <input type="text" name="_honey" class="cta-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label class="sr-only" for="f-msg">Anything you would like us to know</label>
+        <textarea id="f-msg" name="message" placeholder="Anything you would like us to know (optional)"></textarea>
+        <button type="submit" class="btn-submit">Start the conversation &rarr;</button>
+      </form>
+      <p class="cta-alt">Or email <a href="mailto:hello@uxconstellation.com?subject=Sun%20Savings%20website%20rebuild">hello@uxconstellation.com</a> directly.</p>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <img src="assets/logo.png" alt="" style="height: 24px; opacity: 0.8;" />
+      <p>Sun Savings · Website redesign and rebuild · July 2026</p>
+      <p>Confidential. Prepared by Aldo Calitz.</p>
+    </div>
+  </footer>
+
+  <script>
+    // CTA form: show a confirmation after FormSubmit redirects back with ?sent=1
+    if (new URLSearchParams(location.search).has('sent')) {
+      const f = document.querySelector('.cta-form');
+      if (f) f.outerHTML = '<p class="cta-thanks">Thank you. We will be in touch shortly.</p>';
+    }
+
+    // Cursor spotlight: tracks mouse position per card as CSS vars
+    const spotlightTargets = document.querySelectorAll('.challenge-item, .tech-item, .pricing-card, .sla-item, .step-item');
+    spotlightTargets.forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.setProperty('--mx', '-200px');
+        el.style.setProperty('--my', '-200px');
+      });
+    });
+
+    // 3-D tilt: challenge cards and tech items only
+    const tiltTargets = document.querySelectorAll('.challenge-item, .tech-item');
+    const MAX_TILT = 8;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) tiltTargets.forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+        const dy = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+        el.style.transform = `perspective(600px) rotateX(${-dy * MAX_TILT}deg) rotateY(${dx * MAX_TILT}deg) translateY(-6px)`;
+        el.style.transition = 'transform 0.08s linear, border-color 0.25s ease, box-shadow 0.28s ease';
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = '';
+        el.style.transition = 'transform 0.45s cubic-bezier(0.34,1.26,0.64,1), border-color 0.25s ease, box-shadow 0.28s ease';
+      });
+    });
+  </script>
+</body>
+</html>
