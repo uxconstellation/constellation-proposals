@@ -347,12 +347,13 @@
   .footer__form input:focus,.footer__form select:focus,.footer__form textarea:focus{
     outline:none;border-bottom-color:var(--gold)}
   .footer__form textarea{min-height:84px;resize:vertical}
-  .footer__form fieldset{border:none;margin:0}
-  .footer__form .checks{display:flex;flex-wrap:wrap;gap:10px 22px;padding-top:4px}
+  .footer__form fieldset{border:none;margin:30px 0 0;padding:0}
+  .footer__form legend{margin:0 0 12px;padding:0}
+  .footer__form .checks{display:flex;flex-wrap:wrap;gap:14px 28px;padding-top:2px}
   .footer__form .checks label,.footer__form .consent label{display:flex;align-items:center;gap:9px;margin:0;
     font-size:13px;font-weight:400;letter-spacing:.02em;text-transform:none;color:var(--cream-85);cursor:pointer}
   .footer__form input[type="checkbox"]{width:17px;height:17px;accent-color:var(--gold);flex-shrink:0}
-  .footer__form .consent{margin-top:24px}
+  .footer__form .consent{margin-top:32px}
   .footer__send{margin-top:32px;background:var(--gold);color:var(--ink);border:none;cursor:pointer;
     font-family:var(--sans);font-size:14.4px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
     padding:14px 30px;border-radius:999px;transition:opacity .2s,transform .2s}
@@ -1319,12 +1320,25 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     wm.setAttribute("x",BW/2); wm.setAttribute("y",BH/2+75); wm.setAttribute("font-size",300); wm.setAttribute("textLength",BW+100);
   }
 
+  /* measured fit: compress any label line that would run into the piece's side tab-notches.
+     Safe interior is well inside CELL because a neighbour's blank can intrude ~30px per side. */
+  var LABEL_MAXW = CELL * 0.64;
+  function fitLabel(g){
+    var tspans = g.querySelectorAll("text tspan");
+    for (var i=0;i<tspans.length;i++){
+      var s = tspans[i];
+      s.removeAttribute("textLength"); s.removeAttribute("lengthAdjust");
+      var w = s.getComputedTextLength();
+      if (w > LABEL_MAXW){ s.setAttribute("textLength", LABEL_MAXW.toFixed(1)); s.setAttribute("lengthAdjust","spacingAndGlyphs"); }
+    }
+  }
   function renderLabelG(u, lang){
     var lab=cellDisp(lang,u.r,u.c);
     var shared=SHARED[cellEN(u.r,u.c)];
     u.labelG.innerHTML =
       (shared ? '<circle cx="'+u.cx+'" cy="'+(u.cy+(lab.indexOf(" ")<0?16:24))+'" r="3" fill="'+LABEL_ON[u.tone]+'" opacity="0.45"/>' : "")
       + labelSVG(lab, u.cx, u.cy, LABEL_ON[u.tone]);
+    fitLabel(u.labelG);
   }
 
   var units=[];
