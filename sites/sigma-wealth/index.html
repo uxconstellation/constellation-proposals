@@ -68,6 +68,33 @@
   html.reduced-motion [data-split="unblur"]:not(.approach__entry) .line{opacity:1!important;filter:none!important;transform:none!important}
   .w-a{color:var(--cream)} .w-b{color:var(--sage)}
 
+  /* ============ beat 0.5: the complete picture (puzzle: two processes -> one board) ============ */
+  .picture{position:relative;z-index:2;background:var(--cream);padding:16vh 8vw 12vh;
+    display:flex;flex-direction:column;align-items:center}
+  .picture__head{width:100%;max-width:1060px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .picture .rule-caption{color:var(--gold-deep);justify-content:center} /* gold-deep = AA on cream */
+  .picture__title{margin-top:22px;font-family:var(--serif);font-weight:400;
+    font-size:clamp(30px,4.6vw,54px);line-height:1.04;letter-spacing:-.015em;
+    color:var(--ink);max-width:18ch;text-wrap:balance}
+  .picture__sub{margin-top:16px;max-width:46ch;font-size:clamp(13px,1.3vw,15px);
+    color:#4a5462;line-height:1.5} /* #4a5462 on cream = AA */
+  .picture__stage{width:100%;max-width:1060px;margin-top:clamp(28px,5vh,56px)}
+  .picture__stage svg{width:100%;height:auto;display:block;overflow:visible}
+  .picture__wm{font-family:var(--serif);font-weight:600;fill:var(--ink);opacity:.055;letter-spacing:.06em}
+  .picture .piece{will-change:transform,opacity}
+  .picture .plabel{font-family:var(--sans);font-weight:600;letter-spacing:.005em} /* no font-size: JS auto-fit governs */
+  .picture__halflabels{display:flex;justify-content:center;flex-wrap:wrap;
+    gap:clamp(28px,8vw,120px);width:100%;max-width:1060px;margin-top:clamp(16px,2.6vh,28px)}
+  .picture__half{display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--serif);font-style:italic;font-size:clamp(15px,1.7vw,20px);color:var(--navy)}
+  .picture__swatch{width:12px;height:12px;border-radius:3px;flex:none}
+  .picture__swatch--person{background:var(--navy)}
+  .picture__swatch--capital{background:var(--sage)}
+  @media (max-width:720px){
+    .picture{padding:11vh 6vw 9vh}
+    .picture__halflabels{flex-direction:column;gap:10px;align-items:center}
+  }
+
   /* ============ preloader (IWC #preloader: char-split + brand SVG path) ============ */
   .preloader{position:fixed;inset:0;z-index:100;background:var(--ink);
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}
@@ -391,6 +418,30 @@
 
 <main class="page">
 
+<!-- ============ beat 0.5: THE COMPLETE PICTURE (puzzle: two processes converge into one board) ============ -->
+<section class="picture" id="picture" aria-label="The complete picture">
+  <div class="picture__head">
+    <div class="rule-caption caption" data-i18n="pictureEyebrow">The complete picture</div>
+    <h2 class="picture__title" data-split="appear" data-lines="pictureTitle">
+      <span class="mask"><span class="lineIn">Two processes,</span></span>
+      <span class="mask"><span class="lineIn">one picture</span></span>
+    </h2>
+    <p class="picture__sub" data-i18n="pictureSub">Wealth management and asset management, built as a single picture.</p>
+  </div>
+  <div class="picture__stage">
+    <svg id="puzzleSvg" viewBox="-160 -110 1220 690" role="img"
+         aria-label="Sigma's two investment processes assembling into one connected board">
+      <text class="picture__wm" text-anchor="middle" lengthAdjust="spacingAndGlyphs">SIGMA</text>
+      <g id="puzzlePaths"></g>
+      <g id="puzzleLabels"></g>
+    </svg>
+  </div>
+  <div class="picture__halflabels">
+    <span class="picture__half"><i class="picture__swatch picture__swatch--person" aria-hidden="true"></i><span data-i18n="pictureHalfA">Welvaartbestuur &middot; Persoon</span></span>
+    <span class="picture__half"><i class="picture__swatch picture__swatch--capital" aria-hidden="true"></i><span data-i18n="pictureHalfB">Batebestuur &middot; Kapitaal</span></span>
+  </div>
+</section>
+
 <!-- ============ beat 1: APPROACH (pinned 3-step; founding story folded into step 3) ============ -->
 <section class="approach step-1" id="approach" aria-label="The Sigma approach">
   <div class="approach__pin" id="approachPin">
@@ -710,7 +761,19 @@ const COPY = {
     legalRegulated:"FSCA-regulated financial services provider",
     legalNote:"All investments carry risk. Past performance is not indicative of future results.",
     preTitle:"Wealth starts here.",
+    pictureEyebrow:"The complete picture",
+    pictureSub:"Wealth management and asset management, built as a single picture.",
+    pictureHalfA:"Welvaartbestuur · Persoon", pictureHalfB:"Batebestuur · Kapitaal",
+    puzzle:{
+      A:[["Information","Needs","Planning"],
+         ["Investment principles","Solutions","Advice"],
+         ["Communication","Accountability","Outcome"]],
+      B:[["Investment principles","Objective","Risk management"],
+         ["Execution","Support","Communication"],
+         ["Responsibility","Outcome","Success"]]
+    },
     lines: {
+      pictureTitle:["Two processes,","one picture"],
       approach1:["A financial plan is a considered process,","supported by the application of","sound investment principles."],
       approach2:["You have spent your working life","building wealth. Through personal","attention, we grow and preserve it."],
       approach3:["The Sigma approach is one licensed","relationship: a practice that continuously","guides investors nationwide to a","good outcome."],
@@ -754,7 +817,19 @@ const COPY = {
     legalRegulated:"FSCA-gereguleerde finansiële diensverskaffer",
     legalNote:"Alle beleggings dra risiko. Vorige prestasie is nie 'n aanduiding van toekomstige resultate nie.",
     preTitle:"Welvaart begin hier.",
+    pictureEyebrow:"Die volledige prentjie",
+    pictureSub:"Welvaartbestuur en batebestuur, gebou as een prentjie.",
+    pictureHalfA:"Welvaartbestuur · Persoon", pictureHalfB:"Batebestuur · Kapitaal",
+    puzzle:{
+      A:[["Inligting","Behoeftes","Beplanning"],
+         ["Beleggingsbeginsels","Oplossings","Advies"],
+         ["Kommunikasies","Rekenskap","Resultaat"]],
+      B:[["Beleggingsbeginsels","Doelwit","Risikobestuur"],
+         ["Uitvoering","Ondersteuning","Kommunikasies"],
+         ["Verantwoordbaarheid","Resultaat","Sukses"]]
+    },
     lines: {
+      pictureTitle:["Twee prosesse,","een prentjie"],
       approach1:["'n Finansiële plan is 'n deurdagte proses","wat deur die toepassing van goeie","beleggingsbeginsels ondersteun word."],
       approach2:["Jy het jou werkslewe daaraan gewy","om welvaart te bou. Deur persoonlike","aandag groei en behou ons dit."],
       approach3:["Die Sigma-benadering is een gelisensieerde","verhouding: 'n praktyk wat landswyd","beleggers deurlopend na 'n goeie","uitkoms begelei."],
@@ -815,6 +890,8 @@ function applyLang(lang){
     if (data.lines[k]){ renderSplit(el, data.lines[k]); restoreRevealState(el); }
   });
   document.documentElement.lang = lang;
+  /* puzzle piece labels are SVG-generated, not data-i18n/data-lines: re-render them here */
+  if (window.__puzzleSetLang) window.__puzzleSetLang(lang);
   /* approach entries live outside the revealed-flag flow: re-apply the active step state */
   if (window.__applyStepInstant) window.__applyStepInstant();
 }
@@ -1112,6 +1189,15 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     document.querySelectorAll(".member").forEach(m => { m.style.opacity = 1; m.style.transform = "none"; });
     return;
   }
+  /* picture (puzzle) title line-mask */
+  const pt = document.querySelector(".picture__title");
+  if (pt) ScrollTrigger.create({
+    trigger: pt, start: "top 82%", once: true,
+    onEnter(){
+      pt.dataset.revealed = "1";
+      gsap.to(pt.querySelectorAll(".lineIn"), { y: 0, duration: 0.9, ease: "power3.out", stagger: 0.1 });
+    }
+  });
   /* strategy heading line-mask */
   const sh = document.querySelector(".strategy__heading");
   ScrollTrigger.create({
@@ -1150,6 +1236,139 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
       gsap.to(fc.querySelectorAll(".lineIn"), { y: 0, duration: 0.9, ease: "power3.out", stagger: 0.1 });
     }
   });
+})();
+
+/* ===================== beat 0.5: puzzle assembly (ported from motion-prototypes/puzzle.html) =====================
+   One 6x3 jigsaw board = two 3x3 investment processes converging into one puzzle.
+   Left half (cols 0-2) = Welvaartbestuur/Person; right half (cols 3-5) = Batebestuur/Capital.
+   Shared through-line pieces (Investment principles, Communication, Outcome) = gold.
+   Structure (tone/shared/layout) derives from the EN arrays; display text follows the active language. */
+(function puzzleBeat(){
+  "use strict";
+  var svg = document.getElementById("puzzleSvg");
+  if (!svg || !window.gsap) return;
+
+  var TONE = { navy:"#1A3A63", sage:"#8FA679", gold:"#B99A63", cream:"#F6F1E8", ink:"#0E1E33" };
+  var LABEL_ON = { navy:TONE.cream, ink:TONE.cream, sage:TONE.ink, gold:TONE.ink, cream:TONE.ink }; // all AA on the tone
+
+  var AEN = COPY.en.puzzle.A, BEN = COPY.en.puzzle.B;                 // canonical structure
+  var SHARED = { "Investment principles":1, "Communication":1, "Outcome":1 };
+  var CELL = 150;
+  var MOBILE = window.matchMedia("(max-width: 720px)").matches;      // stacked 3x6 vs wide 6x3
+  var COLS = MOBILE ? 3 : 6, ROWS = MOBILE ? 6 : 3;
+
+  function cellEN(r,c){ if (MOBILE) return r<3 ? AEN[r][c] : BEN[r-3][c]; return c<3 ? AEN[r][c] : BEN[r][c-3]; }
+  function cellDisp(lang,r,c){ var A=COPY[lang].puzzle.A, B=COPY[lang].puzzle.B;
+    if (MOBILE) return r<3 ? A[r][c] : B[r-3][c]; return c<3 ? A[r][c] : B[r][c-3]; }
+  function isPerson(r,c){ return MOBILE ? r<3 : c<3; }
+  var BASE = ["navy","sage","cream","ink"];
+  function toneName(r,c){ if (SHARED[cellEN(r,c)]) return "gold"; return BASE[(r+c)%BASE.length]; }
+
+  function sgn(r,c,salt){ return ((r*3 + c*5 + salt) % 2) ? 1 : -1; }
+  function edge(ax,ay,bx,by,tab){
+    var dx=bx-ax, dy=by-ay, px=dy, py=-dx;
+    function P(a,b){ return [ax+dx*a+px*b, ay+dy*a+py*b]; }
+    if (tab===0){ var e0=P(1,0); return "L"+e0[0].toFixed(2)+" "+e0[1].toFixed(2)+" "; }
+    var t=tab, s="";
+    var p1=P(0.40,0); s+="L"+p1[0].toFixed(2)+" "+p1[1].toFixed(2)+" ";
+    var c1a=P(0.50,0.00), c1b=P(0.28,0.30*t), e1=P(0.50,0.30*t);
+    s+="C"+c1a[0].toFixed(2)+" "+c1a[1].toFixed(2)+" "+c1b[0].toFixed(2)+" "+c1b[1].toFixed(2)+" "+e1[0].toFixed(2)+" "+e1[1].toFixed(2)+" ";
+    var c2a=P(0.72,0.30*t), c2b=P(0.50,0.00), e2=P(0.60,0.00);
+    s+="C"+c2a[0].toFixed(2)+" "+c2a[1].toFixed(2)+" "+c2b[0].toFixed(2)+" "+c2b[1].toFixed(2)+" "+e2[0].toFixed(2)+" "+e2[1].toFixed(2)+" ";
+    var e=P(1,0); s+="L"+e[0].toFixed(2)+" "+e[1].toFixed(2)+" ";
+    return s;
+  }
+  function piecePath(r,c){
+    var x0=c*CELL, y0=r*CELL, x1=x0+CELL, y1=y0+CELL;
+    var top=r===0?0:-sgn(r-1,c,7), bottom=r===ROWS-1?0:sgn(r,c,7);
+    var left=c===0?0:-sgn(r,c-1,3), right=c===COLS-1?0:sgn(r,c,3);
+    var d="M"+x0.toFixed(2)+" "+y0.toFixed(2)+" ";
+    d+=edge(x0,y0,x1,y0,top); d+=edge(x1,y0,x1,y1,right); d+=edge(x1,y1,x0,y1,bottom); d+=edge(x0,y1,x0,y0,left);
+    return d+"Z";
+  }
+  function labelSVG(text,cx,cy,fill){
+    var words=text.split(" "), lines;
+    if (words.length===1 || text.length<=11){ lines=[text]; }
+    else {
+      var best=1, bestDiff=1e9;
+      for (var i=1;i<words.length;i++){
+        var d=Math.abs(words.slice(0,i).join(" ").length - words.slice(i).join(" ").length);
+        if (d<bestDiff){ bestDiff=d; best=i; }
+      }
+      lines=[words.slice(0,best).join(" "), words.slice(best).join(" ")];
+    }
+    var maxChars=Math.max.apply(null, lines.map(function(l){ return l.length; }));
+    var fs=Math.min(14, Math.floor(126/(0.6*maxChars))); if (fs<10) fs=10;
+    var lh=fs+3, startY=cy-(lines.length-1)*lh/2;
+    var out='<text class="plabel" x="'+cx+'" text-anchor="middle" font-size="'+fs+'" fill="'+fill+'">';
+    for (var k=0;k<lines.length;k++){ out+='<tspan x="'+cx+'" y="'+(startY+k*lh).toFixed(1)+'">'+lines[k]+'</tspan>'; }
+    return out+'</text>';
+  }
+
+  var SVGNS="http://www.w3.org/2000/svg";
+  var wm=svg.querySelector(".picture__wm");
+  var pathsLayer=document.getElementById("puzzlePaths");
+  var labelsLayer=document.getElementById("puzzleLabels");
+
+  var BW=COLS*CELL, BH=ROWS*CELL;
+  if (MOBILE){
+    svg.setAttribute("viewBox","-40 -170 "+(BW+80)+" "+(BH+340));
+    wm.setAttribute("x",BW/2); wm.setAttribute("y",BH/2+55); wm.setAttribute("font-size",150); wm.setAttribute("textLength",BW-20);
+  } else {
+    svg.setAttribute("viewBox","-160 -110 "+(BW+320)+" "+(BH+240));
+    wm.setAttribute("x",BW/2); wm.setAttribute("y",BH/2+75); wm.setAttribute("font-size",300); wm.setAttribute("textLength",BW+100);
+  }
+
+  function renderLabelG(u, lang){
+    var lab=cellDisp(lang,u.r,u.c);
+    var shared=SHARED[cellEN(u.r,u.c)];
+    u.labelG.innerHTML =
+      (shared ? '<circle cx="'+u.cx+'" cy="'+(u.cy+(lab.indexOf(" ")<0?16:24))+'" r="3" fill="'+LABEL_ON[u.tone]+'" opacity="0.45"/>' : "")
+      + labelSVG(lab, u.cx, u.cy, LABEL_ON[u.tone]);
+  }
+
+  var units=[];
+  for (var r=0;r<ROWS;r++){
+    for (var c=0;c<COLS;c++){
+      var name=toneName(r,c), fill=TONE[name];
+      var cx=c*CELL+CELL/2, cy=r*CELL+CELL/2;
+      var pg=document.createElementNS(SVGNS,"g"); pg.setAttribute("class","piece");
+      pg.innerHTML='<path d="'+piecePath(r,c)+'" fill="'+fill+'" stroke="rgba(14,30,51,0.30)" stroke-width="1.2" stroke-linejoin="round"/>';
+      pathsLayer.appendChild(pg);
+      var lg=document.createElementNS(SVGNS,"g"); lg.setAttribute("class","labelg");
+      labelsLayer.appendChild(lg);
+      var u={ pathG:pg, labelG:lg, person:isPerson(r,c), cx:cx, cy:cy, tone:name, r:r, c:c };
+      renderLabelG(u, currentLang);
+      units.push(u);
+    }
+  }
+  /* Person half assembles first, then Capital half */
+  var seq=units.filter(function(u){ return u.person; }).concat(units.filter(function(u){ return !u.person; }));
+
+  /* language swap: the SVG labels aren't data-i18n/data-lines, so re-render them here (transform lives on the <g>, survives innerHTML swap) */
+  window.__puzzleSetLang=function(lang){ if (COPY[lang] && COPY[lang].puzzle) units.forEach(function(u){ renderLabelG(u, lang); }); };
+
+  var allTargets=[]; seq.forEach(function(u){ allTargets.push(u.pathG, u.labelG); });
+
+  if (prefersReduced){
+    gsap.set(allTargets, { x:0, y:0, scale:1, opacity:1 });
+    return; /* completed board shown statically */
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  seq.forEach(function(u){
+    gsap.set([u.pathG, u.labelG], {
+      svgOrigin: u.cx+" "+u.cy,
+      x: MOBILE ? 0 : (u.person ? -150 : 150),
+      y: MOBILE ? (u.person ? -150 : 150) : -26,
+      scale: 0.94, opacity: 0
+    });
+  });
+  var tl=gsap.timeline({ paused:true, defaults:{ ease:"power3.out" } });
+  tl.to(allTargets, { x:0, y:0, scale:1, opacity:1, duration:0.62,
+    stagger:function(index){ return Math.floor(index/2)*0.11; } });
+  window.__puzzleTL=tl;
+  ScrollTrigger.create({ trigger:"#picture", start:"top 78%", once:true, onEnter:function(){ tl.play(); } });
 })();
 
 /* ===================== contact form: mailto interim (backend = Lovable+Supabase later) ===================== */
