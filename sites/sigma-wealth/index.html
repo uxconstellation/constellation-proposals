@@ -75,11 +75,11 @@
   .picture__title{margin-top:0;font-family:var(--serif);font-weight:400;
     font-size:clamp(30px,4.6vw,54px);line-height:1.04;letter-spacing:-.015em;
     color:var(--ink);max-width:20ch;text-wrap:balance}
-  .picture__stage{width:100%;max-width:1180px;margin-top:clamp(28px,5vh,56px)}
+  .picture__stage{width:100%;max-width:780px;margin:clamp(28px,5vh,56px) auto 0}
   .picture__stage svg{width:100%;height:auto;display:block;overflow:visible}
   .picture__wm{font-family:var(--serif);font-weight:600;fill:var(--ink);opacity:.055;letter-spacing:.06em}
   .picture .piece{will-change:transform,opacity}
-  .picture .plabel{font-family:var(--sans);font-weight:600;letter-spacing:.005em} /* no font-size: JS auto-fit governs */
+  .picture .plabel{font-family:var(--sans);font-weight:600;letter-spacing:.005em} /* JS sets one uniform small font-size for every label */
   .picture__halflabels{display:flex;justify-content:center;flex-wrap:wrap;
     gap:clamp(28px,8vw,120px);width:100%;max-width:1060px;margin-top:clamp(16px,2.6vh,28px)}
   .picture__half{display:inline-flex;align-items:center;gap:10px;
@@ -437,8 +437,8 @@
     </svg>
   </div>
   <div class="picture__halflabels">
-    <span class="picture__half"><i class="picture__swatch picture__swatch--person" aria-hidden="true"></i><span data-i18n="pictureHalfA">Welvaartbestuur &middot; Persoon</span></span>
-    <span class="picture__half"><i class="picture__swatch picture__swatch--capital" aria-hidden="true"></i><span data-i18n="pictureHalfB">Batebestuur &middot; Kapitaal</span></span>
+    <span class="picture__half"><i class="picture__swatch picture__swatch--person" aria-hidden="true"></i><span data-i18n="pictureHalfA">Wealth management &middot; Person</span></span>
+    <span class="picture__half"><i class="picture__swatch picture__swatch--capital" aria-hidden="true"></i><span data-i18n="pictureHalfB">Asset management &middot; Capital</span></span>
   </div>
 </section>
 
@@ -763,7 +763,7 @@ const COPY = {
     legalRegulated:"FSCA-regulated financial services provider",
     legalNote:"All investments carry risk. Past performance is not indicative of future results.",
     preTitle:"Wealth starts here.",
-    pictureHalfA:"Welvaartbestuur · Persoon", pictureHalfB:"Batebestuur · Kapitaal",
+    pictureHalfA:"Wealth management · Person", pictureHalfB:"Asset management · Capital",
     puzzle:{
       A:[["Information","Needs","Planning"],
          ["Investment principles","Solutions","Advice"],
@@ -1278,10 +1278,10 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     function P(a,b){ return [ax+dx*a+px*b, ay+dy*a+py*b]; }
     if (tab===0){ var e0=P(1,0); return "L"+e0[0].toFixed(2)+" "+e0[1].toFixed(2)+" "; }
     var t=tab, s="";
-    var p1=P(0.40,0); s+="L"+p1[0].toFixed(2)+" "+p1[1].toFixed(2)+" ";
-    var c1a=P(0.50,0.00), c1b=P(0.28,0.30*t), e1=P(0.50,0.30*t);
+    var p1=P(0.42,0); s+="L"+p1[0].toFixed(2)+" "+p1[1].toFixed(2)+" ";
+    var c1a=P(0.50,0.00), c1b=P(0.31,0.19*t), e1=P(0.50,0.19*t);
     s+="C"+c1a[0].toFixed(2)+" "+c1a[1].toFixed(2)+" "+c1b[0].toFixed(2)+" "+c1b[1].toFixed(2)+" "+e1[0].toFixed(2)+" "+e1[1].toFixed(2)+" ";
-    var c2a=P(0.72,0.30*t), c2b=P(0.50,0.00), e2=P(0.60,0.00);
+    var c2a=P(0.69,0.19*t), c2b=P(0.50,0.00), e2=P(0.58,0.00);
     s+="C"+c2a[0].toFixed(2)+" "+c2a[1].toFixed(2)+" "+c2b[0].toFixed(2)+" "+c2b[1].toFixed(2)+" "+e2[0].toFixed(2)+" "+e2[1].toFixed(2)+" ";
     var e=P(1,0); s+="L"+e[0].toFixed(2)+" "+e[1].toFixed(2)+" ";
     return s;
@@ -1299,10 +1299,10 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
   var FS_MAX = 26, MARGIN = 0.10;                 // MARGIN = clearance kept off every seam
   function notchZones(t){
     var n=[];
-    if (t.top<0)    n.push({s:'t',x0:0.27,y0:0,   x1:0.73,y1:0.35});
-    if (t.bottom<0) n.push({s:'b',x0:0.27,y0:0.65,x1:0.73,y1:1});
-    if (t.left<0)   n.push({s:'l',x0:0,   y0:0.27,x1:0.35,y1:0.73});
-    if (t.right<0)  n.push({s:'r',x0:0.65,y0:0.27,x1:1,   y1:0.73});
+    if (t.top<0)    n.push({s:'t',x0:0.30,y0:0,   x1:0.70,y1:0.24});
+    if (t.bottom<0) n.push({s:'b',x0:0.30,y0:0.76,x1:0.70,y1:1});
+    if (t.left<0)   n.push({s:'l',x0:0,   y0:0.30,x1:0.24,y1:0.70});
+    if (t.right<0)  n.push({s:'r',x0:0.76,y0:0.30,x1:1,   y1:0.70});
     return n;
   }
   function clipRect(raw,ns){
@@ -1320,11 +1320,11 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     var m=MARGIN, ns=notchZones(t);
     var raw=[
       [m,m,1-m,1-m],
-      [m,m,1-m,0.27],[m,0.73,1-m,1-m],            // full-WIDTH strips clear above/below the side notches
-      [m,m,0.27,1-m],[0.73,m,1-m,1-m],            // full-HEIGHT strips clear left/right of the top/bottom notches
+      [m,m,1-m,0.30],[m,0.70,1-m,1-m],            // full-WIDTH strips clear above/below the side notches
+      [m,m,0.30,1-m],[0.70,m,1-m,1-m],            // full-HEIGHT strips clear left/right of the top/bottom notches
       [m,m,1-m,0.5],[m,0.5,1-m,1-m],
       [m,m,0.5,1-m],[0.5,m,1-m,1-m],
-      [m,0.30,1-m,0.70],[0.30,m,0.70,1-m]
+      [m,0.28,1-m,0.72],[0.28,m,0.72,1-m]
     ], out=[];
     for (var i=0;i<raw.length;i++){ var r=clipRect(raw[i],ns); if (r) out.push(r); }
     return out;
@@ -1371,23 +1371,36 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     wm.setAttribute("x",BW/2); wm.setAttribute("y",BH/2+75); wm.setAttribute("font-size",300); wm.setAttribute("textLength",BW+40);
   }
 
-  function renderLabelG(u, lang){
-    var text=cellDisp(lang,u.r,u.c), p=planLabel(u.tabsv,text);
-    var fs=p.fs, lh=fs*LHF;
-    var cx=u.c*CELL + p.cx*CELL, cy=u.r*CELL + p.cy*CELL, n=p.lines.length;
+  /* plan a piece's label (rect + line split + placement) for the active language */
+  function computeLabel(u, lang){
+    var text=cellDisp(lang,u.r,u.c);
+    u.plan=planLabel(u.tabsv,text);
+    return u.plan.fs;                                   // largest fs that fits THIS piece (estimate)
+  }
+  /* draw a planned label at a GIVEN font size (uniform across the board) */
+  function drawLabel(u, fs){
+    var p=u.plan, lh=fs*LHF, n=p.lines.length;
+    var cx=u.c*CELL + p.cx*CELL, cy=u.r*CELL + p.cy*CELL;
     var startY=cy-(n-1)*lh/2 + fs*0.34, fill=LABEL_ON[u.tone];
     var out='<text class="plabel" x="'+cx.toFixed(1)+'" text-anchor="middle" font-size="'+fs.toFixed(2)+'" fill="'+fill+'">';
     for (var k=0;k<n;k++) out+='<tspan x="'+cx.toFixed(1)+'" y="'+(startY+k*lh).toFixed(1)+'">'+p.lines[k]+'</tspan>';
     u.labelG.innerHTML=out+'</text>';
-    /* precise fit: measure real glyph widths and shrink if a line overruns its safe rectangle */
-    var tEl=u.labelG.querySelector('text'), ts=tEl.querySelectorAll('tspan');
-    var rectWU=(p.rect.x1-p.rect.x0)*CELL, maxW=0;
-    for (var m=0;m<ts.length;m++) maxW=Math.max(maxW, ts[m].getComputedTextLength());
-    if (maxW>rectWU*0.99){
-      var f2=fs*(rectWU*0.99/maxW), lh2=f2*LHF, sY=cy-(n-1)*lh2/2 + f2*0.34;
-      tEl.setAttribute('font-size',f2.toFixed(2));
-      for (var q=0;q<ts.length;q++) ts[q].setAttribute('y',(sY+q*lh2).toFixed(1));
-    }
+  }
+  /* ONE uniform small size for every label: the largest font that still fits the tightest
+     piece, then a real-glyph-width pass shrinks the whole set together so nothing overruns a seam. */
+  var UNIFORM_FS=0;
+  function renderAllLabels(lang){
+    var fs=FS_MAX;
+    units.forEach(function(u){ fs=Math.min(fs, computeLabel(u, lang)); });
+    units.forEach(function(u){ drawLabel(u, fs); });
+    var maxRatio=0;
+    units.forEach(function(u){
+      var ts=u.labelG.querySelectorAll('tspan'), rw=(u.plan.rect.x1-u.plan.rect.x0)*CELL;
+      for (var i=0;i<ts.length;i++) maxRatio=Math.max(maxRatio, ts[i].getComputedTextLength()/rw);
+    });
+    if (maxRatio>0.98){ fs*=0.98/maxRatio; units.forEach(function(u){ drawLabel(u, fs); }); }
+    UNIFORM_FS=fs;
+    window.__puzzleFs=fs;                                // exposed for verification
   }
 
   var units=[];
@@ -1400,15 +1413,19 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
       var lg=document.createElementNS(SVGNS,"g"); lg.setAttribute("class","labelg");
       labelsLayer.appendChild(lg);
       var u={ pathG:pg, labelG:lg, person:isPerson(r,c), tone:name, r:r, c:c, tabsv:tabs(r,c) };
-      renderLabelG(u, currentLang);
       units.push(u);
     }
   }
-  /* Person half assembles first, then Capital half */
-  var seq=units.filter(function(u){ return u.person; }).concat(units.filter(function(u){ return !u.person; }));
+  renderAllLabels(currentLang);
+  /* Person half assembles first, then Capital half; WITHIN a half, wide = left-to-right (by column), stacked = top-to-bottom (by row) */
+  function order(a,b){
+    if (a.person!==b.person) return a.person?-1:1;
+    return MOBILE ? (a.r-b.r || a.c-b.c) : (a.c-b.c || a.r-b.r);
+  }
+  var seq=units.slice().sort(order);
 
   /* language swap: the SVG labels aren't data-i18n/data-lines, so re-render them here (transform lives on the <g>, survives innerHTML swap) */
-  window.__puzzleSetLang=function(lang){ if (COPY[lang] && COPY[lang].puzzle) units.forEach(function(u){ renderLabelG(u, lang); }); };
+  window.__puzzleSetLang=function(lang){ if (COPY[lang] && COPY[lang].puzzle) renderAllLabels(lang); };
 
   var allTargets=[]; seq.forEach(function(u){ allTargets.push(u.pathG, u.labelG); });
 
@@ -1418,32 +1435,45 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
   }
 
   gsap.registerPlugin(ScrollTrigger);
+  /* each piece starts offset OUT from its seat (person half from the left, capital from the right,
+     with an alternating cross-axis jitter) so it visibly SLOTS into its interlocking neighbours */
+  var OFF = MOBILE ? 95 : 155, JIT = MOBILE ? 60 : 40;
   seq.forEach(function(u){
-    var ox=u.c*CELL+CELL/2, oy=u.r*CELL+CELL/2;
+    var ox=u.c*CELL+CELL/2, oy=u.r*CELL+CELL/2, dir=u.person?-1:1, j=((u.r+u.c)%2?1:-1)*JIT;
     gsap.set([u.pathG, u.labelG], {
       svgOrigin: ox+" "+oy,
-      x: MOBILE ? 0 : (u.person ? -190 : 190),
-      y: MOBILE ? (u.person ? -190 : 190) : -30,
-      scale: 0.9, opacity: 0
+      x: MOBILE ? j : dir*OFF,
+      y: MOBILE ? dir*OFF : j,
+      scale: 0.85, opacity: 0
     });
   });
-  /* ~15s build: pieces flow in ONE BY ONE, left (Person) half first, then right (Capital) half */
-  var STEP=0.82, DUR=0.9;                                   // 17*0.82 + 0.9 = 14.84s end to end
-  var tl=gsap.timeline({ paused:true });
+  /* scroll-scrubbed assembly (matches the site's approach/services scrub-pin feel): as you scroll
+     DOWN the pinned section, pieces slot in one region at a time, Person half first then Capital;
+     scrolling up reverses it. */
+  var STEP=0.58, DUR=1.0;
+  var tl=gsap.timeline({
+    scrollTrigger:{
+      trigger:"#picture", start:"top top",
+      end:function(){ return "+="+Math.round(window.innerHeight*1.6); },
+      pin:true, scrub:0.6, anticipatePin:1, invalidateOnRefresh:true
+    }
+  });
   seq.forEach(function(u,i){
-    tl.to([u.pathG, u.labelG], { x:0, y:0, scale:1, opacity:1, duration:DUR, ease:"power3.out" }, i*STEP);
+    tl.to([u.pathG, u.labelG], { x:0, y:0, scale:1, opacity:1, duration:DUR, ease:"power2.out" }, i*STEP);
   });
+  tl.to({}, { duration: seq.length*STEP*0.22 });         // hold the completed board before the pin releases
   window.__puzzleTL=tl;
-
-  var played=false;
-  function playOnce(){ if (played) return; played=true; tl.play(0); }
-  ScrollTrigger.create({ trigger:"#picture", start:"top 82%", once:true, onEnter:playOnce });
-  /* if #picture is already within view at load, guarantee the build still plays */
-  requestAnimationFrame(function(){
-    var rect=svg.getBoundingClientRect();
-    if (rect.top < window.innerHeight*0.82 && rect.bottom > 0) playOnce();
-  });
+  window.__puzzlePieces=seq.map(function(u){ return u.pathG; });   // verification hook
 })();
+
+/* Recompute every pinned ScrollTrigger (approach + services + puzzle scrub) AFTER layout fully settles.
+   The puzzle section above shifts everything and fonts/images load late, so a cold first load could
+   compute pin start/end before layout was final (the "approach pin only works after refresh" bug). */
+if (window.ScrollTrigger){
+  var __refreshST=function(){ ScrollTrigger.refresh(); };
+  window.addEventListener("load", __refreshST);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(__refreshST);
+}
 
 /* ===================== contact form: mailto interim (backend = Lovable+Supabase later) ===================== */
 document.getElementById("contactForm").addEventListener("submit", (e) => {
