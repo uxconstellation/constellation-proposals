@@ -75,7 +75,7 @@
   .picture__title{margin-top:0;font-family:var(--serif);font-weight:400;
     font-size:clamp(30px,4.6vw,54px);line-height:1.04;letter-spacing:-.015em;
     color:var(--ink);max-width:20ch;text-wrap:balance}
-  .picture__stage{width:100%;max-width:780px;margin:clamp(28px,5vh,56px) auto 0}
+  .picture__stage{width:100%;max-width:940px;margin:clamp(28px,5vh,56px) auto 0}
   .picture__stage svg{width:100%;height:auto;display:block;overflow:visible}
   .picture__wm{font-family:var(--serif);font-weight:600;fill:var(--ink);opacity:.055;letter-spacing:.06em}
   .picture .piece{will-change:transform,opacity}
@@ -1293,45 +1293,24 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     return d+"Z";
   }
 
-  /* ---- label placement: biggest notch-free rectangle inside the piece, label sized to fit it (no glyph compression) ----
-     Blank edges (tab<0) carry a neighbour's tab that intrudes; those keep-out zones are subtracted so the label
-     never crosses a seam. Coordinates are fractions of one CELL. */
+  /* ---- label placement: every label CENTRED on the piece (Aldo direction). The safe box is the
+     largest rectangle centred on (0.5,0.5) that still clears any concave (blank) edge's keep-out,
+     so centred text never crosses a seam. Coordinates are fractions of one CELL. */
   var FS_MAX = 26, MARGIN = 0.10;                 // MARGIN = clearance kept off every seam
-  function notchZones(t){
-    var n=[];
-    if (t.top<0)    n.push({s:'t',x0:0.30,y0:0,   x1:0.70,y1:0.24});
-    if (t.bottom<0) n.push({s:'b',x0:0.30,y0:0.76,x1:0.70,y1:1});
-    if (t.left<0)   n.push({s:'l',x0:0,   y0:0.30,x1:0.24,y1:0.70});
-    if (t.right<0)  n.push({s:'r',x0:0.76,y0:0.30,x1:1,   y1:0.70});
-    return n;
-  }
-  function clipRect(raw,ns){
-    var r={x0:raw[0],y0:raw[1],x1:raw[2],y1:raw[3]};
-    for (var i=0;i<ns.length;i++){
-      var n=ns[i];
-      if (r.x0>=n.x1||r.x1<=n.x0||r.y0>=n.y1||r.y1<=n.y0) continue;   // no overlap with this notch
-      if (n.s==='t') r.y0=n.y1; else if (n.s==='b') r.y1=n.y0;
-      else if (n.s==='l') r.x0=n.x1; else r.x1=n.x0;
-    }
-    if (r.x1-r.x0<0.18 || r.y1-r.y0<0.11) return null;
-    return r;
-  }
-  function candidateRects(t){
-    var m=MARGIN, ns=notchZones(t);
-    var raw=[
-      [m,m,1-m,1-m],
-      [m,m,1-m,0.30],[m,0.70,1-m,1-m],            // full-WIDTH strips clear above/below the side notches
-      [m,m,0.30,1-m],[0.70,m,1-m,1-m],            // full-HEIGHT strips clear left/right of the top/bottom notches
-      [m,m,1-m,0.5],[m,0.5,1-m,1-m],
-      [m,m,0.5,1-m],[0.5,m,1-m,1-m],
-      [m,0.28,1-m,0.72],[0.28,m,0.72,1-m]
-    ], out=[];
-    for (var i=0;i<raw.length;i++){ var r=clipRect(raw[i],ns); if (r) out.push(r); }
-    return out;
+  var NOTCH = 0.24;                               // concave-blank keep-out depth (a neighbour's tab intrudes this far)
+  function centredRect(t){
+    var hw=0.5-MARGIN, hh=0.5-MARGIN;             // start at the full piece minus the seam margin
+    if (t.left<0 || t.right<0) hw=Math.min(hw, 0.5-NOTCH);   // a side blank -> pull both sides in (stay centred)
+    if (t.top<0  || t.bottom<0) hh=Math.min(hh, 0.5-NOTCH);  // a top/bottom blank -> pull top+bottom in
+    return {x0:0.5-hw,y0:0.5-hh,x1:0.5+hw,y1:0.5+hh};
   }
   function splitLines(text,n){
     var w=text.split(" ");
-    if (n===1 || w.length===1) return [text];
+    if (n===1) return [text];
+    if (w.length===1){                              // long single compound (e.g. Beleggingsbeginsels) -> hyphenate near the middle
+      var k=Math.round(text.length/2);
+      return [text.slice(0,k)+"-", text.slice(k)];
+    }
     var best=1,bd=1e9;
     for (var i=1;i<w.length;i++){
       var d=Math.abs(w.slice(0,i).join(" ").length - w.slice(i).join(" ").length);
@@ -1344,16 +1323,16 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     var mc=1; for (var i=0;i<lines.length;i++) mc=Math.max(mc,lines[i].length);
     return Math.min(wu/(mc*CHARW), (hu*0.94)/(lines.length*LHF), FS_MAX);
   }
+  // Aldo's chosen hyphenation for the long Afrikaans compounds (exact break points, centred, stacked)
+  var HYPH={ "Ondersteuning":["Onder-","steuning"], "Risikobestuur":["Risiko-","bestuur"], "Verantwoordbaarheid":["Verant-","woord-","baarheid"] };
   function planLabel(t,text){
-    var cands=candidateRects(t), best=null, multi=text.indexOf(" ")>0;
-    for (var i=0;i<cands.length;i++){
-      var r=cands[i], wu=(r.x1-r.x0)*CELL, hu=(r.y1-r.y0)*CELL, opts=multi?[1,2]:[1];
-      for (var j=0;j<opts.length;j++){
-        var lines=splitLines(text,opts[j]), fs=fitFs(wu,hu,lines);
-        if (!best || fs>best.fs) best={rect:r,lines:lines,fs:fs,cx:(r.x0+r.x1)/2,cy:(r.y0+r.y1)/2};
-      }
+    var r=centredRect(t), wu=(r.x1-r.x0)*CELL, hu=(r.y1-r.y0)*CELL;
+    if (HYPH[text]){ var L=HYPH[text]; return {rect:r,lines:L,fs:fitFs(wu,hu,L),cx:0.5,cy:0.5}; }
+    var multi=text.indexOf(" ")>0 || text.length>10, opts=multi?[1,2]:[1], best=null;   // let long single words wrap too
+    for (var j=0;j<opts.length;j++){
+      var lines=splitLines(text,opts[j]), fs=fitFs(wu,hu,lines);
+      if (!best || fs>best.fs) best={rect:r,lines:lines,fs:fs,cx:0.5,cy:0.5};   // always centred on the piece
     }
-    if (!best) best={rect:{x0:MARGIN,y0:MARGIN,x1:1-MARGIN,y1:1-MARGIN},lines:[text],fs:11,cx:0.5,cy:0.5};
     return best;
   }
 
