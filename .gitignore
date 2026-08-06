@@ -28,3 +28,4 @@ build/
 # Drive-synced folder: holds the VirtuHire contract Doc. Never publish.
 proposals/sun-savings/
 .dev.vars
+.wrangler/
