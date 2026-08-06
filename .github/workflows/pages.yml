@@ -1,5 +1,18 @@
 name: Deploy proposals to Pages
 
+# TEMPORARY, and deliberately narrow.
+#
+# GitHub Pages has no gate, so anything published here is readable by anyone with the URL.
+# It is staying up only until Chelsea Gray accepts the Le Sol & Co proposal, because that
+# link has already been sent and must not break mid-deal.
+#
+# So this publishes ONE proposal and the neutral index. Every other client engagement is
+# excluded from the artifact and is therefore not served here at all. The full set lives on
+# Cloudflare Pages behind the key gate (see DEPLOY.md).
+#
+# When Le Sol accepts: delete this workflow, set Pages to "None" in repo settings, and send
+# every client a keyed Cloudflare link.
+
 on:
   push:
     branches: [main]
@@ -14,6 +27,9 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+env:
+  PUBLISHED_PROPOSAL: le-sol
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,9 +38,33 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Assemble a minimal site, one proposal only
+        run: |
+          set -euo pipefail
+          mkdir -p _site/proposals
+          cp index.html 404.html favicon.svg robots.txt _site/
+          touch _site/.nojekyll
+          cp -r "proposals/${PUBLISHED_PROPOSAL}" "_site/proposals/${PUBLISHED_PROPOSAL}"
+
+      - name: Fail if any other client is about to be published
+        run: |
+          set -euo pipefail
+          published="$(ls _site/proposals)"
+          if [ "$published" != "${PUBLISHED_PROPOSAL}" ]; then
+            echo "::error::Expected only ${PUBLISHED_PROPOSAL} in the artifact, got: $published"
+            exit 1
+          fi
+          if grep -oE 'href="proposals/[a-z0-9-]+/"' _site/index.html \
+             | grep -v "proposals/${PUBLISHED_PROPOSAL}/" ; then
+            echo "::error::The index links to a proposal that is not published here."
+            exit 1
+          fi
+          echo "Publishing only: $published"
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
