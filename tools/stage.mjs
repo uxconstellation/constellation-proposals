@@ -9,7 +9,8 @@ const OUT = join(ROOT, 'public');
 
 // Every proposal that should exist behind the gate. Add a slug to publish it.
 const PROPOSALS = [
-  'le-sol', 'greennotes', 'spar-house-brands', 'labtqa',
+  'le-sol', 'le-sol-retainer', 'le-sol-campaign',
+  'greennotes', 'spar-house-brands', 'labtqa',
   'conexxus', 'sigma-wealth', 'sara-sian', 'mealign',
   'my-mobile', 'euroseat', 'euroseat-roadmap', 'butcherbird',
   'sigma-wealth-direction', 'behangexpert',
