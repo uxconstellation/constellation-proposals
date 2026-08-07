@@ -15,36 +15,44 @@ confirms the proposal exists. If `GATE_SECRET` is missing the gate fails closed.
 It is not identity. A forwarded link still works. It stops guessing, trimming and
 enumeration. For real per-person auth, put Cloudflare Access in front of `/proposals/*`.
 
-## First-time setup (Aldo, once)
+## Where it runs now
+
+**Cloudflare Worker `constellation-proposals`**, serving the site from static assets.
+Live at `https://constellation-proposals.aldo-144.workers.dev`.
+
+Not Cloudflare Pages: the account's OAuth token carries `workers (write)` but no `pages`
+scope, and re-authing for Pages needs an interactive browser flow. The gate is shared
+(`src/gate.js`), so moving to Pages later is a config change, not a rewrite.
+
+**`run_worker_first: true` in `wrangler.jsonc` is load-bearing.** Without it Cloudflare's
+asset handler answers first and the gate never runs. Verified: with it false, every proposal
+returned 200 with no key. Do not remove it.
+
+## Publishing a change
 
 ```bash
-cd "C:/Users/aldoc/Documents/UX CONSTELLATION/constellation-proposals"
-npx wrangler login
-npx wrangler pages project create constellation-proposals --production-branch main
-node tools/proposal-link.mjs --new-secret        # copy the output
-npx wrangler pages secret put GATE_SECRET --project-name constellation-proposals
-npx wrangler pages deploy . --project-name constellation-proposals
+node tools/stage.mjs      # assembles ./public from an explicit proposal list
+npx wrangler deploy
 ```
 
-Then in the Cloudflare dashboard, point `proposals.uxconstellation.com` at the project.
-
-**Keep the secret.** It is not recoverable, and rotating it invalidates every link already
-sent. Store it in `C:\Dev\.secrets\`.
+`stage.mjs` publishes only the slugs listed inside it, so a proposal goes live on purpose
+rather than because it happens to sit in the repo. It also fails if the public index links to
+any client.
 
 ## Sending a proposal
 
 ```bash
-GATE_SECRET=<the secret> node tools/proposal-link.mjs le-sol
+GATE_SECRET=$(cat C:/Dev/.secrets/constellation-proposals-gate.txt)   node tools/proposal-link.mjs le-sol --host constellation-proposals.aldo-144.workers.dev
 ```
 
-Prints the full link. That is the only thing the client needs, and it is the only thing that
-opens the page.
+**The secret lives at `C:\Dev\.secrets\constellation-proposals-gate.txt`.** It is not
+recoverable from Cloudflare, and rotating it invalidates every link already sent.
 
-## Redeploying after an edit
+## Custom domain
 
-```bash
-npx wrangler pages deploy . --project-name constellation-proposals
-```
+Point `proposals.uxconstellation.com` at the Worker in the Cloudflare dashboard
+(Workers > constellation-proposals > Settings > Domains & Routes), then use that host in
+`proposal-link.mjs` instead of the workers.dev address.
 
 ## Local development
 
@@ -65,27 +73,27 @@ Asserts the Node generator and the Workers gate derive byte-identical keys acros
 derivations. They use different crypto APIs; if they ever drift, every link we send 404s and
 nobody finds out until a client complains.
 
-## Verified 2026-08-06 against a real `wrangler pages dev` runtime
+## Verified on the deployed Worker, 2026-08-07
 
 | Request | Result |
 |---|---|
+| all 12 proposals, `GATE_SECRET` unset | 404, fails closed |
 | `/` | 200, neutral page, lists no client |
 | `/proposals/` | 404 |
 | `/proposals/le-sol/` no key | 404 |
 | `/proposals/le-sol/index.html` no key | 404 |
+| `/proposals/le-sol/assets/logo.png` no cookie | 404, assets are gated too |
 | `/proposals/le-sol/?k=wrong` | 404 |
-| `/proposals/greennotes/?k=<le-sol key>` | 404 |
-| `/proposals/le-sol/?k=<valid>` | 302, cookie set, key stripped from the URL |
-| then `/proposals/le-sol/` with cookie | 200, 278 KB, real proposal |
+| `/proposals/le-sol/?k=<greennotes key>` | 404 |
+| `/proposals/le-sol/?k=<valid>` | 302, then 200, 278,847 bytes, real page |
 | `/proposals/greennotes/` with le-sol cookie | 404, cookie is path-scoped |
-| any request with `GATE_SECRET` unset | 404, fails closed |
 
 Gated responses carry `Cache-Control: private, no-store`, `x-robots-tag: noindex, nofollow`
 and `Referrer-Policy: no-referrer`.
 
 ## Outstanding
 
-**The Le Sol link already sent to Chelsea Gray points at GitHub Pages** and will break the
+**The Le Sol link already sent to Chelsey Grey points at GitHub Pages** and will break the
 moment `uxconstellation.github.io` is retired. Either keep Pages alive until she has
 accepted, or send her the new keyed link. Aldo's call, and it should be made before the
 GitHub Pages source is switched off.
