@@ -69,13 +69,13 @@
   .w-a{color:var(--cream)} .w-b{color:var(--sage)}
 
   /* ============ beat 0.5: the complete picture (puzzle: two processes -> one board) ============ */
-  .picture{position:relative;z-index:2;background:var(--cream);padding:16vh 6vw 12vh;
+  .picture{position:relative;z-index:2;background:var(--cream);padding:10vh 6vw 8vh;
     display:flex;flex-direction:column;align-items:center}
   .picture__head{width:100%;max-width:1060px;display:flex;flex-direction:column;align-items:center;text-align:center}
   .picture__title{margin-top:0;font-family:var(--serif);font-weight:400;
     font-size:clamp(30px,4.6vw,54px);line-height:1.04;letter-spacing:-.015em;
     color:var(--ink);max-width:20ch;text-wrap:balance}
-  .picture__stage{width:100%;max-width:940px;margin:clamp(28px,5vh,56px) auto 0}
+  .picture__stage{width:100%;max-width:1080px;margin:clamp(20px,3.5vh,40px) auto 0}
   .picture__stage svg{width:100%;height:auto;display:block;overflow:visible}
   .picture__wm{font-family:var(--serif);font-weight:600;fill:var(--ink);opacity:.055;letter-spacing:.06em}
   .picture .piece{will-change:transform,opacity}
@@ -159,7 +159,7 @@
   .page{position:relative;z-index:2}
 
   /* ============ beat 1: APPROACH (IWC pin + runway, 3 steps) ============ */
-  .approach{position:relative;height:400vh;background:transparent}
+  .approach{position:relative;height:400vh;background:var(--cream)}
   .approach__pin{position:relative;height:100vh;overflow:hidden;
     background:radial-gradient(120% 100% at 60% 30%, #FBF8F2 0%, var(--cream) 100%)}
   .approach__oval{position:absolute;width:44vw;height:44vw;border-radius:50%;filter:blur(70px);pointer-events:none}
@@ -1279,9 +1279,9 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     if (tab===0){ var e0=P(1,0); return "L"+e0[0].toFixed(2)+" "+e0[1].toFixed(2)+" "; }
     var t=tab, s="";
     var p1=P(0.42,0); s+="L"+p1[0].toFixed(2)+" "+p1[1].toFixed(2)+" ";
-    var c1a=P(0.50,0.00), c1b=P(0.31,0.19*t), e1=P(0.50,0.19*t);
+    var c1a=P(0.50,0.00), c1b=P(0.31,0.10*t), e1=P(0.50,0.10*t);
     s+="C"+c1a[0].toFixed(2)+" "+c1a[1].toFixed(2)+" "+c1b[0].toFixed(2)+" "+c1b[1].toFixed(2)+" "+e1[0].toFixed(2)+" "+e1[1].toFixed(2)+" ";
-    var c2a=P(0.69,0.19*t), c2b=P(0.50,0.00), e2=P(0.58,0.00);
+    var c2a=P(0.69,0.10*t), c2b=P(0.50,0.00), e2=P(0.58,0.00);
     s+="C"+c2a[0].toFixed(2)+" "+c2a[1].toFixed(2)+" "+c2b[0].toFixed(2)+" "+c2b[1].toFixed(2)+" "+e2[0].toFixed(2)+" "+e2[1].toFixed(2)+" ";
     var e=P(1,0); s+="L"+e[0].toFixed(2)+" "+e[1].toFixed(2)+" ";
     return s;
@@ -1297,7 +1297,7 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
      largest rectangle centred on (0.5,0.5) that still clears any concave (blank) edge's keep-out,
      so centred text never crosses a seam. Coordinates are fractions of one CELL. */
   var FS_MAX = 26, MARGIN = 0.10;                 // MARGIN = clearance kept off every seam
-  var NOTCH = 0.24;                               // concave-blank keep-out depth (a neighbour's tab intrudes this far)
+  var NOTCH = 0.13;                               // concave-blank keep-out depth (a neighbour's tab intrudes this far; small knobs -> wide centred box for whole words)
   function centredRect(t){
     var hw=0.5-MARGIN, hh=0.5-MARGIN;             // start at the full piece minus the seam margin
     if (t.left<0 || t.right<0) hw=Math.min(hw, 0.5-NOTCH);   // a side blank -> pull both sides in (stay centred)
@@ -1306,11 +1306,7 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
   }
   function splitLines(text,n){
     var w=text.split(" ");
-    if (n===1) return [text];
-    if (w.length===1){                              // long single compound (e.g. Beleggingsbeginsels) -> hyphenate near the middle
-      var k=Math.round(text.length/2);
-      return [text.slice(0,k)+"-", text.slice(k)];
-    }
+    if (n===1 || w.length===1) return [text];       // never break a single word (Andre: no hyphenation); only wrap at spaces
     var best=1,bd=1e9;
     for (var i=1;i<w.length;i++){
       var d=Math.abs(w.slice(0,i).join(" ").length - w.slice(i).join(" ").length);
@@ -1323,12 +1319,9 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
     var mc=1; for (var i=0;i<lines.length;i++) mc=Math.max(mc,lines[i].length);
     return Math.min(wu/(mc*CHARW), (hu*0.94)/(lines.length*LHF), FS_MAX);
   }
-  // Aldo's chosen hyphenation for the long Afrikaans compounds (exact break points, centred, stacked)
-  var HYPH={ "Ondersteuning":["Onder-","steuning"], "Risikobestuur":["Risiko-","bestuur"], "Verantwoordbaarheid":["Verant-","woord-","baarheid"] };
   function planLabel(t,text){
     var r=centredRect(t), wu=(r.x1-r.x0)*CELL, hu=(r.y1-r.y0)*CELL;
-    if (HYPH[text]){ var L=HYPH[text]; return {rect:r,lines:L,fs:fitFs(wu,hu,L),cx:0.5,cy:0.5}; }
-    var multi=text.indexOf(" ")>0 || text.length>10, opts=multi?[1,2]:[1], best=null;   // let long single words wrap too
+    var multi=text.indexOf(" ")>0, opts=multi?[1,2]:[1], best=null;   // only multi-word labels may wrap (at a space); single words stay whole on one line
     for (var j=0;j<opts.length;j++){
       var lines=splitLines(text,opts[j]), fs=fitFs(wu,hu,lines);
       if (!best || fs>best.fs) best={rect:r,lines:lines,fs:fs,cx:0.5,cy:0.5};   // always centred on the piece
@@ -1429,18 +1422,22 @@ if (!prefersReduced) gsap.to("#heroCue svg", { y: 4, duration: 0.9, ease: "sine.
   /* scroll-scrubbed assembly (matches the site's approach/services scrub-pin feel): as you scroll
      DOWN the pinned section, pieces slot in one region at a time, Person half first then Capital;
      scrolling up reverses it. */
-  var STEP=0.58, DUR=1.0;
+  /* Andre: one piece per scroll notch (not every 2nd). STEP==DUR -> pieces are SEQUENTIAL (no overlap),
+     and the pin length is ~one wheel notch (~100px) per piece, so each scroll click slots exactly one. */
+  var STEP=1, DUR=1;
+  var PIECE_PX=100;
   var tl=gsap.timeline({
     scrollTrigger:{
       trigger:"#picture", start:"top top",
-      end:function(){ return "+="+Math.round(window.innerHeight*1.6); },
-      pin:true, scrub:0.6, anticipatePin:1, invalidateOnRefresh:true
+      end:function(){ return "+="+(seq.length*PIECE_PX); },
+      pin:true, scrub:0.6, anticipatePin:1, invalidateOnRefresh:true,
+      refreshPriority:1   /* this pin sits ABOVE the approach on the page but is created after it; refresh first so its spacer pushes the approach start past this pin's end (fixes the 1/3 overlap) */
     }
   });
   seq.forEach(function(u,i){
     tl.to([u.pathG, u.labelG], { x:0, y:0, scale:1, opacity:1, duration:DUR, ease:"power2.out" }, i*STEP);
   });
-  tl.to({}, { duration: seq.length*STEP*0.22 });         // hold the completed board before the pin releases
+  tl.to({}, { duration: 2 });         // brief hold on the completed board before the pin releases
   window.__puzzleTL=tl;
   window.__puzzlePieces=seq.map(function(u){ return u.pathG; });   // verification hook
 })();
