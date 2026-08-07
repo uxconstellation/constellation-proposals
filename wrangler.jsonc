@@ -9,11 +9,14 @@
     // with run_worker_first false, every proposal returned 200 with no key.
     "run_worker_first": true
   },
-  // NOT set: a custom domain for proposals.uxconstellation.com.
-  // uxconstellation.com is on Wix nameservers (ns14/ns15.wixdns.net), not Cloudflare, and a
-  // Worker custom domain requires the zone to be on Cloudflare. Adding the route here also
-  // disables the workers.dev address, which is the link clients are currently using.
-  // See DEPLOY.md > Custom domain before changing this.
+  // Custom domain on constellationlab.cc, which is a Cloudflare zone.
+  // NOT uxconstellation.com: that runs on Wix nameservers, so Cloudflare cannot resolve its
+  // zone and a custom domain there fails with "Can't infer zone from route".
+  "routes": [
+    { "pattern": "proposals.constellationlab.cc", "custom_domain": true }
+  ],
+  // Keep the workers.dev address alive. Adding a route silently disables it otherwise, and
+  // that address is what any already-sent client link uses.
   "workers_dev": true,
   "observability": { "enabled": true }
 }

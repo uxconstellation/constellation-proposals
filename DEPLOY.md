@@ -18,7 +18,8 @@ enumeration. For real per-person auth, put Cloudflare Access in front of `/propo
 ## Where it runs now
 
 **Cloudflare Worker `constellation-proposals`**, serving the site from static assets.
-Live at `https://constellation-proposals.aldo-144.workers.dev`.
+Live at **`https://proposals.constellationlab.cc`** (custom domain), with
+`https://constellation-proposals.aldo-144.workers.dev` still answering as a fallback.
 
 Not Cloudflare Pages: the account's OAuth token carries `workers (write)` but no `pages`
 scope, and re-authing for Pages needs an interactive browser flow. The gate is shared
@@ -42,7 +43,7 @@ any client.
 ## Sending a proposal
 
 ```bash
-GATE_SECRET=$(cat C:/Dev/.secrets/constellation-proposals-gate.txt)   node tools/proposal-link.mjs le-sol --host constellation-proposals.aldo-144.workers.dev
+GATE_SECRET=$(cat C:/Dev/.secrets/constellation-proposals-gate.txt)   node tools/proposal-link.mjs le-sol
 ```
 
 **The secret lives at `C:\Dev\.secrets\constellation-proposals-gate.txt`.** It is not
@@ -50,9 +51,17 @@ recoverable from Cloudflare, and rotating it invalidates every link already sent
 
 ## Custom domain
 
-Point `proposals.uxconstellation.com` at the Worker in the Cloudflare dashboard
-(Workers > constellation-proposals > Settings > Domains & Routes), then use that host in
-`proposal-link.mjs` instead of the workers.dev address.
+`proposals.constellationlab.cc`, attached via `routes` in `wrangler.jsonc`. Cloudflare created
+the DNS record and the certificate.
+
+**Not `uxconstellation.com`.** That domain runs on Wix nameservers (`ns14/ns15.wixdns.net`),
+so Cloudflare cannot resolve its zone and the deploy fails with *"Can't infer zone from
+route"*. Moving it would mean migrating the whole zone off Wix, which puts the live marketing
+site at risk for a cosmetic gain. `constellationlab.cc` was already a Cloudflare zone, so it
+carries this and will carry the internal operations tool.
+
+**`workers_dev: true` is set on purpose.** Adding a route otherwise disables the workers.dev
+address silently, and that address is what any already-sent client link uses.
 
 ## Local development
 

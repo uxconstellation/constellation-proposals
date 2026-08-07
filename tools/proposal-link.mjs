@@ -3,7 +3,7 @@
  * Print the shareable link for a proposal. The key is derived, never stored.
  *
  *   GATE_SECRET=... node tools/proposal-link.mjs le-sol
- *   GATE_SECRET=... node tools/proposal-link.mjs le-sol --host proposals.uxconstellation.com
+ *   GATE_SECRET=... node tools/proposal-link.mjs le-sol --host proposals.constellationlab.cc
  *
  * The same secret must be set on the Cloudflare Pages project:
  *   wrangler pages secret put GATE_SECRET --project-name constellation-proposals
@@ -22,7 +22,7 @@ if (args.includes('--new-secret')) {
 
 const slug = args.find((a) => !a.startsWith('--'));
 const hostIdx = args.indexOf('--host');
-const host = hostIdx > -1 ? args[hostIdx + 1] : 'proposals.uxconstellation.com';
+const host = hostIdx > -1 ? args[hostIdx + 1] : 'proposals.constellationlab.cc';
 const secret = process.env.GATE_SECRET;
 
 if (!slug) {

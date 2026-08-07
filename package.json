@@ -1,0 +1,14 @@
+{
+  "name": "constellation-proposals",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "stage": "node tools/stage.mjs",
+    "deploy": "node tools/stage.mjs && wrangler deploy",
+    "test": "node tools/test-key-parity.mjs",
+    "dev": "wrangler dev"
+  },
+  "devDependencies": {
+    "wrangler": "^4.119.0"
+  }
+}
