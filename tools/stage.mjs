@@ -15,7 +15,20 @@ const PROPOSALS = [
   'sigma-wealth-direction', 'behangexpert',
 ];
 
-rmSync(OUT, { recursive: true, force: true });
+// This repo lives in a Drive-synced folder, so the sync client intermittently holds a
+// handle and rmSync throws EPERM. Retry, then fall back to emptying the directory.
+function clean(dir) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    try { rmSync(dir, { recursive: true, force: true, maxRetries: 5, retryDelay: 250 }); return; }
+    catch (e) { if (attempt === 3) break; }
+  }
+  if (!existsSync(dir)) return;
+  for (const entry of readdirSync(dir)) {
+    try { rmSync(join(dir, entry), { recursive: true, force: true, maxRetries: 5, retryDelay: 250 }); }
+    catch { console.warn(`could not remove ${entry}, it will be overwritten`); }
+  }
+}
+clean(OUT);
 mkdirSync(join(OUT, 'proposals'), { recursive: true });
 
 for (const f of ['index.html', '404.html', 'favicon.svg', 'robots.txt']) {
@@ -26,7 +39,7 @@ const missing = [];
 for (const slug of PROPOSALS) {
   const src = join(ROOT, 'proposals', slug);
   if (!existsSync(src)) { missing.push(slug); continue; }
-  cpSync(src, join(OUT, 'proposals', slug), { recursive: true });
+  cpSync(src, join(OUT, 'proposals', slug), { recursive: true, force: true });
 }
 
 const staged = readdirSync(join(OUT, 'proposals'));
