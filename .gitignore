@@ -29,3 +29,4 @@ build/
 proposals/sun-savings/
 .dev.vars
 .wrangler/
+public/
