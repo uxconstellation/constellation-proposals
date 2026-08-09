@@ -45,6 +45,7 @@ function readCookie(header, name) {
 }
 
 export const NOT_FOUND_HTML = `<!doctype html>
+<html lang="en">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <meta name="robots" content="noindex,nofollow" />
@@ -59,7 +60,8 @@ export const NOT_FOUND_HTML = `<!doctype html>
   <h1 style="font-size:1.25rem;margin:0 0 .75rem">Not found</h1>
   <p>If you are looking for a proposal we prepared for you, use the link we sent you.
   If you have mislaid it, email <a href="mailto:hello@uxconstellation.com">hello@uxconstellation.com</a> and we will resend it.</p>
-</div>`;
+</div>
+</html>`;
 
 export const notFound = () => new Response(NOT_FOUND_HTML, {
   status: 404,

@@ -36,6 +36,13 @@ for (const f of ['index.html', '404.html', 'favicon.svg', 'robots.txt']) {
   if (existsSync(join(ROOT, f))) cpSync(join(ROOT, f), join(OUT, f));
 }
 
+// The client intake form is deliberately OUTSIDE /proposals/, so the gate lets it through.
+// Clients fill it in without a key; there is nothing confidential on it.
+if (existsSync(join(ROOT, 'intake'))) {
+  cpSync(join(ROOT, 'intake'), join(OUT, 'intake'), { recursive: true, force: true });
+  console.log('staged the client intake form at /intake/');
+}
+
 const missing = [];
 for (const slug of PROPOSALS) {
   const src = join(ROOT, 'proposals', slug);
