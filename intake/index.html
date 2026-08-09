@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Client Intake | Constellation</title>
-  <meta name="description" content="Everything Constellation needs to set up your contract, your invoicing and your project. One form, about ten minutes." />
+  <meta name="description" content="Confirm what we already have and fill the few gaps we cannot know. About five minutes." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
@@ -362,41 +362,72 @@
 
   
 
-    /* ===== INTAKE FORM ===== */
+    /* ===== INTAKE ===== */
     .intake { max-width: 720px; margin: 0 auto; }
     .intake fieldset { border: 0; padding: 0; margin: 0 0 3rem; }
     .intake legend { display: block; width: 100%; padding: 0; margin-bottom: 0.4rem;
-      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--green); font-weight: 700; }
-    .intake .fs-note { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1.75rem; max-width: 60ch; }
+    .fs-note { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1.75rem; max-width: 62ch; }
     .field { margin-bottom: 1.35rem; }
     .field label { display: block; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
     .field .hint { display: block; font-weight: 400; color: var(--text-light); font-size: 0.8rem; margin-top: 0.2rem; line-height: 1.5; }
-    .field input[type="text"], .field input[type="email"], .field input[type="tel"],
-    .field input[type="url"], .field input[type="date"], .field textarea, .field select {
+    .field input[type="text"], .field input[type="email"], .field input[type="tel"], .field textarea, .field select {
       width: 100%; padding: 0.85rem 1rem; border-radius: 10px;
       background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.16);
       color: var(--white); font-family: inherit; font-size: 0.95rem;
     }
-    .field textarea { min-height: 110px; resize: vertical; }
-    .field input:focus, .field textarea:focus, .field select:focus {
-      outline: 2px solid var(--green); outline-offset: 2px; border-color: var(--green);
-    }
+    .field textarea { min-height: 100px; resize: vertical; }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: 2px solid var(--green); outline-offset: 2px; border-color: var(--green); }
     .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.42); }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.35rem; }
     .req { color: var(--green); }
+
+    /* prefilled fields read as confirmed rather than blank */
+    .prefilled input, .prefilled textarea { border-color: rgba(201,207,212,0.4); background: rgba(201,207,212,0.07); }
+    .known { display: inline-block; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green); border: 1px solid rgba(201,207,212,0.4); border-radius: 100px;
+      padding: 0.15rem 0.6rem; margin-left: 0.5rem; vertical-align: middle; font-weight: 700; }
+
+    /* business / personal switch */
+    .segmented { display: inline-flex; gap: 0; border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; padding: 0.25rem; margin-bottom: 2rem; }
+    .segmented label { position: relative; cursor: pointer; }
+    .segmented input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .segmented span { display: block; padding: 0.6rem 1.5rem; border-radius: 100px; font-size: 0.85rem;
+      font-weight: 700; color: var(--text-light); transition: background 0.2s ease, color 0.2s ease; }
+    .segmented input:checked + span { background: var(--green); color: var(--black); }
+    .segmented label:focus-within span { outline: 2px solid var(--green); outline-offset: 3px; }
+
+    /* what we already agreed, shown back to them */
+    .agreed { border: 1px solid rgba(201,207,212,0.28); border-radius: 14px; overflow: hidden; margin-bottom: 1.5rem; }
+    .agreed-row { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: 1.1rem 1.35rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08); align-items: baseline; }
+    .agreed-row:last-child { border-bottom: 0; background: rgba(201,207,212,0.07); }
+    .agreed-row b { color: var(--white); font-size: 0.95rem; }
+    .agreed-row .why { display: block; font-weight: 400; color: var(--text-light); font-size: 0.82rem; margin-top: 0.25rem; }
+    .agreed-row .amt { color: var(--green); font-weight: 700; white-space: nowrap; }
+    .steps-simple { list-style: none; counter-reset: s; display: grid; gap: 0.75rem; margin: 0 0 1.5rem; }
+    .steps-simple li { counter-increment: s; position: relative; padding-left: 2.25rem; color: var(--text-light); font-size: 0.9rem; }
+    .steps-simple li::before { content: counter(s); position: absolute; left: 0; top: 0;
+      width: 1.5rem; height: 1.5rem; border-radius: 50%; background: rgba(201,207,212,0.14);
+      color: var(--green); font-size: 0.7rem; font-weight: 700; display: grid; place-items: center; }
+    .ask-list { list-style: none; display: grid; gap: 0.5rem; margin: 0 0 1rem; }
+    .ask-list li { font-size: 0.9rem; color: var(--text-light); padding-left: 1.1rem; position: relative; }
+    .ask-list li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 5px; height: 5px; background: var(--green); }
+
     .checks { display: grid; gap: 0.6rem; }
     .check { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.85rem 1rem;
       border: 1px solid rgba(255,255,255,0.14); border-radius: 10px; cursor: pointer; }
     .check:hover { border-color: rgba(201,207,212,0.45); }
     .check:has(input:checked) { border-color: var(--green); background: rgba(201,207,212,0.07); }
     .check:focus-within { outline: 2px solid var(--green); outline-offset: 2px; }
-    .check input { margin-top: 0.25rem; accent-color: var(--green); width: 18px; height: 18px; flex-shrink: 0; }
+    .check input { margin-top: 0.2rem; accent-color: var(--green); width: 18px; height: 18px; flex-shrink: 0; }
     .check span { font-size: 0.88rem; color: var(--text-light); }
-    .check b { color: var(--white); display: block; font-size: 0.9rem; margin-bottom: 0.1rem; }
+    .check b { color: var(--white); display: block; font-size: 0.92rem; margin-bottom: 0.1rem; }
     .intake .btn-submit { width: 100%; justify-content: center; margin-top: 1rem; }
-    .privacy { font-size: 0.78rem; color: var(--text-light); margin-top: 1.25rem; text-align: center; }
-    @media (max-width: 640px) { .field-row { grid-template-columns: 1fr; } }
+    .privacy { font-size: 0.8rem; color: var(--text-light); margin-top: 1.25rem; text-align: center; }
+    [hidden] { display: none !important; }
+    @media (max-width: 640px) { .field-row { grid-template-columns: 1fr; } .segmented { width: 100%; } .segmented label { flex: 1; } .segmented span { text-align: center; padding: 0.6rem 0.75rem; } }
   </style>
 </head>
 <body>
@@ -414,162 +445,151 @@
     <div class="floating-orb orb-1"></div>
     <div class="floating-orb orb-2"></div>
     <div class="hero-content">
-      <div class="eyebrow"><span></span> Welcome aboard <span></span></div>
-      <h1>Everything we need,<br /><em>in one place.</em></h1>
-      <p class="hero-sub">This is the only admin we will ask you for. It gives us what we need to draw up your contract, set up your invoicing and open your project properly, so that nothing stalls later while somebody hunts for a registration number. About ten minutes.</p>
+      <div class="eyebrow"><span></span> <span id="eyebrow-text">Welcome aboard</span> <span></span></div>
+      <h1 id="headline">Confirm what we have,<br /><em>and fill the gaps.</em></h1>
+      <p class="hero-sub" id="subhead">We have filled in everything you have already told us. Check it, correct anything that is wrong, and answer the few things we cannot know. About five minutes, and it is the only admin we will ask you for.</p>
     </div>
   </section>
 
-  <section class="section section--dark">
+  <!-- WHAT WE ALREADY AGREED, shown to them rather than asked -->
+  <section class="section section--dark" id="agreed-section" hidden>
+    <div class="container" style="max-width:720px">
+      <div class="section-label">What we agreed</div>
+      <h2 class="sec" style="font-size:clamp(1.3rem,3vw,1.8rem); margin-bottom:1.25rem">Here is the engagement, in writing.</h2>
+      <div class="agreed" id="agreed-table"></div>
+      <p class="fs-note" id="not-included"></p>
+
+      <div class="section-label" style="margin-top:2.5rem">What happens next</div>
+      <ol class="steps-simple" id="next-steps"></ol>
+
+      <div class="section-label" style="margin-top:2rem">What we will ask you for separately</div>
+      <ul class="ask-list" id="asking"></ul>
+      <p class="fs-note">None of that holds up the contract. Send it when you have a moment.</p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container">
       <form class="intake" action="https://formsubmit.co/hello@uxconstellation.com" method="POST">
-        <input type="hidden" name="_subject" value="New client intake" />
+        <input type="hidden" name="_subject" value="Client intake" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_next" value="https://proposals.constellationlab.cc/intake/?sent=1" />
+        <input type="hidden" name="Client" id="f-client" value="" />
         <input type="text" name="_honey" class="cta-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
         <fieldset>
-          <legend>01 &middot; The business</legend>
-          <p class="fs-note">This is what goes on the contract and the invoice, so it needs to be the legal detail rather than the everyday one.</p>
+          <legend>Who we are contracting with</legend>
+          <p class="fs-note">This is what goes on the contract and the invoice, so it has to be the legal detail. Everything else on this page we can work around; this we cannot.</p>
 
-          <div class="field">
-            <label for="legal">Registered legal name <span class="req">*</span>
-              <span class="hint">The full registered entity, for example "Le Sol &amp; Co (Pty) Ltd". If you are a sole proprietor, your full legal name.</span>
-            </label>
-            <input id="legal" name="Registered legal name" type="text" required autocomplete="organization" />
+          <div class="segmented" role="radiogroup" aria-label="Contracting as">
+            <label><input type="radio" name="Contracting as" value="A business" id="ent-biz" checked /><span>A business</span></label>
+            <label><input type="radio" name="Contracting as" value="An individual" id="ent-person" /><span>An individual</span></label>
           </div>
 
-          <div class="field">
-            <label for="trading">Trading name
-              <span class="hint">Leave blank if it is the same as above.</span>
-            </label>
-            <input id="trading" name="Trading name" type="text" />
-          </div>
-
-          <div class="field-row">
+          <!-- business -->
+          <div id="biz-fields">
             <div class="field">
-              <label for="reg">Company registration number</label>
-              <input id="reg" name="Registration number" type="text" />
-            </div>
-            <div class="field">
-              <label for="vat">VAT number
-                <span class="hint">Leave blank if not VAT registered.</span>
+              <label for="legal">Registered company name <span class="req">*</span>
+                <span class="hint">The full registered entity, for example "Le Sol &amp; Co (Pty) Ltd". Not the trading name.</span>
               </label>
-              <input id="vat" name="VAT number" type="text" />
+              <input id="legal" name="Registered company name" type="text" autocomplete="organization" />
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="reg">Registration number</label>
+                <input id="reg" name="Registration number" type="text" />
+              </div>
+              <div class="field">
+                <label for="vat">VAT number <span class="hint">Blank if not registered.</span></label>
+                <input id="vat" name="VAT number" type="text" />
+              </div>
+            </div>
+          </div>
+
+          <!-- individual -->
+          <div id="person-fields" hidden>
+            <div class="field">
+              <label for="fullname">Full legal name <span class="req">*</span>
+                <span class="hint">Exactly as it appears on your ID or passport.</span>
+              </label>
+              <input id="fullname" name="Full legal name" type="text" autocomplete="name" disabled />
+            </div>
+            <div class="field">
+              <label for="idnum">ID or passport number
+                <span class="hint">Only if you need it on the invoice for your own tax purposes. Leave it blank otherwise, and never send it to us by email.</span>
+              </label>
+              <input id="idnum" name="ID or passport number" type="text" disabled />
             </div>
           </div>
 
           <div class="field">
-            <label for="addr">Registered address <span class="req">*</span></label>
-            <textarea id="addr" name="Registered address" required autocomplete="street-address"></textarea>
+            <label for="addr">Billing address <span class="req">*</span></label>
+            <textarea id="addr" name="Billing address" required autocomplete="street-address"></textarea>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>02 &middot; The people</legend>
-          <p class="fs-note">Three roles, which are often the same person. We ask separately because when they are not the same person, work sits and waits.</p>
+          <legend>Who does what</legend>
+          <p class="fs-note">Often all the same person. We ask separately because when they are not, work sits and waits.</p>
 
-          <div class="field-row">
+          <div class="field-row" id="wrap-contact">
             <div class="field">
-              <label for="pname">Main contact, name <span class="req">*</span></label>
+              <label for="pname">Your name <span class="req">*</span><span class="known" hidden>We have this</span></label>
               <input id="pname" name="Main contact name" type="text" required autocomplete="name" />
             </div>
             <div class="field">
-              <label for="prole">Their role</label>
-              <input id="prole" name="Main contact role" type="text" autocomplete="organization-title" />
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="pemail">Main contact, email <span class="req">*</span></label>
-              <input id="pemail" name="Main contact email" type="email" required autocomplete="email" />
-            </div>
-            <div class="field">
-              <label for="pphone">Main contact, phone</label>
+              <label for="pphone">Your phone</label>
               <input id="pphone" name="Main contact phone" type="tel" autocomplete="tel" />
             </div>
           </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="signer">Who signs the contract <span class="req">*</span>
-                <span class="hint">Name and role.</span>
-              </label>
-              <input id="signer" name="Contract signatory" type="text" required />
-            </div>
-            <div class="field">
-              <label for="signeremail">Signatory email <span class="req">*</span></label>
-              <input id="signeremail" name="Signatory email" type="email" required />
-            </div>
+          <div class="field" id="wrap-email">
+            <label for="pemail">Your email <span class="req">*</span><span class="known" hidden>We have this</span></label>
+            <input id="pemail" name="Main contact email" type="email" required autocomplete="email" />
           </div>
 
           <div class="field">
-            <label for="billing">Where invoices should go <span class="req">*</span>
-              <span class="hint">An email address. Often accounts rather than the main contact.</span>
+            <label for="signer">Who signs the contract
+              <span class="hint">Leave blank if it is you.</span>
             </label>
-            <input id="billing" name="Invoicing email" type="email" required />
+            <input id="signer" name="Contract signatory" type="text" />
           </div>
-
           <div class="field">
-            <label for="approver">Who can approve work
-              <span class="hint">The person whose yes is final. The single biggest cause of a late month is finished work waiting in an approval queue.</span>
+            <label for="billing">Where invoices should go
+              <span class="hint">Leave blank if it is the same email as above.</span>
+            </label>
+            <input id="billing" name="Invoicing email" type="email" />
+          </div>
+          <div class="field">
+            <label for="approver">Who gives final approval
+              <span class="hint">Leave blank if it is you. The biggest cause of a late month is finished work waiting in an approval queue.</span>
             </label>
             <input id="approver" name="Approver" type="text" />
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>03 &middot; Billing</legend>
+          <legend>Billing practicalities</legend>
           <div class="field">
-            <label for="po">Do you need a purchase order number on invoices?</label>
-            <select id="po" name="PO required">
-              <option value="No">No</option>
-              <option value="Yes">Yes, and I will send it</option>
-              <option value="Not sure">Not sure yet</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="terms">Anything we should know about your payment process
-              <span class="hint">Payment runs on a certain day, a portal we have to submit through, approval chains. Tell us now rather than at day thirty.</span>
+            <label for="terms">Anything we should know about how you pay
+              <span class="hint">A payment run on a certain day, a portal we have to submit through, an approval chain, a purchase order number we need to quote. Better now than at day thirty.</span>
             </label>
             <textarea id="terms" name="Payment process notes"></textarea>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>04 &middot; The work</legend>
-          <div class="field">
-            <label for="scope">What we are building for you <span class="req">*</span>
-              <span class="hint">In your words. It does not need to match our proposal wording.</span>
-            </label>
-            <textarea id="scope" name="Scope in the client's words" required></textarea>
-          </div>
-          <div class="field">
-            <label for="date">Any date that matters
-              <span class="hint">A launch, a trade show, a print deadline, a funding round.</span>
-            </label>
-            <input id="date" name="Key date" type="text" />
-          </div>
-          <div class="field">
-            <label for="success">What would make this a success</label>
-            <textarea id="success" name="Definition of success"></textarea>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>05 &middot; Access we will need</legend>
-          <p class="fs-note">Tick what exists. We will ask for the access itself separately and never by email.</p>
+          <legend>Access we will need</legend>
+          <p class="fs-note">Just tick what already exists. We will ask for the access itself properly, and never by email.</p>
           <div class="checks">
-            <label class="check"><input type="checkbox" name="Has domain" value="yes" /><span><b>Domain</b>Registrar login or DNS access</span></label>
-            <label class="check"><input type="checkbox" name="Has hosting" value="yes" /><span><b>Existing website or hosting</b>Whatever is live today</span></label>
-            <label class="check"><input type="checkbox" name="Has shopify" value="yes" /><span><b>Shopify or another store</b>Or we open one in your name</span></label>
-            <label class="check"><input type="checkbox" name="Has social" value="yes" /><span><b>Social accounts</b>Instagram, TikTok, Facebook, LinkedIn</span></label>
+            <label class="check"><input type="checkbox" name="Has domain" value="yes" /><span><b>Domain</b>Registrar or DNS access</span></label>
+            <label class="check"><input type="checkbox" name="Has hosting" value="yes" /><span><b>An existing website</b>Whatever is live today</span></label>
+            <label class="check"><input type="checkbox" name="Has store" value="yes" /><span><b>Shopify or another store</b>Or we open one in your name</span></label>
+            <label class="check"><input type="checkbox" name="Has social" value="yes" /><span><b>Social accounts</b>Instagram, TikTok, Facebook</span></label>
             <label class="check"><input type="checkbox" name="Has analytics" value="yes" /><span><b>Analytics or ad accounts</b>Google, Meta</span></label>
-            <label class="check"><input type="checkbox" name="Has brand assets" value="yes" /><span><b>Brand assets</b>Logos, fonts, photography, guidelines</span></label>
           </div>
           <div class="field" style="margin-top:1.35rem">
-            <label for="assets">Where your assets live
+            <label for="assets">Where your brand assets live
               <span class="hint">A Drive folder, a Dropbox, a designer who holds them. A link is perfect.</span>
             </label>
             <input id="assets" name="Where assets live" type="text" />
@@ -577,17 +597,23 @@
         </fieldset>
 
         <fieldset>
-          <legend>06 &middot; Anything else</legend>
+          <legend>Anything we have wrong</legend>
           <div class="field">
-            <label for="notes">Anything we have not asked about
-              <span class="hint">Suppliers we will be working alongside, things that have gone wrong before, a hard no.</span>
+            <label for="corrections">Corrections to what we set out above
+              <span class="hint">If the scope, the price or anything else on this page does not match your understanding, say so here and we will fix it before the contract goes out.</span>
+            </label>
+            <textarea id="corrections" name="Corrections"></textarea>
+          </div>
+          <div class="field">
+            <label for="notes">Anything else
+              <span class="hint">Suppliers we will work alongside, things that have gone wrong before, a hard no.</span>
             </label>
             <textarea id="notes" name="Anything else"></textarea>
           </div>
         </fieldset>
 
         <button type="submit" class="btn-submit">Send it through &rarr;</button>
-        <p class="privacy">We use this to set up your contract, invoicing and project. We do not share it with anyone outside Constellation, and we never ask for passwords or card details by email or on this form.</p>
+        <p class="privacy">We use this to set up your contract, invoicing and project, and share it with nobody outside Constellation. We will never ask for passwords or card details here or by email.</p>
       </form>
     </div>
   </section>
@@ -603,11 +629,75 @@
   </footer>
 
   <script>
-    if (new URLSearchParams(location.search).has('sent')) {
-      document.querySelector('.intake').outerHTML =
-        '<p class="cta-thanks" style="text-align:center">Thank you. That is everything we need. ' +
-        'Your contract and first invoice will follow shortly.</p>';
-    }
+    (function () {
+      if (new URLSearchParams(location.search).has('sent')) {
+        document.querySelector('.intake').outerHTML =
+          '<p class="cta-thanks" style="text-align:center">Thank you. That is everything we need. ' +
+          'Your contract and first invoice will follow shortly.</p>';
+        return;
+      }
+
+      // ---- business / individual ----
+      // Hidden inputs must be disabled as well as hidden, or a hidden `required` field blocks
+      // submit with a validation message pointing at something the client cannot see.
+      var biz = document.getElementById('biz-fields');
+      var person = document.getElementById('person-fields');
+      function setEntity(isBusiness) {
+        biz.hidden = !isBusiness;
+        person.hidden = isBusiness;
+        biz.querySelectorAll('input').forEach(function (i) { i.disabled = !isBusiness; });
+        person.querySelectorAll('input').forEach(function (i) { i.disabled = isBusiness; });
+        document.getElementById('legal').required = isBusiness;
+        document.getElementById('fullname').required = !isBusiness;
+      }
+      document.getElementById('ent-biz').addEventListener('change', function () { setEntity(true); });
+      document.getElementById('ent-person').addEventListener('change', function () { setEntity(false); });
+      setEntity(true);
+
+      // ---- prefill from what we already know ----
+      var slug = new URLSearchParams(location.search).get('c');
+      if (!slug) return;
+
+      fetch('clients.json').then(function (r) { return r.json(); }).then(function (all) {
+        var c = all[slug];
+        if (!c) return;
+        document.getElementById('f-client').value = slug;
+
+        if (c.greeting) {
+          document.getElementById('eyebrow-text').textContent = 'Welcome aboard, ' + c.greeting;
+          document.getElementById('subhead').textContent =
+            'We have filled in everything you have already told us, ' + c.greeting +
+            '. Check it, correct anything wrong, and answer the few things we cannot know. ' +
+            'About five minutes, and it is the only admin we will ask you for.';
+        }
+        if (c.entity === 'personal') { document.getElementById('ent-person').checked = true; setEntity(false); }
+
+        function fill(id, value) {
+          if (!value) return;
+          var el = document.getElementById(id);
+          el.value = value;
+          el.closest('.field').classList.add('prefilled');
+          var tag = el.closest('.field').querySelector('.known');
+          if (tag) tag.hidden = false;
+        }
+        fill('pname', c.contactName);
+        fill('pemail', c.contactEmail);
+        fill('legal', c.legalName);
+
+        // Show the engagement back to them rather than asking them to describe it.
+        if (c.agreed && c.agreed.length) {
+          document.getElementById('agreed-section').hidden = false;
+          document.getElementById('agreed-table').innerHTML = c.agreed.map(function (row) {
+            return '<div class="agreed-row"><div><b>' + row[0] + '</b>' +
+                   (row[2] ? '<span class="why">' + row[2] + '</span>' : '') +
+                   '</div><div class="amt">' + row[1] + '</div></div>';
+          }).join('');
+        }
+        if (c.notIncluded) document.getElementById('not-included').textContent = 'Not included: ' + c.notIncluded;
+        if (c.nextSteps) document.getElementById('next-steps').innerHTML = c.nextSteps.map(function (s) { return '<li>' + s + '</li>'; }).join('');
+        if (c.asking) document.getElementById('asking').innerHTML = c.asking.map(function (s) { return '<li>' + s + '</li>'; }).join('');
+      }).catch(function () { /* no prefill is a fine outcome; the blank form still works */ });
+    })();
   </script>
 </body>
 </html>
