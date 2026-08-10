@@ -38,6 +38,12 @@ for (const f of ['index.html', '404.html', 'favicon.svg', 'robots.txt']) {
 
 // The client intake form is deliberately OUTSIDE /proposals/, so the gate lets it through.
 // Clients fill it in without a key; there is nothing confidential on it.
+// Public email assets: inline images referenced by hosted URL from client emails.
+if (existsSync(join(ROOT, 'assets'))) {
+  cpSync(join(ROOT, 'assets'), join(OUT, 'assets'), { recursive: true, force: true });
+  console.log('staged public assets at /assets/');
+}
+
 if (existsSync(join(ROOT, 'intake'))) {
   cpSync(join(ROOT, 'intake'), join(OUT, 'intake'), { recursive: true, force: true });
   console.log('staged the client intake form at /intake/');

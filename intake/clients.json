@@ -2,9 +2,9 @@
   "_note": "Prefill per client. Add an entry, redeploy, send /intake/?c=<slug>. Omit anything you do not know: it renders as an empty field. Never guess a legal name here, that is the one thing the form exists to collect.",
 
   "le-sol": {
-    "greeting": "Chelsey",
+    "greeting": "Chelsea",
     "entity": "business",
-    "contactName": "Chelsey Grey",
+    "contactName": "Chelsea Grey",
     "contactEmail": "chelsealynnegrey@gmail.com",
     "agreed": [
       ["Brand system", "R12,000", "Positioning, wordmark and lockup, colour, type, tone, and the written rules."],
