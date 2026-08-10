@@ -1,31 +1,16 @@
 {
-  "_note": "Prefill per client. Add an entry, redeploy, send /intake/?c=<slug>. Anything omitted renders as an empty field. Never guess a legal name here: leave it blank and let them supply it.",
+  "_note": "Prefill per client. Add an entry, redeploy, send /intake/?c=<slug>. Omit anything you do not know: it renders as an empty field. Never guess a legal name here, that is the one thing the form exists to collect.",
 
   "le-sol": {
     "greeting": "Chelsey",
-    "trading": "Le Sol & Co",
     "entity": "business",
     "contactName": "Chelsey Grey",
     "contactEmail": "chelsealynnegrey@gmail.com",
-    "engagement": "Brand system and Shopify store",
     "agreed": [
       ["Brand system", "R12,000", "Positioning, wordmark and lockup, colour, type, tone, and the written rules."],
       ["Shopify store", "R30,000", "Design, build, products, payments, shipping and a recorded handover."],
       ["Total, once off", "R42,000", "Founding rate. Invoiced on signature, payable within 7 days."]
     ],
-    "notIncluded": "Paid media, community management, crewed photography or film, influencer and PR, and third-party agency fees. Each gets its own number before anything starts.",
-    "nextSteps": [
-      "You confirm the details below, which takes about five minutes.",
-      "We send your contract through Bonsai to sign electronically.",
-      "The first invoice follows against the signed contract.",
-      "Week one is brand, with the store architecture starting alongside it.",
-      "Day three you see a designed homepage and one product page."
-    ],
-    "asking": [
-      "Your brand voice document, in whatever state it exists.",
-      "Competitor and inspiration accounts, including the ones you do not want to look like.",
-      "The Benin footage, including the ungraded original.",
-      "Product roadmap and anything you can legally claim on pack."
-    ]
+    "after": "No monthly commitment starts today. Brand runs first, the store is built alongside it, and you see a designed homepage and one product page on day three."
   }
 }

@@ -81,9 +81,11 @@ export async function guard(request, secret) {
   const url = new URL(request.url);
   const path = url.pathname;
 
-  // Everything outside /proposals/ is public chrome: the neutral index, favicon, 404.
+  // Everything outside /proposals/ is public chrome: the neutral index, the intake form,
+  // favicon, 404. `no-cache` means revalidate, not "do not store": without it the edge
+  // served a stale intake form after we updated it, which a client would fill in blind.
   if (!path.startsWith('/proposals/')) {
-    return { pass: true, headers: { 'x-robots-tag': 'noindex, nofollow' } };
+    return { pass: true, headers: { 'x-robots-tag': 'noindex, nofollow', 'cache-control': 'no-cache' } };
   }
 
   const slug = path.split('/')[2];
