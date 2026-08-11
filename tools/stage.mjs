@@ -49,6 +49,17 @@ if (existsSync(join(ROOT, 'intake'))) {
   console.log('staged the client intake form at /intake/');
 }
 
+// Unlisted but ungated pages under /sites/: shareable direction work (mood boards) that
+// carries no pricing or client-book information. The gate leaves non-/proposals/ paths
+// public, and the Worker still stamps them noindex. Explicit list, same as PROPOSALS.
+const SITES = ['sun-savings-moodboard'];
+for (const slug of SITES) {
+  const src = join(ROOT, 'sites', slug);
+  if (!existsSync(src)) { console.error(`ERROR: sites/${slug} not found`); process.exit(1); }
+  cpSync(src, join(OUT, 'sites', slug), { recursive: true, force: true });
+}
+console.log(`staged ${SITES.length} site(s): ${SITES.join(', ')}`);
+
 const missing = [];
 for (const slug of PROPOSALS) {
   const src = join(ROOT, 'proposals', slug);
