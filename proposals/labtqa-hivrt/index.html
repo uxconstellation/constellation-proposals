@@ -21,11 +21,8 @@
       --darkbg:    #08080A;
       --white:     #FFFFFF;
       --text-light:rgba(255,255,255,0.72);
-      /* Warm charcoal. This was #1C2624, a green-teal at 26% chroma, retinted during the
-         withdrawn clinical-teal pass and missed when the rest reverted. It paints the
-         full-bleed health strip, so it was the largest surviving piece of the retired
-         palette, sitting directly under the warm-paper band. The reference ships a
-         neutral here (#202326); this is its warm counterpart at 15.8% chroma. */
+      /* Warm charcoal, 15.8% chroma. Paints the full-bleed health strip, which sits
+         directly under the warm-paper band, so it stays neutral rather than tinted. */
       --accent2:   #262220;
     }
 
@@ -107,9 +104,8 @@
     @media (max-width: 768px) { .health-strip-divider { display: none; } .health-icon-item { min-width: 45%; } }
 
     /* INTRO STRIP */
-    /* Warm paper. This band was the last of the retired clinical teal and, being the only
-       light surface on the page, it was also the only place the cool cast was obvious.
-       Darkest stop holds #14161A at 7.69:1. */
+    /* Warm paper. The only light surface on the page, so it sets the warm cast that the
+       rest of the palette answers to. Darkest stop holds #14161A at 7.69:1. */
     .intro-strip { background: linear-gradient(100deg, #B3A79B 0%, #EFE9E2 17%, #C9BDB1 33%, #FAF6F1 51%, #BEB2A6 68%, #E7E0D8 85%, #B3A79B 100%); padding: 3rem 2.5rem; }
     .intro-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 4rem; }
     .big-num { font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: #14161A; white-space: nowrap; flex-shrink: 0; }
@@ -157,11 +153,9 @@
     .timeline-dot { width: 64px; height: 64px; border-radius: 50%; background: var(--green); flex-shrink: 0; position: relative; overflow: hidden; }
     .timeline-dot::before {
       content: attr(data-n);
-      /* The numeral is wider than the disc, so the disc still trims it. The first pass ran
-         it at 72px in a 58px disc and cut the TOPS off, which is precisely where 3, 5 and 6
-         differ from one another, so the stages stopped reading as numbers. The overshoot is
-         now smaller and biased low and right: the tops stay intact, the crop takes the
-         baseline and the trailing edge. */
+      /* The numeral is wider than the disc, so the disc trims it. The overshoot is biased
+         low and right on purpose: 3, 5 and 6 are told apart by their TOPS, so the crop must
+         take the baseline and the trailing edge and leave the tops intact. */
       position: absolute; left: -0.05em; bottom: -0.16em;
       font-size: 3.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.05em;
       color: var(--black);   /* 7.03:1 on the orange disc */
@@ -201,7 +195,7 @@
     .feature-list { list-style: none; }
     .feature-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text-light); padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
     .feature-list li:last-child { border-bottom: none; }
-    .feature-list li::before { content: ''; display: inline-block; width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300A884' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; }
+    .feature-list li::before { content: ''; display: inline-block; width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FE6E36' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size: contain; background-repeat: no-repeat; }
     .pricing-note { margin-top: 2.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.68); line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; }
 
     /* SLA GRID */
@@ -254,12 +248,10 @@
        should not also show a text caret. That applies to every hover card, and it costs
        the reader nothing.
 
-       Locking SELECTION is a different matter and is kept narrow. It belongs on surfaces
-       with no copyable content of their own: the rendered product screens, the dashboard
-       cards, the tags. It must NOT cover the prose cards. The first pass put the timeline,
-       the scope boundary and the next-step cards in this list, which silently made 49% of
-       the page uncopyable, including the ten-week schedule and what is out of scope. A
-       costing document a client cannot quote from is worse than an I-beam. */
+       Locking SELECTION is a different matter and stays narrow: only surfaces with no
+       copyable content of their own, the rendered product screens, the dashboard cards and
+       the tags. It must NOT cover the prose cards, the schedule, the scope boundary or any
+       figure. A costing document the client cannot quote from is worse than an I-beam. */
     .mock, .bcard, .timeline-item, .challenge-item, .tech-item,
     .sla-item, .step-item, .tag, .occ-head, .pricing-card {
       cursor: default;
@@ -328,16 +320,10 @@
     @keyframes ctaOrb { 0%,100% { transform: translate(0,0) scale(1); } 30% { transform: translate(40px,-30px) scale(1.12); } 70% { transform: translate(-25px,35px) scale(0.93); } }
 
     /* TIMELINE FOCUS / DIM */
-    /* Inherited from the reference at 0.28, where the dimmed stages measured 1.79:1 and the
-       whole timeline failed AA for as long as a pointer rested anywhere in it. Inherited
-       craft does not carry an inherited AA failure.
-       The binding constraint is NOT the body prose. It is .weeks, which is set in the accent
-       and is the darkest text here: 0.68 clears the prose at 5.15:1 while .weeks is still
-       failing at 3.73:1. An opacity dim scales every child at once, so the floor is set by
-       the dimmest child, never the one you happen to check. 0.82 puts .weeks at 4.99:1 with
-       real margin and the prose at 7.09:1.
-       The recede is now slight, which is fine: the hovered stage is carried by the accent
-       border, the indent and the dot, not by pushing its neighbours into the dark. */
+    /* An opacity dim scales every child at once, so the floor is set by the DIMMEST child,
+       not a representative one. Here that is .weeks, set in the accent: at 0.82 it holds
+       4.99:1 while the prose sits at 7.09:1. The recede is deliberately slight, because the
+       hovered stage is carried by the accent border, the indent and the dot. */
     .timeline:hover .timeline-item { opacity: 0.82; }
     .timeline:hover .timeline-item:hover { opacity: 1; border-left-color: var(--green); padding-left: 1.25rem; }
     .timeline-item { cursor: default; transition: opacity 0.38s ease, border-left-color 0.3s ease, padding-left 0.3s ease; border-left: 3px solid transparent; padding-left: 0; }
@@ -528,16 +514,14 @@
        It is hidden below 1280px, where the centred 1100px column would collide with it,
        and the top nav carries navigation there instead. */
     /* The rail carries its OWN opaque ground. It is fixed, so it floats over whatever
-       happens to be behind it, and the page has one full-bleed light band: over the intro
-       strip the numerals measured 1.24:1. Tinting to suit the band would only move the
-       problem, so the rail owns its ground and its contrast is constant everywhere:
-       numerals 7.29:1, tick 3.78:1, active orange 7.02:1. Over the dark sections the pill
-       is the same value as the page and effectively disappears. */
+       happens to be behind it, and the page has one full-bleed light band. Tinting to suit
+       that band would only move the problem, so the rail owns its ground and its contrast is
+       constant everywhere: numerals 7.29:1, tick 3.78:1, active orange 7.02:1. Over the dark
+       sections the pill is the same value as the page and effectively disappears. */
     .rail { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 90; display: flex; flex-direction: column; gap: 0.15rem; background: var(--black); border: 1px solid rgba(255,255,255,0.09); border-radius: 100px; padding: 0.55rem 0.3rem; }
     .rail-item { position: relative; display: flex; align-items: center; justify-content: flex-end; gap: 0.6rem; height: 26px; padding: 0 0.35rem; text-decoration: none; border-radius: 100px; }
-    /* Rest-state alpha is set by measurement, not by eye: 0.60 gives the numerals 7.29:1
-       and 0.40 gives the 2px tick 3.78:1 on both section grounds. The first draft used
-       0.42 and 0.22, which looked right and failed at 4.06 and 1.92. */
+    /* Rest-state alpha is set by measurement, not by eye: 0.60 puts the numerals at 7.29:1
+       and 0.40 puts the 2px tick at 3.78:1 against the rail's own ground. */
     .rail-num { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; color: rgba(255,255,255,0.60); font-variant-numeric: tabular-nums; transition: color 0.22s ease; }
     .rail-tick { width: 14px; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.40); transition: width 0.28s cubic-bezier(0.34,1.26,0.64,1), background 0.22s ease; }
     .rail-label {
@@ -657,19 +641,6 @@
       .staff-table th:nth-child(4), .staff-table td:nth-child(4) { display: none; }
     }
 
-    /* ===== AMBL EMBED ===== */
-    .ambl-embed { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2.5rem; align-items: center; margin-top: 2rem; }
-    .ambl-phone { border-radius: 26px; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); background: #000; }
-    .ambl-phone img { width: 100%; display: block; }
-    .ambl-sections { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.1rem; }
-    .ambl-chip { font-family: 'Satoshi', sans-serif; font-size: 0.78rem; font-weight: 600; color: var(--text-light); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14); border-radius: 100px; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.2s ease; }
-    .ambl-chip.active { color: #14161A; background: var(--green); border-color: var(--green); }
-    .ambl-caption { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; min-height: 3.4em; }
-    .ambl-download { display: inline-flex; align-items: center; gap: 0.6rem; margin-top: 1.25rem; }
-    @media (max-width: 900px) {
-      .ambl-embed { grid-template-columns: 1fr; }
-      .ambl-phone { max-width: 240px; margin: 0 auto; }
-    }
   </style>
 </head>
 <body>
@@ -1010,7 +981,7 @@
             <span class="staff-tab">Site actions</span>
           </span>
         </div>
-        <div class="table-wrap" role="region" aria-label="Delivery stages and scope, scrollable" tabindex="0">
+        <div class="table-wrap" role="region" aria-label="Tester certificate register, scrollable" tabindex="0">
           <table class="staff-table">
             <thead>
               <tr><th>Tester</th><th>Site</th><th>Certificate</th><th>Expires</th><th>Status</th></tr>
@@ -1387,7 +1358,7 @@
             <tr><td>Electronic signature</td><td>Built into the platform with a full audit entry. No per-signature licence.</td><td>Included</td><td>R0</td></tr>
             <tr><td>SMS notifications, optional</td><td>Only if the programme wants SMS alongside email.</td><td>The client</td><td>Usage-based, about R0.40 per message</td></tr>
             <tr><td>Domain and TLS</td><td>The system's own address; certificates are free.</td><td>The client</td><td>About R150 to R300 / year</td></tr>
-            <tr><td><strong style="color:var(--white)">Running total</strong></td><td><strong style="color:var(--white)">No per-user licensing anywhere. Adding users is a permission, not a fee.</strong></td><td><strong style="color:var(--white)">The client</strong></td><td><strong style="color:var(--white)">R1,500 to R3,500 / month</strong></td></tr>
+            <tr><td><strong style="color:var(--white)">Indicative monthly allowance</strong></td><td><strong style="color:var(--white)">No per-user licensing anywhere. Adding users is a permission, not a fee.</strong></td><td><strong style="color:var(--white)">The client</strong></td><td><strong style="color:var(--white)">R1,500 to R3,500 / month</strong></td></tr>
           </tbody>
         </table>
       </div>
