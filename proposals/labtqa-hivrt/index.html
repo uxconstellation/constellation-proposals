@@ -14,7 +14,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --teal:      #1A1C1E;
+      --ink-2:      #1A1C1E;
       --green:     #FE6E36;   /* Constellation house orange. 7.02:1 on the dark ground */
       --mint:      #A9A29C;   /* warm neutral secondary, 7.81:1 */
       --black:     #0B0B0C;
@@ -244,9 +244,8 @@
     /* ===== HOVER SURFACES ARE UI, NOT COPY =====
        Two separate problems, so two separate rules.
 
-       The visible complaint is the I-BEAM: a card that lifts and glows under the pointer
-       should not also show a text caret. That applies to every hover card, and it costs
-       the reader nothing.
+       A card that lifts and glows under the pointer should not also show a text caret.
+       That applies to every hover card, and it costs the reader nothing.
 
        Locking SELECTION is a different matter and stays narrow: only surfaces with no
        copyable content of their own, the rendered product screens, the dashboard cards and
@@ -315,7 +314,7 @@
     /* CTA ORBS */
     .cta-orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
     .cta-orb-1 { width: 340px; height: 340px; background: var(--accent2); top: -80px; right: -60px; opacity: 0.22; animation: ctaOrb 14s ease-in-out infinite; }
-    .cta-orb-2 { width: 220px; height: 220px; background: var(--teal); bottom: -40px; left: 8%; opacity: 0.22; animation: ctaOrb 18s ease-in-out infinite reverse; }
+    .cta-orb-2 { width: 220px; height: 220px; background: var(--ink-2); bottom: -40px; left: 8%; opacity: 0.22; animation: ctaOrb 18s ease-in-out infinite reverse; }
     .cta-orb-3 { width: 180px; height: 180px; background: var(--green); top: 40%; left: -40px; opacity: 0.12; animation: ctaOrb 22s ease-in-out infinite 4s; }
     @keyframes ctaOrb { 0%,100% { transform: translate(0,0) scale(1); } 30% { transform: translate(40px,-30px) scale(1.12); } 70% { transform: translate(-25px,35px) scale(0.93); } }
 
@@ -435,7 +434,7 @@
     }
 
     /* ===== PROGRAMME STATUS CARDS =====
-       Replaces a flat bar list that carried no information. Each card answers three questions a
+       Each card answers three questions a
        manager actually asks: how full am I, which area is filling, and when does it peak.
        Hover reveals the per-area split; on touch (no hover) the split is shown permanently,
        and every value is in the markup so it is all readable with no JavaScript. */
@@ -480,8 +479,8 @@
 
     /* With a real pointer, keep the card calm and reveal the area split on hover. */
     @media (hover: hover) and (min-width: 861px) {
-      /* Fully opaque: a translucent panel let the histogram and peak label bleed through
-         behind the area rows, which read as broken text. */
+      /* Fully opaque: a translucent panel would let the histogram and peak label show
+         through behind the area rows. */
       .bcard-areas { position: absolute; left: 1px; right: 1px; bottom: 1px; margin: 0;
         padding: 0.7rem 1.05rem 1.05rem; background: #141517; border-radius: 0 0 15px 15px;
         border-top: 1px solid rgba(255,255,255,0.12);
@@ -590,7 +589,7 @@
     .sec-row { display: flex; align-items: center; justify-content: space-between; gap: 0.9rem; padding: 0.75rem 0.9rem; border-radius: 11px; border: 1px solid rgba(255,255,255,0.12); }
     .sec-row.picked { border-color: var(--green); border-width: 2px; background: rgba(212,207,201,0.09); padding: 0.7rem 0.85rem; }
     /* Sold-out/paused rows are marked with a dashed edge and a muted (still AA-legible) token,
-       never by dimming the row: opacity 0.5 measured 3.32:1 and axe reports it "incomplete". */
+       never by dimming the row, which would drop the text under the contrast floor. */
     .sec-row.full { border-style: dashed; background: rgba(255,255,255,0.02); }
     .sec-row.full .sec-name { color: var(--text-light); }
     .sec-name { font-size: 0.86rem; font-weight: 700; color: var(--white); }
@@ -1506,7 +1505,7 @@
     }
   </script>
 
-  <script>/* GSAP 3.15.0 - GreenSock, standard licence. Inlined so the proposal has no CDN dependency. */
+  <script>/* GSAP 3.15.0 - GreenSock, standard licence. Inlined so the motion has no script dependency. */
 /*!
  * GSAP 3.15.0
  * https://gsap.com
