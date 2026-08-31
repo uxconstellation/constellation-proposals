@@ -13,7 +13,7 @@ const PROPOSALS = [
   'greennotes', 'spar-house-brands', 'labtqa',
   'conexxus', 'sigma-wealth', 'sara-sian', 'mealign',
   'my-mobile', 'euroseat', 'euroseat-roadmap', 'butcherbird',
-  'sigma-wealth-direction', 'behangexpert',
+  'sigma-wealth-direction', 'behangexpert', 'labtqa-hivrt',
 ];
 
 // This repo lives in a Drive-synced folder, so the sync client intermittently holds a
