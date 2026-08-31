@@ -15,14 +15,13 @@
 
     :root {
       --teal:      #1A1C1E;
-      --green:     #8FD4C8;   /* clinical teal, light enough to hold AA on the dark ground */
-      --mint:      #7FA8A0;   /* muted clinical teal, secondary */
+      --green:     #FE6E36;   /* Constellation house orange. 7.02:1 on the dark ground */
+      --mint:      #A9A29C;   /* warm neutral secondary, 7.81:1 */
       --black:     #0B0B0C;
       --darkbg:    #08080A;
       --white:     #FFFFFF;
       --text-light:rgba(255,255,255,0.72);
       --accent2:   #1C2624;
-      --paper:     #E6EEEC;
     }
 
     html { scroll-behavior: smooth; }
@@ -103,7 +102,10 @@
     @media (max-width: 768px) { .health-strip-divider { display: none; } .health-icon-item { min-width: 45%; } }
 
     /* INTRO STRIP */
-    .intro-strip { background: linear-gradient(100deg, #97B1AB 0%, #E2ECE9 17%, #B4C9C4 33%, #F0F5F4 51%, #ABC2BC 68%, #DCE7E4 85%, #97B1AB 100%); padding: 3rem 2.5rem; }
+    /* Warm paper. This band was the last of the retired clinical teal and, being the only
+       light surface on the page, it was also the only place the cool cast was obvious.
+       Darkest stop holds #14161A at 7.69:1. */
+    .intro-strip { background: linear-gradient(100deg, #B3A79B 0%, #EFE9E2 17%, #C9BDB1 33%, #FAF6F1 51%, #BEB2A6 68%, #E7E0D8 85%, #B3A79B 100%); padding: 3rem 2.5rem; }
     .intro-strip-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 4rem; }
     .big-num { font-size: clamp(3.5rem, 7vw, 6.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: #14161A; white-space: nowrap; flex-shrink: 0; }
     .intro-strip p { font-size: 1.05rem; color: #14161A; max-width: 640px; }
@@ -125,7 +127,7 @@
     .challenge-item { padding: 1.75rem; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); }
     .challenge-item h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--white); }
     .challenge-item p { font-size: 0.85rem; color: var(--text-light); }
-    .measured { display: inline-block; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint); border: 1px solid rgba(142,151,158,0.35); background: rgba(142,151,158,0.08); border-radius: 100px; padding: 0.1rem 0.55rem; margin-bottom: 0.6rem; font-weight: 600; }
+    .measured { display: inline-block; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint); border: 1px solid rgba(169,162,156,0.35); background: rgba(169,162,156,0.08); border-radius: 100px; padding: 0.1rem 0.55rem; margin-bottom: 0.6rem; font-weight: 600; }
 
     /* TABLE */
     .table-wrap { overflow-x: auto; margin-top: 2rem; }
@@ -138,7 +140,23 @@
     .timeline { margin-top: 4rem; }
     .timeline-item { display: flex; gap: 2rem; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .timeline-item:last-child { border-bottom: none; margin-bottom: 0; }
-    .timeline-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--green); color: #14161A; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    /* The stage number is set oversized and off-centre inside the disc, so the disc CROPS
+       it. The counter-form that runs off the edge is the point: it reads as a printed
+       numeral trimmed by the page, not a badge. The week range stays in .weeks below, so
+       nothing here is the only carrier of the information. */
+    .timeline-dot { width: 64px; height: 64px; border-radius: 50%; background: var(--green); flex-shrink: 0; position: relative; overflow: hidden; }
+    .timeline-dot::before {
+      content: attr(data-n);
+      /* The numeral is wider than the disc, so the disc still trims it. The first pass ran
+         it at 72px in a 58px disc and cut the TOPS off, which is precisely where 3, 5 and 6
+         differ from one another, so the stages stopped reading as numbers. The overshoot is
+         now smaller and biased low and right: the tops stay intact, the crop takes the
+         baseline and the trailing edge. */
+      position: absolute; left: -0.05em; bottom: -0.16em;
+      font-size: 3.5rem; font-weight: 800; line-height: 1; letter-spacing: -0.05em;
+      color: var(--black);   /* 7.03:1 on the orange disc */
+      transition: transform 0.35s cubic-bezier(0.34,1.26,0.64,1);
+    }
     .timeline-body h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
     .timeline-body p { font-size: 0.9rem; color: var(--text-light); margin-bottom: 1rem; }
     .timeline-body p:last-of-type { margin-bottom: 0; }
@@ -219,6 +237,27 @@
     .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
     footer p { font-size: 0.78rem; color: rgba(255,255,255,0.68); }
 
+    /* ===== HOVER SURFACES ARE UI, NOT COPY =====
+       Two separate problems, so two separate rules.
+
+       The visible complaint is the I-BEAM: a card that lifts and glows under the pointer
+       should not also show a text caret. That applies to every hover card, and it costs
+       the reader nothing.
+
+       Locking SELECTION is a different matter and is kept narrow. It belongs on surfaces
+       with no copyable content of their own: the rendered product screens, the dashboard
+       cards, the tags. It must NOT cover the prose cards. The first pass put the timeline,
+       the scope boundary and the next-step cards in this list, which silently made 49% of
+       the page uncopyable, including the ten-week schedule and what is out of scope. A
+       costing document a client cannot quote from is worse than an I-beam. */
+    .mock, .bcard, .timeline-item, .challenge-item, .tech-item,
+    .sla-item, .step-item, .tag, .occ-head, .pricing-card {
+      cursor: default;
+    }
+    .mock, .bcard, .tag, .occ-head {
+      -webkit-user-select: none; -moz-user-select: none; user-select: none;
+    }
+
     /* ===== CARD SPOTLIGHT (shared) ===== */
     .challenge-item, .tech-item, .sla-item, .step-item { position: relative; overflow: hidden; }
     .challenge-item, .tech-item, .pricing-card, .sla-item, .step-item { --mx: -200px; --my: -200px; }
@@ -243,6 +282,9 @@
     .timeline-dot { transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1); }
     .timeline-body { transition: transform 0.25s ease; }
     .timeline-item:hover .timeline-dot { transform: scale(1.18); }
+    /* the crop opens on hover: the numeral slides back toward the centre, so more of it
+       clears the disc edge. The movement is the reveal, not a colour change. */
+    .timeline-item:hover .timeline-dot::before { transform: translate(0.04em, -0.06em); }
     .timeline-item:hover .timeline-body { transform: translateX(8px); }
 
     .feature-list li { transition: background 0.2s ease, padding-left 0.2s ease, color 0.2s ease; border-radius: 6px; padding-left: 0.5rem; margin-left: -0.5rem; }
@@ -276,7 +318,17 @@
     @keyframes ctaOrb { 0%,100% { transform: translate(0,0) scale(1); } 30% { transform: translate(40px,-30px) scale(1.12); } 70% { transform: translate(-25px,35px) scale(0.93); } }
 
     /* TIMELINE FOCUS / DIM */
-    .timeline:hover .timeline-item { opacity: 0.28; }
+    /* Inherited from the reference at 0.28, where the dimmed stages measured 1.79:1 and the
+       whole timeline failed AA for as long as a pointer rested anywhere in it. Inherited
+       craft does not carry an inherited AA failure.
+       The binding constraint is NOT the body prose. It is .weeks, which is set in the accent
+       and is the darkest text here: 0.68 clears the prose at 5.15:1 while .weeks is still
+       failing at 3.73:1. An opacity dim scales every child at once, so the floor is set by
+       the dimmest child, never the one you happen to check. 0.82 puts .weeks at 4.99:1 with
+       real margin and the prose at 7.09:1.
+       The recede is now slight, which is fine: the hovered stage is carried by the accent
+       border, the indent and the dot, not by pushing its neighbours into the dark. */
+    .timeline:hover .timeline-item { opacity: 0.82; }
     .timeline:hover .timeline-item:hover { opacity: 1; border-left-color: var(--green); padding-left: 1.25rem; }
     .timeline-item { cursor: default; transition: opacity 0.38s ease, border-left-color 0.3s ease, padding-left 0.3s ease; border-left: 3px solid transparent; padding-left: 0; }
     .timeline:hover .timeline-item:hover .timeline-dot { background: var(--green); }
@@ -457,6 +509,52 @@
     .jump:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
     .jump-accept { margin-left: 0.35rem; color: #14161A; background: var(--green); padding: 0.5rem 1.15rem; }
     .jump-accept:hover { color: #14161A; background: var(--green); opacity: 0.88; }
+    /* ===== SIDE TRACKER =====
+       A proposal gets skimmed before it gets read, so the reader needs to see how many
+       sections there are and jump straight to the one they came for. Numbers only at
+       rest; the label appears on hover or keyboard focus.
+       Plain anchors, so it still navigates with scripting disabled. Only the active
+       marker needs JavaScript, and that is an enhancement, not the function.
+       It is hidden below 1280px, where the centred 1100px column would collide with it,
+       and the top nav carries navigation there instead. */
+    /* The rail carries its OWN opaque ground. It is fixed, so it floats over whatever
+       happens to be behind it, and the page has one full-bleed light band: over the intro
+       strip the numerals measured 1.24:1. Tinting to suit the band would only move the
+       problem, so the rail owns its ground and its contrast is constant everywhere:
+       numerals 7.29:1, tick 3.78:1, active orange 7.02:1. Over the dark sections the pill
+       is the same value as the page and effectively disappears. */
+    .rail { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); z-index: 90; display: flex; flex-direction: column; gap: 0.15rem; background: var(--black); border: 1px solid rgba(255,255,255,0.09); border-radius: 100px; padding: 0.55rem 0.3rem; }
+    .rail-item { position: relative; display: flex; align-items: center; justify-content: flex-end; gap: 0.6rem; height: 26px; padding: 0 0.35rem; text-decoration: none; border-radius: 100px; }
+    /* Rest-state alpha is set by measurement, not by eye: 0.60 gives the numerals 7.29:1
+       and 0.40 gives the 2px tick 3.78:1 on both section grounds. The first draft used
+       0.42 and 0.22, which looked right and failed at 4.06 and 1.92. */
+    .rail-num { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; color: rgba(255,255,255,0.60); font-variant-numeric: tabular-nums; transition: color 0.22s ease; }
+    .rail-tick { width: 14px; height: 2px; border-radius: 2px; background: rgba(255,255,255,0.40); transition: width 0.28s cubic-bezier(0.34,1.26,0.64,1), background 0.22s ease; }
+    .rail-label {
+      position: absolute; right: calc(100% + 0.5rem); white-space: nowrap;
+      font-size: 0.72rem; font-weight: 600; color: var(--white);
+      background: rgba(18,18,20,0.94); border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.3rem 0.7rem; border-radius: 100px;
+      opacity: 0; transform: translateX(6px); pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .rail-item:hover .rail-num, .rail-item:focus-visible .rail-num { color: var(--white); }
+    .rail-item:hover .rail-tick, .rail-item:focus-visible .rail-tick { width: 24px; background: var(--green); }
+    .rail-item:hover .rail-label, .rail-item:focus-visible .rail-label { opacity: 1; transform: translateX(0); }
+    .rail-item:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+    .rail-item.is-active .rail-num { color: var(--green); }
+    .rail-item.is-active .rail-tick { width: 28px; background: var(--green); }
+    @media (max-width: 1280px) { .rail { display: none; } }
+    /* Every section sits in a centred 1100px column, so above 1280px there is a clear
+       gutter for the rail. The HERO does not: .hero-split is width:100%, so its glass card
+       runs to the viewport padding and met the rail at every width. Open a gutter on the
+       hero wherever the rail is actually shown. The card is right-aligned and the headline
+       left-aligned, so the uneven padding does not read as an offset composition. */
+    @media (min-width: 1281px) { .hero { padding-right: 7rem; } }
+    @media (prefers-reduced-motion: reduce) {
+      .rail-tick, .rail-label, .rail-num { transition: none; }
+    }
+
     /* keep anchored sections clear of the fixed nav */
     .section, .cta-section, .occ { scroll-margin-top: 88px; }
     @media (max-width: 860px) {
@@ -512,18 +610,18 @@
     /* progress timeline */
     .ticket { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem 1rem; border-radius: 11px; background: rgba(201,207,212,0.12); border: 1px solid rgba(201,207,212,0.25); margin: 1.05rem 0 1.2rem; }
     .ticket-code { font-size: 1.05rem; font-weight: 700; color: var(--white); letter-spacing: 0.06em; }
-    .kiln { list-style: none; display: flex; flex-direction: column; }
-    .kiln li { display: flex; gap: 0.9rem; align-items: flex-start; padding-bottom: 1.05rem; position: relative; }
-    .kiln li:last-child { padding-bottom: 0; }
-    .kiln li::before { content: ''; position: absolute; left: 10px; top: 22px; bottom: 0; width: 2px; background: rgba(255,255,255,0.14); }
-    .kiln li:last-child::before { display: none; }
-    .kiln-dot { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.22); background: transparent; position: relative; z-index: 1; }
-    .kiln li.done .kiln-dot { background: rgba(201,207,212,0.45); border-color: rgba(201,207,212,0.55); }
-    .kiln li.now .kiln-dot { background: var(--green); border-color: var(--green); outline: 4px solid rgba(201,207,212,0.16); }
-    .kiln-body { padding-top: 0.02rem; }
-    .kiln-name { font-size: 0.86rem; font-weight: 700; color: var(--white); }
-    .kiln li.todo .kiln-name { color: var(--text-light); }
-    .kiln-when { font-size: 0.72rem; color: var(--text-light); font-weight: 600; }
+    .ptr { list-style: none; display: flex; flex-direction: column; }
+    .ptr li { display: flex; gap: 0.9rem; align-items: flex-start; padding-bottom: 1.05rem; position: relative; }
+    .ptr li:last-child { padding-bottom: 0; }
+    .ptr li::before { content: ''; position: absolute; left: 10px; top: 22px; bottom: 0; width: 2px; background: rgba(255,255,255,0.14); }
+    .ptr li:last-child::before { display: none; }
+    .ptr-dot { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.22); background: transparent; position: relative; z-index: 1; }
+    .ptr li.done .ptr-dot { background: rgba(201,207,212,0.45); border-color: rgba(201,207,212,0.55); }
+    .ptr li.now .ptr-dot { background: var(--green); border-color: var(--green); outline: 4px solid rgba(201,207,212,0.16); }
+    .ptr-body { padding-top: 0.02rem; }
+    .ptr-name { font-size: 0.86rem; font-weight: 700; color: var(--white); }
+    .ptr li.todo .ptr-name { color: var(--text-light); }
+    .ptr-when { font-size: 0.72rem; color: var(--text-light); font-weight: 600; }
     .due-strip { margin-top: 1.2rem; padding: 0.85rem 1rem; border-radius: 11px; border: 1px solid rgba(255,255,255,0.12); }
     .due-strip strong { display: block; font-size: 0.86rem; color: var(--white); }
     .due-strip span { font-size: 0.72rem; color: var(--text-light); font-weight: 600; }
@@ -580,6 +678,20 @@
     </div>
     <span class="nav-tag">Confidential &middot; Proposal</span>
   </nav>
+
+  <aside class="rail" aria-label="Sections">
+    <a class="rail-item" href="#pillars"><span class="rail-label">The Platform</span><span class="rail-num">01</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#screens"><span class="rail-label">What It Looks Like</span><span class="rail-num">02</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#why"><span class="rail-label">Ownership</span><span class="rail-num">03</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#approach-workflow"><span class="rail-label">How The Work Runs</span><span class="rail-num">04</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#timeline"><span class="rail-label">The Timeline</span><span class="rail-num">05</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#tech"><span class="rail-label">Technical Breakdown</span><span class="rail-num">06</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#ai"><span class="rail-label">Where AI Earns Its Place</span><span class="rail-num">07</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#scope"><span class="rail-label">What The MVP Includes</span><span class="rail-num">08</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#rate"><span class="rail-label">The Investment</span><span class="rail-num">09</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#need"><span class="rail-label">To Start</span><span class="rail-num">10</span><span class="rail-tick"></span></a>
+    <a class="rail-item" href="#accept"><span class="rail-label">Proceed with the MVP</span><span class="rail-num">&rarr;</span><span class="rail-tick"></span></a>
+  </aside>
 
   <main>
 
@@ -830,12 +942,12 @@
               <span><span class="field-label">Round</span><span class="ticket-code">PT-2026-2</span></span>
               <span class="sec-sub">6-specimen panel<br />Criteria v4</span>
             </div>
-            <ul class="kiln">
-              <li class="done"><span class="kiln-dot"></span><span class="kiln-body"><span class="kiln-name">Panels dispatched</span><br /><span class="kiln-when">Mon 4 Aug &middot; all 64 sites</span></span></li>
-              <li class="done"><span class="kiln-dot"></span><span class="kiln-body"><span class="kiln-name">Results captured</span><br /><span class="kiln-when">388 of 412 in</span></span></li>
-              <li class="now"><span class="kiln-dot"></span><span class="kiln-body"><span class="kiln-name">Auto-scored</span><br /><span class="kiln-when">Since Thu 28 Aug</span></span></li>
-              <li class="todo"><span class="kiln-dot"></span><span class="kiln-body"><span class="kiln-name">Supervisor review</span></span></li>
-              <li class="todo"><span class="kiln-dot"></span><span class="kiln-body"><span class="kiln-name">Certificates issued</span></span></li>
+            <ul class="ptr">
+              <li class="done"><span class="ptr-dot"></span><span class="ptr-body"><span class="ptr-name">Panels dispatched</span><br /><span class="ptr-when">Mon 4 Aug &middot; all 64 sites</span></span></li>
+              <li class="done"><span class="ptr-dot"></span><span class="ptr-body"><span class="ptr-name">Results captured</span><br /><span class="ptr-when">388 of 412 in</span></span></li>
+              <li class="now"><span class="ptr-dot"></span><span class="ptr-body"><span class="ptr-name">Auto-scored</span><br /><span class="ptr-when">Since Thu 28 Aug</span></span></li>
+              <li class="todo"><span class="ptr-dot"></span><span class="ptr-body"><span class="ptr-name">Supervisor review</span></span></li>
+              <li class="todo"><span class="ptr-dot"></span><span class="ptr-body"><span class="ptr-name">Certificates issued</span></span></li>
             </ul>
             <div class="due-strip">
               <strong>Results close Fri 12 Sep</strong>
@@ -990,7 +1102,7 @@
 
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <div class="timeline-dot" data-n="01"></div>
           <div class="timeline-body">
             <div class="weeks">Weeks 1 to 2</div>
             <h4>Specification walkthrough and foundations</h4>
@@ -999,7 +1111,7 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <div class="timeline-dot" data-n="02"></div>
           <div class="timeline-body">
             <div class="weeks">Weeks 3 to 4</div>
             <h4>Registers and certification</h4>
@@ -1008,7 +1120,7 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <div class="timeline-dot" data-n="03"></div>
           <div class="timeline-body">
             <div class="weeks">Weeks 5 to 6</div>
             <h4>PT management and scoring</h4>
@@ -1017,7 +1129,7 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <div class="timeline-dot" data-n="04"></div>
           <div class="timeline-body">
             <div class="weeks">Week 7</div>
             <h4>Certificates and renewals</h4>
@@ -1026,7 +1138,7 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <div class="timeline-dot" data-n="05"></div>
           <div class="timeline-body">
             <div class="weeks">Week 8</div>
             <h4>Site readiness, lots, dashboards</h4>
@@ -1035,7 +1147,7 @@
           </div>
         </div>
         <div class="timeline-item">
-          <div class="timeline-dot"></div>
+          <div class="timeline-dot" data-n="06"></div>
           <div class="timeline-body">
             <div class="weeks">Weeks 9 to 10</div>
             <h4>Migration, UAT and go-live</h4>
@@ -1379,7 +1491,7 @@
     // panes that render it in a full-height iframe where the PARENT scrolls: there the anchor
     // moves the iframe's own viewport and the reader sees nothing move. scrollIntoView walks up
     // and scrolls the ancestor that actually owns the scrollbar, so it works in both.
-    document.querySelectorAll('a.jump, a.btn-submit[href^="#"], a.btn-ghost[href^="#"]').forEach(function (link) {
+    document.querySelectorAll('a.jump, a.rail-item, a.btn-submit[href^="#"], a.btn-ghost[href^="#"]').forEach(function (link) {
       link.addEventListener('click', function (e) {
         var id = link.getAttribute('href');
         if (!id || id.charAt(0) !== '#') return;
@@ -1482,6 +1594,58 @@
         var r = document.querySelector('.occ').getBoundingClientRect();
         if (r.top < window.innerHeight && r.bottom > 0) go();
       }, 2500);
+    })();
+
+    // Side tracker: mark the section the reader is actually in. The anchors navigate
+    // without this; all it adds is the active marker.
+    (function () {
+      var items = Array.prototype.slice.call(document.querySelectorAll('.rail-item'));
+      if (!items.length) return;
+
+      var targets = items.map(function (a) {
+        return document.querySelector(a.getAttribute('href'));
+      });
+
+      var setActive = function (idx) {
+        items.forEach(function (a, i) {
+          var on = i === idx;
+          a.classList.toggle('is-active', on);
+          if (on) { a.setAttribute('aria-current', 'true'); }
+          else { a.removeAttribute('aria-current'); }
+        });
+      };
+
+      // Which section is the reader IN: the one crossing a reading line a third of the way
+      // down the viewport. Scoring by intersection ratio instead looks equivalent and is
+      // not, it favours whichever section is SHORT enough to fit on screen whole, so a
+      // brief section above kept winning over the tall one actually being read.
+      var last = -2;
+      var update = function () {
+        var line = window.innerHeight * 0.34;
+        var best = -1;
+        for (var i = 0; i < targets.length; i++) {
+          var t = targets[i];
+          if (!t) continue;
+          var r = t.getBoundingClientRect();
+          if (r.top <= line && r.bottom > line) best = i;
+        }
+        // Past the end of the last section (short final viewport) hold the last one.
+        if (best === -1 && targets.length) {
+          var lastRect = targets[targets.length - 1].getBoundingClientRect();
+          if (lastRect.bottom <= line) best = targets.length - 1;
+        }
+        if (best !== last) { last = best; setActive(best); }
+      };
+
+      var ticking = false;
+      var onScroll = function () {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () { ticking = false; update(); });
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      update();
     })();
   </script>
 </body>
