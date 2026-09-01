@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lab TQA &middot; HIV Rapid Testing QA Platform | Constellation</title>
-  <meta name="description" content="A purpose-built platform for the full HIV Rapid Testing QA lifecycle: tester certification, proficiency testing, certificates, site readiness and lot verification. Client-owned, SharePoint retired. Indicative MVP R200,000." />
+  <meta name="description" content="A purpose-built platform for the full HIV Rapid Testing QA lifecycle: tester certification, proficiency testing, certificates, site readiness and lot verification. Client-owned, SharePoint retired. Indicative MVP R462,500." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
@@ -696,13 +696,14 @@
       <div class="glass-card">
         <div class="glass-label">At a glance</div>
         <div class="hero-meta">
-          <div class="hero-meta-item headline"><label>MVP build, indicative</label><value>R200,000</value></div>
-          <div class="hero-meta-item"><label>Timeline</label><value>~ 10 working weeks</value></div>
+          <div class="hero-meta-item headline"><label>MVP build, indicative</label><value>R462,500</value></div>
+          <div class="hero-meta-item"><label>Timeline</label><value>10 to 16 weeks</value></div>
           <div class="hero-meta-item"><label>Running cost</label><value>R1,500 to R3,500 / mo</value></div>
           <div class="hero-meta-item"><label>Ownership</label><value>Full IP and source to the client</value></div>
           <div class="hero-meta-item"><label>Prepared by</label><value>Aldo Calitz, Constellation</value></div>
           <div class="hero-meta-item"><label>For</label><value>Talia Ramjee, Lab TQA</value></div>
-          <div class="hero-meta-item"><label>Date</label><value>1 September 2026</value></div>
+          <div class="hero-meta-item"><label>Scope</label><value>Specification v3, all five phases</value></div>
+              <div class="hero-meta-item"><label>Date</label><value>1 September 2026</value></div>
         </div>
       </div>
     </div>
@@ -815,34 +816,34 @@
           <h2>The full QA lifecycle,<br /><em>one system of record.</em></h2>
         </div>
         <div>
-          <p class="lead">Every workflow below runs off the same registers: testers, sites, PT rounds, certificates and lots. The rules that govern them, testing algorithms, scoring criteria, renewal windows, checklist templates, are configuration a programme administrator edits, not code a developer redeploys. That is what lets the system evolve with the programme instead of being rebuilt for it.</p>
+          <p class="lead">The five phases below are your specification's own, in your own order, with the step counts it defines. They run off shared registers: testers, sites, PT panels, certificates and lots. The rules that govern them, the HIV RT algorithm, the PT scoring rubric, panel structure, renewal windows and checklist templates, are configuration a Super User edits, not code a developer redeploys. Your rubric is mid-change already, with two scoring areas being phased out and one added, and the panel structure is moving from four panels of three samples to two of five. A system that needs a developer for either is the wrong system.</p>
         </div>
       </div>
 
       <div class="challenge-grid">
         <div class="challenge-item">
-          <h4>Tester registration and certification</h4>
-          <p>A tester is registered once and carries one record for life: training, competency assessments, PT history, certificates. Certification is a workflow with named steps and sign-offs, not a row on a list with an attachment folder beside it.</p>
+          <h4>Phase 1 &middot; Newly trained testers, ten steps</h4>
+            <p>The First 10 EQA samples, captured on Template 1 or uploaded from paper, scored automatically against the HIV RT algorithm at the 80% pass mark. A pass generates the authorisation letter and certificate; a fail opens the retest path, including a partial batch that gets added to, or a larger resubmission. The requisition barcode is captured against the submission even though the physical matching stays manual.</p>
         </div>
         <div class="challenge-item">
-          <h4>Proficiency testing, managed and scored</h4>
-          <p>PT rounds are created, panels dispatched, results captured and scored automatically against the configured criteria. Borderline and failed results route to a human reviewer. Nothing is certified by an algorithm alone.</p>
+          <h4>Phase 2 &middot; PT certification, seven steps</h4>
+            <p>Panels are registered with their predetermined target results before a round opens, and the number of panels and samples per panel is configurable, not hardcoded. Static-site and door-to-door forms both feed one record. Scoring runs the rubric out of twenty, at the same 80% mark, and auto-sorts the round into pass and fail.</p>
         </div>
         <div class="challenge-item">
-          <h4>Certificates and renewals</h4>
-          <p>Certificates generate themselves from the record, with the programme's numbering and branding, signed electronically or printed for a wet signature where required. Renewal notices go out on schedule, not when somebody remembers.</p>
+          <h4>Phase 3 &middot; Expiry and renewal, five steps</h4>
+            <p>Every tester and site certificate carries an issue and expiry date as a permanent attribute of the record, not a filed document. Two months out, the renewal list surfaces on screen, filterable by region, site and days to expiry, and by email. Where a passed PT in the last twelve months is missing, the system routes back into a fresh Phase 2 round rather than renewing against a gap.</p>
         </div>
         <div class="challenge-item">
-          <h4>Site readiness assessments</h4>
-          <p>Structured checklists per site with scoring, corrective actions and re-assessment dates. A site's readiness history is one screen with a timeline, not a folder of Word documents named final-v3.</p>
+          <h4>Phase 4 &middot; New site readiness, nine steps</h4>
+            <p>The Template 6 checklist across its six categories, completed on a device on site or on paper and scanned back. A failed item opens a corrective-action loop that tracks exactly which items failed, notifies the site, and logs the re-inspection against the same assessment record, as many cycles as it takes. Then verification testing, scored on the same algorithm, auto-flags the site as ready.</p>
         </div>
         <div class="challenge-item">
-          <h4>Post-market lot-to-lot verification</h4>
-          <p>Each new lot's verification is captured against the reference standard, pass or fail recorded with the evidence attached, and the lot register answers the only question that matters at the bench: which lots are cleared for use right now.</p>
+          <h4>Phase 5 &middot; Post-market surveillance, four steps</h4>
+            <p>Old kit against new kit across twenty samples, concordant or discordant per sample, acceptable or unacceptable overall. Lot numbers and expiry dates stay free text by design, because the lot pipeline with MoHSS and medical stores is not yet mature enough to validate against a list. The report compiles and emails to MoHSS and stakeholders from the system.</p>
         </div>
         <div class="challenge-item">
-          <h4>Dashboards, reporting and audit</h4>
-          <p>Role-based dashboards for administrators, site supervisors and stakeholders. Every change to every record lands in an append-only audit trail: who, what, when. Reports that used to take a week of collation are a filter and an export.</p>
+          <h4>Across all five &middot; Status, windows and audit</h4>
+            <p>A status dashboard per phase, so an administrator never opens records one at a time to see where a batch stands, plus search across every tester and site by status. One notification engine, not five: a thirty-day default window, extendable per tester, site or round, a ten-day reminder to the tester and a two-day list to administrators. Every create, update, approve and status change is logged with user, timestamp and before and after values.</p>
         </div>
       </div>
     </div>
@@ -1045,11 +1046,12 @@
           <h2>Visible from week two,<br /><em>never a reveal at the end.</em></h2>
         </div>
         <div>
-          <p class="lead">The most expensive way to build this would be to disappear for ten weeks and present something. Instead the system is on a link you and the client can open from week two, and it grows in front of you. If it is going wrong, you see it while it is still cheap to change.</p>
+          <p class="lead">The most expensive way to build this would be to disappear for four months and present something. Instead the system is on a link you and the client can open from week two, and it grows in front of you. If it is going wrong, you see it while it is still cheap to change.</p>
         </div>
       </div>
 
       <div class="sla-grid">
+        <div class="sla-item"><h4>A dedicated QA phase, before anything is published</h4><p>Your specification makes this a delivery requirement rather than a courtesy, and we agree with it. The last stage is its own phase, not a week of tidying: a security sweep, role-isolation testing that proves a General User cannot reach another tester's record, and two rounds of UAT with your team. Nothing is published or goes live until it clears.</p></div>
         <div class="sla-item"><h4>We start from the specification you wrote</h4><p>The high-level specification and process flows the client has already developed are the source of truth. Discovery is a walkthrough of them, not a reinvention, which is why it takes two weeks and not six.</p></div>
         <div class="sla-item"><h4>A staging link from week two</h4><p>One URL, always current. Open it at any point, register a test tester and run a certification through it yourselves.</p></div>
         <div class="sla-item"><h4>One workflow at a time</h4><p>Certification goes first and proves the model with real records. PT, certificates, readiness and lots follow only once the first workflow has been used by the people who will live in it.</p></div>
@@ -1073,10 +1075,10 @@
       <div class="section-label">05 &middot; The Timeline</div>
       <div class="grid-2">
         <div>
-          <h2>Roughly ten<br /><em>working weeks.</em></h2>
+          <h2>Ten to sixteen<br /><em>working weeks.</em></h2>
         </div>
         <div>
-          <p class="lead">Workflows land in the order they carry the programme: certification and PT first. By week ten the MVP is live, the history is migrated, and SharePoint is in read-only retirement.</p>
+          <p class="lead">Six stages, in the order the programme actually depends on them. The shared engines come first, because every phase scores against the same algorithm, generates from the same document layer and reports into the same status view; building them once is what keeps the later phases short. A conventional route to the same specification is roughly six months. The range is honest rather than a single date: the spec still carries open items, and a fixed quote follows the walkthrough.</p>
         </div>
       </div>
 
@@ -1085,56 +1087,51 @@
           <div class="timeline-dot" data-n="01"></div>
           <div class="timeline-body">
             <div class="weeks">Weeks 1 to 2</div>
-            <h4>Specification walkthrough and foundations</h4>
-            <p>The walkthrough of the specification and process flows with Lab TQA and the client. Data model for testers, sites, PT rounds, certificates and lots. Roles and the security model. Design direction signed off.</p>
-            <div class="timeline-tags"><span class="tag">Spec walkthrough</span><span class="tag">Data model</span><span class="tag">Security architecture</span></div>
+            <h4>Walkthrough, architecture and foundations</h4>
+            <p>The specification walkthrough with Lab TQA and the client team, and the open items closed in writing. The IT architecture document, which is a deliverable in its own right and yours to keep. Core data model: sites, testers, both certificate types, and the tester site-history log the spec calls for. The four access tiers, built God Mode first as your spec recommends, with restrictions applied downward afterwards. The append-only audit trail underneath all of it.</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot" data-n="02"></div>
           <div class="timeline-body">
-            <div class="weeks">Weeks 3 to 4</div>
-            <h4>Registers and certification</h4>
-            <p>Tester and site registers, the certification workflow with its sign-off chain. The staging link opens and stays open for the rest of the build.</p>
-            <div class="timeline-tags"><span class="tag">Staging link</span><span class="tag">Certification live</span></div>
+            <div class="weeks">Weeks 3 to 5</div>
+            <h4>The shared engines</h4>
+            <p>The configurable HIV RT algorithm and PT scoring rubric, held as data so a Super User can change either without a developer. Document generation for all ten templates, editable and auto-populated. The testing-window and notification engine: thirty-day default, per-round extension, ten-day and two-day reminders. The workflow and status engine every phase reports into. The dual-path layer: blank forms downloadable, completed paper uploaded, administrator proxy entry, chosen per submission.</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot" data-n="03"></div>
           <div class="timeline-body">
-            <div class="weeks">Weeks 5 to 6</div>
-            <h4>PT management and scoring</h4>
-            <p>Rounds, panel dispatch, result capture, automatic scoring against the configured criteria, the review queue and the remedial flow.</p>
-            <div class="timeline-tags"><span class="tag">PT engine</span><span class="tag">Configurable scoring</span></div>
+            <div class="weeks">Weeks 6 to 8</div>
+            <h4>Phases 1 and 2, certification and PT</h4>
+            <p>The First 10 flow end to end across its ten steps, including the barcode capture, the retest path and the partial-batch case. Then PT across its seven: panel registration with target results, configurable panel and sample counts, both the static-site and door-to-door forms, the rubric out of twenty, and the automatic pass and fail sort. Both phases get their status dashboard.</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot" data-n="04"></div>
           <div class="timeline-body">
-            <div class="weeks">Week 7</div>
-            <h4>Certificates and renewals</h4>
-            <p>Certificate generation with the programme's numbering and branding, electronic signature with the printed fallback, the renewal schedule and its notices.</p>
-            <div class="timeline-tags"><span class="tag">Certificates live</span><span class="tag">Renewal notices</span></div>
+            <div class="weeks">Weeks 9 to 11</div>
+            <h4>Phases 3, 4 and 5</h4>
+            <p>Certificate expiry and renewal, including the on-screen renewal list and the route back into a PT round where a passed panel in the last twelve months is missing. Site readiness across its nine steps, with the corrective-action loop tracking individual failed checklist items through repeat inspections. Lot-to-lot verification and its report dispatch to MoHSS.</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot" data-n="05"></div>
           <div class="timeline-body">
-            <div class="weeks">Week 8</div>
-            <h4>Site readiness, lots, dashboards</h4>
-            <p>Scored readiness checklists with corrective actions, the lot verification register, role-based dashboards and exports.</p>
-            <div class="timeline-tags"><span class="tag">Readiness</span><span class="tag">Lot register</span><span class="tag">Dashboards</span></div>
+            <div class="weeks">Weeks 12 to 13</div>
+            <h4>Signatures, reporting and migration</h4>
+            <p>The electronic signature workflow for the CEO and the MoHSS Executive Director, with the print, sign and scan-back path always available beside it. Reporting, the role-based dashboards and the quarterly MoHSS export. Then the SharePoint migration: mapped export, cleanup with human approval on every merge, reconciliation against the source, and cutover to read-only retirement.</p>
           </div>
         </div>
         <div class="timeline-item">
           <div class="timeline-dot" data-n="06"></div>
           <div class="timeline-body">
-            <div class="weeks">Weeks 9 to 10</div>
-            <h4>Migration, UAT and go-live</h4>
-            <p>SharePoint history migrated and reconciled, the two-round UAT, training for administrators and supervisors, cutover, and the documentation handover pack.</p>
-            <div class="timeline-tags"><span class="tag">Migration</span><span class="tag">Two-round UAT</span><span class="tag">Handover</span></div>
+            <div class="weeks">Weeks 14 to 16</div>
+            <h4>The QA phase, UAT and handover</h4>
+            <p>The dedicated testing phase agreed on the call, before anything is published. Security sweep and role-isolation testing, so a General User provably cannot reach another tester's record. Two rounds of UAT with your team. Administrator and Super User training, the documentation pack, and handover into the client's own accounts. This is the buffer as well: if the walkthrough adds scope, it absorbs here rather than moving go-live.</p>
           </div>
         </div>
+      
       </div>
     </div>
   </section>
@@ -1158,10 +1155,20 @@
       </div>
       <div class="tech-grid">
         <div class="tech-item"><div class="tech-label">Frontend</div><h4>React + TypeScript</h4><p>The console, dashboards and every workflow screen as an ordinary React codebase. Editable by any development team, not locked to one tool or one vendor.</p></div>
-        <div class="tech-item"><div class="tech-label">Backend</div><h4>Supabase / PostgreSQL</h4><p>Database, authentication, file storage and row-level security that keeps a site supervisor inside their own sites, enforced at the data layer, not the page. Runs under the client's own account.</p></div>
-        <div class="tech-item"><div class="tech-label">Business rules</div><h4>Configuration, not code</h4><p>Testing algorithms, scoring criteria, renewal windows and checklist templates are versioned configuration records an administrator edits. Every result keeps the version it was scored under.</p></div>
+        <div class="tech-item"><div class="tech-label">Backend</div><h4>Cloudflare + PostgreSQL</h4>
+            <p>Cloudflare for the application edge and the domain, as recommended on the call: it is fast in-region, cheap at this scale, and hardened against the traffic a public-facing government-adjacent system attracts. PostgreSQL underneath, the most portable database there is. Every account is opened in the client's name, so nothing here routes through us.</p></div>
+        <div class="tech-item"><div class="tech-label">Business rules</div><h4>Configuration, not code</h4>
+            <p>The HIV RT algorithm, the PT rubric, panel and sample counts, testing windows, dropdown lists and notification rules are all data a Super User edits. This is not a nice-to-have: your rubric is mid-change, with two scoring areas phased out and one added, and the panel structure is moving from four panels of three to two of five. Any of that requiring a developer would be a design failure.</p></div>
         <div class="tech-item"><div class="tech-label">Documents</div><h4>Generated, signed, versioned</h4><p>Certificates and reports generate as PDF from record data. Electronic signature writes a full audit entry; a printed wet-signature route exists wherever the programme requires one.</p></div>
-        <div class="tech-item"><div class="tech-label">Security</div><h4>POPIA-grade by default</h4><p>Encrypted personal information, role isolation, an append-only hash-chained audit trail, and an external-access sweep before go-live. Data stays in the client's infrastructure.</p></div>
+        <div class="tech-item">
+            <h4>Paper is a first-class path</h4>
+            <p>Connectivity is not reliable everywhere the programme runs, so every form downloads blank in its original layout, comes back on paper, and is entered by an administrator against the same record. The choice is per submission, not a setting per tester, because the same person may submit digitally one round and on paper the next. The resulting record is identical either way, bar an entered-by note in the audit trail.</p>
+          </div>
+          <div class="tech-item">
+            <h4>The architecture document</h4>
+            <p>Delivered as part of the engagement, not sold back to you afterwards: data model, security model, hosting topology, third-party dependencies with their licences, and the compliance controls and design decisions behind them. It is what lets a different team pick this up without us, which is the whole point of the ownership principle.</p>
+          </div>
+          <div class="tech-item"><div class="tech-label">Security</div><h4>POPIA-grade by default</h4><p>Encrypted personal information, role isolation, an append-only hash-chained audit trail, and an external-access sweep before go-live. Data stays in the client's infrastructure.</p></div>
         <div class="tech-item"><div class="tech-label">Ownership</div><h4>Theirs from day one</h4><p>The client's Supabase project, the client's hosting, the client's domain. Standard tooling underneath, nothing to migrate later, source transferred on completion.</p></div>
       </div>
 
@@ -1233,44 +1240,43 @@
           <h2>Named on purpose,<br /><em>so nobody guesses later.</em></h2>
         </div>
         <div>
-          <p class="lead">A QA platform can absorb a year the moment it tries to model full QMS depth or every future stakeholder in version one. The MVP draws a deliberate line: every module below is in the price, and everything left out is named here, with its architecture already provided for, rather than discovered halfway through.</p>
+          <p class="lead">Your specification asks for the MVP to cover all five phases end to end, and it does. What the MVP deliberately does not carry is the version-two and version-three work your own commercial section names: dashboard and screen enhancements, and further automation such as reading scanned forms rather than transcribing them. Those sit in the retainer. The line below is drawn so nobody discovers it mid-build, and every deferred item is a feature on an architecture already paid for, not a rebuild.</p>
         </div>
       </div>
 
       <div class="table-wrap" role="region" aria-label="MVP scope and day allocation, scrollable" tabindex="0">
         <table class="feature-table">
-          <caption class="sub-label">Build days across the ten-week MVP. Design direction, documentation and training sit inside them and inside the price.</caption>
+          <caption class="sub-label">Seventy-four build days across the MVP. Design direction, the architecture document, training and the QA phase sit inside them and inside the price.</caption>
           <thead>
             <tr><th>Module</th><th>Days</th><th>What it covers</th></tr>
           </thead>
           <tbody>
-            <tr><td>Foundations and security model</td><td>4.0</td><td>Registers for testers, sites and lots. Roles for administrator, site supervisor and stakeholder. Row-level security and the append-only audit trail.</td></tr>
-            <tr><td>Certification workflow</td><td>5.0</td><td>Registration, training and assessment records, the sign-off chain, certificate issue, the tester's lifetime history.</td></tr>
-            <tr><td>PT management and scoring</td><td>6.0</td><td>Rounds, panel dispatch, result capture, configurable automatic scoring, the review queue and the remedial flow.</td></tr>
-            <tr><td>Certificates and renewals</td><td>4.0</td><td>PDF generation with the programme's numbering and branding, electronic signature with the printed fallback, the renewal schedule and notices.</td></tr>
-            <tr><td>Site readiness and lot verification</td><td>3.5</td><td>Scored checklists with corrective actions and re-assessment dates, the lot register with evidence attached.</td></tr>
-            <tr><td>Dashboards, reporting and AI assist</td><td>3.5</td><td>Role-based dashboards, exports, the stakeholder view, plus document intake and plain-language reporting from section seven.</td></tr>
-            <tr><td>SharePoint migration</td><td>3.0</td><td>Mapped export, AI-assisted cleanup with human approval on every merge, parallel run, reconciliation, cutover.</td></tr>
-            <tr><td>QA, UAT, training, handover</td><td>3.0</td><td>Security sweep, role-isolation test, the two-round UAT, administrator and supervisor training, the documentation pack.</td></tr>
-            <tr><td><strong style="color:var(--white)">Total</strong></td><td><strong style="color:var(--white)">32.0</strong></td><td><strong style="color:var(--white)">The whole lifecycle, migration included, one fixed price.</strong></td></tr>
+            <tr><td>Foundations, roles and audit</td><td>11.0</td><td>Data model for sites, testers, both certificate types and the tester site-history log. Four access tiers built God Mode first, then restricted downward. Append-only audit trail with before and after values. File storage for scans, signatures and reports.</td></tr>
+            <tr><td>The shared engines</td><td>19.0</td><td>Configurable HIV RT algorithm and PT rubric, held as data not code. Document generation for all ten templates. The testing-window and notification engine. The workflow and status engine. The dual-path layer: blank download, paper upload, administrator proxy entry.</td></tr>
+            <tr><td>Phase 1 &middot; First 10</td><td>5.0</td><td>Ten steps, barcode capture, automatic scoring at the 80% mark, authorisation letter and certificate generation, the retest and partial-batch paths, status dashboard.</td></tr>
+            <tr><td>Phase 2 &middot; PT certification</td><td>6.0</td><td>Seven steps, panel registration with target results, configurable panels and samples, both PT form variants, the rubric out of twenty, automatic pass and fail sort, status dashboard.</td></tr>
+            <tr><td>Phase 3 &middot; Expiry and renewal</td><td>3.0</td><td>Five steps, the on-screen renewal list filterable by region, site and days to expiry, the two-month trigger, and the route back into PT where a passed panel is missing.</td></tr>
+            <tr><td>Phase 4 &middot; Site readiness</td><td>6.0</td><td>Nine steps, the six-category checklist on device or on paper, the corrective-action loop against the same record, verification testing, automatic ready flag, site certificate.</td></tr>
+            <tr><td>Phase 5 &middot; Lot-to-lot</td><td>3.0</td><td>Four steps, twenty-sample old-kit against new-kit comparison, concordance and acceptability, report compiled and emailed to MoHSS and stakeholders.</td></tr>
+            <tr><td>Signatures and reporting</td><td>6.0</td><td>Electronic signature for both signatories with the print, sign and scan-back path beside it. Role-based dashboards, analytics and the quarterly MoHSS export.</td></tr>
+            <tr><td>SharePoint migration</td><td>5.0</td><td>Mapped export, cleanup with human approval on every merge, reconciliation against the source, cutover, and SharePoint into read-only retirement.</td></tr>
+            <tr><td>QA phase, UAT, training, handover</td><td>10.0</td><td>The dedicated testing phase before go-live. Security sweep and role-isolation testing. Two UAT rounds. Administrator and Super User training. Documentation pack. IT architecture document. Handover into your accounts.</td></tr>
+            <tr><td><strong style="color:var(--white)">Total</strong></td><td><strong style="color:var(--white)">74.0</strong></td><td><strong style="color:var(--white)">The whole specification: all five phases, the shared engines, migration and the QA phase.</strong></td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="sla-grid">
-        <div class="sla-item"><h4>No tester self-service portal in v1</h4><p>Administrators and site supervisors are the MVP's users; testers are records first, exactly as your spec allows. The role model already contains a tester login, so switching it on later is configuration and a small quote, not a rebuild.</p></div>
-        <div class="sla-item"><h4>No LIMS, HR or finance integrations</h4><p>Exports and imports cover v1. The system exposes a standard API from day one, so a named integration later is a bounded piece of work, quoted when it is named.</p></div>
-        <div class="sla-item"><h4>No offline mobile capture</h4><p>The MVP is responsive web, which covers site visits with connectivity. True offline field capture is its own project and is not silently half-included here.</p></div>
-        <div class="sla-item"><h4>No full QMS depth</h4><p>Readiness checklists and corrective actions are in. Document control, CAPA workflows and full ISO-style QMS live in a later phase, on the same registers.</p></div>
-        <div class="sla-item"><h4>One organisation at go-live</h4><p>The data model is multi-organisation from day one, because you flagged more users and organisations as the growth path. Onboarding the second organisation is configuration and a quote, not an architecture change.</p></div>
-        <div class="sla-item"><h4>No custom BI stack</h4><p>Dashboards and exports answer the MVP's reporting needs. If reporting outgrows them, a warehouse and BI layer plugs into the same PostgreSQL, nothing is thrown away.</p></div>
+        <div class="sla-item"><h4>Automated reading of scanned forms</h4><p>Your spec already places this in version two or three, and for good reason: transcription accuracy on handwritten clinical forms is where these projects quietly overrun. The MVP builds the upload and administrator-proxy path, which is the reliable half. Automated reading is then a bounded, separately costed addition on top of a pipeline that already works.</p></div>
+        <div class="sla-item"><h4>Dashboard and screen enhancements</h4><p>Each phase gets its status dashboard in the MVP, because administrators cannot run the programme without them. The deeper analytics and screen refinements your commercial section calls version two ride the same data, so they are additive.</p></div>
+        <div class="sla-item"><h4>Tester self-service portal</h4><p>The four access tiers, General User included, are built in the MVP, so the permission model already accounts for testers. Whether testers log in themselves at go-live or submit through their site is a switch and a rollout decision, not an architecture change.</p></div>
+        <div class="sla-item"><h4>Multi-country operation</h4><p>The data model carries country from day one because your spec asks for it, so the second country is configuration and data, not a migration. Only single-country operation is commissioned and tested in the MVP.</p></div>
+        <div class="sla-item"><h4>SMS as a notification channel</h4><p>Email is built. Your spec lists SMS as possible and not yet confirmed, so it is not silently priced in. The notification engine is channel-agnostic, so adding SMS later is a provider and a per-message cost, not new plumbing.</p></div>
+        <div class="sla-item"><h4>Validated lot dropdowns</h4><p>Lot numbers and expiry dates stay free text, exactly as your spec directs, because the lot pipeline with MoHSS and medical stores is not mature enough to validate against. Revisited when that pipeline is.</p></div>
+        <div class="sla-item"><h4>A LIMS or HR integration</h4><p>No named integration is in the MVP. The system exposes a standard API from day one, so a named system later is bounded work, quoted when it is named.</p></div>
+        <div class="sla-item"><h4>Full QMS depth</h4><p>Readiness checklists and corrective actions are in. Document control, CAPA workflows and ISO-style QMS depth are a later programme on the same registers.</p></div>
       </div>
-
-      <div class="sec-note">
-        <h4>Sensible phase two, in the client's order</h4>
-        <p>Tester self-service and mobile PT result capture. LIMS or HR integrations. Additional organisations and programmes on the same platform. Deeper analytics and stakeholder reporting. AI document intake at national scale. Offline field capture. Each is a bounded, separately quoted phase on the architecture the MVP already paid for, which is what future-proofing actually means in practice.</p>
       </div>
-    </div>
   </section>
 
   <div class="divider"></div>
@@ -1281,10 +1287,10 @@
       <div class="section-label">09 &middot; The Investment</div>
       <div class="grid-2">
         <div>
-          <h2>R200,000,<br /><em>and the client owns it.</em></h2>
+          <h2>R462,500,<br /><em>and the client owns it.</em></h2>
         </div>
         <div>
-          <p class="lead">One number, fixed, for everything on the scope page, migration and training included. It is indicative at this stage, priced off the high-level specification, and becomes a fixed quote within three working days of the walkthrough, before any commitment. Payment in three: 40% to start, 30% when certification is live on staging, 30% on handover.</p>
+          <p class="lead">One number for the MVP: every one of the five phases end to end, the shared engines beneath them, the SharePoint migration and the dedicated QA phase. It is priced off specification version three, at seventy-four scoped days, and stays indicative until the walkthrough closes the open items. The post-MVP versions are deliberately not priced here; they belong in the retainer, and the architecture is built so they arrive as configuration and features rather than a rebuild.</p>
         </div>
       </div>
 
@@ -1294,7 +1300,7 @@
           <div class="pricing-card-head">
             <div class="pricing-tier-label">Fixed price</div>
             <h4>The build</h4>
-            <div class="price-amount">R200,000<span class="price-period"> once</span></div>
+            <div class="price-amount">R462,500<span class="price-period"> once</span></div>
             <div class="price-total">The whole lifecycle on the scope page. Running cost after go-live is R1,500 to R3,500 a month for the whole programme.</div>
           </div>
           <div class="pricing-card-body">
@@ -1310,37 +1316,36 @@
 
         <div class="pricing-card">
           <div class="pricing-card-head">
-            <div class="pricing-tier-label">After go-live</div>
-            <h4>Care</h4>
-            <div class="price-amount">R6,500<span class="price-period"> / month</span></div>
-            <div class="price-total">The system kept healthy: hosting operations, monitoring, backups, security patches, small fixes.</div>
+            <div class="pricing-tier-label">After go-live &middot; rolling six months</div>
+            <h4>Development retainer</h4>
+            <div class="price-amount">R25,000<span class="price-period"> to R37,500 / month</span></div>
+            <div class="price-total">Four to six development days a month, plus the system kept healthy. The exact figure is set at the end of the MVP, when what is needed is known rather than guessed.</div>
           </div>
           <div class="pricing-card-body">
             <ul class="feature-list">
-              <li>Monitoring, backups and dependency updates</li>
-              <li>Small fixes inside two working days</li>
-              <li>A named contact, not a ticket queue</li>
-              <li>Month to month, thirty days notice</li>
+              <li>A stated day allocation, so scope moves without either side arguing about what support covers</li>
+              <li>Carries the post-MVP versions: dashboard and screen enhancements, then further automation such as reading scanned forms</li>
+              <li>Hosting operations, monitoring, backups, security patches and small fixes throughout</li>
+              <li>Rolling, reviewed at six months. This replaces fixed per-phase fees, as agreed on the discovery call</li>
             </ul>
           </div>
         </div>
+      </div>
 
-        <div class="pricing-card">
-          <div class="pricing-card-head">
-            <div class="pricing-tier-label">After go-live</div>
-            <h4>Build partner</h4>
-            <div class="price-amount">R16,000<span class="price-period"> / month</span></div>
-            <div class="price-total">Everything in Care, plus steady feature work from the phase-two list, one item at a time.</div>
-          </div>
-          <div class="pricing-card-body">
-            <ul class="feature-list">
-              <li>Everything in Care</li>
-              <li>Steady delivery from the phase-two list</li>
-              <li>Priority scheduling for new requirements</li>
-              <li>Three-month minimum, thirty days notice after</li>
-            </ul>
-          </div>
-        </div>
+      <div class="sub-label" style="margin-top:4rem">Certificate signatures, costed three ways</div>
+      <p style="max-width:78ch; margin-bottom:1.5rem">You asked for each automation approach to be costed separately. One constraint shapes the answer: the MoHSS Executive Director sits outside the client organisation. You can hold your own CEO's signature on file; you cannot hold a government official's. That rules out the simplest option on its own.</p>
+      <div class="table-wrap" role="region" aria-label="Certificate signature options and costs, scrollable" tabindex="0">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Option</th><th>Build</th><th>Running</th><th>What it means in practice</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1 &middot; Stored signature, internal only</td><td>R18,750<br /><span class="measured">3 days</span></td><td>None</td><td>A scanned signature held once per user profile and applied automatically on approval. Clean for the CEO. Does not solve the MoHSS signatory, so it cannot stand alone.</td></tr>
+            <tr><td>2 &middot; Full electronic signature</td><td>R37,500<br /><span class="measured">6 days</span></td><td>R0 self-hosted, or per-envelope fees if you mandate a named provider</td><td>Both signatories approve digitally, in sequence or in parallel, with the system tracking who has signed and when, and a tamper-evident record against the certificate. Handles the external signatory properly.</td></tr>
+            <tr><td>3 &middot; Print, sign, scan back</td><td>R12,500<br /><span class="measured">2 days</span></td><td>None</td><td>Download, physical signature and stamp, re-upload to close the loop, with the certificate's status tracked throughout so nothing sits unsigned unnoticed.</td></tr>
+            <tr><td><strong style="color:var(--white)">Recommended</strong></td><td><strong style="color:var(--white)">R37,500</strong></td><td><strong style="color:var(--white)">None</strong></td><td><strong style="color:var(--white)">Option 2, with option 3 always available beside it. The manual path has to exist at every step anyway under your dual-path requirement, so building it as the deliberate fallback costs nothing extra and covers the day a signatory is unreachable. This is the figure carried in the R462,500 above.</strong></td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="table-wrap" role="region" aria-label="Costs and dependencies, scrollable" tabindex="0">
@@ -1365,7 +1370,7 @@
       <div class="sec-note">
         <h4>What the price assumes, and what it deliberately is not</h4>
         <p>The price assumes the scope on this page, the high-level specification being representative of the detail, client material arriving on time, two revision rounds on certificate and report templates, and one organisation at go-live. Anything outside that is quoted before it starts, never absorbed and never surprised into an invoice.</p>
-        <p>For calibration: a system of this scope procured traditionally sits in the high six to seven figures and takes the better part of a year. The AI-first build method is the entire reason this is a ten-week, R200,000 MVP, and the client still ends up owning the code, which almost no traditional procurement gives them.</p>
+        <p>For calibration: specification version three is roughly a six-month build on a conventional route. At the day rates a development house charges over that period, the same scope sits between R1.3m and R2m before anyone talks about who owns the result. R462,500 across ten to sixteen weeks is a quarter to a third of that, and the client still ends up owning the code, the architecture document and the hosting accounts, which almost no traditional procurement gives them.</p>
       </div>
     </div>
   </section>
@@ -1378,25 +1383,26 @@
       <div class="section-label">10 &middot; To Start</div>
       <div class="grid-2">
         <div>
-          <h2>Six answers<br /><em>and a Thursday.</em></h2>
+          <h2>Six open items,<br /><em>then a fixed quote.</em></h2>
         </div>
         <div>
-          <p class="lead">You asked for an indicative costing this week; this page is it. The six answers below are what turn it into a fixed quote, and most of them already exist in the client's documents.</p>
+          <p class="lead">Specification version three closed most of what was open a week ago: the role model, the algorithm, the scoring rubric, the panel structure and the dual-path requirement are all written down now, and this page is priced against them. Six items remain. None blocks a decision in principle; all six turn this indicative number into a fixed one.</p>
         </div>
       </div>
 
       <div class="tech-grid">
-        <div class="tech-item"><div class="tech-label">01</div><h4>The specification walkthrough</h4><p>The session you offered. We arrive with this scope as the agenda and walk it against the detailed specification and process flows.</p></div>
-        <div class="tech-item"><div class="tech-label">02</div><h4>Users and roles</h4><p>How many administrators, supervisors and testers, and whether testers log in at MVP or only in phase two. We have assumed the latter.</p></div>
-        <div class="tech-item"><div class="tech-label">03</div><h4>A SharePoint sample</h4><p>An export of the current database, structure and rough volumes, so migration is sized on evidence rather than optimism.</p></div>
-        <div class="tech-item"><div class="tech-label">04</div><h4>Signatures</h4><p>Who signs what today, and where a printed or wet signature is mandated rather than preferred, so the electronic and manual routes are drawn correctly.</p></div>
-        <div class="tech-item"><div class="tech-label">05</div><h4>The scoring rules as they stand</h4><p>The current PT scoring criteria and testing algorithm documents, so the rules engine is configured from the programme's own material, not reconstructed.</p></div>
-        <div class="tech-item"><div class="tech-label">06</div><h4>Account ownership</h4><p>Who at the client creates the hosting and database accounts and carries the billing. We set them up together in week one; they are theirs from the first hour.</p></div>
+        <div class="tech-item"><div class="tech-label">01</div><h4>The specification walkthrough</h4><p>The session you offered. We arrive with this scope as the agenda, walk it against version three, and close the items below in one sitting rather than over a fortnight of email.</p></div>
+        <div class="tech-item"><div class="tech-label">02</div><h4>Which signature route</h4><p>Section nine costs all three. The recommendation is the full electronic workflow with the print-and-scan path beside it, because the MoHSS Executive Director is external to the organisation and a stored signature cannot cover them. Your call, and it moves the number by a known amount.</p></div>
+        <div class="tech-item"><div class="tech-label">03</div><h4>The PT rubric version</h4><p>Your spec carries the rubric mid-change: completeness and on-time marked phased out, correct test kit details marked new. Both total twenty. We build whichever is live at kickoff, and either way it stays editable, so the change is configuration rather than a variation.</p></div>
+        <div class="tech-item"><div class="tech-label">04</div><h4>Certificate validity, the one conflict</h4><p>Certificates read as two-year throughout, but Template 6 references an annual cycle for PITC and HBCT sites, and your own conflicts document flags it. It changes what the renewal engine schedules, so it needs a ruling rather than an assumption.</p></div>
+        <div class="tech-item"><div class="tech-label">05</div><h4>A SharePoint export and rough volumes</h4><p>A sample export with structure, plus roughly how many testers, sites and panels a year the programme runs. Migration and hosting are both sized on evidence rather than optimism. Five days is our estimate, not a survey.</p></div>
+        <div class="tech-item"><div class="tech-label">06</div><h4>Account ownership</h4><p>Who at the client opens the Cloudflare, database and email accounts and carries the billing. We set them up together in week one, in their name, so the ownership principle is real from the first commit rather than a transfer at the end.</p></div>
+      </div>
       </div>
 
       <div class="sec-note">
         <h4>How it starts</h4>
-        <p>A call this week to walk the specification, a fixed quote within three working days of it, then a signed scope and a start date. Certification is live on the staging link in week three.</p>
+        <p>The walkthrough, a fixed quote within three working days of it, then a signed scope and a start date. Phase one certification is running on the staging link inside the first eight weeks, so you see it working long before go-live.</p>
       </div>
 
       <div class="sec-note">
@@ -1420,8 +1426,8 @@
       <p>Three steps from here to certification live on staging.</p>
       <div class="steps-list">
         <div class="step-item"><span class="step-num">1</span><p>A specification walkthrough with Talia, Rachel and the client team, this week.</p></div>
-        <div class="step-item"><span class="step-num">2</span><p>A fixed quote within three working days, against the indicative R200,000 on this page.</p></div>
-        <div class="step-item"><span class="step-num">3</span><p>A signed scope and a start date. Certification is live on the staging link in week three.</p></div>
+        <div class="step-item"><span class="step-num">2</span><p>A fixed quote within three working days, against the indicative R462,500 on this page.</p></div>
+        <div class="step-item"><span class="step-num">3</span><p>A signed scope and a start date. Phase one certification is running on the staging link inside the first eight weeks.</p></div>
       </div>
       <form class="cta-form" id="acceptForm">
         <label class="vh" for="acceptName">Your name</label>
