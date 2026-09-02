@@ -698,7 +698,7 @@
         <div class="hero-meta">
           <div class="hero-meta-item headline"><label>MVP build, indicative</label><value>R200,000</value></div>
           <div class="hero-meta-item"><label>Timeline</label><value>8 to 10 weeks</value></div>
-          <div class="hero-meta-item"><label>Running cost</label><value>R500 to R2,100 / mo</value></div>
+          <div class="hero-meta-item"><label>Running cost</label><value>R520 to R2,120 / mo</value></div>
           <div class="hero-meta-item"><label>Ownership</label><value>Full IP and source to the client</value></div>
           <div class="hero-meta-item"><label>Prepared by</label><value>Aldo Calitz, Constellation</value></div>
           <div class="hero-meta-item"><label>For</label><value>Talia Ramjee, Lab TQA</value></div>
@@ -1154,22 +1154,55 @@
             <tr><td>Authentication</td><td><strong style="color:var(--white)">Supabase Auth</strong></td><td>Logins, sessions and the four roles. Part of the database platform, so permissions and identity are not two systems that can disagree.</td><td>Client's Supabase account</td><td>Included above</td><td>Password policy, optional multi-factor, session expiry. No credential ever stored by us.</td></tr>
             <tr><td>File storage</td><td><strong style="color:var(--white)">Supabase Storage</strong></td><td>Scanned forms, signed certificates, signature images, lot reports.</td><td>Client's Supabase account</td><td>R0 to R400 / mo</td><td>Private buckets, time-limited signed links. No file is publicly addressable.</td></tr>
             <tr><td>Email</td><td><strong style="color:var(--white)">Resend</strong></td><td>Certificate and letter dispatch, window reminders, renewal notices, the Phase 5 report to MoHSS.</td><td>Client's Resend account</td><td>R0 to R400 / mo</td><td>SPF, DKIM and DMARC configured at setup so mail is authenticated and does not land in spam.</td></tr>
-            <tr><td>Domain and certificate</td><td><strong style="color:var(--white)">Domain registrar</strong></td><td>The address the programme uses. A .na domain is registered through a Namibian registrar; anything else can sit with the hosting account.</td><td>Client's Cloudflare account</td><td>About R250 / year, roughly R21 / mo</td><td>Automatic TLS renewal. No manual certificate expiry to miss.</td></tr>
+            <tr><td>Domain and certificate</td><td><strong style="color:var(--white)">Domain registrar</strong></td><td>The address the programme uses. A .na domain is registered through a Namibian registrar; anything else can sit with the hosting account.</td><td>Client's registrar account</td><td>About R250 / year, roughly R21 / mo</td><td>Automatic TLS renewal. No manual certificate expiry to miss.</td></tr>
             <tr><td>Error monitoring</td><td><strong style="color:var(--white)">Sentry</strong></td><td>Catches a failure before a user reports it.</td><td>Client's Sentry account</td><td>R0, free tier</td><td>Configured to scrub personal data out of traces, so diagnostics never carry patient or tester detail.</td></tr>
             <tr><td>Source code</td><td><strong style="color:var(--white)">GitHub</strong></td><td>The code itself, with full history.</td><td>Client's GitHub organisation</td><td>R0</td><td>Private repository, transferred on completion. History included, not a zip file at the end.</td></tr>
-            <tr><td>Optional, post-MVP</td><td><strong style="color:var(--white)">Claude API</strong></td><td>Reading scanned forms automatically, if that version-three item is taken up.</td><td>Client's Anthropic account</td><td>Usage-based, R300 to R1,500 / mo</td><td>Not used in the MVP. When enabled, no record is used to train any model.</td></tr>
-            <tr><td><strong style="color:var(--white)">Total running cost</strong></td><td>Not applicable</td><td><strong style="color:var(--white)">Everything above, at this programme's scale</strong></td><td><strong style="color:var(--white)">All client-owned</strong></td><td><strong style="color:var(--white)">R500 to R2,100 / mo</strong></td><td>Not applicable</td></tr>
+            <tr><td>Language model</td><td><strong style="color:var(--white)">Two options</strong></td><td>Reading scanned forms, drafting assistance and plain-language reporting. Costed two ways in the next table, because the choice changes both the monthly figure and whether the platform itself ever calls an external model.</td><td>Client's account, either way</td><td>R150 to R3,800 / mo<br /><span class="measured">depends which</span></td><td>Under the harness option the production system makes no external model call at all. Neither option trains anything on your data.</td></tr>
+            <tr><td><strong style="color:var(--white)">Total running cost</strong></td><td>Not applicable</td><td><strong style="color:var(--white)">Every row above EXCEPT the language model, which is not in the MVP and is costed separately below. Summed down the cost column, with the domain amortised monthly.</strong></td><td><strong style="color:var(--white)">All client-owned</strong></td><td><strong style="color:var(--white)">R520 to R2,120 / mo</strong></td><td>Not applicable</td></tr>
           </tbody>
         </table>
       </div>
+
+      <div class="sub-label" style="margin-top:3.5rem">Language models, costed two ways</div>
+      <p style="max-width:80ch; margin-bottom:1.5rem">There are two honest ways to run the AI work, and they cost very differently. Both are priced below at MVP volumes. The assumption behind both, which is one of the six open items: roughly a hundred scanned documents a month across PT forms, First 10 forms, site assessments and lot verifications, plus around two hundred assistant requests. Confirm the real volumes at the walkthrough and these move accordingly. Converted at about R18.50 to the dollar.</p>
+      <div class="table-wrap" role="region" aria-label="Language model costing, harness against API, scrollable" tabindex="0">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Method</th><th>How it works</th><th>Monthly cost</th><th>What it buys you</th><th>What it costs you</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color:var(--white)">API method</strong><br /><span class="measured">metered</span></td>
+              <td>The platform calls the model itself. A scan is uploaded, extraction happens in the request, the administrator confirms the result. Billed per token.</td>
+              <td><strong style="color:var(--white)">R150 to R900</strong><br /><span class="measured">at MVP volumes</span></td>
+              <td>No manual step. Extraction is part of the workflow, so an administrator confirms rather than transcribes. Cheapest by a wide margin at this scale.</td>
+              <td>Cost rises with volume, and the production system sends document content to an external service, which needs a stated data-processing position for a health programme.</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--white)">Harness method</strong><br /><span class="measured">subscription</span></td>
+              <td>The platform makes no model call. An administrator runs batches through a subscription agentic tool on their own workstation and the confirmed output goes back into the system.</td>
+              <td><strong style="color:var(--white)">R1,900 to R3,800</strong><br /><span class="measured">per operator seat</span></td>
+              <td>A flat, predictable line on the budget whatever the volume, a human on every extraction by construction, and the production system never calls an external model. That last point is the real argument for a programme reporting to MoHSS.</td>
+              <td>It is a manual batch step, so it does not scale with the programme the way the API path does, and it costs more until volumes get large.</td>
+            </tr>
+            <tr>
+              <td><strong style="color:var(--white)">Where they cross</strong></td>
+              <td>Same work, different billing shape.</td>
+              <td colspan="3"><strong style="color:var(--white)">The API path stays cheaper until roughly 1,200 to 2,500 documents a month.</strong> At the volumes this programme runs today it is not close: the API path is the cheaper option by an order of magnitude. Choose the harness path if predictability or keeping model calls out of the production system matters more than the monthly figure, which for a health programme is a legitimate call rather than an expensive one.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="max-width:80ch; margin-top:1.25rem; margin-bottom:0">Neither is in the MVP price. Reading scanned forms automatically is your own specification's version-three item, and the MVP builds the upload and administrator-entry path it sits on top of. This table is here so the decision is costed before you need to make it, not after.</p>
 
       <div class="sub-label" style="margin-top:3.5rem">The security controls, and what each one actually prevents</div>
       <div class="sla-grid">
         <div class="sla-item"><h4>Least privilege, enforced in the database</h4><p>The four roles are not a UI convenience. Row-level security means a General User querying the database directly still cannot read another tester's record. An application bug cannot leak what the database will not return.</p></div>
         <div class="sla-item"><h4>Append-only audit trail</h4><p>Every create, update, approve and status change is written with the user, timestamp and before-and-after values, and the table takes no updates or deletes. It answers who changed what, when, and what it said before.</p></div>
         <div class="sla-item"><h4>Encryption in transit and at rest</h4><p>TLS 1.3 to the browser, encrypted storage underneath. Signed, time-limited links for every uploaded document.</p></div>
-        <div class="sla-item"><h4>POPIA alignment</h4><p>South African data-protection law is the operating standard: data minimisation, stated retention, subject-access and correction rights, and a named responsible party. Documented in the architecture document rather than asserted here.</p></div>
-        <div class="sla-item"><h4>Backups and recovery</h4><p>Automated backups with point-in-time recovery, and a restore actually tested during the QA phase rather than assumed to work. A backup nobody has restored is a hope.</p></div>
+        <div class="sla-item"><h4>Data protection, and whose law applies</h4><p>Worth separating: the programme is Namibian, reporting to MoHSS, while POPIA binds Lab TQA as the South African party in this chain. We build to POPIA and GDPR-grade controls because they are the strictest of the candidates and they travel: data minimisation, stated retention, subject access and correction, and a named responsible party. Which regime the client is actually held to is a question for the walkthrough, not an assumption for us to make in a proposal.</p></div>
+        <div class="sla-item"><h4>Backups and recovery</h4><p>Automated daily backups, and a restore actually tested during the QA phase rather than assumed to work, because a backup nobody has restored is a hope. Point-in-time recovery is a paid add-on on the database plan; we will price it with you rather than quietly assume the programme needs it.</p></div>
         <div class="sla-item"><h4>No personal data in logs</h4><p>Error traces and diagnostics are scrubbed. The most common way health systems leak is not a breach, it is a log file.</p></div>
         <div class="sla-item"><h4>Role isolation, tested</h4><p>Part of the QA phase, not a claim: we attempt to reach another tester's record as each role and prove it fails.</p></div>
         <div class="sla-item"><h4>Handover and access review</h4><p>At completion, every account is already in your client's name. We hand over the register of who has access to what, and our own access is removed on a date you set.</p></div>
@@ -1186,6 +1219,10 @@
         <div class="tech-item">
             <h4>Paper is a first-class path</h4>
             <p>Connectivity is not reliable everywhere the programme runs, so every form downloads blank in its original layout, comes back on paper, and is entered by an administrator against the same record. The choice is per submission, not a setting per tester, because the same person may submit digitally one round and on paper the next. The resulting record is identical either way, bar an entered-by note in the audit trail.</p>
+          </div>
+          <div class="tech-item">
+            <h4>An MCP server and a CLI, at no charge</h4>
+            <p>Two standard interfaces onto the same permissioned API the application uses, built and handed over free. The MCP server lets whichever AI assistant your client already runs, Claude or Copilot or the next one, answer "which certificates expire this quarter" against live data, through the same role checks as a human, without a bespoke integration and without opening the database. The CLI makes administration scriptable: bulk imports, scheduled exports, migration runs, without clicking through screens. They are free because they cost us little, sitting on the API that already exists, and because they are the clearest proof the ownership principle is real. A future team automates against a documented interface instead of reverse-engineering the app.</p>
           </div>
           <div class="tech-item">
             <h4>The architecture document</h4>
@@ -1214,7 +1251,7 @@
           <h2>AI where it saves hours,<br /><em>never where it signs.</em></h2>
         </div>
         <div>
-          <p class="lead">You asked where AI adds meaningful value. Our answer: in the workflows around the system of record, never inside its verdicts. Scores, certificates and audit entries stay deterministic and reviewable, because a programme that reports to MoHSS cannot have a model in the decision path. One thing to be clear about, since it changes the price: of everything below, only the drafting assistance is inside the MVP. Reading scanned forms automatically is your own specification's version-two item, and it is the largest of them. They are listed here as the roadmap the architecture is built for, and each is quoted when it is taken up.</p>
+          <p class="lead">You asked where AI adds meaningful value. Our answer: in the workflows around the system of record, never inside its verdicts. Scores, certificates and audit entries stay deterministic and reviewable, because a programme reporting to MoHSS cannot have a model in the decision path. To be unambiguous about the money: <strong>none of the capabilities below is inside the R200,000</strong>. The MVP builds the architecture they attach to, chiefly the upload and administrator-entry path that document reading sits on top of. Each is quoted when it is taken up, and the two ways of paying for the model itself are costed in section six.</p>
         </div>
       </div>
 
@@ -1279,7 +1316,7 @@
             <tr><td>Phase 1 &middot; First 10</td><td>2.5</td><td>Ten steps, barcode capture, automatic scoring at the 80% mark, the authorisation letter and certificate, the retest and partial-batch paths.</td></tr>
             <tr><td>Phase 2 &middot; PT certification</td><td>3.0</td><td>Seven steps, panel registration with target results, configurable panel and sample counts, both PT form variants, the rubric out of twenty, automatic pass and fail sort.</td></tr>
             <tr><td>Phase 3 &middot; Expiry and renewal</td><td>1.5</td><td>Five steps, the on-screen renewal list filterable by region, site and days to expiry, the two-month trigger, and the route back into PT where a passed panel is missing.</td></tr>
-            <tr><td>Phase 4 &middot; Site readiness</td><td>2.5</td><td>Nine steps, the six-category checklist on device or on paper, verification testing against pre-entered targets, the automatic ready flag and both certificates Step 8 generates. Failed items are recorded and the site notified; the fuller corrective-action tracking is named in section eight as a retainer item.</td></tr>
+            <tr><td>Phase 4 &middot; Site readiness</td><td>2.5</td><td>Nine steps, the six-category checklist on device or on paper, verification testing against pre-entered targets, the automatic ready flag and both certificates Step 8 generates. Failed items are recorded and the site notified; the fuller corrective-action tracking is a retainer item, listed with the rest below.</td></tr>
             <tr><td>Phase 5 &middot; Lot-to-lot</td><td>1.0</td><td>Four steps, the twenty-sample old-kit against new-kit comparison, concordance and acceptability per sample, and the report out to MoHSS.</td></tr>
             <tr><td>Paper as a first-class path</td><td>1.5</td><td>Every form downloadable blank in its own layout, completed on paper, uploaded back, and entered by an administrator against the same record. Chosen per submission, not per user.</td></tr>
             <tr><td>Dashboards and core reporting</td><td>2.0</td><td>A status dashboard per phase, cross-phase search by status, and the core lists your spec names: pass and fail by tester and site, expiring against actively participating, and the unverified-lot list.</td></tr>
@@ -1295,7 +1332,7 @@
         <div class="sla-item"><h4>The full electronic signature workflow</h4><p>The MVP ships the download, sign, stamp and scan-back path, with each certificate's signing status tracked so nothing sits unsigned unnoticed. The sequenced digital workflow for both signatories, which matters most for the MoHSS Executive Director because they sit outside your client's organisation, is costed separately below and is the natural second retainer item.</p></div>
         <div class="sla-item"><h4>Corrective-action depth in Phase 4</h4><p>The MVP records which checklist items failed, notifies the site and tracks the re-inspection. The fuller version, with per-item evidence, reminder scheduling and a full cycle history on one screen, follows in the retainer.</p></div>
         <div class="sla-item"><h4>Quarterly MoHSS exports</h4><p>Reporting and the per-phase dashboards are in. The formatted quarterly export pack for MoHSS is a defined, bounded piece of work once the exact format is confirmed, which your spec does not yet specify.</p></div>
-        <div class="sla-item"><h4>Reading scanned forms automatically</h4><p>Your own spec puts this in version two or three, and it is the right call: transcription accuracy on handwritten clinical forms is where these projects quietly overrun. The MVP builds the upload and administrator-proxy path, which is the reliable half and the one the programme needs on day one.</p></div>
+        <div class="sla-item"><h4>Reading scanned forms automatically</h4><p>Your own spec puts this in version three, and it is the right call: transcription accuracy on handwritten clinical forms is where these projects quietly overrun. The MVP builds the upload and administrator-proxy path, which is the reliable half and the one the programme needs on day one.</p></div>
         <div class="sla-item"><h4>Dashboard and screen enhancements</h4><p>Each phase gets its status dashboard in the MVP, because administrators cannot run the programme without them. The deeper analytics and screen refinements your commercial section calls version two ride the same data.</p></div>
         <div class="sla-item"><h4>Tester self-service logins</h4><p>All four roles are built, so the permission model already accounts for testers. Whether testers log in themselves at go-live or submit through their site is a rollout decision and a switch, not an architecture change.</p></div>
         <div class="sla-item"><h4>SMS, multi-country, validated lot lists</h4><p>Email is built; your spec lists SMS as possible and unconfirmed. The data model carries country from day one. Lot numbers stay free text exactly as your spec directs, until the MoHSS pipeline is mature enough to validate against. None of these is silently priced in.</p></div>
@@ -1325,12 +1362,13 @@
             <div class="pricing-tier-label">Fixed price</div>
             <h4>The build</h4>
             <div class="price-amount">R200,000<span class="price-period"> once</span></div>
-            <div class="price-total">The whole lifecycle on the scope page. Running cost after go-live is R500 to R2,100 a month for the whole programme, on your client's own accounts.</div>
+            <div class="price-total">The whole lifecycle on the scope page. Running cost after go-live is R520 to R2,120 a month for the whole programme, on your client's own accounts.</div>
           </div>
           <div class="pricing-card-body">
             <ul class="feature-list">
               <li>Every module named on the scope page</li>
               <li>The QA phase, UAT, training and handover included</li>
+              <li>An MCP server and a CLI for the platform, built and handed over at no charge</li>
               <li>Full IP and source transfer on completion</li>
               <li>Built under the client's own accounts from day one</li>
               <li>Indicative, confirmed as a fixed quote after the walkthrough</li>
@@ -1352,10 +1390,34 @@
               <li>Then version three: reading scanned forms automatically instead of transcribing them</li>
               <li>A stated day allocation, so scope moves without either side arguing about what support covers</li>
               <li>Hosting operations, monitoring, backups and security patches throughout</li>
-              <li>Rolling, reviewed at six months. This replaces fixed per-phase fees, as agreed on the call</li>
+              <li>Rolling and reviewed at six months, not a fixed end date. Six months at the top of the band is about thirty-six development days, so how much of the roadmap is done by then depends on what you prioritise. This replaces fixed per-phase fees, as agreed on the call</li>
             </ul>
           </div>
         </div>
+      </div>
+
+      <div class="sub-label" style="margin-top:4rem">How every number on this page is built</div>
+      <p style="max-width:80ch; margin-bottom:1.5rem">One rate, and everything else derived from it. You should be able to check any figure here without asking us, and challenge any row of the scope table without unpicking the whole quote.</p>
+      <div class="table-wrap" role="region" aria-label="Derivation of every figure on the page, scrollable" tabindex="0">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Figure</th><th>How it is derived</th><th>Result</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>The day rate</td><td>The single unit every figure below is built from. One senior developer, AI-first method, everything included: design, build, documentation and the client-facing time.</td><td><strong style="color:var(--white)">R6,250 per build day</strong></td></tr>
+            <tr><td>MVP build</td><td>32.0 scoped days multiplied by the day rate. The scope table above sums to exactly 32.0, line by line, so this is arithmetic rather than a judgement call.</td><td><strong style="color:var(--white)">R200,000</strong></td></tr>
+            <tr><td>Development retainer</td><td>Four to six development days a month at the same rate. The band is a day allocation, not a vague support fee, so what you are buying is countable.</td><td><strong style="color:var(--white)">R25,000 to R37,500 / month</strong></td></tr>
+            <tr><td>Full programme</td><td>The MVP plus six months of the retainer band: 200,000 + (6 x 25,000) at the low end, 200,000 + (6 x 37,500) at the high end.</td><td><strong style="color:var(--white)">R350,000 to R425,000</strong></td></tr>
+            <tr><td>Signature option 1</td><td>3 days at the day rate. Stored signature for the CEO only.</td><td>R18,750</td></tr>
+            <tr><td>Signature option 2</td><td>6 days at the day rate. The full workflow, handling the external MoHSS signatory.</td><td>R37,500</td></tr>
+            <tr><td>Signature option 3</td><td>2 days at the day rate. Sign and scan back. This is the one inside the MVP price.</td><td>R12,500</td></tr>
+            <tr><td>Running cost</td><td>The tool table in section six, summed down its cost column. Low end is the free tiers with the database on its base plan; high end is every service at its ceiling.</td><td>R520 to R2,120 / month</td></tr>
+            <tr><td>Language model, API method</td><td>Roughly 100 documents and 200 assistant requests a month, at published per-token rates, converted at about R18.50 to the dollar. Not in the MVP price.</td><td>R150 to R900 / month</td></tr>
+            <tr><td>Language model, harness method</td><td>One operator seat on a subscription agentic tool. Flat whatever the volume. Not in the MVP price.</td><td>R1,900 to R3,800 / month</td></tr>
+            <tr><td>MCP server and CLI</td><td>Built on the API that already exists, so the marginal cost to us is small and it is not charged for.</td><td><strong style="color:var(--white)">R0</strong></td></tr>
+            <tr><td>The conventional comparison</td><td>This specification is roughly a six-month build on a conventional route. Six months of a development house at R10,000 to R15,000 a day is where the comparison figure comes from.</td><td>R1.3m to R2m</td></tr>
+          </tbody>
+        </table>
       </div>
 
       <div class="sub-label" style="margin-top:4rem">Certificate signatures, costed three ways</div>
@@ -1374,7 +1436,7 @@
         </table>
       </div>
 
-      <p style="max-width:78ch">Every third-party dependency, what it costs and who owns the account is mapped in full in section six, together with the security control each one carries. Running cost at this programme's scale is R500 to R2,100 a month, all of it on your client's own accounts, and there is no per-user licensing anywhere: adding a tester is a permission, not a fee.</p>
+      <p style="max-width:78ch">Every third-party dependency, what it costs and who owns the account is mapped in full in section six, together with the security control each one carries. Running cost at this programme's scale is R520 to R2,120 a month, all of it on your client's own accounts, and there is no per-user licensing anywhere: adding a tester is a permission, not a fee.</p>
 
       <div class="sec-note">
         <h4>What the price assumes, and what it deliberately is not</h4>
