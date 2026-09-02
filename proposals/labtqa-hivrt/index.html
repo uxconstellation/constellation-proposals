@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lab TQA &middot; HIV Rapid Testing QA Platform | Constellation</title>
-  <meta name="description" content="A purpose-built platform for the full HIV Rapid Testing QA lifecycle: tester certification, proficiency testing, certificates, site readiness and lot verification. Client-owned, SharePoint retired. Indicative MVP R481,250." />
+  <meta name="description" content="A purpose-built platform for the full HIV Rapid Testing QA lifecycle: tester certification, proficiency testing, certificates, site readiness and lot verification. Client-owned, SharePoint retired. Indicative MVP R200,000." />
   <meta name="robots" content="noindex, nofollow" />
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
@@ -696,9 +696,9 @@
       <div class="glass-card">
         <div class="glass-label">At a glance</div>
         <div class="hero-meta">
-          <div class="hero-meta-item headline"><label>MVP build, indicative</label><value>R481,250</value></div>
-          <div class="hero-meta-item"><label>Timeline</label><value>10 to 16 weeks</value></div>
-          <div class="hero-meta-item"><label>Running cost</label><value>R1,500 to R3,500 / mo</value></div>
+          <div class="hero-meta-item headline"><label>MVP build, indicative</label><value>R200,000</value></div>
+          <div class="hero-meta-item"><label>Timeline</label><value>8 to 10 weeks</value></div>
+          <div class="hero-meta-item"><label>Running cost</label><value>R900 to R2,100 / mo</value></div>
           <div class="hero-meta-item"><label>Ownership</label><value>Full IP and source to the client</value></div>
           <div class="hero-meta-item"><label>Prepared by</label><value>Aldo Calitz, Constellation</value></div>
           <div class="hero-meta-item"><label>For</label><value>Talia Ramjee, Lab TQA</value></div>
@@ -1075,7 +1075,7 @@
       <div class="section-label">05 &middot; The Timeline</div>
       <div class="grid-2">
         <div>
-          <h2>Ten to sixteen<br /><em>working weeks.</em></h2>
+          <h2>Eight to ten<br /><em>working weeks.</em></h2>
         </div>
         <div>
           <p class="lead">Six stages, in the order the programme actually depends on them. The shared engines come first, because every scoring phase runs the same algorithm, generates from the same document layer and reports into the same status view; building them once is what keeps the later phases short. A conventional route to the same specification is roughly six months. The range is honest rather than a single date: the spec still carries open items, and a fixed quote follows the walkthrough.</p>
@@ -1150,15 +1150,49 @@
 
   <section class="section section--alt" id="tech">
     <div class="container">
-      <div class="section-label">06 &middot; The Technical Breakdown</div>
+      <div class="section-label">06 &middot; IT Architecture, Security and Tooling Costs</div>
       <div class="grid-2">
         <div>
-          <h2>Standard pieces,<br /><em>none of them proprietary.</em></h2>
+          <h2>Every tool named,<br /><em>every account theirs.</em></h2>
         </div>
         <div>
-          <p class="lead">Nothing here is a black box. If the client ever changes teams, they hold a standard PostgreSQL database and a standard React codebase under their own accounts, not an export from a platform they do not own.</p>
+          <p class="lead">Your spec asks for every third-party platform, licence and dependency to be identified upfront, and for the compliance controls to be documented rather than assumed. Both tables below are the short version; the IT architecture document delivered with the build is the long one. Nothing here is a black box, and every account is opened in your client's name, so a different team can take this over without us.</p>
         </div>
       </div>
+      <div class="sub-label">The tools, what each does, who owns the account, and what it costs</div>
+      <div class="table-wrap" role="region" aria-label="Third-party tools, ownership and costs, scrollable" tabindex="0">
+        <table class="feature-table">
+          <thead>
+            <tr><th>Layer</th><th>Tool</th><th>What it does and why</th><th>Account owner</th><th>Cost</th><th>Security</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Application hosting</td><td><strong style="color:var(--white)">Cloudflare Workers</strong></td><td>Serves the application and the domain. Chosen for in-region speed, a hardened edge and a free tier that covers this programme's scale.</td><td>Client's Cloudflare account</td><td>R0 to R350 / mo</td><td>TLS by default, DDoS absorption and WAF at the edge before traffic reaches the app.</td></tr>
+            <tr><td>Database</td><td><strong style="color:var(--white)">Supabase, PostgreSQL</strong></td><td>Every record: testers, sites, certificates, panels, results, audit. Standard PostgreSQL, the most portable database there is.</td><td>Client's Supabase account</td><td>R500 to R950 / mo</td><td>Row-level security enforced in the database, not the application. Encrypted at rest. Point-in-time recovery.</td></tr>
+            <tr><td>Authentication</td><td><strong style="color:var(--white)">Supabase Auth</strong></td><td>Logins, sessions and the four roles. Part of the database platform, so permissions and identity are not two systems that can disagree.</td><td>Client's Supabase account</td><td>Included above</td><td>Password policy, optional multi-factor, session expiry. No credential ever stored by us.</td></tr>
+            <tr><td>File storage</td><td><strong style="color:var(--white)">Supabase Storage</strong></td><td>Scanned forms, signed certificates, signature images, lot reports.</td><td>Client's Supabase account</td><td>R0 to R400 / mo</td><td>Private buckets, time-limited signed links. No file is publicly addressable.</td></tr>
+            <tr><td>Email</td><td><strong style="color:var(--white)">Resend</strong></td><td>Certificate and letter dispatch, window reminders, renewal notices, the Phase 5 report to MoHSS.</td><td>Client's Resend account</td><td>R0 to R400 / mo</td><td>SPF, DKIM and DMARC configured at setup so mail is authenticated and does not land in spam.</td></tr>
+            <tr><td>Domain and certificate</td><td><strong style="color:var(--white)">Cloudflare Registrar</strong></td><td>The address the programme uses.</td><td>Client's Cloudflare account</td><td>About R250 / year</td><td>Automatic TLS renewal. No manual certificate expiry to miss.</td></tr>
+            <tr><td>Error monitoring</td><td><strong style="color:var(--white)">Sentry</strong></td><td>Catches a failure before a user reports it.</td><td>Client's Sentry account</td><td>R0, free tier</td><td>Configured to scrub personal data out of traces, so diagnostics never carry patient or tester detail.</td></tr>
+            <tr><td>Source code</td><td><strong style="color:var(--white)">GitHub</strong></td><td>The code itself, with full history.</td><td>Client's GitHub organisation</td><td>R0</td><td>Private repository, transferred on completion. History included, not a zip file at the end.</td></tr>
+            <tr><td>Optional, post-MVP</td><td><strong style="color:var(--white)">Claude API</strong></td><td>Reading scanned forms automatically, if that version-three item is taken up.</td><td>Client's Anthropic account</td><td>Usage-based, R300 to R1,500 / mo</td><td>Not used in the MVP. When enabled, no record is used to train any model.</td></tr>
+            <tr><td><strong style="color:var(--white)">Total running cost</strong></td><td>Not applicable</td><td><strong style="color:var(--white)">Everything above, at this programme's scale</strong></td><td><strong style="color:var(--white)">All client-owned</strong></td><td><strong style="color:var(--white)">R900 to R2,100 / mo</strong></td><td>Not applicable</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sub-label" style="margin-top:3.5rem">The security controls, and what each one actually prevents</div>
+      <div class="sla-grid">
+        <div class="sla-item"><h4>Least privilege, enforced in the database</h4><p>The four roles are not a UI convenience. Row-level security means a General User querying the database directly still cannot read another tester's record. An application bug cannot leak what the database will not return.</p></div>
+        <div class="sla-item"><h4>Append-only audit trail</h4><p>Every create, update, approve and status change is written with the user, timestamp and before-and-after values, and the table takes no updates or deletes. It answers who changed what, when, and what it said before.</p></div>
+        <div class="sla-item"><h4>Encryption in transit and at rest</h4><p>TLS 1.3 to the browser, encrypted storage underneath. Signed, time-limited links for every uploaded document.</p></div>
+        <div class="sla-item"><h4>POPIA alignment</h4><p>South African data-protection law is the operating standard: data minimisation, stated retention, subject-access and correction rights, and a named responsible party. Documented in the architecture document rather than asserted here.</p></div>
+        <div class="sla-item"><h4>Backups and recovery</h4><p>Automated backups with point-in-time recovery, and a restore actually tested during the QA phase rather than assumed to work. A backup nobody has restored is a hope.</p></div>
+        <div class="sla-item"><h4>No personal data in logs</h4><p>Error traces and diagnostics are scrubbed. The most common way health systems leak is not a breach, it is a log file.</p></div>
+        <div class="sla-item"><h4>Role isolation, tested</h4><p>Part of the QA phase, not a claim: we attempt to reach another tester's record as each role and prove it fails.</p></div>
+        <div class="sla-item"><h4>Handover and access review</h4><p>At completion, every account is already in your client's name. We hand over the register of who has access to what, and our own access is removed on a date you set.</p></div>
+      </div>
+
+      <div class="sub-label" style="margin-top:3.5rem">Why the stack is shaped this way</div>
       <div class="tech-grid">
         <div class="tech-item"><div class="tech-label">Frontend</div><h4>React + TypeScript</h4><p>The console, dashboards and every workflow screen as an ordinary React codebase. Editable by any development team, not locked to one tool or one vendor.</p></div>
         <div class="tech-item"><div class="tech-label">Backend</div><h4>Cloudflare + PostgreSQL</h4>
@@ -1243,45 +1277,46 @@
       <div class="section-label">08 &middot; What The MVP Includes</div>
       <div class="grid-2">
         <div>
-          <h2>Named on purpose,<br /><em>so nobody guesses later.</em></h2>
+          <h2>What the MVP holds back,<br /><em>named on purpose.</em></h2>
         </div>
         <div>
-          <p class="lead">Your specification asks for the MVP to cover all five phases end to end, and it does. What the MVP deliberately does not carry is the version-two and version-three work your own commercial section names: dashboard and screen enhancements, and further automation such as reading scanned forms rather than transcribing them. Those sit in the retainer. The line below is drawn so nobody discovers it mid-build, and every deferred item is a feature on an architecture already paid for, not a rebuild.</p>
+          <p class="lead">All five phases run end to end in the MVP. What is held back is depth, not coverage, and every deferred item is named here rather than discovered later. Each one lands in the retainer on an architecture the MVP has already paid for, which is the only honest meaning of future-proofing.</p>
         </div>
       </div>
 
       <div class="table-wrap" role="region" aria-label="MVP scope and day allocation, scrollable" tabindex="0">
         <table class="feature-table">
-          <caption class="sub-label">Seventy-seven build days across the MVP. Design direction, the architecture document, training and the QA phase sit inside them and inside the price.</caption>
+          <caption class="sub-label">Thirty-two build days across the MVP. Design direction, the architecture document, training and the QA phase sit inside them and inside the price.</caption>
           <thead>
             <tr><th>Module</th><th>Days</th><th>What it covers</th></tr>
           </thead>
           <tbody>
-            <tr><td>Foundations, roles and audit</td><td>11.0</td><td>Data model for sites, testers, both certificate types and the tester site-history log. All four roles from your table, built God Mode first then restricted downward. Append-only audit trail with before and after values. File storage for scans, signatures and reports.</td></tr>
-            <tr><td>The shared engines</td><td>19.0</td><td>Configurable HIV RT algorithm and PT rubric, held as data not code. Document generation for all eleven documents: the ten numbered templates plus the unnumbered site authorisation certificate. The testing-window and notification engine. The workflow and status engine. The dual-path layer: blank download, paper upload, administrator proxy entry.</td></tr>
-            <tr><td>Phase 1 &middot; First 10</td><td>5.0</td><td>Ten steps, barcode capture, automatic scoring at the 80% mark, authorisation letter and certificate generation, the retest and partial-batch paths, status dashboard.</td></tr>
-            <tr><td>Phase 2 &middot; PT certification</td><td>6.0</td><td>Seven steps, panel registration with target results, configurable panels and samples, both PT form variants, the rubric out of twenty, automatic pass and fail sort, status dashboard.</td></tr>
-            <tr><td>Phase 3 &middot; Expiry and renewal</td><td>3.0</td><td>Five steps, the on-screen renewal list filterable by region, site and days to expiry, the two-month trigger, and the route back into PT where a passed panel is missing.</td></tr>
-            <tr><td>Phase 4 &middot; Site readiness</td><td>6.0</td><td>Nine steps, the six-category checklist on device or on paper, the corrective-action loop against the same record, verification testing, automatic ready flag, then both documents Step 8 generates: the authorisation certificate and the site certificate.</td></tr>
-            <tr><td>Phase 5 &middot; Lot-to-lot</td><td>3.0</td><td>Four steps, twenty-sample old-kit against new-kit comparison, concordance and acceptability, report compiled and emailed to MoHSS and stakeholders.</td></tr>
-            <tr><td>Electronic signatures</td><td>6.0</td><td>The full workflow for both signatories, sequenced, with the system tracking who has signed and a tamper-evident record against the certificate. The print, sign and scan-back path is built beside it, not instead of it. This is option 2 in the table below, carried in full.</td></tr>
-            <tr><td>Reporting and dashboards</td><td>3.0</td><td>Role-based dashboards, the analytics view and the quarterly MoHSS export.</td></tr>
-            <tr><td>SharePoint migration</td><td>5.0</td><td>Mapped export, cleanup with human approval on every merge, reconciliation against the source, cutover, and SharePoint into read-only retirement.</td></tr>
-            <tr><td>QA phase, UAT, training, handover</td><td>10.0</td><td>The dedicated testing phase before go-live. Security sweep and role-isolation testing. Two UAT rounds. Administrator and Super User training. Documentation pack. IT architecture document. Handover into your accounts.</td></tr>
-            <tr><td><strong style="color:var(--white)">Total</strong></td><td><strong style="color:var(--white)">77.0</strong></td><td><strong style="color:var(--white)">The whole specification: all five phases, the shared engines, migration and the QA phase.</strong></td></tr>
+            <tr><td>Foundations, roles and audit</td><td>6.0</td><td>Sites, testers, both certificate types and the tester site-history log. The four roles your table defines, built God Mode first then restricted downward. Append-only audit trail with before and after values. Storage for scans and signed documents.</td></tr>
+            <tr><td>The shared engines</td><td>9.0</td><td>The configurable HIV RT algorithm and PT rubric, held as data so a Super User changes either without a developer. Document generation for the certificates and letters. The testing-window and notification engine. The workflow and status engine every phase reports into.</td></tr>
+            <tr><td>Phase 1 &middot; First 10</td><td>2.5</td><td>Ten steps, barcode capture, automatic scoring at the 80% mark, the authorisation letter and certificate, the retest and partial-batch paths.</td></tr>
+            <tr><td>Phase 2 &middot; PT certification</td><td>3.0</td><td>Seven steps, panel registration with target results, configurable panel and sample counts, both PT form variants, the rubric out of twenty, automatic pass and fail sort.</td></tr>
+            <tr><td>Phase 3 &middot; Expiry and renewal</td><td>1.5</td><td>Five steps, the on-screen renewal list filterable by region, site and days to expiry, the two-month trigger, and the route back into PT where a passed panel is missing.</td></tr>
+            <tr><td>Phase 4 &middot; Site readiness</td><td>2.0</td><td>Nine steps, the six-category checklist on device or on paper, corrective actions tracked against the same record, verification testing and the automatic ready flag.</td></tr>
+            <tr><td>Phase 5 &middot; Lot-to-lot</td><td>1.0</td><td>Four steps, the twenty-sample old-kit against new-kit comparison, concordance and acceptability per sample, and the report out to MoHSS.</td></tr>
+            <tr><td>Paper as a first-class path</td><td>1.5</td><td>Every form downloadable blank in its own layout, completed on paper, uploaded back, and entered by an administrator against the same record. Chosen per submission, not per user.</td></tr>
+            <tr><td>Status dashboards</td><td>1.5</td><td>One per phase, so an administrator never opens records one at a time to see where a batch stands, plus search across testers and sites by status.</td></tr>
+            <tr><td>Certificate signatures</td><td>1.0</td><td>The download, sign, stamp and scan-back path with the certificate's status tracked throughout, so nothing sits unsigned unnoticed. The full electronic workflow is the first retainer item, costed below.</td></tr>
+            <tr><td>QA phase, training, handover</td><td>3.0</td><td>The dedicated testing phase before go-live: security sweep, role-isolation testing, UAT with your team. Administrator and Super User training, the documentation pack, the IT architecture document, and handover into your accounts.</td></tr>
+            <tr><td><strong style="color:var(--white)">Total</strong></td><td><strong style="color:var(--white)">32.0</strong></td><td><strong style="color:var(--white)">A working system across all five phases, tested, trained and handed over.</strong></td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="sla-grid">
-        <div class="sla-item"><h4>Automated reading of scanned forms</h4><p>Your spec already places this in version two or three, and for good reason: transcription accuracy on handwritten clinical forms is where these projects quietly overrun. The MVP builds the upload and administrator-proxy path, which is the reliable half. Automated reading is then a bounded, separately costed addition on top of a pipeline that already works.</p></div>
-        <div class="sla-item"><h4>Dashboard and screen enhancements</h4><p>Each phase gets its status dashboard in the MVP, because administrators cannot run the programme without them. The deeper analytics and screen refinements your commercial section calls version two ride the same data, so they are additive.</p></div>
-        <div class="sla-item"><h4>Tester self-service portal</h4><p>The four roles, General User included, are built in the MVP, so the permission model already accounts for testers. Whether testers log in themselves at go-live or submit through their site is a switch and a rollout decision, not an architecture change.</p></div>
-        <div class="sla-item"><h4>Multi-country operation</h4><p>The data model carries country from day one because your spec asks for it, so the second country is configuration and data, not a migration. Only single-country operation is commissioned and tested in the MVP.</p></div>
-        <div class="sla-item"><h4>SMS as a notification channel</h4><p>Email is built. Your spec lists SMS as possible and not yet confirmed, so it is not silently priced in. The notification engine is channel-agnostic, so adding SMS later is a provider and a per-message cost, not new plumbing.</p></div>
-        <div class="sla-item"><h4>Validated lot dropdowns</h4><p>Lot numbers and expiry dates stay free text, exactly as your spec directs, because the lot pipeline with MoHSS and medical stores is not mature enough to validate against. Revisited when that pipeline is.</p></div>
-        <div class="sla-item"><h4>A LIMS or HR integration</h4><p>No named integration is in the MVP. The system exposes a standard API from day one, so a named system later is bounded work, quoted when it is named.</p></div>
-        <div class="sla-item"><h4>Full QMS depth</h4><p>Readiness checklists and corrective actions are in. Document control, CAPA workflows and ISO-style QMS depth are a later programme on the same registers.</p></div>
+        <div class="sla-item"><h4>SharePoint migration &middot; first retainer item</h4><p>The MVP goes live for new work: new First 10 batches, the next PT round, new site assessments. Historical records migrate immediately afterwards, mapped and reconciled against the source, and SharePoint then goes read-only. Sequencing it this way gets the programme onto the new system weeks earlier and keeps the migration off the critical path, where it would otherwise hold up go-live for everyone.</p></div>
+        <div class="sla-item"><h4>The full electronic signature workflow</h4><p>The MVP ships the download, sign, stamp and scan-back path, with each certificate's signing status tracked so nothing sits unsigned unnoticed. The sequenced digital workflow for both signatories, which matters most for the MoHSS Executive Director because they sit outside your client's organisation, is costed separately below and is the natural second retainer item.</p></div>
+        <div class="sla-item"><h4>Corrective-action depth in Phase 4</h4><p>The MVP records which checklist items failed, notifies the site and tracks the re-inspection. The fuller version, with per-item evidence, reminder scheduling and a full cycle history on one screen, follows in the retainer.</p></div>
+        <div class="sla-item"><h4>Quarterly MoHSS exports</h4><p>Reporting and the per-phase dashboards are in. The formatted quarterly export pack for MoHSS is a defined, bounded piece of work once the exact format is confirmed, which your spec does not yet specify.</p></div>
+        <div class="sla-item"><h4>Reading scanned forms automatically</h4><p>Your own spec puts this in version two or three, and it is the right call: transcription accuracy on handwritten clinical forms is where these projects quietly overrun. The MVP builds the upload and administrator-proxy path, which is the reliable half and the one the programme needs on day one.</p></div>
+        <div class="sla-item"><h4>Dashboard and screen enhancements</h4><p>Each phase gets its status dashboard in the MVP, because administrators cannot run the programme without them. The deeper analytics and screen refinements your commercial section calls version two ride the same data.</p></div>
+        <div class="sla-item"><h4>Tester self-service logins</h4><p>All four roles are built, so the permission model already accounts for testers. Whether testers log in themselves at go-live or submit through their site is a rollout decision and a switch, not an architecture change.</p></div>
+        <div class="sla-item"><h4>SMS, multi-country, validated lot lists</h4><p>Email is built; your spec lists SMS as possible and unconfirmed. The data model carries country from day one. Lot numbers stay free text exactly as your spec directs, until the MoHSS pipeline is mature enough to validate against. None of these is silently priced in.</p></div>
+      </div>
       </div>
       </div>
   </section>
@@ -1294,10 +1329,10 @@
       <div class="section-label">09 &middot; The Investment</div>
       <div class="grid-2">
         <div>
-          <h2>R481,250,<br /><em>and the client owns it.</em></h2>
+          <h2>R200,000,<br /><em>and the client owns it.</em></h2>
         </div>
         <div>
-          <p class="lead">One number for the MVP: every one of the five phases end to end, the shared engines beneath them, the SharePoint migration and the dedicated QA phase. It is priced off specification version three, at seventy-seven scoped days, and stays indicative until the walkthrough closes the open items. The post-MVP versions are deliberately not priced here; they belong in the retainer, and the architecture is built so they arrive as configuration and features rather than a rebuild.</p>
+          <p class="lead">Two numbers, and they work together. R200,000 builds a working system across all five phases, tested, trained and handed over. The rolling retainer then completes the depth, in the order you decide once the MVP is live and you can see what actually matters. That split is your own commercial section's structure, and it is deliberate: the full specification at full depth is a seventy-seven day build, and pricing that as one lump would put a number in front of your client that the programme does not need to spend on day one.</p>
         </div>
       </div>
 
@@ -1307,8 +1342,8 @@
           <div class="pricing-card-head">
             <div class="pricing-tier-label">Fixed price</div>
             <h4>The build</h4>
-            <div class="price-amount">R481,250<span class="price-period"> once</span></div>
-            <div class="price-total">The whole lifecycle on the scope page. Running cost after go-live is R1,500 to R3,500 a month for the whole programme.</div>
+            <div class="price-amount">R200,000<span class="price-period"> once</span></div>
+            <div class="price-total">The whole lifecycle on the scope page. Running cost after go-live is R900 to R2,100 a month for the whole programme, on your client's own accounts.</div>
           </div>
           <div class="pricing-card-body">
             <ul class="feature-list">
@@ -1326,14 +1361,16 @@
             <div class="pricing-tier-label">After go-live &middot; rolling six months</div>
             <h4>Development retainer</h4>
             <div class="price-amount" style="font-size:1.85rem">R25,000 to R37,500<span class="price-period"> / month</span></div>
-            <div class="price-total">Four to six development days a month, plus the system kept healthy. The exact figure is set at the end of the MVP, when what is needed is known rather than guessed.</div>
+            <div class="price-total">Four to six development days a month. This is where the MVP is completed, in your priority order, and where the system keeps growing after that.</div>
           </div>
           <div class="pricing-card-body">
             <ul class="feature-list">
+              <li>First: the SharePoint migration and the full electronic signature workflow, the two largest items held back from the MVP</li>
+              <li>Then the depth: corrective-action tracking, quarterly MoHSS exports, dashboard and screen enhancements</li>
+              <li>Then version three: reading scanned forms automatically instead of transcribing them</li>
               <li>A stated day allocation, so scope moves without either side arguing about what support covers</li>
-              <li>Carries the post-MVP versions: dashboard and screen enhancements, then further automation such as reading scanned forms</li>
-              <li>Hosting operations, monitoring, backups, security patches and small fixes throughout</li>
-              <li>Rolling, reviewed at six months. This replaces fixed per-phase fees, as agreed on the discovery call</li>
+              <li>Hosting operations, monitoring, backups and security patches throughout</li>
+              <li>Rolling, reviewed at six months. This replaces fixed per-phase fees, as agreed on the call</li>
             </ul>
           </div>
         </div>
@@ -1350,34 +1387,17 @@
             <tr><td>1 &middot; Stored signature, internal only</td><td>R18,750<br /><span class="measured">3 days</span></td><td>None</td><td>A scanned signature held once per user profile and applied automatically on approval. Clean for the CEO. Does not solve the MoHSS signatory, so it cannot stand alone.</td></tr>
             <tr><td>2 &middot; Full electronic signature</td><td>R37,500<br /><span class="measured">6 days</span></td><td>R0 self-hosted, or per-envelope fees if you mandate a named provider</td><td>Both signatories approve digitally, in sequence or in parallel, with the system tracking who has signed and when, and a tamper-evident record against the certificate. Handles the external signatory properly.</td></tr>
             <tr><td>3 &middot; Print, sign, scan back</td><td>R12,500<br /><span class="measured">2 days</span></td><td>None</td><td>Download, physical signature and stamp, re-upload to close the loop, with the certificate's status tracked throughout so nothing sits unsigned unnoticed.</td></tr>
-            <tr><td><strong style="color:var(--white)">Recommended</strong></td><td><strong style="color:var(--white)">R37,500</strong></td><td><strong style="color:var(--white)">None</strong></td><td><strong style="color:var(--white)">Option 2, with option 3 always available beside it. The manual path has to exist at every step anyway under your dual-path requirement, so building it as the deliberate fallback costs nothing extra and covers the day a signatory is unreachable. This is the figure carried in the R481,250 above.</strong></td></tr>
+            <tr><td><strong style="color:var(--white)">In the MVP</strong></td><td><strong style="color:var(--white)">Option 3</strong></td><td><strong style="color:var(--white)">None</strong></td><td><strong style="color:var(--white)">The manual path has to exist at every step anyway under your dual-path requirement, so the MVP builds it properly rather than as an afterthought. Option 2 is the natural first or second retainer item, at R37,500, and the recommendation once the programme is live.</strong></td></tr>
           </tbody>
         </table>
       </div>
 
-      <div class="table-wrap" role="region" aria-label="Costs and dependencies, scrollable" tabindex="0">
-        <table class="feature-table">
-          <caption class="sub-label">Every third-party dependency, named up front, exactly as you asked. Account ownership sits with the client; ranges are at MVP volumes.</caption>
-          <thead>
-            <tr><th>Service</th><th>What it does</th><th>Account owner</th><th>Cost</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Supabase</td><td>Database, authentication, file storage, the audit trail's home.</td><td>The client</td><td>About R500 to R950 / month</td></tr>
-            <tr><td>Application hosting</td><td>Serves the application itself.</td><td>The client</td><td>R0 to R400 / month</td></tr>
-            <tr><td>Email delivery</td><td>Renewal notices, PT reminders, escalations.</td><td>The client</td><td>R0 to R400 / month at MVP volume</td></tr>
-            <tr><td>AI usage</td><td>Document intake, validation, reporting and the assistant, billed on use.</td><td>The client</td><td>Roughly R300 to R1,500 / month, capped and monitored</td></tr>
-            <tr><td>Electronic signature</td><td>Built into the platform with a full audit entry. No per-signature licence.</td><td>Included</td><td>R0</td></tr>
-            <tr><td>SMS notifications, optional</td><td>Only if the programme wants SMS alongside email.</td><td>The client</td><td>Usage-based, about R0.40 per message</td></tr>
-            <tr><td>Domain and TLS</td><td>The system's own address; certificates are free.</td><td>The client</td><td>About R150 to R300 / year</td></tr>
-            <tr><td><strong style="color:var(--white)">Indicative monthly allowance</strong></td><td><strong style="color:var(--white)">No per-user licensing anywhere. Adding users is a permission, not a fee.</strong></td><td><strong style="color:var(--white)">The client</strong></td><td><strong style="color:var(--white)">R1,500 to R3,500 / month</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <p style="max-width:78ch">Every third-party dependency, what it costs and who owns the account is mapped in full in section six, together with the security control each one carries. Running cost at this programme's scale is R900 to R2,100 a month, all of it on your client's own accounts, and there is no per-user licensing anywhere: adding a tester is a permission, not a fee.</p>
 
       <div class="sec-note">
         <h4>What the price assumes, and what it deliberately is not</h4>
         <p>The price assumes the scope on this page, the high-level specification being representative of the detail, client material arriving on time, two revision rounds on certificate and report templates, and one organisation at go-live. Anything outside that is quoted before it starts, never absorbed and never surprised into an invoice.</p>
-        <p>For calibration: specification version three is roughly a six-month build on a conventional route. At the day rates a development house charges over that period, the same scope sits between R1.3m and R2m before anyone talks about who owns the result. R481,250 across ten to sixteen weeks is a quarter to a third of that, and the client still ends up owning the code, the architecture document and the hosting accounts, which almost no traditional procurement gives them.</p>
+        <p style="max-width:78ch; margin-top:2rem; color:var(--text-light)">For calibration: this specification built conventionally is roughly six months, which at development-house day rates puts it between R1.3m and R2m before anyone discusses who owns the result. The MVP plus a full six-month retainer lands between R350,000 and R425,000, and your client owns the code, the architecture document and the hosting accounts throughout. The AI-first method is the whole reason those two numbers are in different leagues.</p>
       </div>
     </div>
   </section>
@@ -1433,7 +1453,7 @@
       <p>Three steps from here to certification live on staging.</p>
       <div class="steps-list">
         <div class="step-item"><span class="step-num">1</span><p>A specification walkthrough with Talia, Rachel and the client team, this week.</p></div>
-        <div class="step-item"><span class="step-num">2</span><p>A fixed quote within three working days, against the indicative R481,250 on this page.</p></div>
+        <div class="step-item"><span class="step-num">2</span><p>A fixed quote within three working days, against the indicative R200,000 on this page.</p></div>
         <div class="step-item"><span class="step-num">3</span><p>A signed scope and a start date. Phase one certification is running on the staging link inside the first eight weeks.</p></div>
       </div>
       <form class="cta-form" id="acceptForm">
