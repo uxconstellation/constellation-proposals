@@ -640,6 +640,94 @@
       .staff-table th:nth-child(4), .staff-table td:nth-child(4) { display: none; }
     }
 
+
+    /* ===== PRINT / PDF =====
+       The screen design is dark, which is unusable on paper, so print gets a real light
+       rendering rather than a dumped screenshot.
+       Two values are forced by measurement. The house orange is 2.80:1 on white and fails
+       as text, so print text uses #C2450F at 5.06:1; and no orange tint that still reads as
+       orange carries dark text at 4.5, so orange FILLS become a pale wash with ink text.
+       The layout rules matter as much: an A4 page is ~794 CSS px wide, which trips every
+       mobile breakpoint in this stylesheet. Left alone, every two-column block stacks and
+       the document doubles in length, so the desktop grids are restored explicitly. */
+    @media print {
+      :root {
+        --black:      #FFFFFF;
+        --darkbg:     #FFFFFF;
+        --white:      #111111;
+        --ink-2:      #FFFFFF;
+        --accent2:    #F2F0EE;
+        --green:      #C2450F;
+        --mint:       #6B625B;
+        --text-light: #333333;
+      }
+      html, body { background: #FFFFFF !important; color: #111111 !important; }
+
+      /* Screen furniture that means nothing on paper. */
+      .rail, .hero-bg, .hero-grid, .floating-orb, .cta-orb, .cta-bg,
+      nav .nav-jump, .cta-form, .cta-alt, .hero-cta { display: none !important; }
+      nav { position: static !important; padding: 0.5rem 0 !important; background: transparent !important; border-bottom: 1px solid #CCC; }
+      nav img { filter: invert(1) !important; height: 22px !important; }
+
+      /* Restore the desktop grids. Without this the A4 width reads as a phone. */
+      .hero-split { grid-template-columns: 1.15fr 0.85fr !important; gap: 1.5rem !important; }
+      .grid-2 { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
+      .challenge-grid, .tech-grid, .sla-grid, .board-grid, .pricing-grid { grid-template-columns: 1fr 1fr !important; gap: 0.8rem !important; }
+      .frames { grid-template-columns: repeat(3, 1fr) !important; }
+      .occ-grid { grid-template-columns: repeat(5, 1fr) !important; gap: 0.5rem !important; }
+      .intro-strip-inner { flex-direction: row !important; gap: 2rem !important; }
+      .container, .hero-split { max-width: none !important; }
+
+      /* Hardcoded translucent whites would print white on white. */
+      .health-icon-item span, footer p, .hero-meta-item label,
+      .sec-row, .mock, .bcard { color: #333333 !important; }
+      .health-strip, .health-strip-inner { background: #F2F0EE !important; }
+      .health-icon-item svg { stroke: #111111 !important; }
+
+      /* Orange fills become a wash with ink text; orange stays for rules and labels. */
+      .recommended-badge, .step-num, .timeline-dot, .btn-submit, .jump-accept {
+        background: #FBEAE3 !important; color: #7A2B08 !important; border: 1px solid #C2450F !important;
+      }
+      .timeline-dot::before { color: #7A2B08 !important; }
+      .eyebrow span { background: #C2450F !important; }
+
+      /* Cards and tables need borders once the dark ground is gone. */
+      .challenge-item, .tech-item, .sla-item, .step-item, .pricing-card, .bcard,
+      .mock, .glass-card, .sec-note, .board {
+        border: 1px solid #CFCFCF !important; background: #FFFFFF !important;
+        box-shadow: none !important; backdrop-filter: none !important;
+      }
+      .section--alt { background: #FAFAFA !important; }
+      table { border: 1px solid #CFCFCF; }
+      th { background: #F2F0EE !important; color: #111111 !important; }
+      td, th { border-bottom: 1px solid #E0E0E0 !important; padding: 0.3rem 0.45rem !important; }
+      .table-wrap { overflow: visible !important; }
+
+      /* Density. The screen spacing is generous by design and wastes paper. */
+      body { font-size: 9.5pt; line-height: 1.45; }
+      h1 { font-size: 22pt !important; margin-bottom: 0.6rem !important; }
+      h2 { font-size: 14pt !important; }
+      h4 { font-size: 10pt !important; }
+      .lead, .hero-sub { font-size: 10pt !important; }
+      .section, .cta-section { padding: 1.2rem 0 !important; }
+      .hero { min-height: auto !important; padding: 0 0 1rem !important; }
+      .glass-card { padding: 0.8rem 1rem !important; }
+      .glass-card .hero-meta-item { padding: 0.3rem 0 !important; }
+      .timeline-item { margin-bottom: 0.8rem !important; padding-bottom: 0.8rem !important; }
+      .timeline-dot { width: 34px !important; height: 34px !important; }
+      .timeline-dot::before { font-size: 1.6rem !important; }
+      .big-num { font-size: 3rem !important; }
+      .intro-strip { padding: 1rem 0 !important; }
+      .divider { margin: 0.6rem 0 !important; }
+
+      /* Pagination. Sections start fresh; nothing splits mid-card or mid-table. */
+      .section, .cta-section { break-before: page; }
+      .hero { break-after: page; }
+      .challenge-item, .tech-item, .sla-item, .step-item, .pricing-card,
+      .timeline-item, .mock, .bcard, table, .sec-note { break-inside: avoid; }
+      thead { display: table-header-group; }
+    }
+    @page { margin: 13mm 12mm; }
   </style>
 </head>
 <body>
@@ -697,7 +785,7 @@
         <div class="glass-label">At a glance</div>
         <div class="hero-meta">
           <div class="hero-meta-item headline"><label>MVP build, indicative</label><value>R200,000</value></div>
-          <div class="hero-meta-item"><label>Timeline</label><value>8 to 10 weeks</value></div>
+          <div class="hero-meta-item"><label>Timeline</label><value>10 weeks</value></div>
           <div class="hero-meta-item"><label>Running cost</label><value>R520 to R2,120 / mo</value></div>
           <div class="hero-meta-item"><label>Ownership</label><value>Full IP and source to the client</value></div>
           <div class="hero-meta-item"><label>Prepared by</label><value>Aldo Calitz, Constellation</value></div>
@@ -1071,7 +1159,7 @@
       <div class="section-label">05 &middot; The Timeline</div>
       <div class="grid-2">
         <div>
-          <h2>Eight to ten<br /><em>working weeks.</em></h2>
+          <h2>Ten working<br /><em>weeks.</em></h2>
         </div>
         <div>
           <p class="lead">Five stages, thirty-two build days, in the order the programme actually depends on them. The shared engines come first, because every phase scores through the same algorithm, generates through the same document layer and reports into the same status view; building them once is what keeps each phase short. The SharePoint migration and the full electronic signature workflow are deliberately not in this plan. They are the first retainer items, named in section eight, and holding them out is what gets the programme onto the new system in ten weeks instead of sixteen.</p>
