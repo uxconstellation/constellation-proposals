@@ -30,3 +30,6 @@ proposals/sun-savings/
 .dev.vars
 .wrangler/
 public/
+
+# Impeccable design-hook caches, written beside whatever file was edited
+.impeccable/
