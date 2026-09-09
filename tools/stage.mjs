@@ -13,7 +13,8 @@ const PROPOSALS = [
   'greennotes', 'spar-house-brands', 'labtqa',
   'conexxus', 'sigma-wealth', 'sara-sian', 'mealign',
   'my-mobile', 'euroseat', 'euroseat-roadmap', 'butcherbird',
-  'sigma-wealth-direction', 'behangexpert', 'labtqa-hivrt',
+  'sigma-wealth-direction', 'behangexpert', 'the-pottery', 'labtqa-hivrt',
+  'monkey-and-river', 'the-local', 'inyosi',
 ];
 
 // This repo lives in a Drive-synced folder, so the sync client intermittently holds a
@@ -60,11 +61,37 @@ for (const slug of SITES) {
 }
 console.log(`staged ${SITES.length} site(s): ${SITES.join(', ')}`);
 
+// A proposal folder also holds working files: DUPLICATION.md, internal mapping notes,
+// tool caches, render proofs. Those are NOT client-facing, and the gate does not save us,
+// because the key we send the client unlocks every path under that client's own slug. So a
+// working note beside index.html is reachable by the person it is about. Copy the web build
+// only, and let anything else stay out of ./public by default.
+const WEB = new Set(['.html', '.css', '.js', '.mjs', '.svg', '.png', '.jpg', '.jpeg',
+                     '.webp', '.avif', '.gif', '.ico', '.woff', '.woff2', '.mp4', '.webm']);
+const SKIP_DIRS = new Set(['.impeccable', '_verify', 'node_modules', '.git']);
+
+function stageProposal(src, dst) {
+  mkdirSync(dst, { recursive: true });
+  for (const entry of readdirSync(src, { withFileTypes: true })) {
+    if (entry.name.startsWith('.') && entry.name !== '.well-known') {
+      if (SKIP_DIRS.has(entry.name)) continue;
+    }
+    if (entry.isDirectory()) {
+      if (SKIP_DIRS.has(entry.name)) continue;
+      stageProposal(join(src, entry.name), join(dst, entry.name));
+      continue;
+    }
+    const ext = entry.name.slice(entry.name.lastIndexOf('.')).toLowerCase();
+    if (!WEB.has(ext)) continue;                 // .md, .json, .py and friends stay behind
+    cpSync(join(src, entry.name), join(dst, entry.name), { force: true });
+  }
+}
+
 const missing = [];
 for (const slug of PROPOSALS) {
   const src = join(ROOT, 'proposals', slug);
   if (!existsSync(src)) { missing.push(slug); continue; }
-  cpSync(src, join(OUT, 'proposals', slug), { recursive: true, force: true });
+  stageProposal(src, join(OUT, 'proposals', slug));
 }
 
 const staged = readdirSync(join(OUT, 'proposals'));
