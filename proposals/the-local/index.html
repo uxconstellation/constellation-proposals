@@ -1535,6 +1535,13 @@
         var t = rel(slot || phoneScreen);
         M.dx = (t.left + t.w / 2) - (cup.left + cup.w / 2);
         M.dy = (t.top + t.h / 2 + M.rise) - (cup.top + cup.h / 2);
+
+        // Park the phone below the fold NOW. ScrollTrigger does not render a
+        // scrubbed timeline until its trigger first activates, so without this
+        // the phone sits untransformed in its slot during the approach, is
+        // visible as the section scrolls up, then snaps out of frame the
+        // instant the pin engages.
+        gsap.set(phoneWrap, { y: M.start });
       }
       measure();
 
@@ -1559,13 +1566,12 @@
                 { opacity: 1, y: 0, duration: 0.10, stagger: 0.02 }, 0)
         .fromTo(cupHolder, { opacity: 0, scale: 0.78 },
                 { opacity: 1, scale: 1, duration: 0.12 }, 0)
-        .fromTo(phoneWrap, { y: function () { return M.start; } },
-                           { y: function () { return M.start; }, duration: 0.01 }, 0)
         .to({}, { duration: 0.24 })                                  // hold: it spins
 
         // the phone rises to meet it
         .to(['#brKicker', '#brLine'], { opacity: 0, y: -26, duration: 0.10 }, 0.34)
-        .to(phoneWrap, { y: function () { return M.rise; }, duration: 0.22, ease: 'power2.out' }, 0.34)
+        .fromTo(phoneWrap, { y: function () { return M.start; } },
+                           { y: function () { return M.rise; }, duration: 0.22, ease: 'power2.out' }, 0.34)
 
         // the cup dives into the screen
         .to(cupHolder, {
