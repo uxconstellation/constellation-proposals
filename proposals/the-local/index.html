@@ -21,6 +21,7 @@
       --white:      #FFFFFF;
       --text-light: rgba(255,255,255,0.72);
       --text-dim:   rgba(255,255,255,0.55);
+      --nav-h:      73px;
 
       /* The Local, measured from their own logo and feed, 8 Sep 2026 */
       --tl-navy:    #181E36;
@@ -51,6 +52,9 @@
     }
 
     em { font-style: normal; color: var(--orange); }
+    /* the payoff phrase is one unit; letting it break orphaned 'door.' onto
+       its own line at wide widths */
+    h1 em { white-space: nowrap; }
     a { color: inherit; }
 
     ::selection { background: var(--orange); color: var(--white); }
@@ -82,10 +86,15 @@
     /* HERO */
     .hero {
       position: relative;
-      min-height: 100vh;
+      /* svh, so a mobile URL bar collapsing does not resize the hero mid-scroll */
+      min-height: 100svh;
       display: flex;
       align-items: flex-end;
-      padding: 0 2.5rem 6rem;
+      /* The top pad is load-bearing. The nav is fixed and the content is
+         bottom-aligned, so without it the headline slides UNDER the nav on any
+         viewport shorter than the content: it clipped at 720px tall, which is a
+         1366x768 laptop. With it the hero grows downward instead. */
+      padding: calc(var(--nav-h) + 3.5rem) 2.5rem 5rem;
       overflow: hidden;
       background: var(--darkbg);
     }
@@ -109,7 +118,7 @@
       background: linear-gradient(90deg, rgba(22,12,21,0.96) 0%, rgba(22,12,21,0.7) 55%, rgba(22,12,21,0.45) 100%);
     }
 
-    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+    .hero-content { position: relative; z-index: 2; max-width: min(1120px, 90vw); }
 
     .eyebrow {
       display: flex;
@@ -126,17 +135,18 @@
     .eyebrow span { display: inline-block; width: 32px; height: 2px; background: var(--orange); }
 
     h1 {
-      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-size: clamp(2.4rem, 5.6vw, 6.25rem);
       letter-spacing: -0.04em;
-      line-height: 1.08;
+      line-height: 1.06;
       margin-bottom: 1.75rem;
-      max-width: 95%;
+      max-width: 100%;
+      text-wrap: balance;
     }
 
     .hero-sub {
       font-size: clamp(1rem, 1.5vw, 1.15rem);
       color: var(--text-light);
-      max-width: 560px;
+      max-width: 54ch;
       margin-bottom: 2.5rem;
     }
 
@@ -780,8 +790,9 @@
       .grid-2, .challenge-grid { grid-template-columns: 1fr; }
       .intro-strip-inner { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
       nav { padding: 1rem 1.25rem; }
+      :root { --nav-h: 65px; }
       .section, .demo-section { padding: 5rem 1.25rem; }
-      .hero { padding: 0 1.25rem 4rem; }
+      .hero { padding: calc(var(--nav-h) + 2rem) 1.25rem 4rem; }
       .phone { width: 290px; height: 600px; }
     }
 
