@@ -227,6 +227,20 @@
     .challenge-item h4 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--white); }
     .challenge-item p { font-size: 0.85rem; color: var(--text-light); }
 
+    /* CAPABILITY GRID */
+    .cap-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .cap {
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .cap h4 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--white); }
+    .cap p { font-size: 0.85rem; color: var(--text-light); }
+
     /* CREDENTIALS */
     .cred-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
 
@@ -267,6 +281,7 @@
       transition: color 0.3s ease-out;
     }
     .cred:hover .cred-link { color: var(--orange); }
+    .cred--static { cursor: default; }
 
     .cred-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
     .cred-inner h4 { font-size: 1.15rem; }
@@ -781,7 +796,7 @@
       .nod-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 820px) {
-      .cred-grid, .beyond-grid, .brand-row { grid-template-columns: 1fr; }
+      .cred-grid, .beyond-grid, .brand-row, .cap-grid { grid-template-columns: 1fr; }
       .carousel-stage { height: 470px; }
       .cc { width: 250px; height: 350px; margin-left: -125px; }
     }
@@ -881,12 +896,39 @@
       <div class="grid-2">
         <div>
           <div class="section-label r">02 &middot; Who we are</div>
-          <h2 class="r">We build the layer your guests actually touch.</h2>
+          <h2 class="r">A product studio, not a loyalty vendor.</h2>
         </div>
         <div>
-          <p class="lede r">Constellation is a small South African product and design studio. We build websites, apps, loyalty systems and the data underneath them, mostly for businesses where a real room and real people are the point.</p>
+          <p class="lede r">Constellation is a small South African product and design studio. We build websites, web apps, client portals, payment and transaction flows, the systems that hold a group of sites together, and increasingly the AI that runs inside all of it. Loyalty is one thing we build. It is not the business.</p>
           <p class="lede r">I am in The Local often enough that this started as a customer noticing something missing, not as an agency working a list. The coffee is handled. The room is handled. The part where someone finds you, remembers you and comes back on purpose is not.</p>
-          <p class="lede r">We are not pitching to replace anything you run today, we would rather take the space nobody is standing in.</p>
+          <p class="lede r">So if a rewards card is not what you want, say so. There is plenty here that has nothing to do with stamps.</p>
+        </div>
+      </div>
+
+      <div class="cap-grid">
+        <div class="cap r">
+          <h4>Websites and brand presence</h4>
+          <p>The front door, built to be owned and edited by you. Fast, searchable, and designed rather than templated. This is the bulk of what we do.</p>
+        </div>
+        <div class="cap r">
+          <h4>Portals and dashboards</h4>
+          <p>Logged-in areas for staff, franchisees or clients. Roles and permissions, reporting, document handling, audit trails. The unglamorous half that makes a system usable.</p>
+        </div>
+        <div class="cap r">
+          <h4>Systems across a network of sites</h4>
+          <p>One brand, many rooms. Each location edits its own hours, menu and news while the brand stays consistent, and adding the next site costs close to nothing.</p>
+        </div>
+        <div class="cap r">
+          <h4>Payments and transaction flow</h4>
+          <p>Checkout, online ordering, deposits and gift cards, wired into providers properly. We also work with payment partners, including NGRPay, so the rate you are paying per transaction is a conversation rather than a default.</p>
+        </div>
+        <div class="cap r">
+          <h4>AI builds</h4>
+          <p>Not a chatbot bolted on. Automation that drafts your content, generates on-brand photography and campaign sets, answers the questions your team keeps retyping, and pulls reporting together without anyone exporting a spreadsheet.</p>
+        </div>
+        <div class="cap r">
+          <h4>AI adoption inside the team</h4>
+          <p>The other half of the work: getting people to actually use these tools well, safely, and without waiting for us. Six weeks, one real task each, a policy they wrote themselves.</p>
         </div>
       </div>
     </div>
@@ -897,9 +939,9 @@
   <!-- 03 CREDENTIALS -->
   <section class="section section--dark">
     <div class="container">
-      <div class="section-label r">03 &middot; We have done this before, in this industry</div>
-      <h2 class="r">We have shipped restaurant software at national scale.</h2>
-      <p class="lede r">The people who would work on this have built hospitality products used across South Africa and abroad. Specifically:</p>
+      <div class="section-label r">03 &middot; Where we have done this before</div>
+      <h2 class="r">Restaurant software, portals, and AI at enterprise scale.</h2>
+      <p class="lede r">The people who would work on this have built hospitality products used across South Africa and abroad, our own software that runs in production, and AI programmes inside global brands. Specifically:</p>
 
       <div class="cred-grid">
         <a class="cred r" href="https://www.munch.cloud/" target="_blank" rel="noopener noreferrer">
@@ -932,10 +974,28 @@
           </div>
         </a>
 
+        <div class="cred cred--static r">
+          <div class="cred-inner">
+          <div class="cred-head"><h4>Pinpoint</h4><span class="cred-where">Our own SaaS</span></div>
+          <p>A live subscription product we built and run: accounts, billing, an admin portal, file handling and reporting. Proof we ship software and then operate it, rather than designing it and handing it over.</p>
+          <div class="role">Portals, permissions and billing are ordinary work for us.</div>
+          <span class="cred-spot" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="cred cred--static r">
+          <div class="cred-inner">
+          <div class="cred-head"><h4>Multi-site groups</h4><span class="cred-where">UK &amp; SA</span></div>
+          <p>Websites and booking-adjacent systems for groups running several venues at once, where each site needed its own hours, menus and news without the brand drifting. The same shape as three towns under one name.</p>
+          <div class="role">Named references available on request, rather than printed here.</div>
+          <span class="cred-spot" aria-hidden="true"></span>
+          </div>
+        </div>
+
         <a class="cred r" href="https://www.incubeta.com/" target="_blank" rel="noopener noreferrer">
           <div class="cred-inner">
           <div class="cred-head"><h4>Incubeta</h4><span class="cred-where">Global</span></div>
-          <p>I consult at Incubeta, where I created and hold the Head of Global Creative and Solutions Architect role, working with large international brands on creative technology, automation and AI adoption.</p>
+          <p>I consult at Incubeta, where I created and hold the Head of Global Creative and Solutions Architect role. That work is enterprise creative technology and automation, plus AI adoption strategy for global brands including Adidas: where AI genuinely helps, where it must not be used, what the policy has to say, and how a team keeps the habit after the training stops.</p>
           <div class="role">The same work I do for global brands, at the size you actually are.</div>
           <span class="cred-link">incubeta.com <span aria-hidden="true">&#8599;</span></span>
           <span class="cred-spot" aria-hidden="true"></span>
@@ -951,8 +1011,8 @@
   <section class="section section--alt" id="capability">
     <div class="container">
       <div class="section-label r">04 &middot; What we would bring</div>
-      <h2 class="r">Six pieces. They work alone, and they compound together.</h2>
-      <p class="lede r">Drag the cards, or use the arrows. Nothing here is a fixed package, it is the shape of the conversation we would like to have.</p>
+      <h2 class="r">Seven pieces, and you can take any one of them.</h2>
+      <p class="lede r">Drag the cards, or use the arrows. Nothing here is a bundle you have to buy whole, and nothing depends on you wanting a rewards card.</p>
 
       <div class="carousel-wrap" id="cwrap">
         <div class="carousel-gradient" id="cgrad"></div>
@@ -990,7 +1050,7 @@
         <span class="concept-flag">Concept &middot; not a built product</span>
         <div class="section-label">05 &middot; What it could feel like</div>
         <h2>Your brand, on a phone, in about a day of work.</h2>
-        <p class="lede">We pulled the navy and cream straight out of your own logo and feed, then built a working sketch you can press rather than a slide describing one. Tap the tabs, and tap the stamp.</p>
+        <p class="lede">We pulled the navy and cream straight out of your own logo and feed, then built a working sketch you can press rather than a slide describing one. Tap the tabs, and tap the stamp. A loyalty card is the easiest thing to demonstrate in one screen, which is the only reason it is the example here.</p>
       </div>
 
       <div class="demo-layout">
@@ -1236,7 +1296,8 @@
       { k: '03', t: 'The room, live',        b: 'Nod slotted in underneath: QR check-in, who is here, and a reason to come back that is about people rather than discounts.', badge: 'Nod integration',   c1: [32,182,87],  c2: [23,63,63] },
       { k: '04', t: 'One brand, every town', b: 'Each location edits its own hours, menu and news. The brand stays consistent automatically, and a fourth room costs almost nothing to add.', badge: 'Multi-site system', c1: [90,140,200], c2: [24,30,54] },
       { k: '05', t: 'Who actually sits there', b: 'Visit frequency, returning guests, quiet hours, and which room grows. The guest picture your point of sale was never designed to give you.', badge: 'Guest intelligence', c1: [254,110,54], c2: [120,40,90] },
-      { k: '06', t: 'A team that is AI fluent', b: 'Optional, and separate. The six-week ARIA programme so your people use these tools well, safely, and without waiting for us.', badge: 'ARIA programme',   c1: [160,110,240], c2: [23,63,63] }
+      { k: '06', t: 'The money path',         b: 'Online ordering, deposits and gift cards wired in properly, plus a real look at what each transaction costs you. We work with payment partners, including NGRPay, so the rate is negotiable rather than default.', badge: 'Payments + rates',   c1: [255,190,60],  c2: [90,45,20] },
+      { k: '07', t: 'A team that is AI fluent', b: 'Optional, and separate. The six-week ARIA programme so your people use these tools well, safely, and without waiting for us.', badge: 'ARIA programme',   c1: [160,110,240], c2: [23,63,63] }
     ];
 
     /* ---------------- FALLBACK GRID (reduced motion) ---------------- */
